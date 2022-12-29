@@ -135,41 +135,7 @@ const shareModal = document.querySelector('.css-pfmsf9');
 
 //공유 모달창 (719px 이하)
 const shareModal2 = document.querySelector('#modal-container-GufKFTLHr9vMoaPtJBz7-');
-let windowWidth = window.innerWidth;
 
-window.addEventListener('resize',(e)=>{
-    windowWidth = window.innerWidth
-})
-
-if(windowWidth<=719){
-    shareBtn.addEventListener('click', () => {
-        if(shareModal2.classList.contains('off')){
-            main.style.display = 'block';
-            main.classList.add('on');
-            main.classList.remove('off');
-            shareModal2.style.display = 'flex';
-            shareModal2.classList.add('on');
-            shareModal2.classList.remove('off');
-        }else {
-            main.style.display = 'none';
-            main.classList.add('off');
-            main.classList.remove('on');
-            shareModal2.style.display = 'none';
-            shareModal2.classList.add('off');
-            shareModal2.classList.remove('on');
-        }
-    })
-}else{
-    shareBtn.addEventListener('click', () => {
-        if(!shareModal.classList.contains('css-jwq87b')){
-            shareModal.classList.add('css-jwq87b');
-            shareModal.classList.remove('css-pfmsf9');
-        }else {
-            shareModal.classList.add('css-pfmsf9');
-            shareModal.classList.remove('css-jwq87b');
-        }
-    })
-}
 // 공유 모달창 close
 const shareClose = document.querySelector('.css-1blo7j2');
 
@@ -223,7 +189,6 @@ document.addEventListener('click',(e)=>{
             shareModal.classList.remove('css-jwq87b');
         }
     }
-
     if(shareModal2.classList.contains('on')){
         if(!shareModal2.querySelector('.css-7uunky').contains(e.target)){
             main.style.display = 'none';
@@ -233,5 +198,36 @@ document.addEventListener('click',(e)=>{
             shareModal2.classList.add('off');
             shareModal2.classList.remove('on');
         }
+    }
+
+    // 크기에 따른 공유 모달창
+    if(window.innerWidth<=719){
+        shareBtn.addEventListener('click', () => {
+            if(shareModal2.classList.contains('off')){
+                main.style.display = 'block';
+                main.classList.add('on');
+                main.classList.remove('off');
+                shareModal2.style.display = 'flex';
+                shareModal2.classList.add('on');
+                shareModal2.classList.remove('off');
+            }else {
+                main.style.display = 'none';
+                main.classList.add('off');
+                main.classList.remove('on');
+                shareModal2.style.display = 'none';
+                shareModal2.classList.add('off');
+                shareModal2.classList.remove('on');
+            }
+        })
+    }else{
+        shareBtn.addEventListener('click', () => {
+            if(!shareModal.classList.contains('css-jwq87b')){
+                shareModal.classList.add('css-jwq87b');
+                shareModal.classList.remove('css-pfmsf9');
+            }else {
+                shareModal.classList.add('css-pfmsf9');
+                shareModal.classList.remove('css-jwq87b');
+            }
+        })
     }
 },true)

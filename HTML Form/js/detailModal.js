@@ -3,6 +3,7 @@ const button2 = document.querySelector('.css-r2q33l-StylelessButton')
 let cnt = document.querySelectorAll('.css-ynpx67');
 const commentBtn = document.querySelector('.e1svyhwg25');
 const commentBtn2 = document.querySelector('.e1svyhwg24');
+const commentBtn3 = document.querySelector('.eue8w0j10');
 const comment = document.querySelector('.css-rpyl6s');
 const close = document.querySelector('.css-1lvet1d-StylelessButton');
 const close2 = document.querySelector('.e1k34u8y0');
@@ -43,6 +44,23 @@ commentBtn2.addEventListener('click',() => {
         comment.classList.remove('on');
     }
 })
+commentBtn3.addEventListener('click',() => {
+    if(comment.classList.contains('off')){
+        main.style.display = 'block';
+        main.classList.add('on');
+        main.classList.remove('off');
+        comment.style.display = 'block';
+        comment.classList.add('on');
+        comment.classList.remove('off');
+    }else{
+        main.style.display = 'none';
+        main.classList.add('off');
+        main.classList.remove('on');
+        comment.style.display = 'none';
+        comment.classList.add('off');
+        comment.classList.remove('on');
+    }
+})
 close.addEventListener('click', () =>{
     comment.style.display = 'none';
     comment.classList.add('off');
@@ -59,20 +77,6 @@ close2.addEventListener('click', () =>{
     main.classList.add('off');
     main.classList.remove('on');
 })
-
-// 코멘트 outside 클릭 시 닫기
-document.addEventListener('click', (e) => {
-    if(comment.classList.contains("on")){
-        if(!document.querySelector('.css-1p257d1-modalAddStyle').contains(e.target)){
-            comment.style.display = 'none';
-            comment.classList.add('off');
-            comment.classList.remove('on');
-            main.style.display = 'none';
-            main.classList.add('off');
-            main.classList.remove('on');
-        }
-    };
-},true)
 
 
 // 코멘트 창에 글자 입력 시 이벤트 발생
@@ -94,9 +98,6 @@ document.addEventListener("keydown", ()=>{
     cnt.item(0).innerHTML = text.length + "/10000";
     cnt.item(1).innerHTML = text.length + "/10000";
 })
-
-
-
 
 // 더보기 모달
 
@@ -146,8 +147,59 @@ moreClose.addEventListener('click', () =>{
     main.classList.add('off');
 })
 
-// 더보기 outside 클릭 시 닫기
+// 공유 모달
+const shareBtn = document.querySelectorAll('.css-1xc2mdf-StylelessButton').item(1);
+const shareModal = document.querySelector('#modal-container-GT5oHBRJexESZTqV6ClZl');
+const shareClose = document.querySelector('.css-1blo7j2');
+
+shareBtn.addEventListener('click', () => {
+    if(shareModal.classList.contains('off')){
+        main.style.display = 'block';
+        main.classList.add('on');
+        main.classList.remove('off');
+        shareModal.style.display = 'flex';
+        shareModal.classList.add('on');
+        shareModal.classList.remove('off');
+    }
+})
+shareClose.addEventListener('click', ()=>{
+    if(shareModal.classList.contains('on')){
+        main.style.display = 'none';
+        main.classList.add('off');
+        main.classList.remove('on');
+        shareModal.style.display = 'none';
+        shareModal.classList.add('off');
+        shareModal.classList.remove('on');
+    }
+})
+
 document.addEventListener('click', (e) => {
+    // 코멘트 outside 클릭 시 닫기
+    if(comment.classList.contains("on")){
+        if(!document.querySelector('.css-1p257d1-modalAddStyle').contains(e.target)){
+            comment.style.display = 'none';
+            comment.classList.add('off');
+            comment.classList.remove('on');
+            main.style.display = 'none';
+            main.classList.add('off');
+            main.classList.remove('on');
+        }
+    };
+
+    // 공유창
+    if(shareModal.classList.contains("on")){
+        if(!shareModal.querySelector('.css-7uunky').contains(e.target)){
+            console.log(e.target)
+            main.style.display = 'none';
+            main.classList.add('off');
+            main.classList.remove('on');
+            shareModal.style.display = 'none';
+            shareModal.classList.add('off');
+            shareModal.classList.remove('on');
+        }
+    };
+
+    // 더보기 창
     if(morePop.classList.contains("on")){
         if(!document.querySelector('.e1svyhwg28').contains(e.target)){
             morePop.style.display = 'none';
