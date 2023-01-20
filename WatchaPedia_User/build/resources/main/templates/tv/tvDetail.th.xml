@@ -8,11 +8,14 @@
         <attr sel=".tv-tvThumbnail" th:src="${tv.tvThumbnail}" />
         <attr sel=".tv-idx" th:text="${tv.tvIdx}" />
         <attr sel=".tv-summary  " th:text="${tv.tvSummary}"/>
-        <attr sel="img.tvBackImg" th:src="${tv.tvBackImg}"/>
+        <attr sel=".tvBackImg" th:style="'background-image:url('+*{tvBackImg}+');'"/>
         <attr sel=".tv-title-org" th:text="${tv.tvTitleOrg}" />
         <attr sel=".tv-watch" th:href="${tv.tvWatch}"/>
         <attr sel=".tv-video" th:src="${tv.tvVideo}"/>
     </attr>
 
+    <attr sel="#people" th:object="${tv}">
+        <attr sel=".tb_people" th:text ="${tv.tvPeople}"/>
+    </attr>
 
 </thlogic>
