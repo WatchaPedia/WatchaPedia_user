@@ -1,9 +1,14 @@
 package com.watcha.watchapedia.controller.page;
 
+import com.watcha.watchapedia.model.dto.BookDto;
 import com.watcha.watchapedia.model.dto.TvDto;
+import com.watcha.watchapedia.model.entity.Book;
 import com.watcha.watchapedia.model.entity.Tv;
+import com.watcha.watchapedia.model.network.response.BookResponse;
 import com.watcha.watchapedia.model.network.response.TvResponse;
+import com.watcha.watchapedia.model.repository.BookRepository;
 import com.watcha.watchapedia.model.repository.TvRepository;
+import com.watcha.watchapedia.service.BookService;
 import com.watcha.watchapedia.service.TvService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -89,15 +94,22 @@ public class PageController {
 //        return new ModelAndView("/tv/tvDetail") ;
 //    }
 
-    // Book Main
-    @GetMapping(path="/book/main")      // localhost:9090/book/main
-    public ModelAndView bookMain(){
-        return new ModelAndView("/book/bookMain") ;
+
+
+    private final BookService bookService;
+    @GetMapping(path="/book/main")
+    public String bookMain(ModelMap map){
+        map.addAttribute("books", bookService.searchBooks());
+        return "/book/bookMain";
     }
 
-    @GetMapping(path="/book/bookDetail")  // localhost:9090/book/bookDetail
-    public ModelAndView bookDetail(){
-        return new ModelAndView("/book/bookDetail") ;
+    final BookRepository bookRepository;
+    @GetMapping(path="/book/{tvIdx}")
+    public String bookDetail(@PathVariable Long bookIdx, ModelMap map){
+        Optional<Book> book = bookRepository.findById(bookIdx);
+        BookResponse bookResponse = BookResponse.from(BookDto.from(book.get()));
+        map.addAttribute("book", bookResponse);
+        return "/book/bookDetail";
     }
 
     @GetMapping(path="/book/bookStory")  // localhost:9090/book/bookStory
