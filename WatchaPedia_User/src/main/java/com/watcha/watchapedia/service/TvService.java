@@ -22,10 +22,4 @@ public class TvService {
         return tvRepository.findAll();
     }
 
-//    @Transactional(readOnly = true)
-//    public TvDto getTv(Long tvIdx) {
-//        return tvRepository.findById(tvIdx)
-//                .map(TvDto::from)
-//                .orElseThrow(() -> new EntityNotFoundException("게시글이 없습니다 - tvIdx: " + tvIdx));
-//    }
 }

@@ -2,14 +2,19 @@ package com.watcha.watchapedia.controller.page;
 
 import com.watcha.watchapedia.model.dto.BookDto;
 import com.watcha.watchapedia.model.dto.TvDto;
+import com.watcha.watchapedia.model.dto.WebtoonDto;
 import com.watcha.watchapedia.model.entity.Book;
 import com.watcha.watchapedia.model.entity.Tv;
+import com.watcha.watchapedia.model.entity.Webtoon;
 import com.watcha.watchapedia.model.network.response.BookResponse;
 import com.watcha.watchapedia.model.network.response.TvResponse;
+import com.watcha.watchapedia.model.network.response.WebtoonResponse;
 import com.watcha.watchapedia.model.repository.BookRepository;
 import com.watcha.watchapedia.model.repository.TvRepository;
+import com.watcha.watchapedia.model.repository.WebtoonRepository;
 import com.watcha.watchapedia.service.BookService;
 import com.watcha.watchapedia.service.TvService;
+import com.watcha.watchapedia.service.WebtoonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -65,11 +70,6 @@ public class PageController {
         return new ModelAndView("/Gallery") ;
     }
 
-//    // TV Main
-//    @GetMapping(path="/tv/main")      // localhost:9090/tv/main
-//    public ModelAndView tvMain(){
-//        return new ModelAndView("/tv/tvMain") ;
-//    }
 
     // Tv 리스트 출력
     private final TvService tvService;
@@ -87,12 +87,6 @@ public class PageController {
         map.addAttribute("tv", tvResponse);
         return "/tv/tvDetail";
     }
-
-
-//    @GetMapping(path="/tv/tvDetail")  // localhost:9090/tv/tvDetail
-//    public ModelAndView tvDetail(){
-//        return new ModelAndView("/tv/tvDetail") ;
-//    }
 
 
 
@@ -122,24 +116,26 @@ public class PageController {
         return new ModelAndView("/mypage/myPage") ;
     }
 
-//    @GetMapping(path="/mypage/faq")  // localhost:9090/mypage/faq
-//    public ModelAndView faq(){
-//        return new ModelAndView("/mypage/faq") ;
-//    }
 
     @GetMapping(path="/mypage/analysis")  // localhost:9090/mypage/analysis
     public ModelAndView analysis(){
         return new ModelAndView("/mypage/analysis") ;
     }
 
-    @GetMapping(path="/webtoon/main")  // localhost:9090/webtoon/main
-    public ModelAndView webtoon(){
-        return new ModelAndView("/webtoon/webtoonMain");
+    private final WebtoonService webtoonService;
+    @GetMapping(path="/webtoon/main")
+    public String webtoonMain(ModelMap map){
+        map.addAttribute("webtoons", webtoonService.searchWebtoons());
+        return "/webtoon/webtoonMain";
     }
 
-    @GetMapping(path="/webtoon/webtoonDetail")  // localhost:9090/webtoon/webtooDetail
-    public ModelAndView webtoonDetail(){
-        return new ModelAndView("/webtoon/webtoonDetail");
+    final WebtoonRepository webtoonRepository;
+    @GetMapping(path="/webtoon/{webIdx}")
+    public String webtoonDetail(@PathVariable Long webIdx, ModelMap map){
+        Optional<Webtoon> webtoon = webtoonRepository.findById(webIdx);
+        WebtoonResponse webtoonResponse = WebtoonResponse.from(WebtoonDto.from(webtoon.get()));
+        map.addAttribute("webtoon", webtoonResponse);
+        return "/webtoon/webtoonDetail";
     }
 
     // 콘텐츠 공통

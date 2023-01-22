@@ -10,7 +10,6 @@
     {
       "name": "spring.thymeleaf3.decoupled-logic",
       "type": "java.lang.Boolean",
-      "description": "Use Thymeleaf 3 Decoupled Logic",
       "sourceType": "com.watcha.watchapedia.config.ThymeleafConfig$Thymeleaf3Properties",
       "defaultValue": false
     }

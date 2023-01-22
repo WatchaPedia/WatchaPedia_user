@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<thlogic>
+    <attr sel=".webtoon-table" th:remove="all-but-first">
+        <attr sel=".webtoon-tr/a" th:each="webtoon : ${webtoons}" th:href="@{'/webtoon/'+${webtoon.webIdx}}">
+            <attr sel=".webtoon-title" th:text="${webtoon.webTitle}"/>
+            <attr sel=".webtoon-img" th:src="${webtoon.webThumbnail}" />
+        </attr>
+    </attr>
+</thlogic>
