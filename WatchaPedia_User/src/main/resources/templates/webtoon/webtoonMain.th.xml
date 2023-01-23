@@ -1,9 +1,27 @@
 <?xml version="1.0"?>
 <thlogic>
+<!--    웹툰 페이지 최상단-->
     <attr sel=".webtoon-table" th:remove="all-but-first">
         <attr sel=".webtoon-tr/a" th:each="webtoon : ${webtoons}" th:href="@{'/webtoon/'+${webtoon.webIdx}}">
             <attr sel=".webtoon-title" th:text="${webtoon.webTitle}"/>
             <attr sel=".webtoon-img" th:src="${webtoon.webThumbnail}" />
         </attr>
     </attr>
+
+    <!--정주행하기 좋은 웹툰-->
+    <attr sel=".webtoon-table-ok" th:remove="all-but-first">
+        <attr sel=".webtoon-tr-ok/a" th:if="${webtoon.webSerDetail == '완결'}" th:each="webtoon : ${webtoons}" th:href="@{'/webtoon/'+${webtoon.webIdx}}">
+            <attr sel=".webtoon-title-ok" th:text="${webtoon.webTitle}"/>
+            <attr sel=".webtoon-img-ok" th:src="${webtoon.webThumbnail}" />
+        </attr>
+    </attr>
+
+<!--금요일에 보는 웹툰-->
+    <attr sel=".webtoon-table-day" th:remove="all-but-first">
+        <attr sel=".webtoon-tr-day/a" th:if="${webtoon.webSerDay == '금'}" th:each="webtoon : ${webtoons}" th:href="@{'/webtoon/'+${webtoon.webIdx}}">
+            <attr sel=".webtoon-title-day" th:text="${webtoon.webTitle}"/>
+            <attr sel=".webtoon-img-day" th:src="${webtoon.webThumbnail}" />
+        </attr>
+    </attr>
+
 </thlogic>
