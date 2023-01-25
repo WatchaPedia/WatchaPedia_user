@@ -6,6 +6,7 @@ import com.watcha.watchapedia.model.dto.WebtoonDto;
 import com.watcha.watchapedia.model.entity.Book;
 import com.watcha.watchapedia.model.entity.Tv;
 import com.watcha.watchapedia.model.entity.Webtoon;
+import com.watcha.watchapedia.model.entity.type.FormStatus;
 import com.watcha.watchapedia.model.network.response.BookResponse;
 import com.watcha.watchapedia.model.network.response.TvResponse;
 import com.watcha.watchapedia.model.network.response.WebtoonResponse;
@@ -98,13 +99,15 @@ public class PageController {
     }
 
     final BookRepository bookRepository;
-    @GetMapping(path="/book/{tvIdx}")
+    @GetMapping(path="/book/{bookIdx}")
     public String bookDetail(@PathVariable Long bookIdx, ModelMap map){
         Optional<Book> book = bookRepository.findById(bookIdx);
         BookResponse bookResponse = BookResponse.from(BookDto.from(book.get()));
         map.addAttribute("book", bookResponse);
         return "/book/bookDetail";
     }
+
+
 
     @GetMapping(path="/book/bookStory")  // localhost:9090/book/bookStory
     public ModelAndView bookStory(){
@@ -136,6 +139,12 @@ public class PageController {
         WebtoonResponse webtoonResponse = WebtoonResponse.from(WebtoonDto.from(webtoon.get()));
         map.addAttribute("webtoon", webtoonResponse);
         return "/webtoon/webtoonDetail";
+    }
+
+    @GetMapping(path="/webtoon/{webIdx}/webview")
+    public String allWebtooon(ModelMap map){
+        map.addAttribute("webtoons", webtoonService.searchWebtoons());
+        return "/webtoon/detailInfoWebtoon";
     }
 
     // 콘텐츠 공통

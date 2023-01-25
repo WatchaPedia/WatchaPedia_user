@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/WatchaPedia.main.iml" filepath="$PROJECT_DIR$/.idea/modules/WatchaPedia.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/WatchaPedia_User.WatchaPedia.main.iml" filepath="$PROJECT_DIR$/.idea/modules/WatchaPedia_User.WatchaPedia.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.watcha.WatchaPedia.main.iml" filepath="$PROJECT_DIR$/.idea/modules/com.watcha.WatchaPedia.main.iml" />
     </modules>
   </component>

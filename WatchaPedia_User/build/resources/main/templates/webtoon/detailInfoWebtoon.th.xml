@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<thlogic>
+    <attr sel="#WebBox" th:object="${webtoons}">
+        <attr sel=".web-title/dt" th:text="${webtoon.webOrg}"/>
+<!--        <attr sel=".web-writer" th:text="${webtoon.webWriter}"/>-->
+<!--        <attr sel=".web-genre" th:text="${webtoon.webGenre}"/>-->
+        <attr sel=".web-date" th:text="${webtoon.webSerDetail}" />
+<!--        <attr sel=".web-day" th:text="${webtoon.webSerDay}" />-->
+<!--        <attr sel=".web-period" th:text="${webtoon.webSerPeriod}" />-->
+<!--        <attr sel=".web-age" th:text="${webtoon.webAge}" />-->
+        <attr sel=".web-summary" th:text="${webtoon.webSummary}"/>
+    </attr>
+</thlogic>
