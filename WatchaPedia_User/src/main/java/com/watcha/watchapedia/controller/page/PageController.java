@@ -86,10 +86,18 @@ public class PageController {
         Optional<Tv> tv = tvRepository.findById(tvIdx);
         TvResponse tvResponse = TvResponse.from(TvDto.from(tv.get()));
         map.addAttribute("tv", tvResponse);
+        map.addAttribute("tvs", tvService.searchTvs());
         return "/tv/tvDetail";
     }
 
-
+    @GetMapping(path="/tv/{tvIdx}/tvview")
+    public String allTv(@PathVariable Long tvIdx, ModelMap map){
+        Optional<Tv> tv = tvRepository.findById(tvIdx);
+        TvResponse tvResponse = TvResponse.from(TvDto.from(tv.get()));
+        map.addAttribute("tv", tvResponse);
+        map.addAttribute("tvs", tvService.searchTvs());
+        return "/tv/detailInfoTv";
+    }
 
     private final BookService bookService;
     @GetMapping(path="/book/main")
@@ -142,7 +150,10 @@ public class PageController {
     }
 
     @GetMapping(path="/webtoon/{webIdx}/webview")
-    public String allWebtooon(ModelMap map){
+    public String allWebtooon(@PathVariable Long webIdx, ModelMap map){
+        Optional<Webtoon> webtoon = webtoonRepository.findById(webIdx);
+        WebtoonResponse webtoonResponse = WebtoonResponse.from(WebtoonDto.from(webtoon.get()));
+        map.addAttribute("webtoon", webtoonResponse);
         map.addAttribute("webtoons", webtoonService.searchWebtoons());
         return "/webtoon/detailInfoWebtoon";
     }

@@ -14,8 +14,15 @@
         <attr sel=".tv-video" th:src="${tv.tvVideo}"/>
     </attr>
 
-    <attr sel="#people" th:object="${tv}">
+    <attr sel ="#people" th:remove="all-but-first">
+    <attr sel="tv-tr" th:each="tv : ${tvs}">
         <attr sel=".tb_people" th:text ="${tv.tvPeople}"/>
+    </attr>
+    </attr>
+
+    <attr sel =".tv-gallery" th:remove="all-but-first">
+            <attr sel = "#gallery-split" th:src="${tv.tvGallery}"/>
+
     </attr>
 
 </thlogic>
