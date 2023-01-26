@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<thlogic>
+    <attr sel="#tv-table" th:remove="all-but-first">
+        <attr sel="#tv-tr" th:each="tv, i : ${tvs}" >
+            <attr sel="#tv-title" th:text="${tv.tvTitle}"/>
+            <attr sel="#tv-making-date" th:text="${tv.tvMakingDate} + '・'+ ${tv.tvCountry}+ '・'+${tv.tvChannel}"/>
+            <attr sel="#tv-tvThumbnail" th:src="${tv.tvThumbnail}" />
+            <attr sel="#tv-idx" th:text="${i.count}" />
+        </attr>
+    </attr>
+
+</thlogic>
+<!--<th:block th:each ="num : ${number.sequence(1,20)}">-->
+<!--<div  th:text ="${num}"></div>-->
+<!--</th:block>-->

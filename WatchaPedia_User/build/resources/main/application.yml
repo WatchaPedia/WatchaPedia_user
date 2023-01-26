@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://59.5.15.166:3306/watcha1234?serverTimezone=Asia/Seoul
+    username: watcha1234
+    password: watcha1234
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  thymeleaf3.decoupled-logic: true
+server:
+  port: 9090
+
+
