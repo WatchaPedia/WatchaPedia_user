@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<thlogic>
+    <attr sel=".e1omr9iu4" th:remove="all-but-first">
+        <attr sel="li.content-li" th:each="con : ${content}">
+            <attr sel="img.css-qhzw1o-StyledImg" th:src="${con.tvThumbnail}"/>
+            <attr sel="h3.css-1a7e2fr" th:text="${con.tvTitle}"/>
+            <attr sel="div.css-tr3vhx" th:text="${con.tvMakingDate}+' ・ '+${con.tvCountry}"/>
+            <attr sel=".star/input" th:id="${con.tvIdx}"/>
+        </attr>
+    </attr>
+</thlogic>
