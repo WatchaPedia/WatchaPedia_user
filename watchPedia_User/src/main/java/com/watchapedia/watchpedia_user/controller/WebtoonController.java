@@ -162,7 +162,7 @@ public class WebtoonController {
             }
         }
         Long bigStar = starGraph.entrySet().stream().max((m1, m2) -> m1.getValue() > m2.getValue() ? 1 : -1).get().getKey();
-
+        map.addAttribute("webtoons", webtoonService.searchWebtoons());
         map.addAttribute("webtoon", webtoon);
         map.addAttribute("avg", avgStar);
         map.addAttribute("people", personList);

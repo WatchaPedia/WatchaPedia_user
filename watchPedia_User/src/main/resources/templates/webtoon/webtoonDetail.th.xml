@@ -19,6 +19,8 @@
     <!--    헤더 영화 정보-->
     <attr sel="div.css-1p7n6er-Pane" th:object="${webtoon}">
         <attr sel="h1.css-171k8ad-Title" th:text="*{webTitle}"/>
+        <attr sel="div.css-11h0kfd-Detail"
+              th:text="*{webWriter} + ' ・ ' + *{webGenre} "/>
         <attr sel="div.css-og1gu8-ContentRatings"
               th:utext="*{starList().size() != 0} ?'평균 ★' + ${avg} + ' (' + *{starList().size()} + '명)' : '<br/>'"/>
 <!--               준 별점 정보 표시-->
@@ -141,13 +143,9 @@
                               '카카오웹툰' : _
                             ))))
                         "/>
-                    <!--                    넷플릭스: aHR0cHM6Ly93d3cubmV0ZmxpeC5jb20vdGl0b // https://an2-glx.amz.wtchn.net/images/ex_netflix_logo_square.png-->
-                    <!--                    왓챠: aHR0cHM6Ly93YXRjaGEuY29tL3dhd // https://an2-glx.amz.wtchn.net/images/ex_watcha_logo_square.png-->
-                    <!--                    디즈니플러스: disneyplus // https://an2-img.amz.wtchn.net/image/v2/ryWIr0pNWgEBU-qIsDRsYw.png?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKd0lqb2lMM1l5TDNOMGIzSmxMM1ZwYldGblpTOHhOalF5TURZME16SXlPVEUxT0RJNE9EazFJbjAuVEM5ZjBaTnBlUmM5MklUTWdVakxmM3BieElmaTFHLTNWc0d2RUxqa3FDSQ-->
-                    <!--                    웨이브: aHR0cHM6Ly93d3cud2F2dmUuY29tL3BsYXllci92b2Q // https://an2-glx.amz.wtchn.net/images/ex_wavve_logo_square.png-->
-                    <!--                    티빙: aHR0cHM6Ly93d3cudHZpbmcuY29tL2N // https://an2-img.amz.wtchn.net/image/v2/AmxtezC90nGQwOmwj0MCPA.png?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKd0lqb2lMM1l5TDNOMGIzSmxMM1ZwYldGblpTOHhOalV3TXpRMk9UQXhNVE0xTlRBNU16TTRJbjAudWd0X0VwOHg1ZDBnZTBTRjhiNkhrUG52Qzd5cndhRnl6bEt2dEZzVGhzTQ-->
                 </attr>
             </attr>
+
         </attr>
     </attr>
 
@@ -212,5 +210,19 @@
             </attr>
         </attr>
     </attr>
+
+<!--    유사한 작품-->
+    <attr sel=".webtoon-table-same" th:remove="all-but-first">
+        <attr sel=".webtoon-tr-same"   th:each="webtoon ,index  : ${webtoons}" th:if=" ${index.index} < 16 and ${webtoon.webGenre == '로맨스'} " >
+
+            <attr sel=".webtoon-title-same" th:text="${webtoon.webTitle}"/>
+            <attr sel=".webtoon-img-same" th:src="${webtoon.webThumbnail}"/>
+        </attr>
+    </attr>
+
+<!--    <attr sel="div.css-ixy093" th:object="${webtoon}">-->
+<!--        <attr sel="div.css-or38u3"-->
+<!--              th:utext="*{starList().size() != 0} ?'평균 ★' + ${avg}  : '<br/>'"/>-->
+<!--    </attr>-->
 
 </thlogic>

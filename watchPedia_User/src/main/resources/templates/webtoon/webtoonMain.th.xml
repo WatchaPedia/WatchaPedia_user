@@ -18,6 +18,14 @@
         </attr>
     </attr>
 
+    <!--#연재중인 웹툰-->
+    <attr sel=".webtoon-table-recent" th:remove="all-but-first">
+        <attr sel=".webtoon-tr-recent" th:if="${webtoon.webSerDetail == '연재 중'}" th:each="webtoon : ${webtoons}" >
+            <attr sel=".webtoon-title-recent" th:text="${webtoon.webTitle}"/>
+            <attr sel=".webtoon-img-recent" th:src="${webtoon.webThumbnail}" />
+        </attr>
+    </attr>
+
     <!--정주행하기 좋은 웹툰-->
     <attr sel=".webtoon-table-ok" th:remove="all-but-first">
         <attr sel=".webtoon-tr-ok" th:if="${webtoon.webSerDetail == '완결'}" th:each="webtoon : ${webtoons}" >
