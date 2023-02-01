@@ -1,0 +1,18 @@
+{
+  "groups": [
+    {
+      "name": "spring.thymeleaf3",
+      "type": "com.watchapedia.watchpedia_user.config.ThymeleafConfig$Thymeleaf3Properties",
+      "sourceType": "com.watchapedia.watchpedia_user.config.ThymeleafConfig$Thymeleaf3Properties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.thymeleaf3.decoupled-logic",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.watchapedia.watchpedia_user.config.ThymeleafConfig$Thymeleaf3Properties",
+      "defaultValue": false
+    }
+  ],
+  "hints": []
+}
