@@ -212,17 +212,15 @@
     </attr>
 
 <!--    유사한 작품-->
-    <attr sel=".webtoon-table-same" th:remove="all-but-first">
-        <attr sel=".webtoon-tr-same"   th:each="webtoon ,index  : ${webtoons}" th:if=" ${index.index} < 16 and ${webtoon.webGenre == '로맨스'} " >
-
-            <attr sel=".webtoon-title-same" th:text="${webtoon.webTitle}"/>
-            <attr sel=".webtoon-img-same" th:src="${webtoon.webThumbnail}"/>
-        </attr>
+    <attr sel=".webtoon-table-same" th:remove="all-but-first" >
+        <attr sel=".webtoon-tr-same"  th:each="webtoonG, index : ${webtoonG}" th:if="${index.index < 7}"
+              th:object=" ${webtoon}" >
+            <attr sel=".webtoon-title-same" th:text="${webtoonG.webTitle}"/>
+            <attr sel=".webtoon-img-same" th:src="${webtoonG.webThumbnail}"/>
+            <attr sel="div.css-or38u3"
+                  th:text="*{starList().size() != 0} ?'평균 ★' + ${avg}  : ''"/>
+            </attr>
     </attr>
 
-<!--    <attr sel="div.css-ixy093" th:object="${webtoon}">-->
-<!--        <attr sel="div.css-or38u3"-->
-<!--              th:utext="*{starList().size() != 0} ?'평균 ★' + ${avg}  : '<br/>'"/>-->
-<!--    </attr>-->
 
 </thlogic>

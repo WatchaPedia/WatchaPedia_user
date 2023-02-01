@@ -5,6 +5,9 @@
         <attr sel=".webtoon-tr" th:each="webtoon : ${webtoons}" >
             <attr sel=".webtoon-title" th:text="${webtoon.webTitle}"/>
             <attr sel=".webtoon-img" th:src="${webtoon.webThumbnail}" />
+<!--            <attr sel="div.css-xgmur2"-->
+<!--                  th:text="*{starList().size() != 0} ?'평균 ★' + ${avg}  : ''"/>-->
+<!--        </attr>-->
         </attr>
     </attr>
 <!--    <attr sel=".webtoon-tr" th:object=" ${webtoon}" >-->
@@ -41,6 +44,47 @@
             <attr sel=".webtoon-img-romence" th:src="${webtoon.webThumbnail}" />
         </attr>
     </attr>
+<!--********************************************************************************************************-->
 
+<!--    th:href="@{'/webtoon/'+${webtoon.webIdx}}"-->
 
+    <!--#일상-->
+    <attr sel=".webtoon-table-today" th:remove="all-but-first">
+        <attr sel=".webtoon-tr-today" th:if="${webtoon.webGenre == '일상'}" th:each="webtoon : ${webtoons}" >
+            <attr sel=".webtoon-title-today" th:text="${webtoon.webTitle}"/>
+            <attr sel=".webtoon-img-today" th:src="${webtoon.webThumbnail}" />
+        </attr>
+    </attr>
+
+    <!--#드라마-->
+    <attr sel=".webtoon-table-drama" th:remove="all-but-first">
+        <attr sel=".webtoon-tr-drama" th:if="${webtoon.webGenre == '판타지'}" th:each="webtoon : ${webtoons}" >
+            <attr sel=".webtoon-title-drama" th:text="${webtoon.webTitle}"/>
+            <attr sel=".webtoon-img-drama" th:src="${webtoon.webThumbnail}" />
+        </attr>
+    </attr>
+
+    <!--#다양한 웹툰-->
+    <attr sel=".webtoon-table-gita" th:remove="all-but-first">
+        <attr sel=".webtoon-tr-gita" th:if="${webtoon.webGenre == '기타'}" th:each="webtoon : ${webtoons}" >
+            <attr sel=".webtoon-title-gita" th:text="${webtoon.webTitle}"/>
+            <attr sel=".webtoon-img-gita" th:src="${webtoon.webThumbnail}" />
+        </attr>
+    </attr>
+
+    <!--#주말에 보고싶은 웹툰-->
+    <attr sel=".webtoon-table-wek" th:remove="all-but-first">
+        <attr sel=".webtoon-tr-wek" th:if="${webtoon.webSerDay == '토' or webtoon.webSerDay == '일' }" th:each="webtoon : ${webtoons}" >
+            <attr sel=".webtoon-title-wek" th:text="${webtoon.webTitle}"/>
+            <attr sel=".webtoon-img-wek" th:src="${webtoon.webThumbnail}" />
+        </attr>
+    </attr>
+
+    <!--#주말에 보고싶은 웹툰-->
+    <attr sel=".webtoon-table-wek" th:remove="all-but-first">
+        <attr sel=".webtoon-tr-wek" th:if="${webtoon.webGenre == '판타지'}" th:each="webtoon : ${webtoons}" >
+            <attr sel=".webtoon-title-wek" th:text="${webtoon.webTitle}"/>
+            <attr sel=".webtoon-img-wek" th:src="${webtoon.webThumbnail}" />
+        </attr>
+    </attr>
 </thlogic>

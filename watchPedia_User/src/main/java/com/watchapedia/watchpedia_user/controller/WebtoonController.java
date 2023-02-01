@@ -93,14 +93,17 @@ public class WebtoonController {
         return "/webtoon/webtoonMain";
     }
 
+
     @GetMapping("/webtoon/{webIdx}") // http://localhost:9090/tv/1
     public String webDetail(
             @PathVariable Long webIdx,
             ModelMap map
     ){
         User user = userRepository.getReferenceById(3L);
-
         WebtoonResponse webtoon = webtoonService.webtoonView(webIdx);
+        List<Webtoon> webtoonG = webtoonService.Genre(webIdx);
+        webtoonG.remove(0);
+
 
 //      평균 별점
         double sum = 0;
@@ -113,6 +116,9 @@ public class WebtoonController {
             }
             avgStar = Math.round((sum / webtoon.starList().size()) * 10.0) / 10.0;
         }
+
+
+
 
 //        해당 유저가 별점을 매겼는지
         StarResponse hasStar = starService.findStar("webtoon",webtoon.webIdx(), user.getUserIdx());
@@ -164,6 +170,7 @@ public class WebtoonController {
         Long bigStar = starGraph.entrySet().stream().max((m1, m2) -> m1.getValue() > m2.getValue() ? 1 : -1).get().getKey();
         map.addAttribute("webtoons", webtoonService.searchWebtoons());
         map.addAttribute("webtoon", webtoon);
+        map.addAttribute("webtoonG", webtoonG);
         map.addAttribute("avg", avgStar);
         map.addAttribute("people", personList);
         map.addAttribute("comment", commentList);

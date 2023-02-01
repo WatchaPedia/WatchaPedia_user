@@ -14,6 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 import java.util.List;
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class WebtoonService {
@@ -64,4 +66,11 @@ public class WebtoonService {
                         ).toList();
         return commentResponseList;
     }
+
+    // 웹툰 디테일 페이지 유사 장르
+    public List<Webtoon> Genre(Long WebIdx){
+        Webtoon webtoonG = webtoonRepository.findByWebIdx(WebIdx);
+        return webtoonRepository.findByWebGenre(webtoonG.getWebGenre());
+    }
+
 }
