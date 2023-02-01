@@ -1,5 +1,6 @@
 package com.watchapedia.watchpedia_user.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -7,11 +8,12 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
-@Entity(name = "tbUser")
+@Entity(name = "tb_user")
 @Builder
 @AllArgsConstructor
 @Data
 @ToString(callSuper = true)
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

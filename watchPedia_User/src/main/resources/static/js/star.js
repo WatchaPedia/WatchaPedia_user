@@ -1,5 +1,6 @@
 let contentType = document.querySelector(".css-96eosw").innerHTML
 let contentIdx = null;
+
 document.addEventListener('click', (e) => {
   if(e.target.type == 'range'){
     let width = e.target.parentElement.querySelector("span").style.width;

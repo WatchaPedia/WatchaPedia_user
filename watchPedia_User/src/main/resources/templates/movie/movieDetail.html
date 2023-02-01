@@ -4365,6 +4365,7 @@
         .css-1ugqy9j > a {
             color: rgb(255, 47, 110);
             text-decoration: none;
+            cursor: pointer;
         }
 
         .css-nh9j5x-VisualUl-CommentHorizontalUl {
@@ -7534,9 +7535,6 @@
             cursor: pointer;
             color: rgb(255, 47, 110);
         }
-        .css-13md5na-StyledDropdownMenuItem .icon {
-            margin: 0px 12px;
-        }
         .css-fwllm4 {
             color: rgb(255, 47, 110);
         }
@@ -7544,14 +7542,14 @@
 
     <link rel="icon" href="/assets/img/favicon.png">
 
-    <script defer src="/js/wishWatch.js"></script>
-    <script defer src="/js/script.js"></script>
-    <script defer src="/js/detailModal.js"></script>
-    <script defer src="/js/detailStar.js"></script>
-    <script defer src="/js/detailComment.js"></script>
-    <script defer src="/js/detailWish.js"></script>
-    <script defer src="/js/detailWatch.js"></script>
-    <script defer src="/js/detailHate.js"></script>
+    <script defer src="/js/movie/wishWatch.js"></script>
+    <script defer src="/js/movie/script.js"></script>
+    <script defer src="/js/movie/detailModal.js"></script>
+    <script defer src="/js/movie/detailStar.js"></script>
+    <script defer src="/js/movie/detailComment.js"></script>
+    <script defer src="/js/movie/detailWish.js"></script>
+    <script defer src="/js/movie/detailWatch.js"></script>
+    <script defer src="/js/movie/detailHate.js"></script>
 
 </head>
 <body>
@@ -7758,7 +7756,7 @@
                                     </div>
                                 </li>
                                 <li class="css-bj71cw"><a href="/mypage/valueContent"><span class="css-f74c5f">평가하기</span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 22" width="22" height="22" class="css-94q8z7"><g fill="none"><path class="fillTarget" fill="#BABAC3" fill-rule="evenodd" d="M11.404 1.38c.243-.506.949-.506 1.193 0l2.734 5.662c.021.044.061.074.107.08l6.116.909c.547.081.764.767.369 1.16l-4.426 4.41c-.033.033-.048.08-.04.126l1.044 6.226c.094.556-.477.98-.964.717l-5.473-2.94c-.04-.022-.088-.022-.13.001l-5.47 2.939c-.488.263-1.059-.161-.965-.717l1.044-6.225c.008-.047-.007-.094-.04-.128L2.075 9.19c-.394-.393-.176-1.078.37-1.16l6.114-.907c.047-.007.087-.037.108-.08z"></path></g></svg></a></li>
-                                <li class="css-bj71cw"><a title="단비님's page">
+                                <li class="css-bj71cw"><a th:title="${userIdx}" id="login-idx">
                                     <div class="css-ipiine">
                                         <div class="css-18d1ipb-ProfilePhotoImage" onclick="location.href='/mypage/myPage'"></div>
                                     </div>
@@ -8142,7 +8140,7 @@
                                                                     정보</h2>
                                                                     <div class="css-s289sk">
                                                                         <div class="css-1ugqy9j"><a
-                                                                                href="/detailInfo">더보기</a>
+                                                                                th:href="'/movie/' + ${movie.idx} + '/info'">더보기</a>
                                                                         </div>
                                                                     </div>
                                                                 </header>
@@ -8733,7 +8731,7 @@
                                                                     코멘트</h2><span class="css-wzn7fp">10+</span>
                                                                     <div class="css-s289sk">
                                                                         <div class="css-1ugqy9j"><a
-                                                                                onclick="location.href='/comment'">더보기</a>
+                                                                                th:onclick="'location.href=\'/movie/'+ ${movie.idx} +'/comments\''">더보기</a>
                                                                         </div>
                                                                     </div>
                                                                 </header>
@@ -9307,7 +9305,7 @@
                                                         <div class="css-1gkas1x-Grid e1689zdh0">
                                                             <div class="css-1y901al-Row emmoxnt0">
                                                                 <header class="css-1ue9xs6"><h2 class="css-1wtjsst">
-                                                                    갤러리</h2><a class="pink" onclick="location.href='/Gallery'">모아보기</a></header>
+                                                                    갤러리</h2><a class="pink" th:onclick="'location.href=\'/movie/' + ${movie.idx} + '/gallery\''">모아보기</a></header>
                                                             </div>
                                                         </div>
                                                         <div class="css-usdi1z">
@@ -10252,6 +10250,7 @@
                 <div aria-label="cancel" role="button" class="css-1blo7j2">취소</div></div></div></div></div>
 
             </div>
+
         </div>
     </div>
 </div>

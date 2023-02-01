@@ -22,9 +22,9 @@
 <!-- 별점 준 경우 코멘트 작성하기 버튼 표시, 코멘트 작성한 경우 수정,삭제 버튼 표시 -->
     <attr sel="div.css-sd2jre-SectionBlock" th:style="'display:' + (${hasStar} != null ? 'block' : (${hasComm} != null ? 'block' : 'none')) + ';'">
         <attr sel="section.css-1v9og64-LeaveCommentSection" th:style="'display:' + (${hasStar} != null ? (${hasComm} != null ? 'none' : 'block') : 'none') + ';'"/>
-
 <!--        코멘트 -->
         <attr sel="div.hasComm" th:style="'display:' + (${hasComm} != null ? 'block' : 'none') + ';'">
+            <attr sel="a.css-1bh5fq7-StylelessLocalLink-LinkToMyComment" th:href="${hasComm} != null ? '/comment/' + ${hasComm.idx} : _"/>
             <attr sel="div.css-1fucs4t-StyledText" th:text="${hasComm} != null ? ${hasComm.text} : _"/>
         </attr>
     </attr>
@@ -41,6 +41,9 @@
 <!--    관심없어요 버튼 -->
     <attr sel="div#hate" th:class="${hasHate} == true ? 'e1svyhwg29 css-13md5na-StyledDropdownMenuItem' : _"/>
     <attr sel="div#more-modal">
+        <attr sel="span.css-bhgne5-StyledBackground" th:style="'background-image:url('+${movie.thumbnail}+')'"/>
+        <attr sel="div.css-5kofsl" th:text="${movie.title}"/>
+        <attr sel="div.css-17s1j6g" th:text="'영화 ・ '+${movie.makingDate}"/>
         <attr sel="div.css-bgi4sk">
             <attr sel="span" th:class="${hasHate} == true ? 'css-fwllm4' : _"/>
             <attr sel="img" th:src="${hasHate} == true ? 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPHBhdGggZD0iTTAgMGgyNHYyNEgweiIvPgogICAgICAgIDxwYXRoIGZpbGw9IiNGRjJGNkUiIGQ9Ik0xMS41NjYgMTkuMzEyYy4zNzcuNjc4Ljg2IDEuMjg4IDEuNDI4IDEuODA4QTkuMzMzIDkuMzMzIDAgMSAxIDExIDIuNjY3YTkuMzM3IDkuMzM3IDAgMCAxIDguODIyIDYuMjggNy4xNyA3LjE3IDAgMCAwLTIuMjg1LS4yNzRBNy4zMzMgNy4zMzMgMCAwIDAgMTEgNC42NjdhNy4zMDIgNy4zMDIgMCAwIDAtNC41MjUgMS41NjJsNS40OSA1LjQ5YTcuMTQxIDcuMTQxIDAgMCAwLS45NDUgMS44ODRMNS4wODMgNy42NjZhNy4zMzMgNy4zMzMgMCAwIDAgNi40ODIgMTEuNjQ1eiIvPgogICAgICAgIDxwYXRoIGZpbGw9IiNGRjJGNkUiIGQ9Ik0yMi42MTEgMTIuMTYxTDE4LjE3MyAxNi42bC0xLjgzMy0xLjgzM2EuODQ0Ljg0NCAwIDEgMC0xLjE5MyAxLjE5NGwyLjEyNiAyLjEyNmEuODQ3Ljg0NyAwIDAgMCAuMTQ3LjExNy43ODUuNzg1IDAgMCAwIDEuMjE5LjE0Mmw0LjgyNi00LjgyNmE2IDYgMCAxIDEtLjg1NC0xLjM2eiIvPgogICAgPC9nPgo8L3N2Zz4K' : _"/>
@@ -179,7 +182,7 @@
             <attr sel="li.css-1fryc54" th:each="comm : ${comment}">
 <!--                댓글 링크 연결-->
                 <attr sel="div.css-ob93md">
-                    <attr sel="a.css-1f9m1s4-StylelessLocalLink" th:href="'/comments/' + ${comm.idx}"/>
+                    <attr sel="a.css-1f9m1s4-StylelessLocalLink" th:href="'/comment/' + ${comm.idx}"/>
                 </attr>
 <!--                프로필 연결-->
                 <attr sel="div.css-1cvf9dk">
@@ -194,14 +197,15 @@
 <!--                스포일러일 경우 좋아요와 대댓글 막힘 -->
                 <attr sel="div.css-1jm9uak" th:class="${comm.spoiler} == true ? _ : 'css-1atijos'">
 <!--                댓글 좋아요, 대댓글 수 -->
-                    <attr sel="em#like" th:text="${comm.like.size()}"/>
-                    <attr sel="em#recomment" th:text="${comm.recomment.size()}"/>
+                    <attr sel="em#like" th:text="${comm.likeSum}"/>
+                    <attr sel="em#recomment" th:text="${comm.recommSum}"/>
                 </attr>
 
                 <attr sel="span.css-zoh368" th:style="${comm.spoiler} == true ? _ : 'background-image:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGcgZmlsbD0iIzc4Nzg3OCI+CiAgICAgICAgICAgIDxwYXRoIGQ9Ik02Ljc1IDkuNDg1aC0zYTEgMSAwIDAgMC0xIDF2MTBhMSAxIDAgMCAwIDEgMWgzYTEgMSAwIDAgMCAxLTF2LTEwYTEgMSAwIDAgMC0xLTFNMjAuNjU3IDguNTY2YTIuMzYzIDIuMzYzIDAgMCAwLTEuNzc5LS44MTNIMTYuNjJsLjE2NC0uNjI3Yy4xMzctLjUyOC4yMDEtMS4xMi4yMDEtMS44NjMgMC0xLjkxOS0xLjM3NS0yLjc3OC0yLjczOC0yLjc3OC0uNDQ0IDAtLjc2Ni4xMjMtLjk4Ni4zNzYtLjIuMjI3LS4yODIuNTMtLjI0My45MzVsLjAzIDEuMjMtMi45MDMgMi45NGMtLjU5My42LS44OTQgMS4yMy0uODk0IDEuODcydjkuNjQ3YS41LjUgMCAwIDAgLjUuNWg3LjY4N2EyLjM4OCAyLjM4OCAwIDAgMCAyLjM0OC0yLjA3bDEuNDQ1LTcuNDUyYTIuNDQgMi40NCAwIDAgMC0uNTc0LTEuODk3Ii8+CiAgICAgICAgPC9nPgogICAgPC9nPgo8L3N2Zz4K);'"/>
                 <attr sel="span.css-43cye7" th:style="${comm.spoiler} == true ? _ : 'background-image:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxwYXRoIGZpbGw9IiM3ODc4NzgiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTkuODU3IDE3Ljc4Nkw2IDIxdi00LjkxYy0xLjg0MS0xLjM3My0zLTMuMzY5LTMtNS41OUMzIDYuMzU4IDcuMDMgMyAxMiAzczkgMy4zNTggOSA3LjVjMCA0LjE0Mi00LjAzIDcuNS05IDcuNS0uNzM5IDAtMS40NTYtLjA3NC0yLjE0My0uMjE0eiIvPgo8L3N2Zz4K);'"/>
                 <attr sel="div.css-hy68ty">
-                    <attr sel="button" th:class="${comm.spoiler} == true ? _ : (${comm.hasLike} == true ? 'css-jj4q3s-StylelessButton-UserActionButton' : 'css-1h18l7j-StylelessButton '+${comm.hasLike})"/>
+                    <attr sel="button" th:class="${comm.spoiler} == true ? _ : (${comm.hasLike} == true ? 'css-jj4q3s-StylelessButton-UserActionButton' : 'css-1h18l7j-StylelessButton '+${comm.hasLike})"
+                          th:disabled="${comm.spoiler} == true ? 'disabled' : _"/>
                 </attr>
             </attr>
         </attr>

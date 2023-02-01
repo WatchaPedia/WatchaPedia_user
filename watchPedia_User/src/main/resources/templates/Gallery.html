@@ -25,7 +25,7 @@
 
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>왓챠피디아 - 단비님님의 영화평가</title>
+    <title th:text="${title} + ':갤러리 - 왓챠피디아'"></title>
     <meta data-rh="true" content="추천, 평가, 영화, 책, 드라마, 애니메이션" name="keywords">
     <meta data-rh="true" content="website" property="og:type">
     <meta data-rh="true" content="ko-KR" property="og:locale">
@@ -467,7 +467,7 @@
     <style data-emotion-css="18d1ipb-ProfilePhotoImage">.css-18d1ipb-ProfilePhotoImage {
         position: relative;
         z-index: 1;
-        background: url(https://an2-img.amz.wtchn.net/image/v2/o8bCCctxgc_msBtuj3E9Pg.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk1UQXdlREV3TUNKZExDSndJam9pTDNZeUwzTjBiM0psTDNWelpYSXZORmRNZUZwTlVrUkZOWEp2UVM5d2NtOW1hV3hsTHpFMk16YzJORFExTWpreE5UVXpNRE13TmpJaWZRLktiWEdCeDBnMmJCWE43NF9yblpmOU41QXFNV2FQc3RNN2FQTWQ1LXpCeGM) no-repeat center;
+        background: url(https://an2-glx.amz.wtchn.net/assets/default/user/photo_file_name_small-ab0a7f6a92a282859192ba17dd4822023e22273e168c2daf05795e5171e66446.jpg) no-repeat center;
         background-size: cover;
         width: 100%;
         height: 100%;
@@ -2864,7 +2864,6 @@
             align-items: center;
         }
     </style>
-    <script defer src="/js/GalleryScript.js"></script>
 
     <link rel="icon" href="/assets/img/favicon.png">
 
@@ -3555,6 +3554,7 @@
             });
         })
     </script>
+    <script defer src="/js/movie/galleryScript.js"></script>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -3783,7 +3783,7 @@
                                         </g>
                                     </svg>
                                 </a></li>
-                                <li class="css-bj71cw"><a title="단비님's page">
+                                <li class="css-bj71cw"><a th:title="${userIdx}" id="login-idx">
                                     <div class="css-ipiine">
                                         <div class="css-18d1ipb-ProfilePhotoImage" onclick="location.href='/mypage/myPage'"></div>
                                     </div>
@@ -3813,7 +3813,7 @@
                 <section class="css-q5h397">
                     <div class="gallery">
                         <ul class="css-1cduxg0-VisualUl">
-                            <li class="css-1cw0vk0 first">
+                            <li class="css-1cw0vk0">
                                 <div class="css-1qwe0o7-StyledSelf e1q5rx9q0">
                                     <img class="img" src="https://an2-img.amz.wtchn.net/image/v2/AtJa2fw2l5iZAHrXpYliFQ.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5qUXdlRE0yTUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpFMk5qVTRPVGs0TURjMk5qUXpORFEyT1RZaWZRLnNjTHNXSHdnRVJBbXlzc3JFUUpFa3hIWDdkZE1udm5ZMzQtT09kNWxuSDg">
                                 </div>
@@ -3878,7 +3878,7 @@
                                     <img class="img" src="https://an2-img.amz.wtchn.net/image/v2/JeH-7m4IWpMjZlPBXhAh5Q.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5qUXdlRE0yTUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpFMk5qVTRPVGs0TURjek56a3lORGd5TURNaWZRLnFVc2QxZ0J4YW95cEtSR2ZUTW1ZZkJiRU90RGJqaS04bDhSNTB5UnhTYkk">
                                 </div>
                             </li>
-                            <li class="css-1cw0vk0 last">
+                            <li class="css-1cw0vk0">
                                 <div class="css-1qwe0o7-StyledSelf e1q5rx9q0">
                                     <img class="img" src="https://an2-img.amz.wtchn.net/image/v2/Rx5a4hYjlRtNQyWzk96v0Q.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5qUXdlRE0yTUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpFMk5qVTRPVGs0TURjek9ERXhNVGc1T1RZaWZRLmgxNEVsR0FNblMzQlpUVEdrZFhJUHFMZ3ZaMTVOT3FQeDZOUGEyeHNfcFU">
                                 </div>

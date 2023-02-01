@@ -66,7 +66,7 @@
 
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>다솜땅님이 김광석(2016)에 남긴 코멘트 - 왓챠피디아</title>
+    <title th:text="${comment.name()}+'님이 '+${content.title}+'('+${content.makingDate}+')에 남긴 코멘트 - 왓챠피디아'">다솜땅님이 김광석(2016)에 남긴 코멘트 - 왓챠피디아</title>
     <meta data-rh="true" content="추천, 평가, 영화, 책, 드라마, 애니메이션" name="keywords">
     <meta data-rh="true" content="website" property="og:type">
     <meta data-rh="true" content="ko-KR" property="og:locale">
@@ -508,7 +508,7 @@
     <style data-emotion-css="18d1ipb-ProfilePhotoImage">.css-18d1ipb-ProfilePhotoImage {
         position: relative;
         z-index: 1;
-        background: url(https://an2-img.amz.wtchn.net/image/v2/o8bCCctxgc_msBtuj3E9Pg.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk1UQXdlREV3TUNKZExDSndJam9pTDNZeUwzTjBiM0psTDNWelpYSXZORmRNZUZwTlVrUkZOWEp2UVM5d2NtOW1hV3hsTHpFMk16YzJORFExTWpreE5UVXpNRE13TmpJaWZRLktiWEdCeDBnMmJCWE43NF9yblpmOU41QXFNV2FQc3RNN2FQTWQ1LXpCeGM) no-repeat center;
+        background: url(https://an2-glx.amz.wtchn.net/assets/default/user/photo_file_name_small-ab0a7f6a92a282859192ba17dd4822023e22273e168c2daf05795e5171e66446.jpg) no-repeat center;
         background-size: cover;
         width: 100%;
         height: 100%;
@@ -2623,7 +2623,6 @@
     <link href="/comments/W4zQrdpLxO2w1" hreflang="x-default" rel="alternate" data-rh="true">
     <meta name="description" content="진실되게 궁금합니다.
 어떻게 된 일인지.." data-rh="true">
-    <meta property="og:title" content="다솜땅님이 김광석(2016)에 남긴 코멘트 - 왓챠피디아" data-rh="true">
     <meta property="og:image"
           content="https://an2-img.amz.wtchn.net/image/v2/bu4-DKwRas0vBAvtf-mjYQ.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXhMMjEwY0hsaWRYVmxZbVZ4YUcxb2QzWjVNM1J6SW4wLnhPUmlDR21DYnU3RV9SV2RuaXNrRzB4SkZBOUEwU2RmM3JmdlI0cHBteVk"
           data-rh="true">
@@ -2806,7 +2805,7 @@
     .css-co0dyr-ProfilePhotoImage {
       position: relative;
       z-index: 1;
-      background: url(https://an2-img.amz.wtchn.net/image/v2/uFWP20WLGJNW8WdSGASv9g.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk1UQXdlREV3TUNKZExDSndJam9pTDNZeUwzTjBiM0psTDNWelpYSXZWbEphZGpSNlRrNVFlSEkyZVM5d2NtOW1hV3hsTHpFMk5UUXpNRGd6TWpRek9UazNNemt6TVRRaWZRLnlsb3pxdXNKVGtDYnlDeEpzMW5td1VHdDByTEw3akppY2s2MENrV0lRVTQ) center center / cover no-repeat;
+      background: url(https://an2-glx.amz.wtchn.net/assets/default/user/photo_file_name_small-ab0a7f6a92a282859192ba17dd4822023e22273e168c2daf05795e5171e66446.jpg) center center / cover no-repeat;
       width: 100%;
       height: 100%;
     }
@@ -3172,7 +3171,7 @@
     }
 
     .css-293y94 {
-      background: url(https://an2-img.amz.wtchn.net/image/v2/2fN5yRSKCrUOdzr4laoidA.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk1UQXdlREV3TUNKZExDSndJam9pTDNZeUwzTjBiM0psTDNWelpYSXZWM2RTY1c4eGJscDVOV3g2UWk5d2NtOW1hV3hsTHpFMk16QXdNamd5TWpjME1ETTVNak01TmpnaWZRLnhRS3VnMUZrUHhhVGhmSVlaRjY5dHNCUWFxQjdwRnVZVVktTmNXbzF3Zms) center center / contain no-repeat;
+      background: url(https://an2-glx.amz.wtchn.net/assets/default/user/photo_file_name_small-ab0a7f6a92a282859192ba17dd4822023e22273e168c2daf05795e5171e66446.jpg) center center / contain no-repeat;
       width: 32px;
       height: 32px;
       border-radius: 50%;
@@ -3261,6 +3260,23 @@
       border-radius: 5px;
       margin-right: auto;
       margin-left: -8px;
+        cursor:pointer;
+    }
+    .css-jpkqok {
+        display: flex;
+        -webkit-box-align: center;
+        align-items: center;
+        color: rgb(255, 47, 110);
+        font-size: 14px;
+        font-weight: 400;
+        letter-spacing: -0.3px;
+        line-height: 18px;
+        height: 24px;
+        padding: 0px 9px;
+        border-radius: 5px;
+        margin-right: auto;
+        margin-left: -8px;
+        cursor: pointer;
     }
 
     .css-1d8juai [class*="Icon"] {
@@ -3273,6 +3289,7 @@
       width: auto;
       height: auto;
       backface-visibility: hidden;
+        margin-right: 6px;
     }
 
     .css-1tuvmpc-SVG > div {
@@ -4234,6 +4251,243 @@
             border-top: 1px solid rgb(235, 236, 237);
             margin: 0px 11px;
         }
+        .css-3w1nnz-StylelessButton-StyledActionButton {
+            background: none;
+            padding: 0px;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            position: relative;
+            -webkit-box-pack: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            align-items: center;
+            font-size: 15px;
+            letter-spacing: -0.3px;
+            line-height: 18px;
+            border-radius: 5px;
+            margin: 3px;
+            color: rgb(255, 47, 110);
+        }
+        .css-3w1nnz-StylelessButton-StyledActionButton:focus {
+            outline: none;
+        }
+         .css-3w1nnz-StylelessButton-StyledActionButton, .css-3w1nnz-StylelessButton-StyledActionButton .fillTarget {
+             transition: all 70ms linear 0s;
+         }
+        .boing {
+            animation: 400ms ease 0s 1 normal none running boing;
+        }
+        @keyframes boing {
+            from {
+                transform: rotate(-20deg);
+                width: 30px;
+                height: 30px;
+            }
+
+            to {
+                transform: rotate(0deg);
+                width: 20px;
+                height: 20px;
+            }
+        }
+        .css-3w1nnz-StylelessButton-StyledActionButton svg {
+            margin-right: 5px;
+            fill: rgb(255, 47, 110);
+        }
+        .css-3w1nnz-StylelessButton-StyledActionButton .fillTarget:nth-child(1) {
+            fill: rgb(255, 47, 110);
+            fill-rule: evenodd;
+            clip-rule: evenodd;
+            d: path("M 5.6252 7.90479 H 3.1252 C 2.6652 7.90479 2.29187 8.27812 2.29187 8.73812 V 17.0715 C 2.29187 17.5315 2.6652 17.9048 3.1252 17.9048 H 5.6252 C 6.08604 17.9048 6.45854 17.5315 6.45854 17.0715 V 8.73812 C 6.45854 8.27812 6.08604 7.90479 5.6252 7.90479 Z");
+            fill: rgb(255, 47, 110);
+        }
+        .css-3w1nnz-StylelessButton-StyledActionButton .fillTarget:nth-child(2) {
+            fill-rule: evenodd;
+            clip-rule: evenodd;
+            d: path("M 17.2146 7.13879 C 16.8388 6.70796 16.2979 6.46129 15.7321 6.46129 H 13.8504 L 13.9871 5.93879 C 14.1013 5.49879 14.1546 5.00546 14.1546 4.38629 C 14.1546 2.78712 13.0088 2.07129 11.8729 2.07129 C 11.5029 2.07129 11.2346 2.17379 11.0513 2.38462 C 10.8846 2.57379 10.8163 2.82546 10.8488 3.16379 L 10.8738 4.18879 L 8.45459 6.63796 C 7.96043 7.13879 7.70959 7.66379 7.70959 8.19879 V 16.238 C 7.70959 16.4671 7.89626 16.6546 8.12626 16.6546 H 14.5321 C 15.5088 16.6546 16.3663 15.908 16.4888 14.9288 L 17.6929 8.71962 C 17.7646 8.14712 17.5888 7.57129 17.2146 7.13879 Z");
+            fill: rgb(255, 47, 110);
+        }
+        .css-1wgkeqm-SVG {
+            display: block;
+            color: rgb(120, 120, 120);
+            font-family: Inter, Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+            width: auto;
+            height: auto;
+            backface-visibility: hidden;
+            margin: 16px 0px;
+        }
+        .css-rpyl6s {
+            position: absolute;
+            inset: 0px;
+            z-index: 101;
+        }
+        .css-1yszxv0 {
+            display: flex;
+            position: absolute;
+            inset: 0px;
+            z-index: 102;
+            -webkit-box-pack: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            align-items: center;
+        }
+        .css-2djw8f {
+            display: inline-block;
+            color: rgb(0, 0, 0);
+            white-space: pre-wrap;
+            font-size: 17px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            line-height: 22px;
+        }
+        .css-148qwic {
+            color: rgb(0, 0, 0);
+            font-size: 15px;
+            font-weight: 400;
+            letter-spacing: -0.5px;
+            line-height: 20px;
+            white-space: pre-wrap;
+            padding: 0px 0px 24px;
+            border-bottom: 1px solid rgb(210, 210, 210);
+            margin: 8px 0px 0px;
+            word-break: break-all;
+        }.css-gy4ioq {
+             display: flex;
+         }
+        .css-gy4ioq > button {
+            margin: 11px 0px;
+        }
+         .css-1gdw77k-StylelessButton {
+             background: none;
+             padding: 0px;
+             border-top-width: initial;
+             border-bottom-width: initial;
+             border-left-width: initial;
+             border-style: none solid none none;
+             border-image: initial;
+             margin: 0px;
+             cursor: pointer;
+             flex: 1 1 0%;
+             color: rgb(255, 47, 110);
+             font-size: 17px;
+             font-weight: 400;
+             letter-spacing: -0.7px;
+             line-height: 22px;
+             border-right-width: 1px;
+             border-color: rgb(210, 210, 210) !important;
+         }.css-sfhtz9-StylelessButton {
+              background: none;
+              padding: 0px;
+              border-width: initial;
+              border-style: none;
+              border-image: initial;
+              margin: 0px;
+              cursor: pointer;
+              flex: 1 1 0%;
+              color: rgb(255, 47, 110);
+              font-size: 17px;
+              font-weight: 400;
+              letter-spacing: -0.7px;
+              line-height: 22px;
+              border-color: rgb(210, 210, 210) !important;
+          }
+          #modal-container-DYnNa1emBjQOtRbrvTqJx{
+              display: none;
+          }
+        .css-f35o9y {
+            background: rgb(255, 255, 255);
+            text-align: center;
+            width: 280px;
+            padding: 20px 0px 0px;
+            border-radius: 8px;
+        }
+        #modal-container-ZKA3fsBv_SvHd4nI5EFZq{
+            display: none;
+        }
+        #recomment-list-none{
+            display: none;
+        }
+        #recomment-list-none div.css-1m1whp6 {
+            display: none;
+        }
+        #modal-container-6TxBWpCAEPqm20UjsJdDQ{
+            display: none;
+        }
+        #modal-container-fZgqMYLrh3NKQOcVpt4wk{
+            display: none;
+        }
+        #modal-container-1arSh67x8qkwczaPieVAx{
+            display: none;
+        }
+
+    /*    메인코멘트 수정, 삭제 */
+        .css-1nfwvb4-StylelessButton {
+            background: none;
+            border: none;
+            margin: 0px;
+            cursor: pointer;
+            font-weight: 400;
+            letter-spacing: -0.3px;
+            line-height: 18px;
+            display: flex;
+            -webkit-box-align: center;
+            align-items: center;
+            color: rgb(103, 104, 106);
+            font-size: 12px;
+            min-width: 58px;
+            height: 26px;
+            padding: 0px 10px;
+            border-radius: 5px;
+        }
+        .css-s99igu {
+            width: 14px;
+            height: 14px;
+            margin-right: 5px;
+            fill: rgb(160, 160, 160);
+        }
+        #modal-container-yjYuIgAkMjkq6O8ZPy5vn{
+            display: none;
+        }
+        .css-137vxyg {
+            font-weight: 400;
+            font-size: 17px;
+            letter-spacing: -0.6px;
+            line-height: 21px;
+            width: 100%;
+            min-height: 360px;
+            border: 0px;
+            outline: none;
+            margin: 1px 0px;
+            resize: none;
+            overflow: auto;
+        }
+        #modal-container-xaZdPxT85D_xylVtxcown{
+            display: none;
+        }
+        #modal-container-xaZdPxT85D_xylVtxcown .css-1lvet1d-StylelessButton{
+            display: block;
+        }
+        @media (min-width: 720px) {
+            div.css-19pxr9t button:nth-child(2){
+                display: none;
+            }
+        }
+        #modal-container-TEW7x8Ed2FRpVPPru5mqs{
+            display: none;
+        }
+        #modal-container-aWTcAcCYlL1n-VRF14lje{
+            display: none;
+        }
+        #modal-container-UiAVwwzWAy8FG95dSniCO {
+            display: none;
+        }
+        .css-1ngtlfw > path {
+            fill: rgb(255, 47, 110);
+        }
+        div[data-type='spoiler'] svg{
+            cursor: pointer;
+        }
     </style>
     <!--jquery + javascript-->
     <script type="text/javascript">
@@ -4269,6 +4523,7 @@
 
 
     <link rel="icon" href="/assets/img/favicon.png">
+    <script defer src="/js/recommentScript.js"></script>
 
 </head>
 <body>
@@ -4490,7 +4745,7 @@
                                         </g>
                                     </svg>
                                 </a></li>
-                                <li class="css-bj71cw"><a title="단비님's page">
+                                <li class="css-bj71cw"><a th:title="${userIdx}" id="login-idx">
                                     <div class="css-ipiine">
                                         <div class="css-18d1ipb-ProfilePhotoImage" onclick="location.href='/mypage/myPage'"></div>
                                     </div>
@@ -4518,9 +4773,9 @@
                                 <div class="css-1d7xpnn-CommentContainer e1rmcw6u3">
                                     <section class="css-0">
                                         <div class="css-1p3jp2v">
-                                            <div class="css-1cvf9dk"><a title="다솜땅"
+                                            <div class="css-1cvf9dk"><a
                                                                         class="css-1f9m1s4-StylelessLocalLink eovgsd01"
-                                                                        href="/ko-KR/users/VRZv4zNNPxr6y">
+                                                                        href="/ko-KR/users/VRZv4zNNPxr6y" id="user-info">
                                                 <div class="css-1byz60h">
                                                     <div class="css-co0dyr-ProfilePhotoImage"></div>
                                                 </div>
@@ -4528,23 +4783,17 @@
                                                     <div class="css-a7gqjg">다솜땅</div>
                                                     <div class="css-1hy7aba">5년 전</div>
                                                 </div>
-                                            </a><a title="김광석" class="css-1f9m1s4-StylelessLocalLink eovgsd01"
+                                            </a><a class="css-1f9m1s4-StylelessLocalLink eovgsd01" id="content-info"
                                                    href="/ko-KR/contents/m5eJDJZ">
                                                 <div class="css-0">
                                                     <div class="css-dbu6le">김광석</div>
                                                     <div class="css-1futg35">영화 · 2016</div>
                                                 </div>
                                             </a>
-                                                <div class="css-1edcxeb">
-                                                    <div class="css-1cxhrll"><img
-                                                            src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxwYXRoIGZpbGw9IiM0QTRBNEEiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTEyIDE3Ljk4bC02LjAxNSA0LjM5MmMtLjUwOC4zNzItMS4xOTQtLjEyNi0uOTk4LS43MjVsMi4zMTctNy4wODEtNi4wMzUtNC4zNjdjLS41MS0uMzY5LS4yNDctMS4xNzUuMzgyLTEuMTc0bDcuNDQ3LjAxNiAyLjI4Ni03LjA5MWMuMTkyLS42IDEuMDQtLjYgMS4yMzMgMGwyLjI4NiA3LjA5IDcuNDQ3LS4wMTVjLjYyOS0uMDAxLjg5LjgwNS4zOCAxLjE3NGwtNi4wMzMgNC4zNjcgMi4zMTYgNy4wOGMuMTk2LjYtLjQ5IDEuMDk4LS45OTkuNzI2TDEyIDE3Ljk4eiIvPgo8L3N2Zz4K"
-                                                            width="16px" height="16px" alt="star"><span>4.0</span></div>
-                                                </div>
                                             </div>
-                                            <a title="김광석" class="css-1f9m1s4-StylelessLocalLink eovgsd01"
+                                            <a class="css-1f9m1s4-StylelessLocalLink eovgsd01"
                                                href="/ko-KR/contents/m5eJDJZ">
-                                                <div class=" css-1dl0k9f-StyledLazyLoadingImage ezcopuc0"><img
-                                                        alt="김광석의 포스터"
+                                                <div class="css-1dl0k9f-StyledLazyLoadingImage ezcopuc0"><img
                                                         src="https://an2-img.amz.wtchn.net/image/v2/6Yf62ULB74XlZd0gt7Lm9g.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk1qZ3dlRFF3TUhFNE1DSmRMQ0p3SWpvaUwzWXhMMjEwY0hsaWRYVmxZbVZ4YUcxb2QzWjVNM1J6SW4wLmRBM2xuTDB0Z2FxdTYtOXNGSzNGcjk5SkZWbTJLVzBaNU4tNzNvMkN5UGs"
                                                         class="css-qhzw1o-StyledImg ezcopuc1"></div>
                                             </a></div>
@@ -4555,7 +4804,7 @@
                                         <div class="css-hkgyal">
                                             <div class="css-prw2jl"><span class="css-1n0dvqq">좋아요 30</span><span
                                                     class="css-0">댓글 20</span></div>
-                                            <div class="css-j985f6">
+                                            <div class="css-j985f6" id="not-my-comment">
                                                 <div class="css-4ygot5">
                                                     <div class="Icon more css-1b4hoch-SVG e1282e850">
                                                         <div>
@@ -4572,12 +4821,13 @@
                                                     </div>
                                                     <div class="css-4in6y9">
                                                         <div class="css-ve4kut">
-                                                            <div class="css-19hkid5">스포일러 신고</div>
-                                                            <div class="css-19hkid5">부적절한 표현 신고</div>
+                                                            <div class="css-19hkid5" id="spo-report">스포일러 신고</div>
+                                                            <div class="css-19hkid5 inap-report">부적절한 표현 신고</div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="css-j985f6" id="my-comment"><button class="css-1nfwvb4-StylelessButton"><svg class="css-s99igu" viewBox="0 0 18 18"><g fill-rule="evenodd"><path d="M2.18 15.39l.703-3.98 3.713 3.712-3.981.702a.374.374 0 0 1-.434-.434zm1.498-4.776l6.364-6.364 3.713 3.712-6.364 6.364-3.713-3.712zM15.607 5.04a.75.75 0 0 1 0 1.06l-1.06 1.061-3.713-3.712 1.06-1.06a.75.75 0 0 1 1.06 0l2.653 2.651z"></path></g></svg>수정</button><button class="css-1nfwvb4-StylelessButton"><svg class="css-s99igu" viewBox="0 0 18 18"><g fill-rule="evenodd"><path d="M5.25 14.25h7.5v-7.5h1.5V15a.75.75 0 0 1-.75.75h-9a.75.75 0 0 1-.75-.75V6.75h1.5v7.5zM12 4.5h3.75V6H2.25V4.5H6V3a.75.75 0 0 1 .75-.75h4.5A.75.75 0 0 1 12 3v1.5zm-1.5 0v-.75h-3v.75h3zM6.75 6.75h1.5v6.75h-1.5V6.75zm3 0h1.5v6.75h-1.5V6.75z"></path></g></svg>삭제</button></div>
                                         </div>
                                         <section class="css-0">
                                             <hr class="css-god8tc">
@@ -4638,11 +4888,7 @@
                                             <hr class="css-god8tc">
                                         </section>
                                     </section>
-                                    <section class="css-1r5nwql">
-                                        <div class="css-5hpf69">
-                                            <button class="css-16halel">이전 댓글 보기</button>
-                                            <div class="css-1f20jes">20개 중 18개</div>
-                                        </div>
+                                    <section class="css-1r5nwql" id="recomment-list-none">
                                         <div class="css-0">
                                             <div class="css-1m1whp6">
                                                 <div class="css-ov1ktg"><a class="css-255jr8"
@@ -4653,21 +4899,6 @@
                                                         <div class="css-1sg2lsz"><a class="css-255jr8"
                                                                                     href="/ko-KR/users/WwRqo1nZy5lzB">
                                                             <div class="css-72k174">uNme</div>
-                                                            <div class="Icon playBadge css-13ebre0-SVG e1282e850">
-                                                                <div>
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="12"
-                                                                         height="12" viewBox="0 0 12 12" fill="none"
-                                                                         class="injected-svg"
-                                                                         data-src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iMTIiIHZpZXdCb3g9IjAgMCAxMiAxMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik00Ljc3MDQ2IDAuNTYyNDU5QzUuMjQzMjggLTAuMTU2NDMyIDYuMzExNDcgLTAuMTkzMDcgNi44MzUzNSAwLjQ5MjE1NUM3LjE3MzM3IDAuOTMzNzg4IDcuNzczODUgMS4xMDExMyA4LjMwMTgxIDAuOTAwMTIxQzkuMTE5OCAwLjU4ODIwNSAxMC4wMDYyIDEuMTY3NDggMTAuMDE0NCAyLjAyMTA0QzEwLjAxOTUgMi41Njk2MSAxMC40MDU1IDMuMDQ3ODggMTAuOTUzOSAzLjE4NTUyQzExLjgwNDYgMy4zOTk0MSAxMi4xNzAyIDQuMzc0NzYgMTEuNjYwNiA1LjA2ODlDMTEuMzMxOCA1LjUxNjQ4IDExLjM1MzIgNi4xMjE0OSAxMS43MTM3IDYuNTQ2MjlDMTIuMjcyMyA3LjIwNDc4IDExLjk3NzIgOC4yMDE5MiAxMS4xNDM4IDguNDcyMjVDMTAuNjA2NyA4LjY0NzUyIDEwLjI1NzQgOS4xNTA1NCAxMC4yOTExIDkuNjk5MTJDMTAuMzQ0MiAxMC41NDk3IDkuNTAxNzQgMTEuMTg3NCA4LjY2MzMyIDEwLjkzMTlDOC4xMjIwOCAxMC43Njc2IDcuNTM0ODggMTAuOTc0NSA3LjIyOTU0IDExLjQzNzlDNi43NTY3MiAxMi4xNTY4IDUuNjg3NTEgMTIuMTkyNSA1LjE2NDY1IDExLjUwODJDNC44MjY2MyAxMS4wNjU2IDQuMjI2MTUgMTAuODk4MyAzLjY5ODE5IDExLjEwMDNDMi44ODAyIDExLjQxMjIgMS45OTM3OCAxMC44MzE5IDEuOTg0NTkgOS45ODAzNEMxLjk4MDUxIDkuNDI5NzggMS41OTU1MSA4Ljk1MjUgMS4wNDYxIDguODEzODdDMC4xOTU0MjggOC41OTk5OSAtMC4xNzAxNjYgNy42MjY2MSAwLjMzOTQxOSA2LjkzMjQ3QzAuNjY4MjQ5IDYuNDgzOTEgMC42NDY4MDQgNS44Nzc5IDAuMjg2MzE2IDUuNDUzMUMtMC4yNzIyODcgNC43OTQ2MSAwLjAyMjg0MyAzLjc5OTQ1IDAuODU2MTUyIDMuNTI3MTVDMS4zOTMzMSAzLjM1Mjg3IDEuNzQzNTkgMi44NTA4MyAxLjcwODg2IDIuMzAxMjdDMS42NTU3NiAxLjQ1MDY4IDIuNDk4MjYgMC44MTE5OTIgMy4zMzY2OCAxLjA2ODQ2QzMuODc3OTIgMS4yMzI4MyA0LjQ2NTEyIDEuMDI1ODggNC43NzA0NiAwLjU2MjQ1OVoiIGZpbGw9IiMwRTBGMTAiLz4KPHBhdGggZD0iTTcuNjk3MzMgMi40NDk5NUw3LjI4NjEyIDcuNzkzNjdMNy4xNzc3NCA3Ljc5ODAzTDYuNDUyMjYgMy45Nzk1MUg1LjI2MTIzTDQuNjY1NTggNy44OTEzMkw0LjUzNTc1IDcuODk2NTVMMy45NTA5NiAzLjk3OTUxSDIuNUwzLjgxMDI3IDkuNzE1NThMNS4zMTUyOCA5LjYxNDE1TDUuODQ1NzQgNS45NzE0NUg1Ljk2NDk4TDYuNTYwMzUgOS41Mjk4N0w4LjA3NjUxIDkuNDI2OTlMOS4xMDUxMSAyLjQ0OTk1SDcuNjk3MzNaIiBmaWxsPSIjRkYwNTU4Ii8+Cjwvc3ZnPgo="
-                                                                         xmlns:xlink="http://www.w3.org/1999/xlink">
-                                                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                              d="M4.77046 0.562459C5.24328 -0.156432 6.31147 -0.19307 6.83535 0.492155C7.17337 0.933788 7.77385 1.10113 8.30181 0.900121C9.1198 0.588205 10.0062 1.16748 10.0144 2.02104C10.0195 2.56961 10.4055 3.04788 10.9539 3.18552C11.8046 3.39941 12.1702 4.37476 11.6606 5.0689C11.3318 5.51648 11.3532 6.12149 11.7137 6.54629C12.2723 7.20478 11.9772 8.20192 11.1438 8.47225C10.6067 8.64752 10.2574 9.15054 10.2911 9.69912C10.3442 10.5497 9.50174 11.1874 8.66332 10.9319C8.12208 10.7676 7.53488 10.9745 7.22954 11.4379C6.75672 12.1568 5.68751 12.1925 5.16465 11.5082C4.82663 11.0656 4.22615 10.8983 3.69819 11.1003C2.8802 11.4122 1.99378 10.8319 1.98459 9.98034C1.98051 9.42978 1.59551 8.9525 1.0461 8.81387C0.195428 8.59999 -0.170166 7.62661 0.339419 6.93247C0.668249 6.48391 0.646804 5.8779 0.286316 5.4531C-0.272287 4.79461 0.022843 3.79945 0.856152 3.52715C1.39331 3.35287 1.74359 2.85083 1.70886 2.30127C1.65576 1.45068 2.49826 0.811992 3.33668 1.06846C3.87792 1.23283 4.46512 1.02588 4.77046 0.562459Z"
-                                                                              fill="#0E0F10"></path>
-                                                                        <path d="M7.69733 2.44995L7.28612 7.79367L7.17774 7.79803L6.45226 3.97951H5.26123L4.66558 7.89132L4.53575 7.89655L3.95096 3.97951H2.5L3.81027 9.71558L5.31528 9.61415L5.84574 5.97145H5.96498L6.56035 9.52987L8.07651 9.42699L9.10511 2.44995H7.69733Z"
-                                                                              fill="#FF0558"></path>
-                                                                    </svg>
-                                                                </div>
-                                                            </div>
                                                         </a>
                                                             <div class="css-maxfbg">5년 전</div>
                                                         </div>
@@ -4681,18 +4912,12 @@
                                                                              fill="none" class="injected-svg"
                                                                              data-src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQiIGhlaWdodD0iMTQiIHZpZXdCb3g9IjAgMCAxNCAxNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0zLjkzNzgzIDUuNTMzMkgyLjE4NzgzQzEuODY1ODMgNS41MzMyIDEuNjA0NDkgNS43OTQ1NCAxLjYwNDQ5IDYuMTE2NTRWMTEuOTQ5OUMxLjYwNDQ5IDEyLjI3MTkgMS44NjU4MyAxMi41MzMyIDIuMTg3ODMgMTIuNTMzMkgzLjkzNzgzQzQuMjYwNDEgMTIuNTMzMiA0LjUyMTE2IDEyLjI3MTkgNC41MjExNiAxMS45NDk5VjYuMTE2NTRDNC41MjExNiA1Ljc5NDU0IDQuMjYwNDEgNS41MzMyIDMuOTM3ODMgNS41MzMyWiIgZmlsbD0iIzg3ODk4QiIvPgo8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTguMTk3MzMgMy4wNDE3OUw4LjE5MTQ5IDIuNzk1NjJMOC4xNzgwOCAyLjIwMTc5TDguMTc2OTEgMi4xNjc5NUw4LjE3MzQxIDIuMTM0N0M4LjE2ODE2IDIuMDc4NyA4LjE3NTc0IDIuMDU0MiA4LjE3NDU4IDIuMDUzMDRDOC4xODQ0OSAyLjA0NzIgOC4yMjc2NiAyLjAzMzIgOC4zMTEwOCAyLjAzMzJDOC40ODA4MyAyLjAzMzIgOS4zMjYwOCAyLjA4MzM3IDkuMzI2MDggMy4wNzA5NUM5LjMyNjA4IDMuNDUzNjIgOS4yOTQ1OCAzLjc1MTEyIDkuMjI2OTEgNC4wMDg5NUw4Ljk4NjU4IDQuOTIzMDRDOC45NjI2NiA1LjAxNTc5IDkuMDMyMDggNS4xMDYyIDkuMTI3NzQgNS4xMDYySDEwLjA3MjdIMTEuMDEyNUMxMS4yNDA2IDUuMTA2MiAxMS40NTgyIDUuMjA1OTUgMTEuNjA5OCA1LjM3OTJDMTEuNzU4NiA1LjU1MTI5IDExLjgzMDkgNS43NzkzNyAxMS44MDkzIDYuMDA4MDRMMTAuOTcwNSAxMC4zMzkzTDEwLjk2NDcgMTAuMzY4NUwxMC45NjEyIDEwLjM5NzZDMTAuOTEzMyAxMC43Nzc0IDEwLjU2NzQgMTEuMDc0OSAxMC4xNzM3IDExLjA3NDlINS45Nzk0OVY1LjczOTdDNS45Nzk0OSA1LjUyMzg3IDYuMDk4NDkgNS4yOTQwNCA2LjMzNDE2IDUuMDU2NjJMNy45Mzk0OSAzLjQzMDI5TDguMTA0NTggMy4yNjI4N0M4LjE5NzMzIDMuMTY2NjIgOC4xOTczMyAzLjA0MTc5IDguMTk3MzMgMy4wNDE3OVpNMTIuMjY5NiA0LjgwNTc5QzExLjk1MTcgNC40NDAwNCAxMS40OTMyIDQuMjMxMiAxMS4wMTI1IDQuMjMxMkgxMC4wNzI3QzEwLjE2MiAzLjg5MjI5IDEwLjIwMTEgMy41MjA3IDEwLjIwMTEgMy4wNzA5NUMxMC4yMDExIDEuNzU2NyA5LjIyMTY2IDEuMTU4MiA4LjMxMTA4IDEuMTU4MkM3Ljk2ODA4IDEuMTU4MiA3LjcwMDMzIDEuMjY1NTQgNy41MTU5OSAxLjQ3NzI5QzcuMzk2OTkgMS42MTI2MiA3LjI2NTc0IDEuODUxMiA3LjMwMzA4IDIuMjIxNjJMNy4zMTY0OSAyLjgxNTQ1TDUuNzExMTYgNC40NDE3OUM1LjMwODY2IDQuODQ4OTUgNS4xMDQ0OSA1LjI4NTg3IDUuMTA0NDkgNS43Mzk3VjExLjM2NjVDNS4xMDQ0OSAxMS42ODg1IDUuMzY1ODMgMTEuOTQ5OSA1LjY4NzgzIDExLjk0OTlIMTAuMTczN0MxMS4wMTQyIDExLjk0OTkgMTEuNzI5NCAxMS4zMTIzIDExLjgyOTcgMTAuNTA1NUwxMi42NzUgNi4xNDA0NUMxMi43MzUxIDUuNjU2ODcgMTIuNTg2OSA1LjE3MDk1IDEyLjI2OTYgNC44MDU3OVoiIGZpbGw9IiM4Nzg5OEIiLz4KPC9zdmc+Cg=="
                                                                              xmlns:xlink="http://www.w3.org/1999/xlink">
-                                                                            <path fill-rule="evenodd"
-                                                                                  clip-rule="evenodd"
-                                                                                  d="M3.93783 5.5332H2.18783C1.86583 5.5332 1.60449 5.79454 1.60449 6.11654V11.9499C1.60449 12.2719 1.86583 12.5332 2.18783 12.5332H3.93783C4.26041 12.5332 4.52116 12.2719 4.52116 11.9499V6.11654C4.52116 5.79454 4.26041 5.5332 3.93783 5.5332Z"
-                                                                                  fill="#87898B"></path>
-                                                                            <path fill-rule="evenodd"
-                                                                                  clip-rule="evenodd"
-                                                                                  d="M8.19733 3.04179L8.19149 2.79562L8.17808 2.20179L8.17691 2.16795L8.17341 2.1347C8.16816 2.0787 8.17574 2.0542 8.17458 2.05304C8.18449 2.0472 8.22766 2.0332 8.31108 2.0332C8.48083 2.0332 9.32608 2.08337 9.32608 3.07095C9.32608 3.45362 9.29458 3.75112 9.22691 4.00895L8.98658 4.92304C8.96266 5.01579 9.03208 5.1062 9.12774 5.1062H10.0727H11.0125C11.2406 5.1062 11.4582 5.20595 11.6098 5.3792C11.7586 5.55129 11.8309 5.77937 11.8093 6.00804L10.9705 10.3393L10.9647 10.3685L10.9612 10.3976C10.9133 10.7774 10.5674 11.0749 10.1737 11.0749H5.97949V5.7397C5.97949 5.52387 6.09849 5.29404 6.33416 5.05662L7.93949 3.43029L8.10458 3.26287C8.19733 3.16662 8.19733 3.04179 8.19733 3.04179ZM12.2696 4.80579C11.9517 4.44004 11.4932 4.2312 11.0125 4.2312H10.0727C10.162 3.89229 10.2011 3.5207 10.2011 3.07095C10.2011 1.7567 9.22166 1.1582 8.31108 1.1582C7.96808 1.1582 7.70033 1.26554 7.51599 1.47729C7.39699 1.61262 7.26574 1.8512 7.30308 2.22162L7.31649 2.81545L5.71116 4.44179C5.30866 4.84895 5.10449 5.28587 5.10449 5.7397V11.3665C5.10449 11.6885 5.36583 11.9499 5.68783 11.9499H10.1737C11.0142 11.9499 11.7294 11.3123 11.8297 10.5055L12.675 6.14045C12.7351 5.65687 12.5869 5.17095 12.2696 4.80579Z"
-                                                                                  fill="#87898B"></path>
+                                                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M3.93783 5.5332H2.18783C1.86583 5.5332 1.60449 5.79454 1.60449 6.11654V11.9499C1.60449 12.2719 1.86583 12.5332 2.18783 12.5332H3.93783C4.26041 12.5332 4.52116 12.2719 4.52116 11.9499V6.11654C4.52116 5.79454 4.26041 5.5332 3.93783 5.5332Z" fill="#87898B"></path>
+                                                                            <path id="last-path" fill-rule="evenodd" clip-rule="evenodd" d="M8.19733 3.04179L8.19149 2.79562L8.17808 2.20179L8.17691 2.16795L8.17341 2.1347C8.16816 2.0787 8.17574 2.0542 8.17458 2.05304C8.18449 2.0472 8.22766 2.0332 8.31108 2.0332C8.48083 2.0332 9.32608 2.08337 9.32608 3.07095C9.32608 3.45362 9.29458 3.75112 9.22691 4.00895L8.98658 4.92304C8.96266 5.01579 9.03208 5.1062 9.12774 5.1062H10.0727H11.0125C11.2406 5.1062 11.4582 5.20595 11.6098 5.3792C11.7586 5.55129 11.8309 5.77937 11.8093 6.00804L10.9705 10.3393L10.9647 10.3685L10.9612 10.3976C10.9133 10.7774 10.5674 11.0749 10.1737 11.0749H5.97949V5.7397C5.97949 5.52387 6.09849 5.29404 6.33416 5.05662L7.93949 3.43029L8.10458 3.26287C8.19733 3.16662 8.19733 3.04179 8.19733 3.04179ZM12.2696 4.80579C11.9517 4.44004 11.4932 4.2312 11.0125 4.2312H10.0727C10.162 3.89229 10.2011 3.5207 10.2011 3.07095C10.2011 1.7567 9.22166 1.1582 8.31108 1.1582C7.96808 1.1582 7.70033 1.26554 7.51599 1.47729C7.39699 1.61262 7.26574 1.8512 7.30308 2.22162L7.31649 2.81545L5.71116 4.44179C5.30866 4.84895 5.10449 5.28587 5.10449 5.7397V11.3665C5.10449 11.6885 5.36583 11.9499 5.68783 11.9499H10.1737C11.0142 11.9499 11.7294 11.3123 11.8297 10.5055L12.675 6.14045C12.7351 5.65687 12.5869 5.17095 12.2696 4.80579Z" fill="#87898B"></path>
                                                                         </svg>
                                                                     </div>
                                                                 </div>
-                                                                0
+                                                                <h4 class="like-sum">0</h4>
                                                             </div>
                                                             <div class="css-4ygot5">
                                                                 <div class="Icon more css-1b4hoch-SVG e1282e850">
@@ -4711,8 +4936,73 @@
                                                                 </div>
                                                                 <div class="css-aa3xw">
                                                                     <div class="css-6btlr7">
-                                                                        <div class="css-ve4kut">
+                                                                        <div class="css-ve4kut recomment-edit">
+                                                                            <div class="css-19hkid5">댓글 수정</div>
+                                                                            <div class="css-19hkid5">댓글 삭제</div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                    <section class="css-1r5nwql" id="recomment-list">
+                                        <div class="css-0">
+                                            <div class="css-1m1whp6">
+                                                <div class="css-ov1ktg"><a class="css-255jr8"
+                                                                           href="/ko-KR/users/WwRqo1nZy5lzB">
+                                                    <div class="css-293y94"></div>
+                                                </a>
+                                                    <div class="css-199ku80">
+                                                        <div class="css-1sg2lsz"><a class="css-255jr8"
+                                                                                    href="/ko-KR/users/WwRqo1nZy5lzB">
+                                                            <div class="css-72k174">uNme</div>
+                                                        </a>
+                                                            <div class="css-maxfbg">5년 전</div>
+                                                        </div>
+                                                        <div class="css-yb0jaq">그르게요...그게참답답함</div>
+                                                        <div class="css-ov1ktg">
+                                                            <div class="css-1d8juai">
+                                                                <div class="Icon like css-1tuvmpc-SVG e1282e850">
+                                                                    <div>
+                                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                                             width="14" height="14" viewBox="0 0 14 14"
+                                                                             fill="none" class="injected-svg"
+                                                                             data-src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQiIGhlaWdodD0iMTQiIHZpZXdCb3g9IjAgMCAxNCAxNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0zLjkzNzgzIDUuNTMzMkgyLjE4NzgzQzEuODY1ODMgNS41MzMyIDEuNjA0NDkgNS43OTQ1NCAxLjYwNDQ5IDYuMTE2NTRWMTEuOTQ5OUMxLjYwNDQ5IDEyLjI3MTkgMS44NjU4MyAxMi41MzMyIDIuMTg3ODMgMTIuNTMzMkgzLjkzNzgzQzQuMjYwNDEgMTIuNTMzMiA0LjUyMTE2IDEyLjI3MTkgNC41MjExNiAxMS45NDk5VjYuMTE2NTRDNC41MjExNiA1Ljc5NDU0IDQuMjYwNDEgNS41MzMyIDMuOTM3ODMgNS41MzMyWiIgZmlsbD0iIzg3ODk4QiIvPgo8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTguMTk3MzMgMy4wNDE3OUw4LjE5MTQ5IDIuNzk1NjJMOC4xNzgwOCAyLjIwMTc5TDguMTc2OTEgMi4xNjc5NUw4LjE3MzQxIDIuMTM0N0M4LjE2ODE2IDIuMDc4NyA4LjE3NTc0IDIuMDU0MiA4LjE3NDU4IDIuMDUzMDRDOC4xODQ0OSAyLjA0NzIgOC4yMjc2NiAyLjAzMzIgOC4zMTEwOCAyLjAzMzJDOC40ODA4MyAyLjAzMzIgOS4zMjYwOCAyLjA4MzM3IDkuMzI2MDggMy4wNzA5NUM5LjMyNjA4IDMuNDUzNjIgOS4yOTQ1OCAzLjc1MTEyIDkuMjI2OTEgNC4wMDg5NUw4Ljk4NjU4IDQuOTIzMDRDOC45NjI2NiA1LjAxNTc5IDkuMDMyMDggNS4xMDYyIDkuMTI3NzQgNS4xMDYySDEwLjA3MjdIMTEuMDEyNUMxMS4yNDA2IDUuMTA2MiAxMS40NTgyIDUuMjA1OTUgMTEuNjA5OCA1LjM3OTJDMTEuNzU4NiA1LjU1MTI5IDExLjgzMDkgNS43NzkzNyAxMS44MDkzIDYuMDA4MDRMMTAuOTcwNSAxMC4zMzkzTDEwLjk2NDcgMTAuMzY4NUwxMC45NjEyIDEwLjM5NzZDMTAuOTEzMyAxMC43Nzc0IDEwLjU2NzQgMTEuMDc0OSAxMC4xNzM3IDExLjA3NDlINS45Nzk0OVY1LjczOTdDNS45Nzk0OSA1LjUyMzg3IDYuMDk4NDkgNS4yOTQwNCA2LjMzNDE2IDUuMDU2NjJMNy45Mzk0OSAzLjQzMDI5TDguMTA0NTggMy4yNjI4N0M4LjE5NzMzIDMuMTY2NjIgOC4xOTczMyAzLjA0MTc5IDguMTk3MzMgMy4wNDE3OVpNMTIuMjY5NiA0LjgwNTc5QzExLjk1MTcgNC40NDAwNCAxMS40OTMyIDQuMjMxMiAxMS4wMTI1IDQuMjMxMkgxMC4wNzI3QzEwLjE2MiAzLjg5MjI5IDEwLjIwMTEgMy41MjA3IDEwLjIwMTEgMy4wNzA5NUMxMC4yMDExIDEuNzU2NyA5LjIyMTY2IDEuMTU4MiA4LjMxMTA4IDEuMTU4MkM3Ljk2ODA4IDEuMTU4MiA3LjcwMDMzIDEuMjY1NTQgNy41MTU5OSAxLjQ3NzI5QzcuMzk2OTkgMS42MTI2MiA3LjI2NTc0IDEuODUxMiA3LjMwMzA4IDIuMjIxNjJMNy4zMTY0OSAyLjgxNTQ1TDUuNzExMTYgNC40NDE3OUM1LjMwODY2IDQuODQ4OTUgNS4xMDQ0OSA1LjI4NTg3IDUuMTA0NDkgNS43Mzk3VjExLjM2NjVDNS4xMDQ0OSAxMS42ODg1IDUuMzY1ODMgMTEuOTQ5OSA1LjY4NzgzIDExLjk0OTlIMTAuMTczN0MxMS4wMTQyIDExLjk0OTkgMTEuNzI5NCAxMS4zMTIzIDExLjgyOTcgMTAuNTA1NUwxMi42NzUgNi4xNDA0NUMxMi43MzUxIDUuNjU2ODcgMTIuNTg2OSA1LjE3MDk1IDEyLjI2OTYgNC44MDU3OVoiIGZpbGw9IiM4Nzg5OEIiLz4KPC9zdmc+Cg=="
+                                                                             xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M3.93783 5.5332H2.18783C1.86583 5.5332 1.60449 5.79454 1.60449 6.11654V11.9499C1.60449 12.2719 1.86583 12.5332 2.18783 12.5332H3.93783C4.26041 12.5332 4.52116 12.2719 4.52116 11.9499V6.11654C4.52116 5.79454 4.26041 5.5332 3.93783 5.5332Z" fill="#87898B"></path>
+                                                                            <path id="last-path" fill-rule="evenodd" clip-rule="evenodd" d="M8.19733 3.04179L8.19149 2.79562L8.17808 2.20179L8.17691 2.16795L8.17341 2.1347C8.16816 2.0787 8.17574 2.0542 8.17458 2.05304C8.18449 2.0472 8.22766 2.0332 8.31108 2.0332C8.48083 2.0332 9.32608 2.08337 9.32608 3.07095C9.32608 3.45362 9.29458 3.75112 9.22691 4.00895L8.98658 4.92304C8.96266 5.01579 9.03208 5.1062 9.12774 5.1062H10.0727H11.0125C11.2406 5.1062 11.4582 5.20595 11.6098 5.3792C11.7586 5.55129 11.8309 5.77937 11.8093 6.00804L10.9705 10.3393L10.9647 10.3685L10.9612 10.3976C10.9133 10.7774 10.5674 11.0749 10.1737 11.0749H5.97949V5.7397C5.97949 5.52387 6.09849 5.29404 6.33416 5.05662L7.93949 3.43029L8.10458 3.26287C8.19733 3.16662 8.19733 3.04179 8.19733 3.04179ZM12.2696 4.80579C11.9517 4.44004 11.4932 4.2312 11.0125 4.2312H10.0727C10.162 3.89229 10.2011 3.5207 10.2011 3.07095C10.2011 1.7567 9.22166 1.1582 8.31108 1.1582C7.96808 1.1582 7.70033 1.26554 7.51599 1.47729C7.39699 1.61262 7.26574 1.8512 7.30308 2.22162L7.31649 2.81545L5.71116 4.44179C5.30866 4.84895 5.10449 5.28587 5.10449 5.7397V11.3665C5.10449 11.6885 5.36583 11.9499 5.68783 11.9499H10.1737C11.0142 11.9499 11.7294 11.3123 11.8297 10.5055L12.675 6.14045C12.7351 5.65687 12.5869 5.17095 12.2696 4.80579Z" fill="#87898B"></path>
+                                                                        </svg>
+                                                                    </div>
+                                                                </div>
+                                                                <h4 class="like-sum">0</h4>
+                                                            </div>
+                                                            <div class="css-4ygot5">
+                                                                <div class="Icon more css-1b4hoch-SVG e1282e850">
+                                                                    <div>
+                                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                                             width="20" height="20" viewBox="0 0 20 20"
+                                                                             fill="none" class="injected-svg"
+                                                                             data-src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAyMCAyMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xMS4yNTEgNS40MjY3NkMxMS4yNTEgNi4xMTc1OSAxMC42OTEgNi42NzY3NiAxMC4wMDEgNi42NzY3NkM5LjMxMDE0IDYuNjc2NzYgOC43NTA5OCA2LjExNzU5IDguNzUwOTggNS40MjY3NkM4Ljc1MDk4IDQuNzM2NzYgOS4zMTAxNCA0LjE3Njc2IDEwLjAwMSA0LjE3Njc2QzEwLjY5MSA0LjE3Njc2IDExLjI1MSA0LjczNjc2IDExLjI1MSA1LjQyNjc2Wk0xMC4wMDEgOC43NDk5M0M5LjMxMDE0IDguNzQ5OTMgOC43NTA5OCA5LjMwOTkzIDguNzUwOTggOS45OTk5M0M4Ljc1MDk4IDEwLjY5MDggOS4zMTAxNCAxMS4yNDk5IDEwLjAwMSAxMS4yNDk5QzEwLjY5MSAxMS4yNDk5IDExLjI1MSAxMC42OTA4IDExLjI1MSA5Ljk5OTkzQzExLjI1MSA5LjMwOTkzIDEwLjY5MSA4Ljc0OTkzIDEwLjAwMSA4Ljc0OTkzWk0xMC4wMDEgMTMuMzIzMUM5LjMxMDE0IDEzLjMyMzEgOC43NTA5OCAxMy44ODIzIDguNzUwOTggMTQuNTczMUM4Ljc1MDk4IDE1LjI2MzkgOS4zMTAxNCAxNS44MjMxIDEwLjAwMSAxNS44MjMxQzEwLjY5MSAxNS44MjMxIDExLjI1MSAxNS4yNjM5IDExLjI1MSAxNC41NzMxQzExLjI1MSAxMy44ODIzIDEwLjY5MSAxMy4zMjMxIDEwLjAwMSAxMy4zMjMxWiIgZmlsbD0iI0EwQTBBMCIvPgo8L3N2Zz4K"
+                                                                             xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                                            <path fill-rule="evenodd"
+                                                                                  clip-rule="evenodd"
+                                                                                  d="M11.251 5.42676C11.251 6.11759 10.691 6.67676 10.001 6.67676C9.31014 6.67676 8.75098 6.11759 8.75098 5.42676C8.75098 4.73676 9.31014 4.17676 10.001 4.17676C10.691 4.17676 11.251 4.73676 11.251 5.42676ZM10.001 8.74993C9.31014 8.74993 8.75098 9.30993 8.75098 9.99993C8.75098 10.6908 9.31014 11.2499 10.001 11.2499C10.691 11.2499 11.251 10.6908 11.251 9.99993C11.251 9.30993 10.691 8.74993 10.001 8.74993ZM10.001 13.3231C9.31014 13.3231 8.75098 13.8823 8.75098 14.5731C8.75098 15.2639 9.31014 15.8231 10.001 15.8231C10.691 15.8231 11.251 15.2639 11.251 14.5731C11.251 13.8823 10.691 13.3231 10.001 13.3231Z"
+                                                                                  fill="#A0A0A0"></path>
+                                                                        </svg>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="css-aa3xw">
+                                                                    <div class="css-6btlr7">
+                                                                        <div class="css-ve4kut recomment">
                                                                             <div class="css-19hkid5">부적절한 표현 신고</div>
+                                                                        </div>
+                                                                        <div class="css-ve4kut recomment-edit">
+                                                                            <div class="css-19hkid5">댓글 수정</div>
+                                                                            <div class="css-19hkid5">댓글 삭제</div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -6070,7 +6360,7 @@
             </footer>
         </div>
         <div class="css-14gy7wr off">
-            <div id="modal-container-vMpn-C5LFj66HnQjaWi2-" class="css-rpyl6s off"><div class="css-1p257d1-modalAddStyle"><header title="" class="css-166ww79-HeaderBarPrimitive-headerAddStyle"><div class="css-19pxr9t"><button aria-label="close" class="css-1d7tft4-StylelessButton-HeaderCloseButtonSelf e1k34u8y0"></button></div><em class="css-10mjbgt">댓글</em><div class="css-19pxr9t"><button class="css-1lvet1d-StylelessButton"></button><button class="css-r2q33l-StylelessButton">저장</button></div></header><div class="css-1iv0iqc"><div height="100%" class="css-2zu8pq"><div class="css-cdzmq7"><div class="css-iowq1w"><div class="css-iowq1w"><textarea maxlength="10000" placeholder="이 시맨틱 에러: 더 무비에 대한 생각을 자유롭게 표현해주세요." class="css-1k5ei58"></textarea><div class="css-238o9r"></div></div></div></div></div></div><div class="css-183vuuo"><div class="css-a2jbfo"><div class="css-6qnjre"></div><div class="css-6qnjre"><p class="css-1s08rlk"></p><p class="css-ynpx67">0/10000</p><button class="css-1ukikc-StylelessButton" disabled="">저장</button></div></div></div></div></div>
+            <div id="modal-container-vMpn-C5LFj66HnQjaWi2-" class="css-rpyl6s off"><div class="css-1p257d1-modalAddStyle"><header title="" class="css-166ww79-HeaderBarPrimitive-headerAddStyle"><div class="css-19pxr9t"><button aria-label="close" class="css-1d7tft4-StylelessButton-HeaderCloseButtonSelf e1k34u8y0"></button></div><em class="css-10mjbgt">댓글</em><div class="css-19pxr9t"><button class="css-1lvet1d-StylelessButton"></button><button class="css-r2q33l-StylelessButton">저장</button></div></header><div class="css-1iv0iqc"><div height="100%" class="css-2zu8pq"><div class="css-cdzmq7"><div class="css-iowq1w"><div class="css-iowq1w"><textarea maxlength="10000" th:placeholder="'이 '+${content.title}+'에 대한 생각을 자유롭게 표현해주세요.'" class="css-1k5ei58"></textarea><div class="css-238o9r"></div></div></div></div></div></div><div class="css-183vuuo"><div class="css-a2jbfo"><div class="css-6qnjre"></div><div class="css-6qnjre"><p class="css-1s08rlk"></p><p class="css-ynpx67">0/10000</p><button class="css-1ukikc-StylelessButton">저장</button></div></div></div></div></div>
             <div id="modal-container-H61eIpFx69hqMeWOpdZqm" class="css-rpyl6s off"><div class="css-7uunky"><div class="css-1gkas1x-Grid e1689zdh0"><div class="css-1y901al-Row emmoxnt0"><div class="css-7mldxr"><div class="css-59100q"><div class="css-25twrm"><div class="css-5kofsl">코멘트</div></div></div><div aria-label="mehed" role="button" class="css-bgi4sk"><span class="css-15cjkcr">스포일러 신고</span></div><div aria-label="mehed" role="button" class="css-bgi4sk"><span class="css-15cjkcr">부적절한 표현 신고</span></div><div aria-label="cancel" role="button" class="css-9du7fu">취소</div></div></div></div></div></div>
             <div id="modal-container-GufKFTLHr9vMoaPtJBz7-" class="css-rpyl6s off"><div class="css-7uunky"><div class="css-1gkas1x-Grid e1689zdh0"><div class="css-1y901al-Row emmoxnt0"><div class="css-7mldxr"><div class="css-59100q"><div class="css-25twrm"><div class="css-5kofsl">공유</div></div></div><a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fpedia.watcha.com%2Fko-KR%2Fcomments%2F6GWQ14me7NMJ5&amp;browser_open_type=external" target="_blank" class="css-1cqdd33-StylelessHref"><div aria-label="share-fb" role="button" class="css-13scrzd"><div class="Icon facebook css-14ft4mj-SVG e1282e850" color="#292a32"><div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" class="injected-svg" data-src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0yMS41IDEyLjA1ODFDMjEuNSA2Ljc3OTMgMTcuMjQ2NyAyLjUgMTIgMi41QzYuNzUzMjkgMi41IDIuNSA2Ljc3OTMgMi41IDEyLjA1ODFDMi41IDE2LjgyODggNS45NzQwMSAyMC43ODMgMTAuNTE1NiAyMS41VjE0LjgyMUg4LjEwMzUyVjEyLjA1ODFIMTAuNTE1NlY5Ljk1MjMyQzEwLjUxNTYgNy41NTY4MiAxMS45MzM5IDYuMjMzNjMgMTQuMTAzOSA2LjIzMzYzQzE1LjE0MzMgNi4yMzM2MyAxNi4yMzA1IDYuNDIwMzEgMTYuMjMwNSA2LjQyMDMxVjguNzcyNDlIMTUuMDMyNUMxMy44NTI0IDguNzcyNDkgMTMuNDg0NCA5LjUwOTI3IDEzLjQ4NDQgMTAuMjY1MVYxMi4wNTgxSDE2LjExOTFMMTUuNjk3OSAxNC44MjFIMTMuNDg0NFYyMS41QzE4LjAyNiAyMC43ODMgMjEuNSAxNi44Mjg4IDIxLjUgMTIuMDU4MVoiIGZpbGw9ImN1cnJlbnRDb2xvciIvPgo8L3N2Zz4K" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M21.5 12.0581C21.5 6.7793 17.2467 2.5 12 2.5C6.75329 2.5 2.5 6.7793 2.5 12.0581C2.5 16.8288 5.97401 20.783 10.5156 21.5V14.821H8.10352V12.0581H10.5156V9.95232C10.5156 7.55682 11.9339 6.23363 14.1039 6.23363C15.1433 6.23363 16.2305 6.42031 16.2305 6.42031V8.77249H15.0325C13.8524 8.77249 13.4844 9.50927 13.4844 10.2651V12.0581H16.1191L15.6979 14.821H13.4844V21.5C18.026 20.783 21.5 16.8288 21.5 12.0581Z" fill="currentColor"></path>
@@ -6082,6 +6372,75 @@
                 <path d="M3.9 12C3.9 10.29 5.29 8.9 7 8.9H11V7H7C4.24 7 2 9.24 2 12C2 14.76 4.24 17 7 17H11V15.1H7C5.29 15.1 3.9 13.71 3.9 12ZM8 13H16V11H8V13ZM17 7H13V8.9H17C18.71 8.9 20.1 10.29 20.1 12C20.1 13.71 18.71 15.1 17 15.1H13V17H17C19.76 17 22 14.76 22 12C22 9.24 19.76 7 17 7Z" fill="currentColor"></path>
             </svg></div></div><span>링크 복사</span></div><textarea readonly="" class="css-1hxlv9b">https://pedia.watcha.com/ko-KR/comments/6GWQ14me7NMJ5</textarea>
                 <div aria-label="cancel" role="button" class="css-1blo7j2">취소</div></div></div></div></div></div>
+
+            <div id="modal-container-DYnNa1emBjQOtRbrvTqJx" class="css-rpyl6s off"><div class="css-7uunky"><div class="css-1gkas1x-Grid e1689zdh0"><div class="css-1y901al-Row emmoxnt0"><div class="css-7mldxr"><div class="css-59100q"><div class="css-25twrm"><div class="css-5kofsl">댓글</div></div></div><div aria-label="delete" role="button" class="css-bgi4sk"><span class="css-15cjkcr">댓글 수정</span><div class="Icon icPencil css-1wgkeqm-SVG e1282e850" color="#787878"><div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" class="injected-svg" data-src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTMgMTcuMjUyNVYyMS4wMDI1SDYuNzVMMTcuODEgOS45NDI1TDE0LjA2IDYuMTkyNUwzIDE3LjI1MjVaTTIwLjcxIDcuMDQyNUMyMS4xIDYuNjUyNSAyMS4xIDYuMDIyNSAyMC43MSA1LjYzMjVMMTguMzcgMy4yOTI1QzE3Ljk4IDIuOTAyNSAxNy4zNSAyLjkwMjUgMTYuOTYgMy4yOTI1TDE1LjEzIDUuMTIyNUwxOC44OCA4Ljg3MjVMMjAuNzEgNy4wNDI1WiIgZmlsbD0iY3VycmVudENvbG9yIi8+Cjwvc3ZnPgo=" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <path d="M3 17.2525V21.0025H6.75L17.81 9.9425L14.06 6.1925L3 17.2525ZM20.71 7.0425C21.1 6.6525 21.1 6.0225 20.71 5.6325L18.37 3.2925C17.98 2.9025 17.35 2.9025 16.96 3.2925L15.13 5.1225L18.88 8.8725L20.71 7.0425Z" fill="currentColor"></path>
+            </svg></div></div></div><div aria-label="delete" role="button" class="css-bgi4sk"><span class="css-15cjkcr">댓글 삭제</span><div class="Icon icTrash css-1wgkeqm-SVG e1282e850" color="#787878"><div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" class="injected-svg" data-src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTYgMTkuNzVDNiAyMC44NSA2LjkgMjEuNzUgOCAyMS43NUgxNkMxNy4xIDIxLjc1IDE4IDIwLjg1IDE4IDE5Ljc1VjcuNzVINlYxOS43NVoiIGZpbGw9ImN1cnJlbnRDb2xvciIvPgo8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTE1LjAwMTIgNS43NDZDMTQuNTg4MiA1Ljc0NiAxNC4yNTMyIDUuNDExIDE0LjI1MzIgNC45OThWMy43NDZIOS43NDkxN1Y0Ljk5OEM5Ljc0OTE3IDUuNDExIDkuNDE0MTcgNS43NDYgOS4wMDExNyA1Ljc0NkM4LjU4ODE3IDUuNzQ2IDguMjUzMTcgNS40MTEgOC4yNTMxNyA0Ljk5OFYyLjk5OEM4LjI1MzE3IDIuNTg1IDguNTg4MTcgMi4yNSA5LjAwMTE3IDIuMjVIMTUuMDAxMkMxNS40MTQyIDIuMjUgMTUuNzQ5MiAyLjU4NSAxNS43NDkyIDIuOTk4VjQuOTk4QzE1Ljc0OTIgNS40MTEgMTUuNDE0MiA1Ljc0NiAxNS4wMDEyIDUuNzQ2WiIgZmlsbD0iY3VycmVudENvbG9yIi8+CjxyZWN0IHg9IjUiIHk9IjQuNzUiIHdpZHRoPSIxNCIgaGVpZ2h0PSIyIiBmaWxsPSJjdXJyZW50Q29sb3IiLz4KPC9zdmc+Cg==" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <path d="M6 19.75C6 20.85 6.9 21.75 8 21.75H16C17.1 21.75 18 20.85 18 19.75V7.75H6V19.75Z" fill="currentColor"></path>
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M15.0012 5.746C14.5882 5.746 14.2532 5.411 14.2532 4.998V3.746H9.74917V4.998C9.74917 5.411 9.41417 5.746 9.00117 5.746C8.58817 5.746 8.25317 5.411 8.25317 4.998V2.998C8.25317 2.585 8.58817 2.25 9.00117 2.25H15.0012C15.4142 2.25 15.7492 2.585 15.7492 2.998V4.998C15.7492 5.411 15.4142 5.746 15.0012 5.746Z" fill="currentColor"></path>
+                <rect x="5" y="4.75" width="14" height="2" fill="currentColor"></rect>
+            </svg></div></div></div><div aria-label="cancel" role="button" class="css-9du7fu">취소</div></div></div></div></div></div>
+            <div id="modal-container-ZKA3fsBv_SvHd4nI5EFZq" class="css-rpyl6s off"><div class="css-1yszxv0"><div class="css-f35o9y"><div class="css-1gkas1x-Grid e1689zdh0"><div class="css-1y901al-Row emmoxnt0"><div class="css-2djw8f">알림</div><div class="css-148qwic">댓글을 삭제하시겠어요?</div><div size="2" class="css-gy4ioq"><button class="css-1gdw77k-StylelessButton">취소</button><button class="css-sfhtz9-StylelessButton">확인</button></div></div></div></div></div></div>
+
+            <div id="modal-container-1arSh67x8qkwczaPieVAx" class="css-rpyl6s off"><div class="css-1yszxv0"><div class="css-f35o9y"><div class="css-1gkas1x-Grid e1689zdh0"><div class="css-1y901al-Row emmoxnt0"><div class="css-2djw8f">알림</div><div class="css-148qwic">스포일러로 신고하시겠어요?</div><div size="2" class="css-gy4ioq"><button class="css-1gdw77k-StylelessButton">취소</button><button class="css-sfhtz9-StylelessButton">확인</button></div></div></div></div></div></div>
+
+            <div id="modal-container-6TxBWpCAEPqm20UjsJdDQ" class="css-rpyl6s off"><div class="css-1yszxv0"><div class="css-f35o9y"><div class="css-1gkas1x-Grid e1689zdh0"><div class="css-1y901al-Row emmoxnt0"><div class="css-2djw8f">알림</div><div class="css-148qwic">부적절 표현으로 신고하시겠어요?</div><div size="2" class="css-gy4ioq"><button class="css-1gdw77k-StylelessButton">취소</button><button class="css-sfhtz9-StylelessButton">확인</button></div></div></div></div></div></div>
+
+            <div id="modal-container-fZgqMYLrh3NKQOcVpt4wk" class="css-rpyl6s off"><div class="css-1yszxv0"><div class="css-f35o9y"><div class="css-1gkas1x-Grid e1689zdh0"><div class="css-1y901al-Row emmoxnt0"><div class="css-2djw8f">알림</div><div class="css-148qwic">부적절한 표현으로 신고하시겠어요?</div><div size="2" class="css-gy4ioq"><button class="css-1gdw77k-StylelessButton">취소</button><button class="css-sfhtz9-StylelessButton">확인</button></div></div></div></div></div></div>
+
+            <div id="modal-container-yjYuIgAkMjkq6O8ZPy5vn" class="css-rpyl6s off"><div class="css-1yszxv0"><div class="css-f35o9y"><div class="css-1gkas1x-Grid e1689zdh0"><div class="css-1y901al-Row emmoxnt0"><div class="css-2djw8f">알림</div><div class="css-148qwic">댓글을 삭제하시겠어요?</div><div size="2" class="css-gy4ioq"><button class="css-1gdw77k-StylelessButton">취소</button><button class="css-sfhtz9-StylelessButton">확인</button></div></div></div></div></div></div>
+
+            <div id="modal-container-xaZdPxT85D_xylVtxcown" class="css-rpyl6s off">
+                <div class="css-1p257d1-modalAddStyle">
+                    <header title="" class="css-166ww79-HeaderBarPrimitive-headerAddStyle">
+                        <div class="css-19pxr9t"><button aria-label="close" class="css-1d7tft4-StylelessButton-HeaderCloseButtonSelf e1k34u8y0"></button></div>
+                        <em class="css-10mjbgt" th:text="${content.title}">그녀</em>
+                        <div class="css-19pxr9t">
+                            <button class="css-1lvet1d-StylelessButton"></button>
+                            <button class="css-r2q33l-StylelessButton">저장</button>
+                        </div>
+                    </header>
+                    <div class="css-1iv0iqc">
+                        <div height="100%" class="css-2zu8pq">
+                            <div class="css-cdzmq7">
+                                <div class="css-iowq1w">
+                                    <div class="css-iowq1w"><textarea maxlength="10000" placeholder="이 작품에 대한 생각을 자유롭게 표현해주세요." class="css-137vxyg"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="css-183vuuo">
+                        <div class="css-a2jbfo">
+                            <div class="css-6qnjre">
+                                <div class="css-5d0dfn">
+                                    <div data-type="spoiler" class="css-hyoixq">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" th:class="${comment.spoiler} == true ? 'css-1ngtlfw': 'css-7zhfhb'">
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M11.9998 1.89462C6.41882 1.89462 1.89453 6.41891 1.89453 11.9999C1.89453 17.5809 6.41882 22.1052 11.9998 22.1052C17.5808 22.1052 22.1051 17.5809 22.1051 11.9999C22.1051 6.41891 17.5808 1.89462 11.9998 1.89462ZM7.78928 11.4662C8.02183 11.0634 8.53685 10.9254 8.93962 11.158L12.0061 12.9284L15.0612 11.1645C15.464 10.932 15.979 11.07 16.2116 11.4728C16.4441 11.8755 16.3061 12.3906 15.9034 12.6231L13.6903 13.9008L15.8678 15.158C16.2706 15.3905 16.4086 15.9055 16.1761 16.3083C15.9435 16.7111 15.4285 16.8491 15.0257 16.6165L12.0061 14.8732L8.97515 16.6231C8.57237 16.8556 8.05735 16.7176 7.82481 16.3149C7.59227 15.9121 7.73027 15.3971 8.13304 15.1645L10.3219 13.9008L8.09752 12.6165C7.69474 12.384 7.55674 11.869 7.78928 11.4662ZM7.9998 8.21074C7.9998 7.74566 8.37682 7.36864 8.8419 7.36864H9.05243C9.51751 7.36864 9.89454 7.74566 9.89454 8.21074V8.84232C9.89454 9.3074 9.51751 9.68443 9.05243 9.68443H8.8419C8.37682 9.68443 7.9998 9.3074 7.9998 8.84232V8.21074ZM14.9472 7.36864C14.4821 7.36864 14.1051 7.74566 14.1051 8.21074V8.84232C14.1051 9.3074 14.4821 9.68443 14.9472 9.68443H15.1577C15.6228 9.68443 15.9998 9.3074 15.9998 8.84232V8.21074C15.9998 7.74566 15.6228 7.36864 15.1577 7.36864H14.9472Z" fill="#C4C4C4"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="css-6qnjre"><p class="css-1s08rlk"></p>
+                                <p class="css-ynpx67" th:text="${comment.text.length} + '/10000'">6/10000</p>
+                                <button class="css-3ocf2p-StylelessButton">수정</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="modal-container-TEW7x8Ed2FRpVPPru5mqs" class="css-rpyl6s off"><div class="css-7uunky"><div class="css-1gkas1x-Grid e1689zdh0"><div class="css-1y901al-Row emmoxnt0"><div class="css-7mldxr"><div class="css-59100q"><div class="css-25twrm"><div class="css-5kofsl">코멘트</div></div></div><div aria-label="mehed" role="button" class="css-bgi4sk"><span class="css-15cjkcr">코멘트 수정</span><div class="Icon icPencil css-1wgkeqm-SVG e1282e850" color="#787878"><div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" class="injected-svg" data-src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTMgMTcuMjUyNVYyMS4wMDI1SDYuNzVMMTcuODEgOS45NDI1TDE0LjA2IDYuMTkyNUwzIDE3LjI1MjVaTTIwLjcxIDcuMDQyNUMyMS4xIDYuNjUyNSAyMS4xIDYuMDIyNSAyMC43MSA1LjYzMjVMMTguMzcgMy4yOTI1QzE3Ljk4IDIuOTAyNSAxNy4zNSAyLjkwMjUgMTYuOTYgMy4yOTI1TDE1LjEzIDUuMTIyNUwxOC44OCA4Ljg3MjVMMjAuNzEgNy4wNDI1WiIgZmlsbD0iY3VycmVudENvbG9yIi8+Cjwvc3ZnPgo=" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <path d="M3 17.2525V21.0025H6.75L17.81 9.9425L14.06 6.1925L3 17.2525ZM20.71 7.0425C21.1 6.6525 21.1 6.0225 20.71 5.6325L18.37 3.2925C17.98 2.9025 17.35 2.9025 16.96 3.2925L15.13 5.1225L18.88 8.8725L20.71 7.0425Z" fill="currentColor"></path>
+            </svg></div></div></div><div aria-label="mehed" role="button" class="css-bgi4sk"><span class="css-15cjkcr">코멘트 삭제</span><div class="Icon icTrash css-1wgkeqm-SVG e1282e850" color="#787878"><div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" class="injected-svg" data-src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTYgMTkuNzVDNiAyMC44NSA2LjkgMjEuNzUgOCAyMS43NUgxNkMxNy4xIDIxLjc1IDE4IDIwLjg1IDE4IDE5Ljc1VjcuNzVINlYxOS43NVoiIGZpbGw9ImN1cnJlbnRDb2xvciIvPgo8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTE1LjAwMTIgNS43NDZDMTQuNTg4MiA1Ljc0NiAxNC4yNTMyIDUuNDExIDE0LjI1MzIgNC45OThWMy43NDZIOS43NDkxN1Y0Ljk5OEM5Ljc0OTE3IDUuNDExIDkuNDE0MTcgNS43NDYgOS4wMDExNyA1Ljc0NkM4LjU4ODE3IDUuNzQ2IDguMjUzMTcgNS40MTEgOC4yNTMxNyA0Ljk5OFYyLjk5OEM4LjI1MzE3IDIuNTg1IDguNTg4MTcgMi4yNSA5LjAwMTE3IDIuMjVIMTUuMDAxMkMxNS40MTQyIDIuMjUgMTUuNzQ5MiAyLjU4NSAxNS43NDkyIDIuOTk4VjQuOTk4QzE1Ljc0OTIgNS40MTEgMTUuNDE0MiA1Ljc0NiAxNS4wMDEyIDUuNzQ2WiIgZmlsbD0iY3VycmVudENvbG9yIi8+CjxyZWN0IHg9IjUiIHk9IjQuNzUiIHdpZHRoPSIxNCIgaGVpZ2h0PSIyIiBmaWxsPSJjdXJyZW50Q29sb3IiLz4KPC9zdmc+Cg==" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <path d="M6 19.75C6 20.85 6.9 21.75 8 21.75H16C17.1 21.75 18 20.85 18 19.75V7.75H6V19.75Z" fill="currentColor"></path>
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M15.0012 5.746C14.5882 5.746 14.2532 5.411 14.2532 4.998V3.746H9.74917V4.998C9.74917 5.411 9.41417 5.746 9.00117 5.746C8.58817 5.746 8.25317 5.411 8.25317 4.998V2.998C8.25317 2.585 8.58817 2.25 9.00117 2.25H15.0012C15.4142 2.25 15.7492 2.585 15.7492 2.998V4.998C15.7492 5.411 15.4142 5.746 15.0012 5.746Z" fill="currentColor"></path>
+                <rect x="5" y="4.75" width="14" height="2" fill="currentColor"></rect>
+            </svg></div></div></div><div aria-label="cancel" role="button" class="css-9du7fu">취소</div></div></div></div></div></div>
+
+            <div id="modal-container-aWTcAcCYlL1n-VRF14lje" class="css-rpyl6s off"><div class="css-1yszxv0"><div class="css-f35o9y"><div class="css-1gkas1x-Grid e1689zdh0"><div class="css-1y901al-Row emmoxnt0"><div class="css-2djw8f">알림</div><div class="css-148qwic">코멘트를 삭제하시겠어요?</div><div size="2" class="css-gy4ioq"><button class="css-1gdw77k-StylelessButton">취소</button><button class="css-sfhtz9-StylelessButton">확인</button></div></div></div></div></div></div>
+
+            <div id="modal-container-UiAVwwzWAy8FG95dSniCO" class="css-rpyl6s off"><div class="css-1yszxv0"><div class="css-f35o9y"><div class="css-1gkas1x-Grid e1689zdh0"><div class="css-1y901al-Row emmoxnt0"><div class="css-2djw8f">알림</div><div class="css-148qwic">코멘트를 삭제하시겠어요?</div><div size="2" class="css-gy4ioq"><button class="css-1gdw77k-StylelessButton">취소</button><button class="css-sfhtz9-StylelessButton">확인</button></div></div></div></div></div></div>
         </div>
     </div>
 </div>
