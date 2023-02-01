@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<thlogic>
-    <attr sel="ul.css-1cduxg0-VisualUl" th:remove="all-but-first">
-        <attr sel="li.css-1cw0vk0" th:each="photo, idx : ${gallery}"
-              th:classappend="${idx.first} ? 'first' : (${idx.last} ? 'last' : _) ">
-            <attr sel="img" th:src="${photo}"/>
-        </attr>
-    </attr>
-</thlogic>
