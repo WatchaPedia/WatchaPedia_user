@@ -6,6 +6,8 @@ import com.watchapedia.watchpedia_user.model.dto.comment.RecommentDto;
 import com.watchapedia.watchpedia_user.model.entity.comment.Comment;
 import com.watchapedia.watchpedia_user.model.entity.comment.Spoiler;
 import com.watchapedia.watchpedia_user.model.entity.User;
+import com.watchapedia.watchpedia_user.model.entity.content.Movie;
+import com.watchapedia.watchpedia_user.model.entity.content.Tv;
 import com.watchapedia.watchpedia_user.model.network.response.comment.CommentResponse;
 import com.watchapedia.watchpedia_user.model.network.response.content.MovieResponse;
 import com.watchapedia.watchpedia_user.model.network.response.comment.RecommentResponse;
@@ -22,6 +24,11 @@ import java.util.List;
 public class MovieService {
 
     final MovieRepository movieRepository;
+
+    @Transactional(readOnly = true) //데이터를 불러오기만 할 때(수정X)
+    public List<Movie> searchMovies() {
+        return movieRepository.findAll();
+    }
     @Transactional(readOnly = true)
     public MovieResponse movieView(Long movieIdx){
         MovieDto mov = movieRepository.findById(movieIdx).map(MovieDto::from).get();

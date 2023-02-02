@@ -1,35 +1,34 @@
 package com.watchapedia.watchpedia_user.controller.content;
 
+
+import com.watchapedia.watchpedia_user.model.entity.content.Webtoon;
 import com.watchapedia.watchpedia_user.model.entity.content.ajax.Star;
-import com.watchapedia.watchpedia_user.model.entity.User;
-import com.watchapedia.watchpedia_user.model.network.response.*;
+import com.watchapedia.watchpedia_user.model.network.response.PersonResponse;
 import com.watchapedia.watchpedia_user.model.network.response.comment.CommentResponse;
-import com.watchapedia.watchpedia_user.model.network.response.content.MovieResponse;
 import com.watchapedia.watchpedia_user.model.network.response.content.StarResponse;
-import com.watchapedia.watchpedia_user.model.repository.comment.CommentRepository;
+import com.watchapedia.watchpedia_user.model.network.response.content.TvResponse;
+import com.watchapedia.watchpedia_user.model.network.response.content.WebtoonResponse;
 import com.watchapedia.watchpedia_user.model.repository.UserRepository;
-import com.watchapedia.watchpedia_user.service.*;
+import com.watchapedia.watchpedia_user.model.repository.comment.CommentRepository;
+import com.watchapedia.watchpedia_user.service.PersonService;
+import com.watchapedia.watchpedia_user.service.content.WebtoonService;
 import com.watchapedia.watchpedia_user.service.content.ajax.HateService;
 import com.watchapedia.watchpedia_user.service.content.ajax.StarService;
 import com.watchapedia.watchpedia_user.service.content.ajax.WatchService;
 import com.watchapedia.watchpedia_user.service.content.ajax.WishService;
-import com.watchapedia.watchpedia_user.service.content.MovieService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 @Controller
-@RequestMapping("/movie")
+@RequestMapping("/webtoon")
 @RequiredArgsConstructor
-public class MovieController {
+public class WebtoonController {
     final StarService starService;
-    final MovieService movieService;
+    final WebtoonService webtoonService;
     final PersonService personService;
     private final CommentRepository commentRepository;
     private final UserRepository userRepository;
@@ -37,44 +36,46 @@ public class MovieController {
     private final WatchService watchService;
     private final HateService hateService;
 
+
     @GetMapping(path="/main")
-    public String movie(ModelMap map){
-        map.addAttribute("movies", movieService.searchMovies());
-        return "movie/movieMain";
+    public String webtoon(ModelMap map){
+        map.addAttribute("webtoons", webtoonService.searchWebtoons());
+        return "/webtoon/webtoonMain";
     }
 
-
-    @GetMapping("/{movieIdx}") // http://localhost:8080/movie/1
-    public String movieDetail(
-        @PathVariable Long movieIdx,
-        ModelMap map
+    @GetMapping("/{webIdx}") // http://localhost:8080/movie/1
+    public String webtoonDetail(
+            @PathVariable Long webIdx,
+            ModelMap map
     ){
         Long userIdx = 12L;
 
-        MovieResponse movie = movieService.movieView(movieIdx);
+        WebtoonResponse webtoon = webtoonService.webtoonView(webIdx);
+        List<Webtoon> webtoonG = webtoonService.Genre(webIdx);
+        webtoonG.remove(0);
 
 //      평균 별점
         double sum = 0;
         double avgStar = 0;
-        if(movie.starList().size() == 1){
-            avgStar = movie.starList().get(0).getStarPoint();
-        }else if(movie.starList().size() > 0){
-            for(int i=0; i<movie.starList().size(); i++){
-                sum += movie.starList().get(i).getStarPoint();
+        if(webtoon.starList().size() == 1){
+            avgStar = webtoon.starList().get(0).getStarPoint();
+        }else if(webtoon.starList().size() > 0){
+            for(int i=0; i<webtoon.starList().size(); i++){
+                sum += webtoon.starList().get(i).getStarPoint();
             }
-            avgStar = Math.round((sum / movie.starList().size()) * 10.0) / 10.0;
+            avgStar = Math.round((sum / webtoon.starList().size()) * 10.0) / 10.0;
         }
 
 //        해당 유저가 별점을 매겼는지
-        StarResponse hasStar = starService.findStar("movie",movie.idx(), userIdx);
+        StarResponse hasStar = starService.findStar("webtoon",webtoon.webIdx(), userIdx);
 
 //        인물 리스트
         List<String> peopleList = new ArrayList<>();
 
         List<String> people = new ArrayList<>();
         List<PersonResponse> personList = new ArrayList<>();
-        if(movie.people() != null){
-            peopleList = List.of(movie.people().split(","));
+        if(webtoon.webPeople() != null){
+            peopleList = List.of(webtoon.webPeople().split(","));
             for(String per : peopleList){
                 people.add(per.split("\\(")[0] + "," + per.split("\\(")[1].split("\\)")[0]);
             }
@@ -85,7 +86,7 @@ public class MovieController {
             System.out.println("** 인물정보가 없습니다 **");
         }
 
-        List<CommentResponse> commentList = movieService.commentList(movie.idx(),userIdx);
+        List<CommentResponse> commentList = webtoonService.commentList(webtoon.webIdx(),userIdx);
 //      해당 유저가 코멘트를 달았는지
         CommentResponse hasComm = null;
         for(CommentResponse comm: commentList){
@@ -94,17 +95,17 @@ public class MovieController {
             }
         };
 
-        boolean hasWish = wishService.findWish("movie",movie.idx(),userIdx);
-        boolean hasWatch = watchService.findWatch("movie",movie.idx(),userIdx);
-        boolean hasHate = hateService.findHate(userIdx,"movie",movie.idx());
+        boolean hasWish = wishService.findWish("webtoon",webtoon.webIdx(),userIdx);
+        boolean hasWatch = watchService.findWatch("webtoon",webtoon.webIdx(),userIdx);
+        boolean hasHate = hateService.findHate(userIdx,"webtoon",webtoon.webIdx());
 
 //        별점 그래프
         HashMap<Long, Integer> starGraph = new HashMap<Long,Integer>(){{
             put(1L,0);put(2L,0);put(3L,0);put(4L,0);put(5L,0);
         }};
-        if(movie.starList().size() > 0){
-            int graphPx = 88 / movie.starList().size();
-            for(Star star : movie.starList()){
+        if(webtoon.starList().size() > 0){
+            int graphPx = 88 / webtoon.starList().size();
+            for(Star star : webtoon.starList()){
                 for(Long i=1L; i<=5L; i++){
                     if(star.getStarPoint() == i){
                         starGraph.put(i,starGraph.get(i) + graphPx);
@@ -114,7 +115,9 @@ public class MovieController {
         }
         Long bigStar = starGraph.entrySet().stream().max((m1, m2) -> m1.getValue() > m2.getValue() ? 1 : -1).get().getKey();
 
-        map.addAttribute("movie", movie);
+
+        map.addAttribute("webtoonG", webtoonG);
+        map.addAttribute("webtoon", webtoon);
         map.addAttribute("avg", avgStar);
         map.addAttribute("people", personList);
         map.addAttribute("comment", commentList);
@@ -126,34 +129,21 @@ public class MovieController {
         map.addAttribute("graph", starGraph);
         map.addAttribute("bigStar", bigStar);
         map.addAttribute("userIdx", userIdx);
-        return "/movie/movieDetail";
+        map.addAttribute("webtoons", webtoonService.searchWebtoons());
+        return "/webtoon/webtoonDetail";
     }
 
-    @GetMapping("/{movieIdx}/info")
-    public String movieInfo(
-            @PathVariable Long movieIdx,
+    @GetMapping("/{webIdx}/webtoonview")
+    public String webtoonInfo(
+            @PathVariable Long webIdx,
             ModelMap map
     ){
-        MovieResponse movie = movieService.movieView(movieIdx);
+        WebtoonResponse webtoon = webtoonService.webtoonView(webIdx);
 
-        map.addAttribute("movie", movie);
-        return "/movie/detailInfo";
+        map.addAttribute("webtoon", webtoon);
+        return "/webtoon/detailInfoWebtoon";
     }
 
-    @GetMapping("/{movieIdx}/gallery")
-    public String movieGallery(
-            @PathVariable Long movieIdx,
-            ModelMap map
-    ){
-        Long userIdx = 12L;
-        MovieResponse movie = movieService.movieView(movieIdx);
-        List<String> gallery = Arrays.stream(movie.gallery().split("[|]")).toList();
-        String title = movie.title();
 
-        map.addAttribute("gallery", gallery);
-        map.addAttribute("title", title);
-        map.addAttribute("userIdx", userIdx);
-        return "/gallery";
-    }
 
 }
