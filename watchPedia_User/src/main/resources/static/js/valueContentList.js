@@ -22,7 +22,7 @@ $(function() {
     }).mount('#content-ul');
 
     function valueContentList(type) {
-        $.get("/api/estimate", function(response){
+        $.get("/estimate", function(response){
             console.log("json 호출완료")
             itemList.contentList = response.data;
         })

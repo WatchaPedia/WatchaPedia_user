@@ -8,6 +8,8 @@ import com.watchapedia.watchpedia_user.model.repository.content.ajax.StarReposit
 import com.watchapedia.watchpedia_user.model.repository.UserRepository;
 import com.watchapedia.watchpedia_user.service.content.ajax.StarService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.*;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -27,28 +29,23 @@ public class EstimateController {
 
     @GetMapping("/estimate") // http://localhost:8080/estimate
     public String estimate(
-            ModelMap map
+            ModelMap map,
+            Pageable pageable
     ){
+        int page = pageable.getPageNumber();
         Long userIdx = 12L;
-//        리스트 인덱스 삭제 문제 때문에 new ArrayList로 감쌈
-        List<MovieResponse> movieList = new ArrayList<>(starService.movieList().stream().map(MovieResponse::from).toList());
-//        평점을 남겼던 영화라면 인덱스 삭제
-        int j = 0;
-        for(int i=0; i<movieList.size(); i++){
-            MovieResponse mov = movieList.get(j);
-            if(mov.starList().size() > 0){
-                for(Star star : mov.starList()){
-                    System.out.println("별점 : " + star.getStarPoint());
-                    if(star.getStarUserIdx()== userIdx){
-                        movieList.remove(j);
-                        j--;
-                        break;
-                    }
-                }
-            }
-            j++;
-        }
-        map.addAttribute("content", movieList);
+        List<MovieResponse> movieList = starService.movieList(userIdx);
+
+        // 리스트를 페이지형으로 바꾸기
+        PageRequest pageRequest = PageRequest.of(page, 9);
+        int start = (int) pageRequest.getOffset();
+        int end = Math.min((start + pageRequest.getPageSize()), movieList.size());
+        Page<MovieResponse> newList = new PageImpl<>(movieList.subList(start, end), pageRequest, movieList.size());
+
+        System.out.println("정보출력");
+        System.out.println(newList.getTotalElements());
+        System.out.println(newList.getTotalPages());
+        map.addAttribute("content", newList);
         return "/valueContent";
     }
 
