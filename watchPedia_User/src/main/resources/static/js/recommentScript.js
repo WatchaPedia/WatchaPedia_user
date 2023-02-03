@@ -57,13 +57,28 @@ const inapBtn = document.querySelectorAll("div.css-hkgyal div.css-19hkid5").item
 const userIdx = document.querySelector("a#user-info").href.split("/user/")[1]
 
 const spoilerModal = document.querySelector("div#modal-container-1arSh67x8qkwczaPieVAx")
+const miniSpoBtn = reportModal2.querySelectorAll("div.css-7mldxr div.css-bgi4sk").item(0)
+const miniInapBtn = reportModal2.querySelectorAll("div.css-7mldxr div.css-bgi4sk").item(1)
 
 try{
 // 스포일러 신고 버튼 클릭 시
-    spoilerBtn.addEventListener('click', () => {
+    spoilerBtn.addEventListener('click', spoReport)
+    miniSpoBtn.addEventListener('click', spoReport)
+    function spoReport(){
         if (spoilerModal.classList.contains('off')) {
-            reportModal.classList.add('css-4in6y9')
-            reportModal.classList.remove('css-ughty8')
+            if(document.querySelector("div.css-ughty8")){
+                reportModal.classList.add('css-4in6y9')
+                reportModal.classList.remove('css-ughty8')
+            }
+            if(reportModal2.classList.contains('on')){
+                main.style.display = 'none';
+                main.classList.add('off');
+                main.classList.remove('on');
+                reportModal2.style.display = 'none';
+                reportModal2.classList.add('off');
+                reportModal2.classList.remove('on');
+            }
+
             main.style.display = 'block';
             main.classList.add('on');
             main.classList.remove('off');
@@ -76,7 +91,7 @@ try{
                 spoilerModal.querySelector("div.css-148qwic").innerHTML = "스포일러로 신고하시겠어요?";
             }
         }
-    })
+    }
 
 // 스포일러 신고 취소 버튼 클릭 시
     spoilerModal.querySelector("button.css-1gdw77k-StylelessButton").addEventListener("click", () => {
@@ -130,10 +145,22 @@ try{
     const inappModal = document.querySelector("div#modal-container-6TxBWpCAEPqm20UjsJdDQ");
 
 // 부적절표현 신고 버튼 클릭 시
-    inapBtn.addEventListener('click',()=>{
+    miniInapBtn.addEventListener('click', inapReport)
+    inapBtn.addEventListener('click', inapReport)
+    function inapReport(){
         if(spoilerModal.classList.contains('off')){
-            reportModal.classList.add('css-4in6y9')
-            reportModal.classList.remove('css-ughty8')
+            if(document.querySelector('css-ughty8')){
+                reportModal.classList.add('css-4in6y9')
+                reportModal.classList.remove('css-ughty8')
+            }
+            if(reportModal2.classList.contains('on')){
+                main.style.display = 'none';
+                main.classList.add('off');
+                main.classList.remove('on');
+                reportModal2.style.display = 'none';
+                reportModal2.classList.add('off');
+                reportModal2.classList.remove('on');
+            }
             main.style.display = 'block';
             main.classList.add('on');
             main.classList.remove('off');
@@ -148,7 +175,7 @@ try{
                 inappModal.querySelector("div.css-148qwic").innerHTML = '부적절 표현으로 신고하시겠어요?';
             }
         }
-    })
+    }
 
 // 부적절표현 신고 취소 버튼 클릭 시
     inappModal.querySelector("button.css-1gdw77k-StylelessButton").addEventListener("click",()=>{
@@ -990,6 +1017,20 @@ copyURI.addEventListener('click', ()=>{
     document.body.removeChild(textarea);
 
     setTimeout(function() {
-        clipBoard.style.bottom = '-70px';
+        clipBoard.style.bottom = '-100px';
+    }, 2000);
+})
+
+document.querySelector("div[aria-label='share-url']").addEventListener('click', ()=>{
+    clipBoard.style.bottom = '30px';
+    let textarea = document.createElement("textarea");
+    document.body.appendChild(textarea);
+    textarea.value = window.location.href;
+    textarea.select();
+    document.execCommand("copy");
+    document.body.removeChild(textarea);
+
+    setTimeout(function() {
+        clipBoard.style.bottom = '-100px';
     }, 2000);
 })

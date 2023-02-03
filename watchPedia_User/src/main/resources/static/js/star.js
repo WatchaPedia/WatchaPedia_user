@@ -1,7 +1,8 @@
-let contentType = document.querySelector(".css-96eosw").innerHTML
-let contentIdx = null;
+const userIdx = document.querySelector("#login-idx").title
 
 document.addEventListener('click', (e) => {
+  let contentType = document.querySelector(".css-96eosw").innerHTML
+  let contentIdx = null;
   if(e.target.type == 'range'){
     let width = e.target.parentElement.querySelector("span").style.width;
     let spanWid = width.substring(0,(width.length-1))
@@ -21,9 +22,10 @@ document.addEventListener('click', (e) => {
       url: '/estimate', // 클라이언트가 요청을 보낼 서버의 URL 주소
       headers: { 'Content-Type': 'application/json;charset=UTF-8' },
       data: JSON.stringify({           // HTTP 요청과 함께 서버로 보낼 데이터
-        starContentType: contentType,
+        starContentType: contentType == '영화' ? 'movie' : (contentType == 'TV 프로그램' ? 'tv'
+              : (contentType == '책' ? 'book' : 'webtoon')),
         starContentIdx: contentIdx,
-        starUserIdx: 1,
+        starUserIdx: userIdx,
         starPoint: e.target.value
       }),
       type: 'POST',           // HTTP 요청 방식(GET, POST)
