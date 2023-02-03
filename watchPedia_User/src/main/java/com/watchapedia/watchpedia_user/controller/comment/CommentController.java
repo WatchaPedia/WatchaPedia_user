@@ -6,14 +6,10 @@ import com.watchapedia.watchpedia_user.model.network.request.comment.CommentRequ
 import com.watchapedia.watchpedia_user.model.network.request.comment.LikeRequest;
 import com.watchapedia.watchpedia_user.model.network.response.comment.CommentResponse;
 import com.watchapedia.watchpedia_user.model.network.response.content.MovieResponse;
-import com.watchapedia.watchpedia_user.model.network.response.content.TvResponse;
-import com.watchapedia.watchpedia_user.model.network.response.content.WebtoonResponse;
 import com.watchapedia.watchpedia_user.model.repository.content.ajax.StarRepository;
 import com.watchapedia.watchpedia_user.model.repository.UserRepository;
 import com.watchapedia.watchpedia_user.service.comment.CommentService;
 import com.watchapedia.watchpedia_user.service.content.MovieService;
-import com.watchapedia.watchpedia_user.service.content.TvService;
-import com.watchapedia.watchpedia_user.service.content.WebtoonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -21,6 +17,9 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 @Controller
@@ -64,16 +63,15 @@ public class CommentController {
     ){
         return commentService.likeSave(request);
     }
+
     final MovieService movieService;
-    final TvService tvService;
-    final WebtoonService webtoonService;
     @GetMapping("/{commentIdx}")
     public String commentView(
             @PathVariable Long commentIdx,
-            @PageableDefault(size = 10, sort = "recommIdx", direction = Sort.Direction.DESC) Pageable pageable,
+            @PageableDefault(size = 9, sort = "recommIdx", direction = Sort.Direction.ASC) Pageable pageable,
             ModelMap map
     ){
-        Long userIdx = 13L;
+        Long userIdx = 12L;
         CommentResponse comment = commentService.findComment(commentIdx, userIdx, pageable);
 
         switch (comment.contentType()){
@@ -81,14 +79,12 @@ public class CommentController {
                 MovieResponse content =movieService.movieView(comment.contentIdx());
                 map.addAttribute("content", content);
             }
-            case "tv" -> {
-                TvResponse content = tvService.tvView(comment.contentIdx());
-                map.addAttribute("content", content);
-            }
-            case "webtoon" -> {
-                WebtoonResponse content = webtoonService.webtoonView(comment.contentIdx());
-                map.addAttribute("content", content);
-            }
+//            case "tv" -> {
+//                map.addAttribute("content", content);
+//            }
+//            case "webtoon" -> {
+//                map.addAttribute("content", content);
+//            }
 //            case "book" -> {
 //                map.addAttribute("content", content);
 //            }
@@ -97,5 +93,19 @@ public class CommentController {
         map.addAttribute("userIdx", userIdx);
 
         return "/recomment";
+    }
+
+    @GetMapping("/{commentIdx}/new")
+    @ResponseBody
+    public Map<String, Object> commentView(
+            @PathVariable Long commentIdx,
+            @PageableDefault(size = 9, sort = "recommIdx", direction = Sort.Direction.ASC) Pageable pageable
+    ){
+        Long userIdx = 12L;
+        CommentResponse comment = commentService.findComment(commentIdx, userIdx, pageable);
+        Map<String, Object> mv = new HashMap<>();
+
+        mv.put("comment", comment.recomment());
+        return mv;
     }
 }

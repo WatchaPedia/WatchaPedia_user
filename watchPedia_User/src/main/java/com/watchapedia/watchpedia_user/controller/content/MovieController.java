@@ -9,12 +9,17 @@ import com.watchapedia.watchpedia_user.model.network.response.content.StarRespon
 import com.watchapedia.watchpedia_user.model.repository.comment.CommentRepository;
 import com.watchapedia.watchpedia_user.model.repository.UserRepository;
 import com.watchapedia.watchpedia_user.service.*;
+import com.watchapedia.watchpedia_user.service.comment.CommentService;
 import com.watchapedia.watchpedia_user.service.content.ajax.HateService;
 import com.watchapedia.watchpedia_user.service.content.ajax.StarService;
 import com.watchapedia.watchpedia_user.service.content.ajax.WatchService;
 import com.watchapedia.watchpedia_user.service.content.ajax.WishService;
 import com.watchapedia.watchpedia_user.service.content.MovieService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -37,17 +42,13 @@ public class MovieController {
     private final WatchService watchService;
     private final HateService hateService;
 
-    @GetMapping(path="/main")
-    public String movie(ModelMap map){
-        map.addAttribute("movies", movieService.searchMovies());
-        return "movie/movieMain";
-    }
-
+    private final CommentService commentService;
 
     @GetMapping("/{movieIdx}") // http://localhost:8080/movie/1
     public String movieDetail(
-        @PathVariable Long movieIdx,
-        ModelMap map
+            @PathVariable Long movieIdx,
+            @PageableDefault(size = 5, sort = "commIdx", direction = Sort.Direction.DESC) Pageable pageable,
+            ModelMap map
     ){
         Long userIdx = 12L;
 
@@ -85,7 +86,7 @@ public class MovieController {
             System.out.println("** 인물정보가 없습니다 **");
         }
 
-        List<CommentResponse> commentList = movieService.commentList(movie.idx(),userIdx);
+        Page<CommentResponse> commentList = commentService.commentList("movie",movie.idx(),userIdx,pageable);
 //      해당 유저가 코멘트를 달았는지
         CommentResponse hasComm = null;
         for(CommentResponse comm: commentList){
@@ -114,6 +115,9 @@ public class MovieController {
         }
         Long bigStar = starGraph.entrySet().stream().max((m1, m2) -> m1.getValue() > m2.getValue() ? 1 : -1).get().getKey();
 
+//        비슷한 장르 영화
+        List<MovieResponse> similarGenre = movieService.similarGenre(movie.genre(), movie.idx());
+
         map.addAttribute("movie", movie);
         map.addAttribute("avg", avgStar);
         map.addAttribute("people", personList);
@@ -126,6 +130,7 @@ public class MovieController {
         map.addAttribute("graph", starGraph);
         map.addAttribute("bigStar", bigStar);
         map.addAttribute("userIdx", userIdx);
+        map.addAttribute("similarGenre", similarGenre);
         return "/movie/movieDetail";
     }
 

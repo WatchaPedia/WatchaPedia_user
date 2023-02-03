@@ -28,6 +28,10 @@ function hateSave(){
                 morePop2.style.display = 'none';
                 morePop2.classList.remove('on');
                 morePop2.classList.add('off');
+
+                morePop.style.display = 'none';
+                morePop.classList.remove('on');
+                morePop.classList.add('off');
             }else{
                 morePop2Text.querySelector("span").classList.add("css-7zhfhb");
                 morePop2Text.querySelector("span").classList.remove("css-fwllm4");
@@ -42,6 +46,10 @@ function hateSave(){
                 morePop2.style.display = 'none';
                 morePop2.classList.remove('on');
                 morePop2.classList.add('off');
+
+                morePop.style.display = 'none';
+                morePop.classList.remove('on');
+                morePop.classList.add('off');
             }
         },error: function() {
             alert("에러발생!")
