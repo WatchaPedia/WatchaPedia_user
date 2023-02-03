@@ -59,6 +59,7 @@ document.addEventListener('click',(e)=>{
 })
 
 
+// 이전 댓글 더보기
 const contentType = window.location.href.split('/')[window.location.href.split('/').length-3]
 const contentIdx = window.location.href.split('/')[window.location.href.split('/').length-2]
 let loading = false;
@@ -67,12 +68,19 @@ let page = 1;
 const commentUl = document.querySelector("div.css-tbg13q-CommentLists ul.css-10n5vg9-VisualUl")
 const cloneLi = commentUl.querySelector("div.css-bawlbm")
 
+const loadingIcon = document.querySelector("#loading-icon");
 function addList() {
     $.ajax({
         url: `/${contentType}/${contentIdx}/comments/new?page=${page}`,
         headers: {'Content-Type': 'application/json;charset=UTF-8'},
         type: 'GET',
         dataType: "json",
+        beforeSend:function(){
+            loadingIcon.style.display='flex'
+        },
+        complete:function(){
+            loadingIcon.style.display='none'
+        },
         success: function (data) {
             for (let idx of data.commentList.content) {
                 let appendLi = cloneLi.cloneNode(true)
@@ -92,9 +100,14 @@ function addList() {
                 }
                 commentUl.appendChild(appendLi)
             }
+            if(data.commentList.last == true){
+                loading = true;
+                $(`div.css-5hpf69`).remove();
+            }else{
+                loading = false;
+                page++;
+            }
             commentList = document.querySelectorAll("div.css-bawlbm")
-            loading = false;
-            page ++;
         }
         , error: function () {
         }

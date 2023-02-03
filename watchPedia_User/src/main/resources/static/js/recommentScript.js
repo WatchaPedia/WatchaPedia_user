@@ -10,53 +10,53 @@ const reportClose = document.querySelector('.css-9du7fu');
 const myCommentMore = document.querySelector("#modal-container-TEW7x8Ed2FRpVPPru5mqs");
 
 // 메인댓글 더보기 클릭시 모달창
-    reportBnt.addEventListener('click', () => {
-        if (reportModal.classList.contains('css-4in6y9')) {
-            reportModal.classList.add('css-ughty8')
-            reportModal.classList.remove('css-4in6y9')
-        } else {
-            reportModal.classList.add('css-4in6y9')
-            reportModal.classList.remove('css-ughty8')
-        }
-    });
+reportBnt.addEventListener('click', () => {
+    if (reportModal.classList.contains('css-4in6y9')) {
+        reportModal.classList.add('css-ughty8')
+        reportModal.classList.remove('css-4in6y9')
+    } else {
+        reportModal.classList.add('css-4in6y9')
+        reportModal.classList.remove('css-ughty8')
+    }
+});
 // 메인댓글 더보기 클릭시 모달창(719px 이하)
-    reportBnt2.addEventListener('click', () => {
-        if(document.querySelector("#not-my-comment")){
-            if (reportModal2.classList.contains('off')) {
-                main.style.display = 'block';
-                main.classList.add('on');
-                main.classList.remove('off');
-                reportModal2.style.display = 'flex';
-                reportModal2.classList.add('on');
-                reportModal2.classList.remove('off');
-            }
-        }else if(document.querySelector("#my-comment")){
+reportBnt2.addEventListener('click', () => {
+    if(document.querySelector("#not-my-comment")){
+        if (reportModal2.classList.contains('off')) {
             main.style.display = 'block';
             main.classList.add('on');
             main.classList.remove('off');
-            myCommentMore.style.display = 'flex';
-            myCommentMore.classList.add('on');
-            myCommentMore.classList.remove('off');
+            reportModal2.style.display = 'flex';
+            reportModal2.classList.add('on');
+            reportModal2.classList.remove('off');
         }
-    });
+    }else if(document.querySelector("#my-comment")){
+        main.style.display = 'block';
+        main.classList.add('on');
+        main.classList.remove('off');
+        myCommentMore.style.display = 'flex';
+        myCommentMore.classList.add('on');
+        myCommentMore.classList.remove('off');
+    }
+});
 // 취소 버튼 클릭 시 닫기
-    reportClose.addEventListener('click', () => {
-        if (reportModal2.classList.contains('on')) {
-            main.style.display = 'none';
-            main.classList.add('off');
-            main.classList.remove('on');
-            reportModal2.style.display = 'none';
-            reportModal2.classList.add('off');
-            reportModal2.classList.remove('on');
-        }
-    })
+reportClose.addEventListener('click', () => {
+    if (reportModal2.classList.contains('on')) {
+        main.style.display = 'none';
+        main.classList.add('off');
+        main.classList.remove('on');
+        reportModal2.style.display = 'none';
+        reportModal2.classList.add('off');
+        reportModal2.classList.remove('on');
+    }
+})
 
 // 메인코멘트 신고
-    const spoilerBtn = document.querySelectorAll("div.css-hkgyal div.css-19hkid5").item(0);
-    const inapBtn = document.querySelectorAll("div.css-hkgyal div.css-19hkid5").item(1);
-    const userIdx = document.querySelector("a#user-info").href.split("/user/")[1]
+const spoilerBtn = document.querySelectorAll("div.css-hkgyal div.css-19hkid5").item(0);
+const inapBtn = document.querySelectorAll("div.css-hkgyal div.css-19hkid5").item(1);
+const userIdx = document.querySelector("a#user-info").href.split("/user/")[1]
 
-    const spoilerModal = document.querySelector("div#modal-container-1arSh67x8qkwczaPieVAx")
+const spoilerModal = document.querySelector("div#modal-container-1arSh67x8qkwczaPieVAx")
 
 try{
 // 스포일러 신고 버튼 클릭 시
@@ -127,78 +127,78 @@ try{
     })
 
 
-const inappModal = document.querySelector("div#modal-container-6TxBWpCAEPqm20UjsJdDQ");
+    const inappModal = document.querySelector("div#modal-container-6TxBWpCAEPqm20UjsJdDQ");
 
 // 부적절표현 신고 버튼 클릭 시
-inapBtn.addEventListener('click',()=>{
-    if(spoilerModal.classList.contains('off')){
-        reportModal.classList.add('css-4in6y9')
-        reportModal.classList.remove('css-ughty8')
-        main.style.display = 'block';
-        main.classList.add('on');
-        main.classList.remove('off');
-        inappModal.style.display = 'flex';
-        inappModal.classList.add('on');
-        inappModal.classList.remove('off');
-        if(inapBtn.innerHTML == '부적절한 표현 신고 취소'){
-            console.log("취소")
-            inappModal.querySelector("div.css-148qwic").innerHTML = '부적절 표현 신고를 취소하시겠어요?';
-        }else{
-            console.log("신고")
-            inappModal.querySelector("div.css-148qwic").innerHTML = '부적절 표현으로 신고하시겠어요?';
+    inapBtn.addEventListener('click',()=>{
+        if(spoilerModal.classList.contains('off')){
+            reportModal.classList.add('css-4in6y9')
+            reportModal.classList.remove('css-ughty8')
+            main.style.display = 'block';
+            main.classList.add('on');
+            main.classList.remove('off');
+            inappModal.style.display = 'flex';
+            inappModal.classList.add('on');
+            inappModal.classList.remove('off');
+            if(inapBtn.innerHTML == '부적절한 표현 신고 취소'){
+                console.log("취소")
+                inappModal.querySelector("div.css-148qwic").innerHTML = '부적절 표현 신고를 취소하시겠어요?';
+            }else{
+                console.log("신고")
+                inappModal.querySelector("div.css-148qwic").innerHTML = '부적절 표현으로 신고하시겠어요?';
+            }
         }
-    }
-})
+    })
 
 // 부적절표현 신고 취소 버튼 클릭 시
-inappModal.querySelector("button.css-1gdw77k-StylelessButton").addEventListener("click",()=>{
-    main.style.display = 'none';
-    main.classList.add('off');
-    main.classList.remove('on');
-    inappModal.style.display = 'none';
-    inappModal.classList.add('off');
-    inappModal.classList.remove('on');
-})
+    inappModal.querySelector("button.css-1gdw77k-StylelessButton").addEventListener("click",()=>{
+        main.style.display = 'none';
+        main.classList.add('off');
+        main.classList.remove('on');
+        inappModal.style.display = 'none';
+        inappModal.classList.add('off');
+        inappModal.classList.remove('on');
+    })
 
 // 부적절표현 신고 확인 버튼 클릭 시
-inappModal.querySelector("button.css-sfhtz9-StylelessButton").addEventListener('click', ()=>{
-    $.ajax({
-        url: '/report/save',
-        headers: {'Content-Type':'application/json;charset=UTF-8'},
-        data: JSON.stringify({
-            userIdx: userIdx,
-            commIdx: commentIdx,
-            text: document.querySelector("div.css-1g78l7j span").innerText,
-            spoiler: false,
-            inap: true,
-            reporter: loginIdx
-        }),
-        type:'POST',
-        dataType:'json',
-        success:function(data){
-            if(data == true){
-                inapBtn.innerText = '부적절한 표현 신고 취소';
-                main.style.display = 'none';
-                main.classList.add('off');
-                main.classList.remove('on');
-                inappModal.style.display = 'none';
-                inappModal.classList.add('off');
-                inappModal.classList.remove('on');
-            }else{
-                inapBtn.innerText = '부적절표현 신고';
-                main.style.display = 'none';
-                main.classList.add('off');
-                main.classList.remove('on');
-                inappModal.style.display = 'none';
-                inappModal.classList.add('off');
-                inappModal.classList.remove('on');
+    inappModal.querySelector("button.css-sfhtz9-StylelessButton").addEventListener('click', ()=>{
+        $.ajax({
+            url: '/report/save',
+            headers: {'Content-Type':'application/json;charset=UTF-8'},
+            data: JSON.stringify({
+                userIdx: userIdx,
+                commIdx: commentIdx,
+                text: document.querySelector("div.css-1g78l7j span").innerText,
+                spoiler: false,
+                inap: true,
+                reporter: loginIdx
+            }),
+            type:'POST',
+            dataType:'json',
+            success:function(data){
+                if(data == true){
+                    inapBtn.innerText = '부적절한 표현 신고 취소';
+                    main.style.display = 'none';
+                    main.classList.add('off');
+                    main.classList.remove('on');
+                    inappModal.style.display = 'none';
+                    inappModal.classList.add('off');
+                    inappModal.classList.remove('on');
+                }else{
+                    inapBtn.innerText = '부적절표현 신고';
+                    main.style.display = 'none';
+                    main.classList.add('off');
+                    main.classList.remove('on');
+                    inappModal.style.display = 'none';
+                    inappModal.classList.add('off');
+                    inappModal.classList.remove('on');
+                }
+            },error:function(){
+                alert("오류 발생!")
             }
-        },error:function(){
-            alert("오류 발생!")
-        }
-    });
-})}catch(Exception){
-        console.log('메인코멘트 - 본인이 작성한 글')
+        });
+    })}catch(Exception){
+    console.log('메인코멘트 - 본인이 작성한 글')
 }
 
 const contentIdx = document.querySelector("#content-info").href.split("/")[document.querySelector("#content-info").href.split("/").length-1]
@@ -426,7 +426,7 @@ try{
         myCommentModal.querySelector("p.css-ynpx67").innerHTML = myCommentText.length + "/10000";
     })
 }catch(Exception){
-        console.log("메인코멘트 - 본인이 작성한 글이 아닐 경우")
+    console.log("메인코멘트 - 본인이 작성한 글이 아닐 경우")
 }
 
 
@@ -501,66 +501,65 @@ try{
 }catch (Exception){console.log("리코멘트에 좋아요가 없습니다")}
 
 // recomment 신고버튼
-let recomment = document.querySelectorAll('.css-1m1whp6');
 const recommentReportModal = document.querySelector("div#modal-container-fZgqMYLrh3NKQOcVpt4wk");
 
-
 function recommentList(){
-    try{
-        for(let idx of recomment){
-            idx.querySelector('.css-1b4hoch-SVG').addEventListener('click', function (e) {
-                if(idx.querySelector('.css-aa3xw')){
-                    idx.querySelector('.css-aa3xw').classList.add('css-1pfl1eu');
-                    idx.querySelector('.css-aa3xw').classList.remove('css-aa3xw');
-                    recommentIdx = idx.id;
-                    recommentText = idx.querySelector("div.css-yb0jaq");
-                    recommentUserIdx = idx.querySelector("a.css-255jr8").href.split("/user/")[1]
-                    recommentBtn = idx.querySelector("div.css-19hkid5");
-                }else {
-                    idx.querySelector('.css-1pfl1eu').classList.add('css-aa3xw');
-                    idx.querySelector('.css-1pfl1eu').classList.remove('css-1pfl1eu');
-                }
+    let recomment = document.querySelectorAll('section#recomment-list div.css-1m1whp6');
+    console.log(recomment)
+    for(let idx of recomment){
+        idx.querySelector('.css-1b4hoch-SVG').addEventListener('click', function (e) {
+            if(idx.querySelector('.css-aa3xw')){
+                idx.querySelector('.css-aa3xw').classList.add('css-1pfl1eu');
+                idx.querySelector('.css-aa3xw').classList.remove('css-aa3xw');
+                recommentIdx = idx.id;
+                recommentText = idx.querySelector("div.css-yb0jaq");
+                recommentUserIdx = idx.querySelector("a.css-255jr8").href.split("/user/")[1]
+                recommentBtn = idx.querySelector("div.css-19hkid5");
+            }else {
+                idx.querySelector('.css-1pfl1eu').classList.add('css-aa3xw');
+                idx.querySelector('.css-1pfl1eu').classList.remove('css-1pfl1eu');
+            }
 
-            })
+        })
 
-            idx.querySelector("div.css-199ku80>div.css-ov1ktg>div").addEventListener('click',()=>{
-                let btn = idx.querySelector("div.css-199ku80>div.css-ov1ktg>div")
-                let likeSum = btn.querySelector("h4.like-sum").innerHTML
-                $.ajax({
-                    url: '/comment/recomment/like/save',
-                    headers: {'Content-Type':'application/json;charset=UTF-8'},
-                    data: JSON.stringify({
-                        recommIdx: idx.id,
-                        userIdx: loginIdx
-                    }),
-                    type:'POST',
-                    dataType:'json',
-                    success:function(data){
-                        if(data==true){
-                            idx.querySelector("h4.like-sum").innerHTML=parseInt(likeSum) + 1
-                            btn.querySelector("svg").dataset.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQiIGhlaWdodD0iMTQiIHZpZXdCb3g9IjAgMCAxNCAxNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xLjc1IDEyLjU0MTdINC42NjY2N1Y1LjU0MTc1SDEuNzVWMTIuNTQxN1oiIGZpbGw9IiNGRjJGNkUiLz4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xMi4xOTQ1IDUuMDA1MzZDMTEuOTMxMyA0LjcwMjg0IDExLjU1MiA0LjUyOTA3IDExLjE1MzkgNC41MjkwN0g5LjgxOTQyQzkuOTg4NTcgNC4xMTMzOSAxMC4wNTg2IDMuNjcwNTggMTAuMDU4NiAzLjA4MTEyQzEwLjA1ODYgMS45NjA1MyA5LjI1NDk5IDEuNDU4MjUgOC40NTc2MiAxLjQ1ODI1QzguMjAwMTggMS40NTgyNSA4LjAwNDgyIDEuNTMyNzMgNy44NzY2NyAxLjY3OTk1QzcuNzU1OTMgMS44MTg1MSA3LjcwOTIyIDIuMDAzMjUgNy43MzQ4NSAyLjE5MjA0VjIuODY0MDVDNy43MzQ4NSAyLjkyNTgyIDcuNzEwMzYgMi45ODcwMiA3LjY2NjUxIDMuMDMwOUw2LjA2Mzc4IDQuNjU2MDhDNS43MTc1IDUuMDA2NTIgNS41NDE1IDUuMzc0MjggNS41NDE1IDUuNzQ4OTZWMTEuNjY2NkgxMC4zMTYxQzExLjAxMzIgMTEuNjY2NiAxMS42MDUgMTEuMTM4MyAxMS42ODkzIDEwLjQ1NjVMMTIuNTMwNSA2LjExMjFDMTIuNTgwNiA1LjcxMjAxIDEyLjQ1ODIgNS4zMDg0NiAxMi4xOTQ1IDUuMDA1MzZaIiBmaWxsPSIjRkYyRjZFIi8+Cjwvc3ZnPgo=';
-                            btn.querySelectorAll("svg path").item(0).setAttribute('fill','#FF2F6E');
-                            btn.querySelectorAll("svg path").item(1).setAttribute('fill','#FF2F6E');
-                            btn.querySelectorAll("svg path").item(1).setAttribute('d','M12.1945 5.00536C11.9313 4.70284 11.552 4.52907 11.1539 4.52907H9.81942C9.98857 4.11339 10.0586 3.67058 10.0586 3.08112C10.0586 1.96053 9.25499 1.45825 8.45762 1.45825C8.20018 1.45825 8.00482 1.53273 7.87667 1.67995C7.75593 1.81851 7.70922 2.00325 7.73485 2.19204V2.86405C7.73485 2.92582 7.71036 2.98702 7.66651 3.0309L6.06378 4.65608C5.7175 5.00652 5.5415 5.37428 5.5415 5.74896V11.6666H10.3161C11.0132 11.6666 11.605 11.1383 11.6893 10.4565L12.5305 6.1121C12.5806 5.71201 12.4582 5.30846 12.1945 5.00536Z');
-                            btn.classList.add('css-jpkqok');
-                            btn.classList.remove('css-1d8juai');
-                        }else{
-                            idx.querySelector("h4.like-sum").innerHTML=parseInt(likeSum) - 1
-                            btn.querySelector("svg").dataset.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQiIGhlaWdodD0iMTQiIHZpZXdCb3g9IjAgMCAxNCAxNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0zLjkzNzgzIDUuNTMzMkgyLjE4NzgzQzEuODY1ODMgNS41MzMyIDEuNjA0NDkgNS43OTQ1NCAxLjYwNDQ5IDYuMTE2NTRWMTEuOTQ5OUMxLjYwNDQ5IDEyLjI3MTkgMS44NjU4MyAxMi41MzMyIDIuMTg3ODMgMTIuNTMzMkgzLjkzNzgzQzQuMjYwNDEgMTIuNTMzMiA0LjUyMTE2IDEyLjI3MTkgNC41MjExNiAxMS45NDk5VjYuMTE2NTRDNC41MjExNiA1Ljc5NDU0IDQuMjYwNDEgNS41MzMyIDMuOTM3ODMgNS41MzMyWiIgZmlsbD0iIzg3ODk4QiIvPgo8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTguMTk3MzMgMy4wNDE3OUw4LjE5MTQ5IDIuNzk1NjJMOC4xNzgwOCAyLjIwMTc5TDguMTc2OTEgMi4xNjc5NUw4LjE3MzQxIDIuMTM0N0M4LjE2ODE2IDIuMDc4NyA4LjE3NTc0IDIuMDU0MiA4LjE3NDU4IDIuMDUzMDRDOC4xODQ0OSAyLjA0NzIgOC4yMjc2NiAyLjAzMzIgOC4zMTEwOCAyLjAzMzJDOC40ODA4MyAyLjAzMzIgOS4zMjYwOCAyLjA4MzM3IDkuMzI2MDggMy4wNzA5NUM5LjMyNjA4IDMuNDUzNjIgOS4yOTQ1OCAzLjc1MTEyIDkuMjI2OTEgNC4wMDg5NUw4Ljk4NjU4IDQuOTIzMDRDOC45NjI2NiA1LjAxNTc5IDkuMDMyMDggNS4xMDYyIDkuMTI3NzQgNS4xMDYySDEwLjA3MjdIMTEuMDEyNUMxMS4yNDA2IDUuMTA2MiAxMS40NTgyIDUuMjA1OTUgMTEuNjA5OCA1LjM3OTJDMTEuNzU4NiA1LjU1MTI5IDExLjgzMDkgNS43NzkzNyAxMS44MDkzIDYuMDA4MDRMMTAuOTcwNSAxMC4zMzkzTDEwLjk2NDcgMTAuMzY4NUwxMC45NjEyIDEwLjM5NzZDMTAuOTEzMyAxMC43Nzc0IDEwLjU2NzQgMTEuMDc0OSAxMC4xNzM3IDExLjA3NDlINS45Nzk0OVY1LjczOTdDNS45Nzk0OSA1LjUyMzg3IDYuMDk4NDkgNS4yOTQwNCA2LjMzNDE2IDUuMDU2NjJMNy45Mzk0OSAzLjQzMDI5TDguMTA0NTggMy4yNjI4N0M4LjE5NzMzIDMuMTY2NjIgOC4xOTczMyAzLjA0MTc5IDguMTk3MzMgMy4wNDE3OVpNMTIuMjY5NiA0LjgwNTc5QzExLjk1MTcgNC40NDAwNCAxMS40OTMyIDQuMjMxMiAxMS4wMTI1IDQuMjMxMkgxMC4wNzI3QzEwLjE2MiAzLjg5MjI5IDEwLjIwMTEgMy41MjA3IDEwLjIwMTEgMy4wNzA5NUMxMC4yMDExIDEuNzU2NyA5LjIyMTY2IDEuMTU4MiA4LjMxMTA4IDEuMTU4MkM3Ljk2ODA4IDEuMTU4MiA3LjcwMDMzIDEuMjY1NTQgNy41MTU5OSAxLjQ3NzI5QzcuMzk2OTkgMS42MTI2MiA3LjI2NTc0IDEuODUxMiA3LjMwMzA4IDIuMjIxNjJMNy4zMTY0OSAyLjgxNTQ1TDUuNzExMTYgNC40NDE3OUM1LjMwODY2IDQuODQ4OTUgNS4xMDQ0OSA1LjI4NTg3IDUuMTA0NDkgNS43Mzk3VjExLjM2NjVDNS4xMDQ0OSAxMS42ODg1IDUuMzY1ODMgMTEuOTQ5OSA1LjY4NzgzIDExLjk0OTlIMTAuMTczN0MxMS4wMTQyIDExLjk0OTkgMTEuNzI5NCAxMS4zMTIzIDExLjgyOTcgMTAuNTA1NUwxMi42NzUgNi4xNDA0NUMxMi43MzUxIDUuNjU2ODcgMTIuNTg2OSA1LjE3MDk1IDEyLjI2OTYgNC44MDU3OVoiIGZpbGw9IiM4Nzg5OEIiLz4KPC9zdmc+Cg=='
-                            btn.querySelectorAll("svg path").item(0).setAttribute('fill','#87898B');
-                            btn.querySelectorAll("svg path").item(1).setAttribute('fill','#87898B');
-                            btn.querySelectorAll("svg path").item(1).setAttribute('d','M8.19733 3.04179L8.19149 2.79562L8.17808 2.20179L8.17691 2.16795L8.17341 2.1347C8.16816 2.0787 8.17574 2.0542 8.17458 2.05304C8.18449 2.0472 8.22766 2.0332 8.31108 2.0332C8.48083 2.0332 9.32608 2.08337 9.32608 3.07095C9.32608 3.45362 9.29458 3.75112 9.22691 4.00895L8.98658 4.92304C8.96266 5.01579 9.03208 5.1062 9.12774 5.1062H10.0727H11.0125C11.2406 5.1062 11.4582 5.20595 11.6098 5.3792C11.7586 5.55129 11.8309 5.77937 11.8093 6.00804L10.9705 10.3393L10.9647 10.3685L10.9612 10.3976C10.9133 10.7774 10.5674 11.0749 10.1737 11.0749H5.97949V5.7397C5.97949 5.52387 6.09849 5.29404 6.33416 5.05662L7.93949 3.43029L8.10458 3.26287C8.19733 3.16662 8.19733 3.04179 8.19733 3.04179ZM12.2696 4.80579C11.9517 4.44004 11.4932 4.2312 11.0125 4.2312H10.0727C10.162 3.89229 10.2011 3.5207 10.2011 3.07095C10.2011 1.7567 9.22166 1.1582 8.31108 1.1582C7.96808 1.1582 7.70033 1.26554 7.51599 1.47729C7.39699 1.61262 7.26574 1.8512 7.30308 2.22162L7.31649 2.81545L5.71116 4.44179C5.30866 4.84895 5.10449 5.28587 5.10449 5.7397V11.3665C5.10449 11.6885 5.36583 11.9499 5.68783 11.9499H10.1737C11.0142 11.9499 11.7294 11.3123 11.8297 10.5055L12.675 6.14045C12.7351 5.65687 12.5869 5.17095 12.2696 4.80579Z');
-                            btn.classList.add('css-1d8juai');
-                            btn.classList.remove('css-jpkqok');
-                        }
-                    },error:function(){
-                        alert("오류 발생!")
+        idx.querySelector("div.css-199ku80>div.css-ov1ktg>div").addEventListener('click',()=>{
+            let btn = idx.querySelector("div.css-199ku80>div.css-ov1ktg>div")
+            let likeSum = btn.querySelector("h4.like-sum").innerHTML
+            $.ajax({
+                url: '/comment/recomment/like/save',
+                headers: {'Content-Type':'application/json;charset=UTF-8'},
+                data: JSON.stringify({
+                    recommIdx: idx.id,
+                    userIdx: loginIdx
+                }),
+                type:'POST',
+                dataType:'json',
+                success:function(data){
+                    if(data==true){
+                        idx.querySelector("h4.like-sum").innerHTML=parseInt(likeSum) + 1
+                        btn.querySelector("svg").dataset.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQiIGhlaWdodD0iMTQiIHZpZXdCb3g9IjAgMCAxNCAxNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xLjc1IDEyLjU0MTdINC42NjY2N1Y1LjU0MTc1SDEuNzVWMTIuNTQxN1oiIGZpbGw9IiNGRjJGNkUiLz4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xMi4xOTQ1IDUuMDA1MzZDMTEuOTMxMyA0LjcwMjg0IDExLjU1MiA0LjUyOTA3IDExLjE1MzkgNC41MjkwN0g5LjgxOTQyQzkuOTg4NTcgNC4xMTMzOSAxMC4wNTg2IDMuNjcwNTggMTAuMDU4NiAzLjA4MTEyQzEwLjA1ODYgMS45NjA1MyA5LjI1NDk5IDEuNDU4MjUgOC40NTc2MiAxLjQ1ODI1QzguMjAwMTggMS40NTgyNSA4LjAwNDgyIDEuNTMyNzMgNy44NzY2NyAxLjY3OTk1QzcuNzU1OTMgMS44MTg1MSA3LjcwOTIyIDIuMDAzMjUgNy43MzQ4NSAyLjE5MjA0VjIuODY0MDVDNy43MzQ4NSAyLjkyNTgyIDcuNzEwMzYgMi45ODcwMiA3LjY2NjUxIDMuMDMwOUw2LjA2Mzc4IDQuNjU2MDhDNS43MTc1IDUuMDA2NTIgNS41NDE1IDUuMzc0MjggNS41NDE1IDUuNzQ4OTZWMTEuNjY2NkgxMC4zMTYxQzExLjAxMzIgMTEuNjY2NiAxMS42MDUgMTEuMTM4MyAxMS42ODkzIDEwLjQ1NjVMMTIuNTMwNSA2LjExMjFDMTIuNTgwNiA1LjcxMjAxIDEyLjQ1ODIgNS4zMDg0NiAxMi4xOTQ1IDUuMDA1MzZaIiBmaWxsPSIjRkYyRjZFIi8+Cjwvc3ZnPgo=';
+                        btn.querySelectorAll("svg path").item(0).setAttribute('fill','#FF2F6E');
+                        btn.querySelectorAll("svg path").item(1).setAttribute('fill','#FF2F6E');
+                        btn.querySelectorAll("svg path").item(1).setAttribute('d','M12.1945 5.00536C11.9313 4.70284 11.552 4.52907 11.1539 4.52907H9.81942C9.98857 4.11339 10.0586 3.67058 10.0586 3.08112C10.0586 1.96053 9.25499 1.45825 8.45762 1.45825C8.20018 1.45825 8.00482 1.53273 7.87667 1.67995C7.75593 1.81851 7.70922 2.00325 7.73485 2.19204V2.86405C7.73485 2.92582 7.71036 2.98702 7.66651 3.0309L6.06378 4.65608C5.7175 5.00652 5.5415 5.37428 5.5415 5.74896V11.6666H10.3161C11.0132 11.6666 11.605 11.1383 11.6893 10.4565L12.5305 6.1121C12.5806 5.71201 12.4582 5.30846 12.1945 5.00536Z');
+                        btn.classList.add('css-jpkqok');
+                        btn.classList.remove('css-1d8juai');
+                    }else{
+                        idx.querySelector("h4.like-sum").innerHTML=parseInt(likeSum) - 1
+                        btn.querySelector("svg").dataset.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQiIGhlaWdodD0iMTQiIHZpZXdCb3g9IjAgMCAxNCAxNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0zLjkzNzgzIDUuNTMzMkgyLjE4NzgzQzEuODY1ODMgNS41MzMyIDEuNjA0NDkgNS43OTQ1NCAxLjYwNDQ5IDYuMTE2NTRWMTEuOTQ5OUMxLjYwNDQ5IDEyLjI3MTkgMS44NjU4MyAxMi41MzMyIDIuMTg3ODMgMTIuNTMzMkgzLjkzNzgzQzQuMjYwNDEgMTIuNTMzMiA0LjUyMTE2IDEyLjI3MTkgNC41MjExNiAxMS45NDk5VjYuMTE2NTRDNC41MjExNiA1Ljc5NDU0IDQuMjYwNDEgNS41MzMyIDMuOTM3ODMgNS41MzMyWiIgZmlsbD0iIzg3ODk4QiIvPgo8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTguMTk3MzMgMy4wNDE3OUw4LjE5MTQ5IDIuNzk1NjJMOC4xNzgwOCAyLjIwMTc5TDguMTc2OTEgMi4xNjc5NUw4LjE3MzQxIDIuMTM0N0M4LjE2ODE2IDIuMDc4NyA4LjE3NTc0IDIuMDU0MiA4LjE3NDU4IDIuMDUzMDRDOC4xODQ0OSAyLjA0NzIgOC4yMjc2NiAyLjAzMzIgOC4zMTEwOCAyLjAzMzJDOC40ODA4MyAyLjAzMzIgOS4zMjYwOCAyLjA4MzM3IDkuMzI2MDggMy4wNzA5NUM5LjMyNjA4IDMuNDUzNjIgOS4yOTQ1OCAzLjc1MTEyIDkuMjI2OTEgNC4wMDg5NUw4Ljk4NjU4IDQuOTIzMDRDOC45NjI2NiA1LjAxNTc5IDkuMDMyMDggNS4xMDYyIDkuMTI3NzQgNS4xMDYySDEwLjA3MjdIMTEuMDEyNUMxMS4yNDA2IDUuMTA2MiAxMS40NTgyIDUuMjA1OTUgMTEuNjA5OCA1LjM3OTJDMTEuNzU4NiA1LjU1MTI5IDExLjgzMDkgNS43NzkzNyAxMS44MDkzIDYuMDA4MDRMMTAuOTcwNSAxMC4zMzkzTDEwLjk2NDcgMTAuMzY4NUwxMC45NjEyIDEwLjM5NzZDMTAuOTEzMyAxMC43Nzc0IDEwLjU2NzQgMTEuMDc0OSAxMC4xNzM3IDExLjA3NDlINS45Nzk0OVY1LjczOTdDNS45Nzk0OSA1LjUyMzg3IDYuMDk4NDkgNS4yOTQwNCA2LjMzNDE2IDUuMDU2NjJMNy45Mzk0OSAzLjQzMDI5TDguMTA0NTggMy4yNjI4N0M4LjE5NzMzIDMuMTY2NjIgOC4xOTczMyAzLjA0MTc5IDguMTk3MzMgMy4wNDE3OVpNMTIuMjY5NiA0LjgwNTc5QzExLjk1MTcgNC40NDAwNCAxMS40OTMyIDQuMjMxMiAxMS4wMTI1IDQuMjMxMkgxMC4wNzI3QzEwLjE2MiAzLjg5MjI5IDEwLjIwMTEgMy41MjA3IDEwLjIwMTEgMy4wNzA5NUMxMC4yMDExIDEuNzU2NyA5LjIyMTY2IDEuMTU4MiA4LjMxMTA4IDEuMTU4MkM3Ljk2ODA4IDEuMTU4MiA3LjcwMDMzIDEuMjY1NTQgNy41MTU5OSAxLjQ3NzI5QzcuMzk2OTkgMS42MTI2MiA3LjI2NTc0IDEuODUxMiA3LjMwMzA4IDIuMjIxNjJMNy4zMTY0OSAyLjgxNTQ1TDUuNzExMTYgNC40NDE3OUM1LjMwODY2IDQuODQ4OTUgNS4xMDQ0OSA1LjI4NTg3IDUuMTA0NDkgNS43Mzk3VjExLjM2NjVDNS4xMDQ0OSAxMS42ODg1IDUuMzY1ODMgMTEuOTQ5OSA1LjY4NzgzIDExLjk0OTlIMTAuMTczN0MxMS4wMTQyIDExLjk0OTkgMTEuNzI5NCAxMS4zMTIzIDExLjgyOTcgMTAuNTA1NUwxMi42NzUgNi4xNDA0NUMxMi43MzUxIDUuNjU2ODcgMTIuNTg2OSA1LjE3MDk1IDEyLjI2OTYgNC44MDU3OVoiIGZpbGw9IiM4Nzg5OEIiLz4KPC9zdmc+Cg=='
+                        btn.querySelectorAll("svg path").item(0).setAttribute('fill','#87898B');
+                        btn.querySelectorAll("svg path").item(1).setAttribute('fill','#87898B');
+                        btn.querySelectorAll("svg path").item(1).setAttribute('d','M8.19733 3.04179L8.19149 2.79562L8.17808 2.20179L8.17691 2.16795L8.17341 2.1347C8.16816 2.0787 8.17574 2.0542 8.17458 2.05304C8.18449 2.0472 8.22766 2.0332 8.31108 2.0332C8.48083 2.0332 9.32608 2.08337 9.32608 3.07095C9.32608 3.45362 9.29458 3.75112 9.22691 4.00895L8.98658 4.92304C8.96266 5.01579 9.03208 5.1062 9.12774 5.1062H10.0727H11.0125C11.2406 5.1062 11.4582 5.20595 11.6098 5.3792C11.7586 5.55129 11.8309 5.77937 11.8093 6.00804L10.9705 10.3393L10.9647 10.3685L10.9612 10.3976C10.9133 10.7774 10.5674 11.0749 10.1737 11.0749H5.97949V5.7397C5.97949 5.52387 6.09849 5.29404 6.33416 5.05662L7.93949 3.43029L8.10458 3.26287C8.19733 3.16662 8.19733 3.04179 8.19733 3.04179ZM12.2696 4.80579C11.9517 4.44004 11.4932 4.2312 11.0125 4.2312H10.0727C10.162 3.89229 10.2011 3.5207 10.2011 3.07095C10.2011 1.7567 9.22166 1.1582 8.31108 1.1582C7.96808 1.1582 7.70033 1.26554 7.51599 1.47729C7.39699 1.61262 7.26574 1.8512 7.30308 2.22162L7.31649 2.81545L5.71116 4.44179C5.30866 4.84895 5.10449 5.28587 5.10449 5.7397V11.3665C5.10449 11.6885 5.36583 11.9499 5.68783 11.9499H10.1737C11.0142 11.9499 11.7294 11.3123 11.8297 10.5055L12.675 6.14045C12.7351 5.65687 12.5869 5.17095 12.2696 4.80579Z');
+                        btn.classList.add('css-1d8juai');
+                        btn.classList.remove('css-jpkqok');
                     }
-                });
-            })
-        }
-    }catch (Exception) {console.log('에러발생!')}
+                },error:function(){
+                    alert("오류 발생!")
+                }
+            });
+        })
+    }
 }
+window.onload = recommentList();
 
 const recommDelModal = document.querySelector("#modal-container-yjYuIgAkMjkq6O8ZPy5vn");
 document.addEventListener('click',(e)=>{
@@ -592,7 +591,6 @@ document.addEventListener('click',(e)=>{
             }
         }
         else{
-            console.log(e.target.innerHTML)
             if(e.target.innerHTML == "부적절한 표현 신고 취소"){
                 recommentReportModal.querySelector("div.css-148qwic").innerText = "부적절 표현 신고를 취소하시겠어요?"
             }else{
@@ -824,7 +822,7 @@ const commentIdx = window.location.href.split('/comment/')[1];
 const likeBtn = document.querySelector("button#deckLike");
 likeBtn.addEventListener("click", ()=>{
     let likeSum = document.querySelector("span.css-1n0dvqq").innerHTML.split('좋아요 ')[1]
-        $.ajax({
+    $.ajax({
         url:'/comment/like/save',
         headers: { 'Content-Type': 'application/json;charset=UTF-8' },
         data: JSON.stringify({           // HTTP 요청과 함께 서버로 보낼 데이터
@@ -904,6 +902,7 @@ function recommentSave(){
                 commSum.innerText = '댓글 ' + (parseInt(commSum.innerText.split("댓글 ")[1]) + 1);
 
                 try {
+                    // 코멘트 있을 때
                     let appendComm = listNone.cloneNode(true)
                     appendComm.setAttribute('id', data.idx);
                     appendComm.querySelector('div.css-yb0jaq').innerHTML = data.text;
@@ -913,9 +912,8 @@ function recommentSave(){
                     appendComm.querySelectorAll('a.css-255jr8').item(1).href = `/user/${data.userIdx.userIdx}`;
                     // document.querySelector("section#recomment-list div.css-0").appendChild(appendComm);
                     document.querySelector("section#recomment-list div.css-0").insertBefore(appendComm,document.querySelector("section#recomment-list div.css-0 div.css-1m1whp6"));
-                    recomment = document.querySelectorAll('.css-1m1whp6');
-                    recommentList();
                 }catch{
+                    // 코멘트 없을 때
                     let appendComm = listNone.cloneNode(true);
                     document.querySelector('section#recomment-list-none').style.display = 'block'
                     appendComm.style.display = 'block'
@@ -926,12 +924,72 @@ function recommentSave(){
                     appendComm.querySelectorAll('a.css-255jr8').item(0).href = `/user/${data.userIdx.userIdx}`;
                     appendComm.querySelectorAll('a.css-255jr8').item(1).href = `/user/${data.userIdx.userIdx}`;
                     containerNone.insertBefore(appendComm, document.querySelector("section#recomment-list-none div.css-1m1whp6:first-of-type"));
-                    recomment = document.querySelectorAll('.css-1m1whp6');
-                    recommentList();
                 }
             },error: function() {
                 alert("에러발생!")
+            },
+            complete: function(){
+                recommentList();
             }
         })
     }
 }
+
+
+// 리코멘트 이전댓글 보기 클릭 시
+if(document.querySelector("div.css-5hpf69")){
+    const loadingIcon = document.querySelector("#loading-icon");
+    let page = 1;
+    document.querySelector("button.css-16halel").addEventListener('click',()=>{
+        $.ajax({
+            url: `/comment/${commentIdx}/new?page=${page}`,
+            headers: {'Content-Type' :'application/json;char-set=UTF-8'},
+            type: 'GET',
+            dataType: 'json',
+            beforeSend:function(){
+                loadingIcon.style.display='flex'
+            },
+            complete:function(){
+                loadingIcon.style.display='none'
+                recommentList();
+            },
+            success: function(data){
+                for(let idx of data.comment.content){
+                    let appendComm = listNone.cloneNode(true);
+                    appendComm.setAttribute('id', idx.idx);
+                    appendComm.querySelector('div.css-yb0jaq').innerHTML = idx.text;
+                    appendComm.querySelector('div.css-72k174').innerHTML = idx.name;
+                    appendComm.querySelector('div.css-maxfbg').innerHTML = idx.regDate;
+                    appendComm.querySelectorAll('a.css-255jr8').item(0).href = `/user/${idx.userIdx.userIdx}`;
+                    appendComm.querySelectorAll('a.css-255jr8').item(1).href = `/user/${idx.userIdx.userIdx}`;
+                    document.querySelector("section#recomment-list div.css-0").insertBefore(appendComm,document.querySelector("section#recomment-list div.css-0 div.css-1m1whp6"));
+                }
+                if(data.comment.last == true){
+                    $(`div.css-5hpf69`).remove();
+                }else{
+                    page++;
+                }
+            },
+            error: function(){
+                console.log('에러')
+            }
+        })
+    })
+}
+
+// 클립보드 복사
+const clipBoard = document.querySelector("#clip-board")
+const copyURI = document.querySelector("div.css-pfmsf9>div.css-ve4kut>div.css-3wahtm")
+copyURI.addEventListener('click', ()=>{
+    clipBoard.style.bottom = '30px';
+    let textarea = document.createElement("textarea");
+    document.body.appendChild(textarea);
+    textarea.value = window.location.href;
+    textarea.select();
+    document.execCommand("copy");
+    document.body.removeChild(textarea);
+
+    setTimeout(function() {
+        clipBoard.style.bottom = '-70px';
+    }, 2000);
+})

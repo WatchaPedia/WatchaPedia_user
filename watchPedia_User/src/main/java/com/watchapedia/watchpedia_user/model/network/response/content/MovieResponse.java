@@ -21,7 +21,8 @@ public record MovieResponse(
         String video,
         String watch,
         String backImg,
-        List<Star> starList
+        List<Star> starList,
+        double avgStar
 ) {
     public static MovieResponse of(
             Long idx, String thumbnail, String title, String titleOrg, String makingDate,
@@ -30,7 +31,15 @@ public record MovieResponse(
     ){
         return new MovieResponse(
                 idx, thumbnail, title, titleOrg, makingDate, country, genre, time, age,
-                people, summary, gallery, video, watch, backImg, starList
+                people, summary, gallery, video, watch, backImg, starList,0.0
+        );
+    }
+    public static MovieResponse of(
+            Long idx, String thumbnail, String title, String watch, Double avgStar
+    ){
+        return new MovieResponse(
+                idx, thumbnail, title, null, null, null, null, null, null,
+                null, null, null, null, watch, null, null, avgStar
         );
     }
 
@@ -51,7 +60,8 @@ public record MovieResponse(
                 dto.movVideo(),
                 dto.movWatch(),
                 dto.movBackImg(),
-                dto.starList()
+                dto.starList(),
+                0
         );
     }
 }

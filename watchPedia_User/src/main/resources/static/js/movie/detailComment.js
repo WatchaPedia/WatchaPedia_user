@@ -135,7 +135,7 @@ hasCommentBtn2.item(0).addEventListener('click',commentEdit);
 hasCommentBtn2.item(1).addEventListener('click',commentDelete);
 
 
-const commentList = document.querySelectorAll("li.css-1fryc54");
+let commentList = document.querySelectorAll("li.css-1fryc54");
 document.addEventListener('click',(e)=>{
     if(e.target.classList.contains("css-13mdv8k-StylelessButton")){
         let comm = e.target.parentElement.parentElement.parentElement;
@@ -151,8 +151,12 @@ document.addEventListener('click',(e)=>{
         comm.querySelector("span.css-zoh368").style.backgroundImage = "url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGcgZmlsbD0iIzc4Nzg3OCI+CiAgICAgICAgICAgIDxwYXRoIGQ9Ik02Ljc1IDkuNDg1aC0zYTEgMSAwIDAgMC0xIDF2MTBhMSAxIDAgMCAwIDEgMWgzYTEgMSAwIDAgMCAxLTF2LTEwYTEgMSAwIDAgMC0xLTFNMjAuNjU3IDguNTY2YTIuMzYzIDIuMzYzIDAgMCAwLTEuNzc5LS44MTNIMTYuNjJsLjE2NC0uNjI3Yy4xMzctLjUyOC4yMDEtMS4xMi4yMDEtMS44NjMgMC0xLjkxOS0xLjM3NS0yLjc3OC0yLjczOC0yLjc3OC0uNDQ0IDAtLjc2Ni4xMjMtLjk4Ni4zNzYtLjIuMjI3LS4yODIuNTMtLjI0My45MzVsLjAzIDEuMjMtMi45MDMgMi45NGMtLjU5My42LS44OTQgMS4yMy0uODk0IDEuODcydjkuNjQ3YS41LjUgMCAwIDAgLjUuNWg3LjY4N2EyLjM4OCAyLjM4OCAwIDAgMCAyLjM0OC0yLjA3bDEuNDQ1LTcuNDUyYTIuNDQgMi40NCAwIDAgMC0uNTc0LTEuODk3Ii8+CiAgICAgICAgPC9nPgogICAgPC9nPgo8L3N2Zz4K')";
         comm.querySelector("span.css-43cye7").style.backgroundImage = "url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxwYXRoIGZpbGw9IiM3ODc4NzgiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTkuODU3IDE3Ljc4Nkw2IDIxdi00LjkxYy0xLjg0MS0xLjM3My0zLTMuMzY5LTMtNS41OUMzIDYuMzU4IDcuMDMgMyAxMiAzczkgMy4zNTggOSA3LjVjMCA0LjE0Mi00LjAzIDcuNS05IDcuNS0uNzM5IDAtMS40NTYtLjA3NC0yLjE0My0uMjE0eiIvPgo8L3N2Zz4K')";
 
-        comm.querySelector("button.css-1jrmj77-StylelessButton").classList.add('css-1h18l7j-StylelessButton');
-        comm.querySelector("button.css-1jrmj77-StylelessButton").classList.remove('css-1jrmj77-StylelessButton');
+        if(comm.querySelector("div.css-hy68ty button").classList.contains("css-1jrmj77-StylelessButton")){
+            comm.querySelector("button.css-1jrmj77-StylelessButton").classList.add('css-1h18l7j-StylelessButton');
+            comm.querySelector("button.css-1jrmj77-StylelessButton").classList.remove('css-1jrmj77-StylelessButton');
+        }else{
+            comm.querySelector("div.css-hy68ty button").removeAttribute('disabled')
+        }
 
         comm.querySelector("div.css-hy68ty button").removeAttribute('disabled')
     }
@@ -160,7 +164,7 @@ document.addEventListener('click',(e)=>{
         let comm = e.target.parentElement.parentElement;
         // 코멘트 좋아요 클릭
         let commentIdx = comm.querySelector("div.css-ob93md a").href.split("/comment/")[1];
-        let likeSum = parseInt(comm.querySelector("em#like").innerHTML);
+        let likeSum = parseInt(comm.querySelector("em.like-sum").innerHTML);
         $.ajax({
             url:'/comment/like/save',
             headers: { 'Content-Type': 'application/json;charset=UTF-8' },
@@ -172,11 +176,11 @@ document.addEventListener('click',(e)=>{
             dataType: "json",       // 호출 시 데이터 타입
             success : function(data) {
                 if(data == true){
-                    comm.querySelector("em#like").innerHTML = likeSum + 1;
+                    comm.querySelector("em.like-sum").innerHTML = likeSum + 1;
                     comm.querySelector("div.css-hy68ty button").classList.add("css-jj4q3s-StylelessButton-UserActionButton");
                     comm.querySelector("div.css-hy68ty button").classList.remove("css-1h18l7j-StylelessButton");
                 }else{
-                    comm.querySelector("em#like").innerHTML = likeSum - 1;
+                    comm.querySelector("em.like-sum").innerHTML = likeSum - 1;
                     comm.querySelector("div.css-hy68ty button").classList.add("css-1h18l7j-StylelessButton");
                     comm.querySelector("div.css-hy68ty button").classList.remove("css-jj4q3s-StylelessButton-UserActionButton");
                 }
@@ -186,3 +190,81 @@ document.addEventListener('click',(e)=>{
         })
     }
 })
+
+// 코멘트 로딩
+const commentUl = document.querySelector("ul.css-nh9j5x-VisualUl-CommentHorizontalUl")
+const spoilerLi = document.querySelector(".spoiler-li")
+const notSpoilerLi = document.querySelector(".not-spoiler-li")
+const loadingIcon = document.querySelector("#loading-icon");
+let loading = false;
+const movieIdx = window.location.href.split("/movie/")[1]
+let page = 1;
+function addList() {
+    $.ajax({
+        url: `/movie/${movieIdx}/new?page=${page}`,
+        headers: {'Content-Type': 'application/json;charset=UTF-8'},
+        type: 'GET',
+        dataType: "json",
+        beforeSend:function(){
+            loadingIcon.style.display='block'
+            loadingIcon.style.right = 0;
+        },
+        complete:function(){
+            loadingIcon.style.display='none'
+        },
+        success: function (data) {
+            console.log(data)
+            for (let idx of data.commentList.content) {
+                if(idx.spoiler == true){
+                    let appendLi = spoilerLi.cloneNode(true)
+                    appendLi.querySelector("div.css-1cvf9dk").querySelector("a.css-1f9m1s4-StylelessLocalLink").href = `/user/${idx.user.userIdx}`;
+                    appendLi.querySelector("div.css-1cvf9dk div.css-1agoci2").innerHTML = idx.name;
+                    appendLi.querySelector("div.css-ob93md a").href = `/comment/${idx.idx}`;
+                    appendLi.querySelector("div.css-1yrlzf9-StyledText").innerHTML = idx.text;
+                    appendLi.querySelector("em.like-sum").innerHTML = idx.likeSum;
+                    appendLi.querySelector("em.recomm-sum").innerHTML = idx.recommSum;
+                    if(idx.hasLike == true){
+                        appendLi.querySelector("button.css-1jrmj77-StylelessButton").setAttribute('class',"css-jj4q3s-StylelessButton-UserActionButton");
+                    }
+                    appendLi.style.display='inline-block'
+                    commentUl.appendChild(appendLi)
+                }else{
+                    let appendLi = notSpoilerLi.cloneNode(true)
+                    appendLi.querySelector("div.css-1cvf9dk").querySelector("a.css-1f9m1s4-StylelessLocalLink").href = `/user/${idx.user.userIdx}`;
+                    appendLi.querySelector("div.css-1cvf9dk div.css-1agoci2").innerHTML = idx.name;
+                    appendLi.querySelector("div.css-ob93md a").href = `/comment/${idx.idx}`;
+                    appendLi.querySelector("div.css-qxbzku-StyledText").innerHTML = idx.text;
+                    appendLi.querySelector("em.like-sum").innerHTML = idx.likeSum;
+                    appendLi.querySelector("em.recomm-sum").innerHTML = idx.recommSum;
+                    if(idx.hasLike == true){
+                        appendLi.querySelector("button.css-1h18l7j-StylelessButton").setAttribute('class',"css-jj4q3s-StylelessButton-UserActionButton");
+                    }
+                    appendLi.style.display='inline-block'
+                    commentUl.appendChild(appendLi)
+                }
+            }
+            commentList = document.querySelectorAll("div.css-bawlbm")
+            if(data.commentList.last == true){
+                loading = true;
+                $(`div.css-5hpf69`).remove();
+            }else{
+                loading = false;
+                page++;
+            }
+        }
+        , error: function () {
+        }
+    });
+}
+
+const commentScroll = document.querySelector("[data-rowindex='10']").querySelector('.css-15xcaei')
+commentScroll.addEventListener('scroll',()=>{
+    let comMax = commentScroll.scrollWidth-commentScroll.querySelector('.css-174lxc3').getBoundingClientRect().width-15;
+    if(commentScroll.scrollLeft >= comMax) {
+        if(!loading)    //실행 가능 상태라면?
+        {
+            loading = true; //실행 불가능 상태로 변경
+            addList();
+        }
+    }
+});
