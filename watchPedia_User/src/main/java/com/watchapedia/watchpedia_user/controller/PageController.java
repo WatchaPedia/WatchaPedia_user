@@ -37,7 +37,7 @@ public class PageController {
     private final UserRepository userRepository;
 
     //     별점 저장
-    @PostMapping("/estimate") // http://localhost:9090/estimate
+    @PostMapping("/estimate") // http://localhost:8080/estimate
     @ResponseBody
     public StarAndCommentResponse starSave(
             @RequestBody StarRequest request
