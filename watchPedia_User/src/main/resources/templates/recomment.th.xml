@@ -56,7 +56,7 @@
     <!--    리코멘트-->
     <attr sel="section#recomment-list" th:if="${comment.recomment().getTotalElements()} != 0">
         <!--        리코멘트 수가 10개 이상이면 -->
-        <attr sel="div.css-5hpf69" th:if="${comment.recomment().getTotalPages()} > 0">
+        <attr sel="div.css-5hpf69" th:if="${comment.recomment().getTotalPages()} > 1">
             <attr sel="div.css-1f20jes" th:text="${comment.recomment().getTotalElements()} + '개 중 9개'"/>
         </attr>
         <attr sel="div.css-0" th:remove="all-but-first">
