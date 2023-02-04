@@ -12,6 +12,7 @@ import com.watchapedia.watchpedia_user.model.repository.comment.CommentRepositor
 import com.watchapedia.watchpedia_user.model.repository.UserRepository;
 import com.watchapedia.watchpedia_user.model.repository.content.MovieRepository;
 import com.watchapedia.watchpedia_user.service.comment.CommentService;
+import com.watchapedia.watchpedia_user.service.content.MovieService;
 import com.watchapedia.watchpedia_user.service.content.ajax.StarService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -33,8 +34,16 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class PageController {
     final StarService starService;
+
+    final MovieService movieService;
     private final CommentRepository commentRepository;
     private final UserRepository userRepository;
+
+    @GetMapping(path="")
+    public String movie(ModelMap map){
+        map.addAttribute("movies", movieService.searchMovies());
+        return "movie/movieMain";
+    }
 
     //     별점 저장
     @PostMapping("/estimate") // http://localhost:8080/estimate
