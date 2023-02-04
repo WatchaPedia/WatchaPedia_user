@@ -24,7 +24,6 @@ function commentSave() {
             userIdx: loginIdx,
             text: inputText,
             spoiler: spoilerCheck.contains("css-7zhfhb") ? false:true,
-            recommIdx: 0
         }),
         type: 'POST',           // HTTP 요청 방식(GET, POST)
         dataType: "json",       // 호출 시 데이터 타입

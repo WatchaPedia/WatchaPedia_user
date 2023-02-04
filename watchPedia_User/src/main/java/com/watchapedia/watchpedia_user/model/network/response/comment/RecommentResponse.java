@@ -10,7 +10,7 @@ import java.util.List;
 public record RecommentResponse(
         Long idx,
         Long commIdx,
-        User userIdx,
+        Long userIdx,
         String name,
         String text,
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
@@ -20,7 +20,7 @@ public record RecommentResponse(
         boolean hasReport
 ) {
     public static RecommentResponse of(
-            Long idx, Long commIdx, User userIdx, String name, String text, LocalDateTime regDate,List<Relike> like, boolean hasLike,boolean hasReport
+            Long idx, Long commIdx, Long userIdx, String name, String text, LocalDateTime regDate,List<Relike> like, boolean hasLike,boolean hasReport
     ){
         return new RecommentResponse(
                 idx,commIdx,userIdx,name,text,regDate,like, hasLike, hasReport
