@@ -58,7 +58,7 @@ public class CommentService {
 
     final RecommentService recommentService;
     public void likeAndReportDelte(Long commIdx){
-        Report report = reportRepository.findByReportCommTypeAndReportCommIdx(null,commIdx);
+        Report report = reportRepository.findByReportCommTypeAndReportCommIdx("comm",commIdx);
         if(report != null) reportRepository.delete(report);
         try{
             List<Like> likeList = likeRepository.findByLikeCommentIdx(commIdx);
@@ -120,7 +120,7 @@ public class CommentService {
         boolean hasSpo = false;
         boolean hasInap = false;
 
-        Report report = reportRepository.findByReportCommTypeAndReportCommIdx(null,comment.getCommIdx());
+        Report report = reportRepository.findByReportCommTypeAndReportCommIdx("comm",comment.getCommIdx());
         if(report != null){
             if(report.getReportReporter().contains(",")){
                 for(String idx : report.getReportReporter().split(", ")){
@@ -146,15 +146,16 @@ public class CommentService {
                 recommentRepository.findByRecommCommIdx(comment.getCommIdx(),pageable).map(RecommentDto::from).map(
                         dto -> {
                             Recomment recomment = recommentRepository.getReferenceById(dto.idx());
+                            Report findReport = reportRepository.findByReportCommTypeAndReportCommIdx("re",dto.idx());
                             boolean hasReport = false;
-                            if(reportRepository.findByReportCommTypeAndReportCommIdx("O",dto.idx()) != null){
-                                for(String idx: reportRepository.findByReportCommTypeAndReportCommIdx("O",dto.idx()).getReportReporter().split(", ")){
+                            if(findReport != null){
+                                for(String idx: findReport.getReportReporter().split(", ")){
                                     if(Long.parseLong(idx.split("[|]")[0]) == userIdx){
                                         hasReport = true;
                                     }
                                 }
                             }
-                            return RecommentResponse.of(dto.idx(),dto.commIdx(),dto.userIdx(),dto.name(),dto.text(),
+                            return RecommentResponse.of(dto.idx(),dto.commIdx(),dto.userIdx().getUserIdx(),dto.name(),dto.text(),
                                     dto.regDate(), relikeRepository.findByRelikeRecommIdx(recomment.getRecommIdx()),
                                     relikeRepository.findByRelikeRecommIdxAndRelikeUserIdx(recomment.getRecommIdx(),userIdx) != null ? true : false
                                     ,hasReport

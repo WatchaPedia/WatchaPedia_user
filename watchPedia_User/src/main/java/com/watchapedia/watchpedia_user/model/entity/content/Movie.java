@@ -1,6 +1,8 @@
 package com.watchapedia.watchpedia_user.model.entity.content;
 
 import com.watchapedia.watchpedia_user.model.entity.content.ajax.Star;
+import com.watchapedia.watchpedia_user.model.entity.content.ajax.Watch;
+import com.watchapedia.watchpedia_user.model.entity.content.ajax.Wish;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -35,5 +37,4 @@ public class Movie {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "starContentIdx")
     private List<Star> star;
-
 }

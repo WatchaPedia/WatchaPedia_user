@@ -61,7 +61,7 @@
         </attr>
         <attr sel="div.css-0" th:remove="all-but-first">
             <attr sel="div.css-1m1whp6" th:each="rec : ${comment.recomment}" th:id="${rec.idx}">
-                <attr sel="a.css-255jr8" th:href="'/user/'+${rec.userIdx().getUserIdx()}"/>
+                <attr sel="a.css-255jr8" th:href="'/user/'+${rec.userIdx}"/>
                 <attr sel="div.css-72k174" th:text="${rec.name}"/>
                 <attr sel="div.css-maxfbg" th:text="${#temporals.format(rec.regDate, 'yyyy-MM-dd')}"/>
                 <attr sel="div.css-yb0jaq" th:text="${rec.text}"/>
@@ -73,10 +73,10 @@
                     <attr sel="path#last-path" th:class="${rec.hasLike} == true ? 'check': _" />
                 </attr>
                 <attr sel="div.css-6btlr7">
-                    <attr sel="div.recomment" th:if="${rec.userIdx().getUserIdx()} != ${userIdx}">
+                    <attr sel="div.recomment" th:if="${rec.userIdx} != ${userIdx}">
                         <attr sel="div.css-19hkid5" th:text="${rec.hasReport} == true ? '부적절한 표현 신고 취소' : _"/>
                     </attr>
-                    <attr sel="div.recomment-edit" th:if="${rec.userIdx().getUserIdx()} == ${userIdx}"/>
+                    <attr sel="div.recomment-edit" th:if="${rec.userIdx} == ${userIdx}"/>
                 </attr>
             </attr>
         </attr>

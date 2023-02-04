@@ -109,6 +109,7 @@ try{
             headers: {'Content-Type': 'application/json;charset=UTF-8'},
             data: JSON.stringify({
                 userIdx: userIdx,
+                commType: 'comm',
                 commIdx: commentIdx,
                 text: document.querySelector("div.css-1g78l7j span").innerText,
                 spoiler: true,
@@ -194,6 +195,7 @@ try{
             headers: {'Content-Type':'application/json;charset=UTF-8'},
             data: JSON.stringify({
                 userIdx: userIdx,
+                commType: 'comm',
                 commIdx: commentIdx,
                 text: document.querySelector("div.css-1g78l7j span").innerText,
                 spoiler: false,
@@ -692,7 +694,7 @@ recommentReportModal.querySelector("button.css-sfhtz9-StylelessButton").addEvent
         headers: {'Content-Type':'application/json;charset=UTF-8'},
         data: JSON.stringify({
             userIdx: recommentUserIdx,
-            commType: 'O',
+            commType: 're',
             commIdx: recommentIdx,
             text: recommentText.innerText,
             spoiler: false,

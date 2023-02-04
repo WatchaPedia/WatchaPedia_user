@@ -2,17 +2,28 @@ package com.watchapedia.watchpedia_user.service.content.ajax;
 
 import com.watchapedia.watchpedia_user.model.dto.content.MovieDto;
 import com.watchapedia.watchpedia_user.model.dto.content.ajax.StarDto;
+import com.watchapedia.watchpedia_user.model.entity.User;
+import com.watchapedia.watchpedia_user.model.entity.comment.Comment;
+import com.watchapedia.watchpedia_user.model.entity.content.Movie;
 import com.watchapedia.watchpedia_user.model.entity.content.ajax.Star;
+import com.watchapedia.watchpedia_user.model.entity.content.ajax.Watch;
+import com.watchapedia.watchpedia_user.model.entity.content.ajax.Wish;
 import com.watchapedia.watchpedia_user.model.network.request.ajax.StarRequest;
+import com.watchapedia.watchpedia_user.model.network.response.content.EstimateContent;
 import com.watchapedia.watchpedia_user.model.network.response.content.MovieResponse;
 import com.watchapedia.watchpedia_user.model.network.response.content.StarResponse;
+import com.watchapedia.watchpedia_user.model.repository.comment.CommentRepository;
+import com.watchapedia.watchpedia_user.model.repository.comment.SpoilerRepository;
 import com.watchapedia.watchpedia_user.model.repository.content.MovieRepository;
+import com.watchapedia.watchpedia_user.model.repository.content.TvRepository;
+import com.watchapedia.watchpedia_user.model.repository.content.WebtoonRepository;
+import com.watchapedia.watchpedia_user.model.repository.content.ajax.HateRepository;
 import com.watchapedia.watchpedia_user.model.repository.content.ajax.StarRepository;
 import com.watchapedia.watchpedia_user.model.repository.UserRepository;
+import com.watchapedia.watchpedia_user.model.repository.content.ajax.WatchRepository;
+import com.watchapedia.watchpedia_user.model.repository.content.ajax.WishRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,26 +37,101 @@ public class StarService {
     final MovieRepository movieRepository;
     final StarRepository starRepository;
     @Transactional(readOnly = true) //데이터를 불러오기만 할 때(수정X)
-    public List<MovieResponse> movieList(Long userIdx){
-        List<MovieResponse> movieList = new ArrayList<>(movieRepository.findAll().stream().map(MovieDto::from).map(MovieResponse::from).toList());
-//        평점을 남겼던 영화라면 인덱스 삭제
-        movieList.removeIf(mov-> starRepository.findByStarContentTypeAndStarContentIdxAndStarUserIdx("movie",mov.idx(),userIdx)!=null);
+    public List<EstimateContent> movieList(User user, Pageable pageable){
+        List<EstimateContent> movieList = movieRepository.findAll(pageable).stream().map(
+                mov -> {
+                    Long movIdx = mov.getMovIdx();
+                    Comment comm = commentRepository.findByCommContentTypeAndCommContentIdxAndCommUserIdx("movie",movIdx,user);
+                    return EstimateContent.of(movIdx,mov.getMovTitle(),mov.getMovMakingDate(),mov.getMovCountry(),mov.getMovThumbnail(),
+                            wishRepository.findByWishContentTypeAndWishContentIdxAndWishUserIdx("movie",movIdx,user.getUserIdx()) != null ? true : false,
+                            watchRepository.findByWatchContentTypeAndWatchContentIdxAndWatchUserIdx("movie",movIdx,user.getUserIdx()) != null ? true : false,
+                            comm,
+                            comm != null?
+                                    (spoilerRepository.findBySpoCommentIdx(comm.getCommIdx()) != null ? true :false) :
+                                    false
+                    );
+                }
+        ).collect(Collectors.toList());
+//        평점을 남겼던 영화, 관심없어요 한 영화라면 인덱스 삭제
+        movieList.removeIf(mov-> starRepository.findByStarContentTypeAndStarContentIdxAndStarUserIdx("movie",mov.idx(),user.getUserIdx())!=null
+                || hateRepository.findByHateUserIdxAndHateContentTypeAndHateContentIdx(user.getUserIdx(),"movie",mov.idx())!=null);
+
         return movieList;
     }
+    @Transactional(readOnly = true) //데이터를 불러오기만 할 때(수정X)
+    public List<EstimateContent> tvList(User user, Pageable pageable){
+        List<EstimateContent> tvList = tvRepository.findAll(pageable).stream().map(
+                tv -> {
+                    Long tvIdx = tv.getTvIdx();
+                    Comment comm = commentRepository.findByCommContentTypeAndCommContentIdxAndCommUserIdx("tv",tvIdx,user);
+                    return EstimateContent.of(tvIdx,tv.getTvTitle(),tv.getTvMakingDate(),tv.getTvCountry(),tv.getTvThumbnail(),
+                            wishRepository.findByWishContentTypeAndWishContentIdxAndWishUserIdx("tv",tvIdx,user.getUserIdx()) != null ? true : false,
+                            watchRepository.findByWatchContentTypeAndWatchContentIdxAndWatchUserIdx("tv",tvIdx,user.getUserIdx()) != null ? true : false,
+                            comm,
+                            comm != null?
+                                    (spoilerRepository.findBySpoCommentIdx(comm.getCommIdx()) != null ? true :false) :
+                                    false
+                    );
+                }
+        ).collect(Collectors.toList());
+//        평점을 남겼던 콘텐츠, 관심없어요 한 콘텐츠라면 인덱스 삭제
+        tvList.removeIf(tv-> starRepository.findByStarContentTypeAndStarContentIdxAndStarUserIdx("tv",tv.idx(),user.getUserIdx())!=null
+                || hateRepository.findByHateUserIdxAndHateContentTypeAndHateContentIdx(user.getUserIdx(),"tv",tv.idx())!=null);
+
+        return tvList;
+    }
 //    @Transactional(readOnly = true) //데이터를 불러오기만 할 때(수정X)
-//    public List<TVDto> tvList(){
-//        return movieRepository.findAll().stream().map(MovieDto::from).toList();
+//    public List<EstimateContent> bookList(User user){
+//        List<EstimateContent> bookList = bookRepository.findAll().stream().map(
+//                book -> {
+//                    Long bookIdx = book.getTvIdx();
+//                    return EstimateContent.of(bookIdx,book.getTvTitle(),book.getTvMakingDate(),book.getTvCountry(),book.getTvThumbnail(),
+//                            wishRepository.findByWishContentTypeAndWishContentIdxAndWishUserIdx("book",bookIdx,user.getUserIdx()) != null ? true : false,
+//                            watchRepository.findByWatchContentTypeAndWatchContentIdxAndWatchUserIdx("book",bookIdx,user.getUserIdx()) != null ? true : false,
+//                            commentRepository.findByCommContentTypeAndCommContentIdxAndCommUserIdx("book",bookIdx,user),
+//                            commentRepository.findByCommContentTypeAndCommContentIdxAndCommUserIdx("book",bookIdx,user) != null?
+//                                    (spoilerRepository.findBySpoCommentIdx(commentRepository.findByCommContentTypeAndCommContentIdxAndCommUserIdx("book",bookIdx,user).getCommIdx()) != null ? true :false) :
+//                                    false
+//                    );
+//                }
+//        ).collect(Collectors.toList());
+////        평점을 남겼던 콘텐츠, 관심없어요 한 콘텐츠라면 인덱스 삭제
+//        bookList.removeIf(book-> starRepository.findByStarContentTypeAndStarContentIdxAndStarUserIdx("book",book.idx(),user.getUserIdx())!=null
+//                || hateRepository.findByHateUserIdxAndHateContentTypeAndHateContentIdx(user.getUserIdx(),"book",book.idx())!=null);
+//
+//        return bookList;
 //    }
-//    @Transactional(readOnly = true) //데이터를 불러오기만 할 때(수정X)
-//    public List<BookDto> bookList(){
-//        return movieRepository.findAll().stream().map(MovieDto::from).toList();
-//    }
-//    @Transactional(readOnly = true) //데이터를 불러오기만 할 때(수정X)
-//    public List<WebtoonDto> webList(){
-//        return movieRepository.findAll().stream().map(MovieDto::from).toList();
-//    }
+    @Transactional(readOnly = true) //데이터를 불러오기만 할 때(수정X)
+    public List<EstimateContent> webList(User user, Pageable pageable){
+        List<EstimateContent> webtoonList = webtoonRepository.findAll(pageable).stream().map(
+                web -> {
+                    Long webIdx = web.getWebIdx();
+                    Comment comm = commentRepository.findByCommContentTypeAndCommContentIdxAndCommUserIdx("webtoon",webIdx,user);
+                    return EstimateContent.of(webIdx,web.getWebTitle(),null,web.getWebWriter(),web.getWebThumbnail(),
+                            wishRepository.findByWishContentTypeAndWishContentIdxAndWishUserIdx("webtoon",web.getWebIdx(),user.getUserIdx())!=null?true:false,
+                            watchRepository.findByWatchContentTypeAndWatchContentIdxAndWatchUserIdx("webtoon",web.getWebIdx(),user.getUserIdx())!=null?true:false,
+                            comm,
+                            comm != null? (spoilerRepository.findBySpoCommentIdx(comm.getCommIdx()) != null ? true :false) :
+                                    false
+                    );
+                }
+        ).collect(Collectors.toList());
+//        평점을 남겼던 콘텐츠, 관심없어요 한 콘텐츠라면 인덱스 삭제
+        webtoonList.removeIf(web-> starRepository.findByStarContentTypeAndStarContentIdxAndStarUserIdx("webtoon",web.idx(),user.getUserIdx())!=null
+                || hateRepository.findByHateUserIdxAndHateContentTypeAndHateContentIdx(user.getUserIdx(),"webtoon",web.idx())!=null);
+
+        return webtoonList;
+    }
 
     final UserRepository userRepository;
+    private final HateRepository hateRepository;
+    private final WishRepository wishRepository;
+    private final WatchRepository watchRepository;
+    private final CommentRepository commentRepository;
+    private final SpoilerRepository spoilerRepository;
+    private final TvRepository tvRepository;
+    private final WebtoonRepository webtoonRepository;
+
     public StarResponse starSave(StarRequest request){
         Star starEntity = starRepository.findByStarContentTypeAndStarContentIdxAndStarUserIdx(
                 request.starContentType(),request.starContentIdx(), request.starUserIdx()
