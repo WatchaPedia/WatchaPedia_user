@@ -39,12 +39,11 @@ public class PageController {
     private final CommentRepository commentRepository;
     private final UserRepository userRepository;
 
-    @GetMapping(path="")
+    @GetMapping("/")
     public String movie(ModelMap map){
         map.addAttribute("movies", movieService.searchMovies());
         return "movie/movieMain";
     }
-
     //     별점 저장
     @PostMapping("/estimate") // http://localhost:8080/estimate
     @ResponseBody
