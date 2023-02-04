@@ -1,0 +1,59 @@
+<!--<?xml version="1.0"?>-->
+<!--<thlogic>-->
+<!--    <attr sel=".css-1ya1z7z-VisualUl" th:remove="all-but-first">-->
+<!--        <attr sel="#book-tr" th:each="book : ${books}" th:href="@{'/book/'+${book.bookIdx}}">-->
+<!--            <attr sel="#book-bookTitle" th:title="${book.bookTitle}">-->
+<!--                <attr sel="#book-title" th:text="${book.bookTitle}"/>-->
+<!--                <attr sel="#book-bookThumbnail" th:src="${book.bookThumbnail}" />-->
+<!--                <attr sel="#book-idx" th:text="${book.bookIdx}" />-->
+<!--            </attr>-->
+<!--        </attr>-->
+<!--    </attr>-->
+<!--</thlogic>-->
+<?xml version="1.0"?>
+<thlogic>
+    <!--    책 페이지 최상단(신간 베스트 셀러 순위)-->
+    <attr sel=".book-table" th:remove="all-but-first" >
+        <attr sel=".book-tr" th:each="book : ${books}" >
+            <attr sel=".book-idx" th:text="${book.bookIdx}"/>
+            <attr sel=".book-title" th:text="${book.bookTitle}"/>
+            <attr sel=".book-img" th:src="${book.bookThumbnail}" />
+        </attr>
+    </attr>
+    <!--    <attr sel=".webtoon-tr" th:object=" ${webtoon}" >-->
+    <!--    <attr sel="div.average css-xgmur2" th:utext="*{starList().size() != 0} ?'평균 ★' + ${avg} : '<br/>'"/>-->
+    <!--    </attr>-->
+    <!--책 검색 순위-->
+    <attr sel=".book-seacrhtable" th:remove="all-but-first">
+        <attr sel=".webtoon-tr-day" th:if="${webtoon.webSerDay == '금'}" th:each="webtoon : ${webtoons}">
+            <attr sel=".webtoon-title-day" th:text="${webtoon.webTitle}"/>
+            <attr sel=".webtoon-img-day" th:src="${webtoon.webThumbnail}" />
+        </attr>
+    </attr>
+
+    <!--#이동진 평론가님이 평가한 책 (사용???)-->
+    <attr sel=".webtoon-table-recent" th:remove="all-but-first">
+        <attr sel=".webtoon-tr-recent" th:if="${webtoon.webSerDetail == '연재 중'}" th:each="webtoon : ${webtoons}" >
+            <attr sel=".webtoon-title-recent" th:text="${webtoon.webTitle}"/>
+            <attr sel=".webtoon-img-recent" th:src="${webtoon.webThumbnail}" />
+        </attr>
+    </attr>
+
+    <!--예상별점이 높은 작품-->
+    <attr sel=".webtoon-table-ok" th:remove="all-but-first">
+        <attr sel=".webtoon-tr-ok" th:if="${webtoon.webSerDetail == '완결'}" th:each="webtoon : ${webtoons}" >
+            <attr sel=".webtoon-title-ok" th:text="${webtoon.webTitle}"/>
+            <attr sel=".webtoon-img-ok" th:src="${webtoon.webThumbnail}" />
+        </attr>
+    </attr>
+
+<!--    화제의 작가 OOO의 작품-->
+    <attr sel=".webtoon-table-romence" th:remove="all-but-first">
+        <attr sel=".webtoon-tr-romence" th:if="${webtoon.webGenre == '로맨스'}" th:each="webtoon : ${webtoons}" >
+            <attr sel=".webtoon-title-romence" th:text="${webtoon.webTitle}"/>
+            <attr sel=".webtoon-img-romence" th:src="${webtoon.webThumbnail}" />
+        </attr>
+    </attr>
+
+
+</thlogic>

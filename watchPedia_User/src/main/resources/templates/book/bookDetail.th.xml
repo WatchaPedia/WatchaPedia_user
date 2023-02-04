@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<thlogic>
+    <attr sel="#BookBox" th:object="${book}">
+        <attr sel=".book-title" th:text="${book.bookTitle}"/>
+        <attr sel=".book-titlesub" th:text="${book.bookTitleSub}"/>
+        <attr sel=".book-making" th:text="${book.bookWriter}+ '・'+${book.bookCategory}"/>
+        <attr sel=".book-writer" th:text="${book.bookWriter}"/>
+        <attr sel=".book-making.span" th:text="${book.bookWriter}+'・'+${book.bookAtDate}+'・'+${book.bookCategory}"/>
+        <attr sel=".book-date.span" th:text="${book.bookPage}" />
+        <attr sel="img#book-bookThumbnail" th:src="${book.bookThumbnail}"/>
+        <attr sel=".book-org" th:text="${book.webTitleOrg}" />
+        <attr sel=".book-summary" th:text="${book.bookSummary}"/>
+        <attr sel=".book-pubsummary" th:text="${book.bookPubSummary}"/>
+        <attr sel=".book-mockcha" th:text="${book.bookContentIdx}"/>
+    </attr>
+    <!--        코멘트 -->
+    <attr sel="div.hasComm" th:style="'display:' + (${hasComm} != null ? 'block' : 'none') + ';'">
+        <attr sel="div.css-1fucs4t-StyledText" th:text="${hasComm} != null ? ${hasComm.text} : _"/>
+    </attr>
+<attr sel="textarea.css-137vxyg" th:text="${hasComm} != null ? ${hasComm.text} : _"/>
+        <!--    스포일러 댓글일 경우 체크해서 표시-->
+<attr sel="div.css-hyoixq">
+<attr sel="svg" th:class="${hasComm} != null ? (${hasComm.spoiler} == true ? 'css-1ngtlfw' : _) : _"/>
+</attr>
+        <!--    코멘트 글자 수 출력 -->
+<attr sel="p.css-ynpx67" th:text="${hasComm} != null ? (${#strings.length(hasComm.text)} + '/10000') : _"/>
+<attr sel="button#wish-btn" th:class="${hasWish} == true ? 'e1svyhwg23 css-15hndx7-StylelessButton-ContentActionButton': _"/>
+<attr sel="button#watch-btn" th:class="${hasWatch} == true ? 'e1svyhwg23 css-15hndx7-StylelessButton-ContentActionButton': _"/>
+
+        <!--    관심없어요 버튼 -->
+<attr sel="div#hate" th:class="${hasHate} == true ? 'e1svyhwg29 css-13md5na-StyledDropdownMenuItem' : _"/>
+<attr sel="div#more-modal">
+<attr sel="div.css-bgi4sk">
+    <attr sel="span" th:class="${hasHate} == true ? 'css-fwllm4' : _"/>
+    <attr sel="img" th:src="${hasHate} == true ? 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPHBhdGggZD0iTTAgMGgyNHYyNEgweiIvPgogICAgICAgIDxwYXRoIGZpbGw9IiNGRjJGNkUiIGQ9Ik0xMS41NjYgMTkuMzEyYy4zNzcuNjc4Ljg2IDEuMjg4IDEuNDI4IDEuODA4QTkuMzMzIDkuMzMzIDAgMSAxIDExIDIuNjY3YTkuMzM3IDkuMzM3IDAgMCAxIDguODIyIDYuMjggNy4xNyA3LjE3IDAgMCAwLTIuMjg1LS4yNzRBNy4zMzMgNy4zMzMgMCAwIDAgMTEgNC42NjdhNy4zMDIgNy4zMDIgMCAwIDAtNC41MjUgMS41NjJsNS40OSA1LjQ5YTcuMTQxIDcuMTQxIDAgMCAwLS45NDUgMS44ODRMNS4wODMgNy42NjZhNy4zMzMgNy4zMzMgMCAwIDAgNi40ODIgMTEuNjQ1eiIvPgogICAgICAgIDxwYXRoIGZpbGw9IiNGRjJGNkUiIGQ9Ik0yMi42MTEgMTIuMTYxTDE4LjE3MyAxNi42bC0xLjgzMy0xLjgzM2EuODQ0Ljg0NCAwIDEgMC0xLjE5MyAxLjE5NGwyLjEyNiAyLjEyNmEuODQ3Ljg0NyAwIDAgMCAuMTQ3LjExNy43ODUuNzg1IDAgMCAwIDEuMjE5LjE0Mmw0LjgyNi00LjgyNmE2IDYgMCAxIDEtLjg1NC0xLjM2eiIvPgogICAgPC9nPgo8L3N2Zz4K' : _"/>
+</attr>
+</attr>
+</thlogic>
+

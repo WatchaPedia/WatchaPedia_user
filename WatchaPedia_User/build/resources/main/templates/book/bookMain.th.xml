@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<thlogic>
+    <attr sel="#book-table" th:remove="all-but-first">
+        <attr sel="#book-tr/a" th:each="book : ${books}" th:href="@{'/book/'+${book.bookIdx}}">
+            <attr sel="#book-title" th:text="${book.bookTitle}"/>
+            <attr sel="#book-bookThumbnail" th:src="${book.bookThumbnail}" />
+            <attr sel="#book-idx" th:text="${book.bookIdx}" />
+        </attr>
+    </attr>
+</thlogic>

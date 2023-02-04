@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<thlogic>
+    <attr sel="#BookBox" th:object="${book}">
+        <attr sel=".book-title" th:text="${book.bookTitle}"/>
+        <attr sel=".book-titlesub" th:text="${book.bookTitleSub}"/>
+        <attr sel=".book-making" th:text="${book.bookWriter}+ '・'+${book.bookCategory}"/>
+        <attr sel=".book-making.span" th:text="${book.bookWriter}+'・'+${book.bookAtDate}+'・'+${book.bookCategory}"/>
+        <attr sel=".book-date.span" th:text="${book.bookPage}" />
+        <attr sel="img#book-bookThumbnail" th:src="${book.bookThumbnail}"/>
+        <attr sel=".book-org" th:text="${book.webTitleOrg}" />
+        <attr sel=".book-summary" th:text="${book.bookSummary}"/>
+        <attr sel=".book-pubsummary" th:text="${book.bookPubSummary}"/>
+
+    </attr>
+
+</thlogic>
