@@ -33,7 +33,7 @@ public class RecommentService {
         User user = userRepository.findById(request.userIdx()).get();
         Long recomment = recommentRepository.save(RecommentDto.of(request.commIdx(),user,user.getUserName(), request.text()).toEntity()).getRecommIdx();
         RecommentDto dto = RecommentDto.from(recommentRepository.getReferenceById(recomment));
-        return RecommentResponse.of(dto.idx(),dto.commIdx(),dto.userIdx(),dto.name(),dto.text(),dto.regDate(),null,false,false);
+        return RecommentResponse.of(dto.idx(),dto.commIdx(),dto.userIdx().getUserIdx(),dto.name(),dto.text(),dto.regDate(),null,false,false);
     }
 
     public boolean recommentLikeSave(RelikeRequest request){
@@ -71,7 +71,7 @@ public class RecommentService {
             System.out.println("라이크가 없음");
         }
         try {
-            reportRepository.delete(reportRepository.findByReportCommTypeAndReportCommIdx("O", recommentIdx));
+            reportRepository.delete(reportRepository.findByReportCommTypeAndReportCommIdx("re", recommentIdx));
         }catch (Exception e) {
             System.out.println("리포트가 없음");
         }
