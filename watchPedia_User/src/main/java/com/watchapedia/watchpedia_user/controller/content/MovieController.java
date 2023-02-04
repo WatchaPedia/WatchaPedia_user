@@ -44,6 +44,13 @@ public class MovieController {
 
     private final CommentService commentService;
 
+    @GetMapping(path="/main")
+    public String movie(ModelMap map){
+        map.addAttribute("movies", movieService.searchMovies());
+        return "movie/movieMain";
+    }
+
+
     @GetMapping("/{movieIdx}") // http://localhost:8080/movie/1
     public String movieDetail(
             @PathVariable Long movieIdx,

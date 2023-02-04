@@ -74,4 +74,9 @@ public class MovieService {
         return result;
     }
 
+    @Transactional(readOnly = true) //데이터를 불러오기만 할 때(수정X)
+    public List<Movie> searchMovies() {
+        return movieRepository.findAll();
+    }
+
 }
