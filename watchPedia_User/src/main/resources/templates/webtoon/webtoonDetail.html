@@ -5040,7 +5040,7 @@
         .css-1o7yycy-ProfilePhotoImage {
             position: relative;
             z-index: 1;
-            background: url(https://an2-img.amz.wtchn.net/image/v2/dE54RRrvr5gUjosqISgscQ.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk1qUXdlREkwTUNKZExDSndJam9pTDNZeEwzQmxiM0JzWlM5dFpXUnBkVzB2WkdNek9Ea3dNVEZtTW1ZeU1UWTFNRE5qTVRndWFuQm5JbjAuakhRQzBOSFFrVjFyR0NCUWdIa0NaS2J4dk8yOGFWRjZvWDNxanFpSTNaQQ) no-repeat center;
+            background: url() no-repeat center;
             background-size: cover;
             width: 100%;
             height: 100%;
@@ -7541,6 +7541,11 @@
         .css-fwllm4 {
             color: rgb(255, 47, 110);
         }
+
+        .css-13md5na-StyledDropdownMenuItem .icon {
+            margin: 0px 12px;
+        }
+
     </style>
 
     <link rel="icon" href="/assets/img/favicon.png">
@@ -7552,7 +7557,26 @@
     <script defer src="/js/webtoon/detailComment.js"></script>
     <script defer src="/js/webtoon/detailWish.js"></script>
     <script defer src="/js/webtoon/detailWatch.js"></script>
-    <script defer src="/js/webtoon/detailHate.js"></script>
+    <script defer src="/js/webtoon
+    /detailHate.js"></script>
+
+    <style>
+        #loading-icon{
+            position: absolute;
+            top: 50%;
+            display: none;
+        }
+        #loading-icon img{
+            margin: 0 auto;
+        }
+
+        .spoiler-li{
+            display: none;
+        }
+        .not-spoiler-li{
+            display: none;
+        }
+    </style>
 
 </head>
 <body>
@@ -7760,7 +7784,7 @@
                                     </div>
                                 </li>
                                 <li class="css-bj71cw"><a href="/mypage/valueContent"><span class="css-f74c5f">평가하기</span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 22" width="22" height="22" class="css-94q8z7"><g fill="none"><path class="fillTarget" fill="#BABAC3" fill-rule="evenodd" d="M11.404 1.38c.243-.506.949-.506 1.193 0l2.734 5.662c.021.044.061.074.107.08l6.116.909c.547.081.764.767.369 1.16l-4.426 4.41c-.033.033-.048.08-.04.126l1.044 6.226c.094.556-.477.98-.964.717l-5.473-2.94c-.04-.022-.088-.022-.13.001l-5.47 2.939c-.488.263-1.059-.161-.965-.717l1.044-6.225c.008-.047-.007-.094-.04-.128L2.075 9.19c-.394-.393-.176-1.078.37-1.16l6.114-.907c.047-.007.087-.037.108-.08z"></path></g></svg></a></li>
-                                <li class="css-bj71cw"><a title="단비님's page">
+                                <li class="css-bj71cw"><a  th:title="${userIdx}" id="login-idx">
                                     <div class="css-ipiine">
                                         <div class="css-18d1ipb-ProfilePhotoImage" onclick="location.href='/mypage/myPage'"></div>
                                     </div>
@@ -7817,7 +7841,8 @@
                                                         </ul>
                                                         <h1 class="css-j40qn0-TitleOnPosterBlock e1svyhwg12">아바타: 물의
                                                             길</h1>
-                                                        <div class="css-11h0kfd-Detail e1svyhwg18">2022 ・ 액션/모험/판타지 ・
+                                                        <div class="css-11h0kfd-Detail e1svyhwg18">2022 ・ 액션/모험/판타지
+                                                            ・
                                                             미국
                                                         </div>
                                                     </div>
@@ -7830,11 +7855,12 @@
                                     <div class="css-569z5v">
                                         <div class="css-1po9d5k">
                                             <div class="css-1d6udxb">
-                                                <div class="css-13h49w0-PaneInner e1svyhwg16"><h1
-                                                        class="css-171k8ad-Title e1svyhwg17">아바타: 물의 길</h1>
+                                                <div class="css-13h49w0-PaneInner e1svyhwg16">
+                                                    <h1 class="css-171k8ad-Title e1svyhwg17">아바타: 물의 길</h1>
                                                     <div class="css-11h0kfd-Detail e1svyhwg18">2022 ・ 액션/모험/판타지 ・ 미국
                                                     </div>
-                                                    <div class="css-og1gu8-ContentRatings e1svyhwg20">평균 ★3.8 (3,363명)
+                                                    <div class="css-og1gu8-ContentRatings e1svyhwg20">평균 ★3.8
+                                                        (3,363명)
                                                     </div>
                                                     <div class="css-5qj1gb-ContentActionSection e1svyhwg19">
                                                         <div class="css-1jlb6q">
@@ -7842,104 +7868,138 @@
                                                                 <div class="css-1k5zzs9">평가하기</div>
                                                             </div>
                                                             <div id="star-div">
-                                                                  <span class="star">
-                                                                    ★★★★★
-                                                                    <span>★★★★★</span>
-                                                                    <input
-                                                                            type="range"
-                                                                            id="1"
-                                                                            min="0"
-                                                                            max="5"
-                                                                    />
-                                                                  </span>
+                                                                    <span class="star">
+                                                                        ★★★★★
+                                                                        <span>★★★★★</span>
+                                                                        <input type="range" id="1" min="0" max="5" />
+                                                                    </span>
                                                             </div>
                                                         </div>
-                                                        <div class="css-s5x9hn-ContentActionDivider e1svyhwg21"></div>
+                                                        <div class="css-s5x9hn-ContentActionDivider e1svyhwg21">
+                                                        </div>
                                                         <div class="css-1xki7ez-ButtonBlock e1svyhwg22">
-                                                            <button class="css-1tc9iuk-StylelessButton-ContentActionButton e1svyhwg23" id="wish-btn">
-                                                                <div class="Icon icPlus rotatingIcon css-1q1i623-SVG e1282e850">
+                                                            <button
+                                                                    class="css-1tc9iuk-StylelessButton-ContentActionButton e1svyhwg23"
+                                                                    id="wish-btn">
+                                                                <div
+                                                                        class="Icon icPlus rotatingIcon css-1q1i623-SVG e1282e850">
                                                                     <div>
                                                                         <svg xmlns="http://www.w3.org/2000/svg"
-                                                                             width="24" height="24" viewBox="0 0 24 24"
-                                                                             fill="none" class="injected-svg"
+                                                                             width="24" height="24"
+                                                                             viewBox="0 0 24 24" fill="none"
+                                                                             class="injected-svg"
                                                                              data-src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTIwLjUgMTMuMDkyOUgxMy4xNDI4VjIwLjVIMTAuODU3MVYxMy4wOTI5SDMuNVYxMC44MDcxSDEwLjg1NzFWMy41SDEzLjE0MjhWMTAuODA3MUgyMC41VjEzLjA5MjlaIiBmaWxsPSJjdXJyZW50Q29sb3IiLz4KPC9zdmc+Cg=="
                                                                              xmlns:xlink="http://www.w3.org/1999/xlink">
-                                                                            <path d="M20.5 13.0929H13.1428V20.5H10.8571V13.0929H3.5V10.8071H10.8571V3.5H13.1428V10.8071H20.5V13.0929Z"
-                                                                                  fill="currentColor"></path>
+                                                                            <path
+                                                                                    d="M20.5 13.0929H13.1428V20.5H10.8571V13.0929H3.5V10.8071H10.8571V3.5H13.1428V10.8071H20.5V13.0929Z"
+                                                                                    fill="currentColor"></path>
                                                                         </svg>
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" class="injected-svg" data-src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xOC41OTY5IDcuMTQ5NDFINS4yNjc2MUM1LjAxMzkgNy4xNDk0MSA0LjgwNzk4IDcuMzU1MzMgNC44MDc5OCA3LjYwOTA0VjIwLjAzNjVDNC44MDc5OCAyMC40MDk4IDUuMjI5MDEgMjAuNjI2NyA1LjUzMzI4IDIwLjQxMDdMMTEuOTMyMyAxNS44NzA1TDE4LjMzMTIgMjAuNDEwN0MxOC42MzU1IDIwLjYyNjcgMTkuMDU2NSAyMC40MDk4IDE5LjA1NjUgMjAuMDM2NVY3LjYwOTA0QzE5LjA1NjUgNy4zNTUzMyAxOC44NTA2IDcuMTQ5NDEgMTguNTk2OSA3LjE0OTQxWiIgZmlsbD0iY3VycmVudENvbG9yIi8+CjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMTguMTM3MyAzSDUuNzI3MjVDNS4yMTg4OSAzIDQuODA3OTggMy40MTE4MyA0LjgwNzk4IDMuOTE5MjZWNS4yOTgxNUM0LjgwNzk4IDUuNTUxODcgNS4wMTM5IDUuNzU3NzkgNS4yNjc2MSA1Ljc1Nzc5SDE4LjU5NjlDMTguODUwNiA1Ljc1Nzc5IDE5LjA1NjUgNS41NTE4NyAxOS4wNTY1IDUuMjk4MTVWMy45MTkyNkMxOS4wNTY1IDMuNDExODMgMTguNjQ0NyAzIDE4LjEzNzMgM1oiIGZpbGw9ImN1cnJlbnRDb2xvciIvPgo8L3N2Zz4K" xmlns:xlink="http://www.w3.org/1999/xlink" style="display: none;">
-                                                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M18.5969 7.14941H5.26761C5.0139 7.14941 4.80798 7.35533 4.80798 7.60904V20.0365C4.80798 20.4098 5.22901 20.6267 5.53328 20.4107L11.9323 15.8705L18.3312 20.4107C18.6355 20.6267 19.0565 20.4098 19.0565 20.0365V7.60904C19.0565 7.35533 18.8506 7.14941 18.5969 7.14941Z" fill="currentColor"></path>
-                                                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M18.1373 3H5.72725C5.21889 3 4.80798 3.41183 4.80798 3.91926V5.29815C4.80798 5.55187 5.0139 5.75779 5.26761 5.75779H18.5969C18.8506 5.75779 19.0565 5.55187 19.0565 5.29815V3.91926C19.0565 3.41183 18.6447 3 18.1373 3Z" fill="currentColor"></path>
+                                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                                             width="24" height="24"
+                                                                             viewBox="0 0 24 24" fill="none"
+                                                                             class="injected-svg"
+                                                                             data-src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xOC41OTY5IDcuMTQ5NDFINS4yNjc2MUM1LjAxMzkgNy4xNDk0MSA0LjgwNzk4IDcuMzU1MzMgNC44MDc5OCA3LjYwOTA0VjIwLjAzNjVDNC44MDc5OCAyMC40MDk4IDUuMjI5MDEgMjAuNjI2NyA1LjUzMzI4IDIwLjQxMDdMMTEuOTMyMyAxNS44NzA1TDE4LjMzMTIgMjAuNDEwN0MxOC42MzU1IDIwLjYyNjcgMTkuMDU2NSAyMC40MDk4IDE5LjA1NjUgMjAuMDM2NVY3LjYwOTA0QzE5LjA1NjUgNy4zNTUzMyAxOC44NTA2IDcuMTQ5NDEgMTguNTk2OSA3LjE0OTQxWiIgZmlsbD0iY3VycmVudENvbG9yIi8+CjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMTguMTM3MyAzSDUuNzI3MjVDNS4yMTg4OSAzIDQuODA3OTggMy40MTE4MyA0LjgwNzk4IDMuOTE5MjZWNS4yOTgxNUM0LjgwNzk4IDUuNTUxODcgNS4wMTM5IDUuNzU3NzkgNS4yNjc2MSA1Ljc1Nzc5SDE4LjU5NjlDMTguODUwNiA1Ljc1Nzc5IDE5LjA1NjUgNS41NTE4NyAxOS4wNTY1IDUuMjk4MTVWMy45MTkyNkMxOS4wNTY1IDMuNDExODMgMTguNjQ0NyAzIDE4LjEzNzMgM1oiIGZpbGw9ImN1cnJlbnRDb2xvciIvPgo8L3N2Zz4K"
+                                                                             xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                                             style="display: none;">
+                                                                            <path fill-rule="evenodd"
+                                                                                  clip-rule="evenodd"
+                                                                                  d="M18.5969 7.14941H5.26761C5.0139 7.14941 4.80798 7.35533 4.80798 7.60904V20.0365C4.80798 20.4098 5.22901 20.6267 5.53328 20.4107L11.9323 15.8705L18.3312 20.4107C18.6355 20.6267 19.0565 20.4098 19.0565 20.0365V7.60904C19.0565 7.35533 18.8506 7.14941 18.5969 7.14941Z"
+                                                                                  fill="currentColor"></path>
+                                                                            <path fill-rule="evenodd"
+                                                                                  clip-rule="evenodd"
+                                                                                  d="M18.1373 3H5.72725C5.21889 3 4.80798 3.41183 4.80798 3.91926V5.29815C4.80798 5.55187 5.0139 5.75779 5.26761 5.75779H18.5969C18.8506 5.75779 19.0565 5.55187 19.0565 5.29815V3.91926C19.0565 3.41183 18.6447 3 18.1373 3Z"
+                                                                                  fill="currentColor"></path>
                                                                         </svg>
                                                                     </div>
                                                                 </div>
                                                                 보고싶어요
                                                             </button>
-                                                            <button class="css-3p9quy-StylelessButton-ContentActionButton-ContentCommentButtonOnXs e1svyhwg24">
-                                                                <div class="Icon icPencil css-1q1i623-SVG e1282e850">
+                                                            <button
+                                                                    class="css-3p9quy-StylelessButton-ContentActionButton-ContentCommentButtonOnXs e1svyhwg24">
+                                                                <div
+                                                                        class="Icon icPencil css-1q1i623-SVG e1282e850">
                                                                     <div>
                                                                         <svg xmlns="http://www.w3.org/2000/svg"
-                                                                             width="24" height="24" viewBox="0 0 24 24"
-                                                                             fill="none" class="injected-svg"
+                                                                             width="24" height="24"
+                                                                             viewBox="0 0 24 24" fill="none"
+                                                                             class="injected-svg"
                                                                              data-src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTMgMTcuMjUyNVYyMS4wMDI1SDYuNzVMMTcuODEgOS45NDI1TDE0LjA2IDYuMTkyNUwzIDE3LjI1MjVaTTIwLjcxIDcuMDQyNUMyMS4xIDYuNjUyNSAyMS4xIDYuMDIyNSAyMC43MSA1LjYzMjVMMTguMzcgMy4yOTI1QzE3Ljk4IDIuOTAyNSAxNy4zNSAyLjkwMjUgMTYuOTYgMy4yOTI1TDE1LjEzIDUuMTIyNUwxOC44OCA4Ljg3MjVMMjAuNzEgNy4wNDI1WiIgZmlsbD0iY3VycmVudENvbG9yIi8+Cjwvc3ZnPgo="
                                                                              xmlns:xlink="http://www.w3.org/1999/xlink">
-                                                                            <path d="M3 17.2525V21.0025H6.75L17.81 9.9425L14.06 6.1925L3 17.2525ZM20.71 7.0425C21.1 6.6525 21.1 6.0225 20.71 5.6325L18.37 3.2925C17.98 2.9025 17.35 2.9025 16.96 3.2925L15.13 5.1225L18.88 8.8725L20.71 7.0425Z"
-                                                                                  fill="currentColor"></path>
+                                                                            <path
+                                                                                    d="M3 17.2525V21.0025H6.75L17.81 9.9425L14.06 6.1925L3 17.2525ZM20.71 7.0425C21.1 6.6525 21.1 6.0225 20.71 5.6325L18.37 3.2925C17.98 2.9025 17.35 2.9025 16.96 3.2925L15.13 5.1225L18.88 8.8725L20.71 7.0425Z"
+                                                                                    fill="currentColor"></path>
                                                                         </svg>
                                                                     </div>
                                                                 </div>
                                                                 코멘트
                                                             </button>
-                                                            <button class="css-orm7r7-StylelessButton-ContentActionButton-ContentCommentButtonOnSm e1svyhwg25">
-                                                                <div class="Icon icPencil css-1q1i623-SVG e1282e850">
+                                                            <button
+                                                                    class="css-orm7r7-StylelessButton-ContentActionButton-ContentCommentButtonOnSm e1svyhwg25">
+                                                                <div
+                                                                        class="Icon icPencil css-1q1i623-SVG e1282e850">
                                                                     <div>
                                                                         <svg xmlns="http://www.w3.org/2000/svg"
-                                                                             width="24" height="24" viewBox="0 0 24 24"
-                                                                             fill="none" class="injected-svg"
+                                                                             width="24" height="24"
+                                                                             viewBox="0 0 24 24" fill="none"
+                                                                             class="injected-svg"
                                                                              data-src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTMgMTcuMjUyNVYyMS4wMDI1SDYuNzVMMTcuODEgOS45NDI1TDE0LjA2IDYuMTkyNUwzIDE3LjI1MjVaTTIwLjcxIDcuMDQyNUMyMS4xIDYuNjUyNSAyMS4xIDYuMDIyNSAyMC43MSA1LjYzMjVMMTguMzcgMy4yOTI1QzE3Ljk4IDIuOTAyNSAxNy4zNSAyLjkwMjUgMTYuOTYgMy4yOTI1TDE1LjEzIDUuMTIyNUwxOC44OCA4Ljg3MjVMMjAuNzEgNy4wNDI1WiIgZmlsbD0iY3VycmVudENvbG9yIi8+Cjwvc3ZnPgo="
                                                                              xmlns:xlink="http://www.w3.org/1999/xlink">
-                                                                            <path d="M3 17.2525V21.0025H6.75L17.81 9.9425L14.06 6.1925L3 17.2525ZM20.71 7.0425C21.1 6.6525 21.1 6.0225 20.71 5.6325L18.37 3.2925C17.98 2.9025 17.35 2.9025 16.96 3.2925L15.13 5.1225L18.88 8.8725L20.71 7.0425Z"
-                                                                                  fill="currentColor"></path>
+                                                                            <path
+                                                                                    d="M3 17.2525V21.0025H6.75L17.81 9.9425L14.06 6.1925L3 17.2525ZM20.71 7.0425C21.1 6.6525 21.1 6.0225 20.71 5.6325L18.37 3.2925C17.98 2.9025 17.35 2.9025 16.96 3.2925L15.13 5.1225L18.88 8.8725L20.71 7.0425Z"
+                                                                                    fill="currentColor"></path>
                                                                         </svg>
                                                                     </div>
                                                                 </div>
                                                                 코멘트
-                                                                <div class="css-4w39q2-StyledDropdownWrapper e1svyhwg28 off">
+                                                                <div
+                                                                        class="css-4w39q2-StyledDropdownWrapper e1svyhwg28 off">
                                                                     <div class="css-ve4kut">
-                                                                        <div class="e1svyhwg29 css-1t4uwd9-StyledDropdownMenuItem">
-                                                                            <div class="Icon icPencil icon css-1q1i623-SVG e1282e850">
+                                                                        <div
+                                                                                class="e1svyhwg29 css-1t4uwd9-StyledDropdownMenuItem">
+                                                                            <div
+                                                                                    class="Icon icPencil icon css-1q1i623-SVG e1282e850">
                                                                                 <div>
                                                                                     <svg xmlns="http://www.w3.org/2000/svg"
                                                                                          width="24" height="24"
-                                                                                         viewBox="0 0 24 24" fill="none"
+                                                                                         viewBox="0 0 24 24"
+                                                                                         fill="none"
                                                                                          class="injected-svg"
                                                                                          data-src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTMgMTcuMjUyNVYyMS4wMDI1SDYuNzVMMTcuODEgOS45NDI1TDE0LjA2IDYuMTkyNUwzIDE3LjI1MjVaTTIwLjcxIDcuMDQyNUMyMS4xIDYuNjUyNSAyMS4xIDYuMDIyNSAyMC43MSA1LjYzMjVMMTguMzcgMy4yOTI1QzE3Ljk4IDIuOTAyNSAxNy4zNSAyLjkwMjUgMTYuOTYgMy4yOTI1TDE1LjEzIDUuMTIyNUwxOC44OCA4Ljg3MjVMMjAuNzEgNy4wNDI1WiIgZmlsbD0iY3VycmVudENvbG9yIi8+Cjwvc3ZnPgo="
                                                                                          xmlns:xlink="http://www.w3.org/1999/xlink">
-                                                                                        <path d="M3 17.2525V21.0025H6.75L17.81 9.9425L14.06 6.1925L3 17.2525ZM20.71 7.0425C21.1 6.6525 21.1 6.0225 20.71 5.6325L18.37 3.2925C17.98 2.9025 17.35 2.9025 16.96 3.2925L15.13 5.1225L18.88 8.8725L20.71 7.0425Z"
-                                                                                              fill="currentColor"></path>
+                                                                                        <path
+                                                                                                d="M3 17.2525V21.0025H6.75L17.81 9.9425L14.06 6.1925L3 17.2525ZM20.71 7.0425C21.1 6.6525 21.1 6.0225 20.71 5.6325L18.37 3.2925C17.98 2.9025 17.35 2.9025 16.96 3.2925L15.13 5.1225L18.88 8.8725L20.71 7.0425Z"
+                                                                                                fill="currentColor">
+                                                                                        </path>
                                                                                     </svg>
                                                                                 </div>
                                                                             </div>
                                                                             코멘트 수정
                                                                         </div>
-                                                                        <div class="e1svyhwg29 css-1t4uwd9-StyledDropdownMenuItem">
-                                                                            <div class="Icon icTrash icon css-1q1i623-SVG e1282e850">
+                                                                        <div
+                                                                                class="e1svyhwg29 css-1t4uwd9-StyledDropdownMenuItem">
+                                                                            <div
+                                                                                    class="Icon icTrash icon css-1q1i623-SVG e1282e850">
                                                                                 <div>
                                                                                     <svg xmlns="http://www.w3.org/2000/svg"
                                                                                          width="24" height="24"
-                                                                                         viewBox="0 0 24 24" fill="none"
+                                                                                         viewBox="0 0 24 24"
+                                                                                         fill="none"
                                                                                          class="injected-svg"
                                                                                          data-src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTYgMTkuNzVDNiAyMC44NSA2LjkgMjEuNzUgOCAyMS43NUgxNkMxNy4xIDIxLjc1IDE4IDIwLjg1IDE4IDE5Ljc1VjcuNzVINlYxOS43NVoiIGZpbGw9ImN1cnJlbnRDb2xvciIvPgo8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTE1LjAwMTIgNS43NDZDMTQuNTg4MiA1Ljc0NiAxNC4yNTMyIDUuNDExIDE0LjI1MzIgNC45OThWMy43NDZIOS43NDkxN1Y0Ljk5OEM5Ljc0OTE3IDUuNDExIDkuNDE0MTcgNS43NDYgOS4wMDExNyA1Ljc0NkM4LjU4ODE3IDUuNzQ2IDguMjUzMTcgNS40MTEgOC4yNTMxNyA0Ljk5OFYyLjk5OEM4LjI1MzE3IDIuNTg1IDguNTg4MTcgMi4yNSA5LjAwMTE3IDIuMjVIMTUuMDAxMkMxNS40MTQyIDIuMjUgMTUuNzQ5MiAyLjU4NSAxNS43NDkyIDIuOTk4VjQuOTk4QzE1Ljc0OTIgNS40MTEgMTUuNDE0MiA1Ljc0NiAxNS4wMDEyIDUuNzQ2WiIgZmlsbD0iY3VycmVudENvbG9yIi8+CjxyZWN0IHg9IjUiIHk9IjQuNzUiIHdpZHRoPSIxNCIgaGVpZ2h0PSIyIiBmaWxsPSJjdXJyZW50Q29sb3IiLz4KPC9zdmc+Cg=="
                                                                                          xmlns:xlink="http://www.w3.org/1999/xlink">
-                                                                                        <path d="M6 19.75C6 20.85 6.9 21.75 8 21.75H16C17.1 21.75 18 20.85 18 19.75V7.75H6V19.75Z"
-                                                                                              fill="currentColor"></path>
+                                                                                        <path
+                                                                                                d="M6 19.75C6 20.85 6.9 21.75 8 21.75H16C17.1 21.75 18 20.85 18 19.75V7.75H6V19.75Z"
+                                                                                                fill="currentColor">
+                                                                                        </path>
                                                                                         <path fill-rule="evenodd"
                                                                                               clip-rule="evenodd"
                                                                                               d="M15.0012 5.746C14.5882 5.746 14.2532 5.411 14.2532 4.998V3.746H9.74917V4.998C9.74917 5.411 9.41417 5.746 9.00117 5.746C8.58817 5.746 8.25317 5.411 8.25317 4.998V2.998C8.25317 2.585 8.58817 2.25 9.00117 2.25H15.0012C15.4142 2.25 15.7492 2.585 15.7492 2.998V4.998C15.7492 5.411 15.4142 5.746 15.0012 5.746Z"
-                                                                                              fill="currentColor"></path>
-                                                                                        <rect x="5" y="4.75" width="14"
-                                                                                              height="2"
-                                                                                              fill="currentColor"></rect>
+                                                                                              fill="currentColor">
+                                                                                        </path>
+                                                                                        <rect x="5" y="4.75"
+                                                                                              width="14" height="2"
+                                                                                              fill="currentColor">
+                                                                                        </rect>
                                                                                     </svg>
                                                                                 </div>
                                                                             </div>
@@ -7948,27 +8008,33 @@
                                                                     </div>
                                                                 </div>
                                                             </button>
-                                                            <button class="css-1tc9iuk-StylelessButton-ContentActionButton e1svyhwg23" id="watch-btn">
+                                                            <button
+                                                                    class="css-1tc9iuk-StylelessButton-ContentActionButton e1svyhwg23"
+                                                                    id="watch-btn">
                                                                 <div class="Icon icEye css-1q1i623-SVG e1282e850">
                                                                     <div>
                                                                         <svg xmlns="http://www.w3.org/2000/svg"
-                                                                             width="24" height="24" viewBox="0 0 24 24"
-                                                                             fill="none" class="injected-svg"
+                                                                             width="24" height="24"
+                                                                             viewBox="0 0 24 24" fill="none"
+                                                                             class="injected-svg"
                                                                              data-src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDVDNyA1IDIuNzMgOC4xMSAxIDEyLjVDMi43MyAxNi44OSA3IDIwIDEyIDIwQzE3IDIwIDIxLjI3IDE2Ljg5IDIzIDEyLjVDMjEuMjcgOC4xMSAxNyA1IDEyIDVaTTEyIDE3LjVDOS4yNCAxNy41IDcgMTUuMjYgNyAxMi41QzcgOS43NCA5LjI0IDcuNSAxMiA3LjVDMTQuNzYgNy41IDE3IDkuNzQgMTcgMTIuNUMxNyAxNS4yNiAxNC43NiAxNy41IDEyIDE3LjVaTTEyIDkuNUMxMC4zNCA5LjUgOSAxMC44NCA5IDEyLjVDOSAxNC4xNiAxMC4zNCAxNS41IDEyIDE1LjVDMTMuNjYgMTUuNSAxNSAxNC4xNiAxNSAxMi41QzE1IDEwLjg0IDEzLjY2IDkuNSAxMiA5LjVaIiBmaWxsPSJjdXJyZW50Q29sb3IiLz4KPC9zdmc+Cg=="
                                                                              xmlns:xlink="http://www.w3.org/1999/xlink">
-                                                                            <path d="M12 5C7 5 2.73 8.11 1 12.5C2.73 16.89 7 20 12 20C17 20 21.27 16.89 23 12.5C21.27 8.11 17 5 12 5ZM12 17.5C9.24 17.5 7 15.26 7 12.5C7 9.74 9.24 7.5 12 7.5C14.76 7.5 17 9.74 17 12.5C17 15.26 14.76 17.5 12 17.5ZM12 9.5C10.34 9.5 9 10.84 9 12.5C9 14.16 10.34 15.5 12 15.5C13.66 15.5 15 14.16 15 12.5C15 10.84 13.66 9.5 12 9.5Z"
-                                                                                  fill="currentColor"></path>
+                                                                            <path
+                                                                                    d="M12 5C7 5 2.73 8.11 1 12.5C2.73 16.89 7 20 12 20C17 20 21.27 16.89 23 12.5C21.27 8.11 17 5 12 5ZM12 17.5C9.24 17.5 7 15.26 7 12.5C7 9.74 9.24 7.5 12 7.5C14.76 7.5 17 9.74 17 12.5C17 15.26 14.76 17.5 12 17.5ZM12 9.5C10.34 9.5 9 10.84 9 12.5C9 14.16 10.34 15.5 12 15.5C13.66 15.5 15 14.16 15 12.5C15 10.84 13.66 9.5 12 9.5Z"
+                                                                                    fill="currentColor"></path>
                                                                         </svg>
                                                                     </div>
                                                                 </div>
                                                                 보는중
                                                             </button>
-                                                            <button class="css-oi7iec-StylelessButton-ContentActionButton-ContentMoreButtonOnXs e1svyhwg26">
+                                                            <button
+                                                                    class="css-oi7iec-StylelessButton-ContentActionButton-ContentMoreButtonOnXs e1svyhwg26">
                                                                 <div class="Icon icDots css-1q1i623-SVG e1282e850">
                                                                     <div>
                                                                         <svg xmlns="http://www.w3.org/2000/svg"
-                                                                             width="24" height="24" viewBox="0 0 24 24"
-                                                                             fill="none" class="injected-svg"
+                                                                             width="24" height="24"
+                                                                             viewBox="0 0 24 24" fill="none"
+                                                                             class="injected-svg"
                                                                              data-src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xMy42MjU5IDExLjk5ODNDMTMuNjI1OSAxMi44OTQ4IDEyLjg5OTEgMTMuNjIxNSAxMi4wMDI2IDEzLjYyMTVDMTEuMTA2MSAxMy42MjE1IDEwLjM3OTMgMTIuODk0OCAxMC4zNzkzIDExLjk5ODNDMTAuMzc5MyAxMS4xMDE4IDExLjEwNjEgMTAuMzc1IDEyLjAwMjYgMTAuMzc1QzEyLjg5OTEgMTAuMzc1IDEzLjYyNTkgMTEuMTAxOCAxMy42MjU5IDExLjk5ODNaTTguMDI2ODIgMTEuOTk4NkM4LjAyNjgyIDEyLjg5NTEgNy4zMDAwNiAxMy42MjE5IDYuNDAzNTUgMTMuNjIxOUM1LjUwNzA0IDEzLjYyMTkgNC43ODAyNyAxMi44OTUxIDQuNzgwMjcgMTEuOTk4NkM0Ljc4MDI3IDExLjEwMjEgNS41MDcwNCAxMC4zNzUzIDYuNDAzNTUgMTAuMzc1M0M3LjMwMDA2IDEwLjM3NTMgOC4wMjY4MiAxMS4xMDIxIDguMDI2ODIgMTEuOTk4NlpNMTcuNjAxNyAxMy42MjE1QzE4LjQ5ODIgMTMuNjIxNSAxOS4yMjUgMTIuODk0OCAxOS4yMjUgMTEuOTk4M0MxOS4yMjUgMTEuMTAxOCAxOC40OTgyIDEwLjM3NSAxNy42MDE3IDEwLjM3NUMxNi43MDUyIDEwLjM3NSAxNS45Nzg0IDExLjEwMTggMTUuOTc4NCAxMS45OTgzQzE1Ljk3ODQgMTIuODk0OCAxNi43MDUyIDEzLjYyMTUgMTcuNjAxNyAxMy42MjE1WiIgZmlsbD0iY3VycmVudENvbG9yIi8+Cjwvc3ZnPgo="
                                                                              xmlns:xlink="http://www.w3.org/1999/xlink">
                                                                             <path fill-rule="evenodd"
@@ -7980,12 +8046,14 @@
                                                                 </div>
                                                                 더보기
                                                             </button>
-                                                            <button class="css-1u6iefh-StylelessButton-ContentActionButton-ContentMoreButtonOnSm e1svyhwg27">
+                                                            <button
+                                                                    class="css-1u6iefh-StylelessButton-ContentActionButton-ContentMoreButtonOnSm e1svyhwg27">
                                                                 <div class="Icon icDots css-1q1i623-SVG e1282e850">
                                                                     <div>
                                                                         <svg xmlns="http://www.w3.org/2000/svg"
-                                                                             width="24" height="24" viewBox="0 0 24 24"
-                                                                             fill="none" class="injected-svg"
+                                                                             width="24" height="24"
+                                                                             viewBox="0 0 24 24" fill="none"
+                                                                             class="injected-svg"
                                                                              data-src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xMy42MjU5IDExLjk5ODNDMTMuNjI1OSAxMi44OTQ4IDEyLjg5OTEgMTMuNjIxNSAxMi4wMDI2IDEzLjYyMTVDMTEuMTA2MSAxMy42MjE1IDEwLjM3OTMgMTIuODk0OCAxMC4zNzkzIDExLjk5ODNDMTAuMzc5MyAxMS4xMDE4IDExLjEwNjEgMTAuMzc1IDEyLjAwMjYgMTAuMzc1QzEyLjg5OTEgMTAuMzc1IDEzLjYyNTkgMTEuMTAxOCAxMy42MjU5IDExLjk5ODNaTTguMDI2ODIgMTEuOTk4NkM4LjAyNjgyIDEyLjg5NTEgNy4zMDAwNiAxMy42MjE5IDYuNDAzNTUgMTMuNjIxOUM1LjUwNzA0IDEzLjYyMTkgNC43ODAyNyAxMi44OTUxIDQuNzgwMjcgMTEuOTk4NkM0Ljc4MDI3IDExLjEwMjEgNS41MDcwNCAxMC4zNzUzIDYuNDAzNTUgMTAuMzc1M0M3LjMwMDA2IDEwLjM3NTMgOC4wMjY4MiAxMS4xMDIxIDguMDI2ODIgMTEuOTk4NlpNMTcuNjAxNyAxMy42MjE1QzE4LjQ5ODIgMTMuNjIxNSAxOS4yMjUgMTIuODk0OCAxOS4yMjUgMTEuOTk4M0MxOS4yMjUgMTEuMTAxOCAxOC40OTgyIDEwLjM3NSAxNy42MDE3IDEwLjM3NUMxNi43MDUyIDEwLjM3NSAxNS45Nzg0IDExLjEwMTggMTUuOTc4NCAxMS45OTgzQzE1Ljk3ODQgMTIuODk0OCAxNi43MDUyIDEzLjYyMTUgMTcuNjAxNyAxMy42MjE1WiIgZmlsbD0iY3VycmVudENvbG9yIi8+Cjwvc3ZnPgo="
                                                                              xmlns:xlink="http://www.w3.org/1999/xlink">
                                                                             <path fill-rule="evenodd"
@@ -7996,21 +8064,26 @@
                                                                     </div>
                                                                 </div>
                                                                 더보기
-                                                                <div class="css-4w39q2-StyledDropdownWrapper e1svyhwg28 off">
+                                                                <div
+                                                                        class="css-4w39q2-StyledDropdownWrapper e1svyhwg28 off">
                                                                     <div class="css-ve4kut">
-                                                                        <div class="e1svyhwg29 css-1t4uwd9-StyledDropdownMenuItem" id="hate">
-                                                                            <div class="Icon icBlock icon css-1q1i623-SVG e1282e850">
+                                                                        <div class="e1svyhwg29 css-1t4uwd9-StyledDropdownMenuItem"
+                                                                             id="hate">
+                                                                            <div
+                                                                                    class="Icon icBlock icon css-1q1i623-SVG e1282e850">
                                                                                 <div>
                                                                                     <svg xmlns="http://www.w3.org/2000/svg"
                                                                                          width="24" height="24"
-                                                                                         viewBox="0 0 24 24" fill="none"
+                                                                                         viewBox="0 0 24 24"
+                                                                                         fill="none"
                                                                                          class="injected-svg"
                                                                                          data-src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik00IDEyQzQgMTAuMTU0IDQuNjM0IDguNDU4IDUuNjg3IDcuMTAzTDE2Ljg5NiAxOC4zMTJDMTUuNTQyIDE5LjM2NiAxMy44NDYgMjAgMTIgMjBDNy41ODggMjAgNCAxNi40MTEgNCAxMlpNMjAgMTJDMjAgMTMuODQ2IDE5LjM2NSAxNS41NDIgMTguMzExIDE2Ljg5N0w3LjEwMiA1LjY4OEM4LjQ1NyA0LjYzNCAxMC4xNTQgNCAxMiA0QzE2LjQxIDQgMjAgNy41ODkgMjAgMTJaTTEyIDJDNi40NzcgMiAyIDYuNDc3IDIgMTJDMiAxNy41MjIgNi40NzcgMjIgMTIgMjJDMTcuNTIyIDIyIDIyIDE3LjUyMiAyMiAxMkMyMiA2LjQ3NyAxNy41MjIgMiAxMiAyWiIgZmlsbD0iY3VycmVudENvbG9yIi8+Cjwvc3ZnPgo="
                                                                                          xmlns:xlink="http://www.w3.org/1999/xlink">
                                                                                         <path fill-rule="evenodd"
                                                                                               clip-rule="evenodd"
                                                                                               d="M4 12C4 10.154 4.634 8.458 5.687 7.103L16.896 18.312C15.542 19.366 13.846 20 12 20C7.588 20 4 16.411 4 12ZM20 12C20 13.846 19.365 15.542 18.311 16.897L7.102 5.688C8.457 4.634 10.154 4 12 4C16.41 4 20 7.589 20 12ZM12 2C6.477 2 2 6.477 2 12C2 17.522 6.477 22 12 22C17.522 22 22 17.522 22 12C22 6.477 17.522 2 12 2Z"
-                                                                                              fill="currentColor"></path>
+                                                                                              fill="currentColor">
+                                                                                        </path>
                                                                                     </svg>
                                                                                 </div>
                                                                             </div>
@@ -8140,7 +8213,7 @@
                                                                     정보</h2>
                                                                     <div class="css-s289sk">
                                                                         <div class="css-1ugqy9j"><a
-                                                                                th:href="@{'/webtoon/'+${webtoon.webIdx}+'/webtoonview'}">더보기</a>
+                                                                                th:href="@{'/webtoon/'+${webtoon.webIdx}+'/info'}">더보기</a>
                                                                         </div>
                                                                     </div>
                                                                 </header>
@@ -8175,7 +8248,7 @@
                                                         <div class="css-1gkas1x-Grid e1689zdh0">
                                                             <div class="css-1y901al-Row emmoxnt0">
                                                                 <header class="css-1ue9xs6"><h2 class="css-1wtjsst">
-                                                                    작가</h2></header>
+                                                                    출연/제작</h2></header>
                                                             </div>
                                                         </div>
                                                         <div class="css-usdi1z">
@@ -8781,11 +8854,11 @@
                                                                                                 src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxnIGZpbGw9IiNkNGQ0ZDQiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPHBhdGggZD0iTTMgMjFoNVY5SDN6TTE0LjkwMiA3Ljk5NGg0LjkzOGMuODggMCAxLjU5MS43IDEuNTkxIDEuNTY2IDAgLjg2Ni0uNzEyIDEuNTY3LTEuNTkgMS41NjdoLTQuOTM5Yy0uMzk4IDAtLjYxNS0uMDU1LS44MTItLjE1OGExLjA4NSAxLjA4NSAwIDAgMS0uNDUzLS40NDdjLS4xMDQtLjE5Mi0uMTYtLjQwNS0uMTYtLjc5OHYtLjMyN2MwLS4zOTMuMDU2LS42MDYuMTYtLjguMTA1LS4xOTEuMjU4LS4zNDIuNDUzLS40NDUuMTk3LS4xMDMuNDE0LS4xNTguODEyLS4xNTgiLz4KICAgICAgICA8cGF0aCBkPSJNMTQuMDYgMTFIMTlhMS41OCAxLjU4IDAgMCAxIDEuNTkgMS41NjhjMCAuODY1LS43MTIgMS41NjYtMS41OSAxLjU2NmgtNC45NGMtLjM5OCAwLS42MTUtLjA1NS0uODEtLjE1N2ExLjA4MSAxLjA4MSAwIDAgMS0uNDU0LS40NDhjLS4xMDUtLjE5Mi0uMTYtLjQwNS0uMTYtLjc5OHYtLjMyN2MwLS4zOTIuMDU1LS42MDYuMTYtLjguMTA0LS4xOTEuMjU4LS4zNDIuNDUzLS40NDUuMTk2LS4xMDMuNDEzLS4xNTguODExLS4xNTgiLz4KICAgICAgICA8cGF0aCBkPSJNMTMuMjIgMTQuMDA5aDQuOTM4Yy44NzkgMCAxLjU5LjcgMS41OSAxLjU2NiAwIC44NjYtLjcxMSAxLjU2Ny0xLjU5IDEuNTY3SDEzLjIyYy0uMzk4IDAtLjYxNS0uMDU1LS44MTEtLjE1N2ExLjA5NSAxLjA5NSAwIDAgMS0uNDU0LS40NDhjLS4xMDQtLjE5Mi0uMTYtLjQwNi0uMTYtLjc5OHYtLjMyOGMwLS4zOTEuMDU2LS42MDUuMTYtLjc5OGExLjA5IDEuMDkgMCAwIDEgLjQ1NC0uNDQ2Yy4xOTYtLjEwMy40MTMtLjE1OC44MS0uMTU4Ii8+CiAgICAgICAgPHBhdGggZD0iTTEyLjM3OCAxNy4wMTdoNC45NGMuODc4IDAgMS41OS42NjggMS41OSAxLjQ5IDAgLjgyNC0uNzEyIDEuNDkyLTEuNTkgMS40OTJoLTQuOTRjLS4zOTggMC0uNjE1LS4wNS0uODEtLjE1YTEuMDU4IDEuMDU4IDAgMCAxLS40NTQtLjQyNWMtLjEwNS0uMTgzLS4xNi0uMzg2LS4xNi0uNzZ2LS4zMTJjMC0uMzczLjA1NS0uNTc3LjE2LS43Ni4xMDQtLjE4My4yNTgtLjMyNy40NTMtLjQyNS4xOTYtLjA5OS40MTMtLjE1LjgxMS0uMTUiLz4KICAgICAgICA8cGF0aCBkPSJNMTMuMjAyIDUuMTYyYS45NC45NCAwIDAgMCAuMjc1LS42NjVWMy4yOTZjLS4wNjYtLjUzLjItLjc5Ni43OTUtLjc5Ni44OTYgMCAyLjM4Ny40NzcgMi4zODcgMi4zODcgMCAxLjI3My0uMjY2IDIuMzMzLS43OTYgMy4xODJ2MTEuOTNIOS41VjkuNjZjMC0uNTMxLjI2NS0xLjA2MS43OTUtMS41OTFsMi45MDctMi45MDd6Ii8+CiAgICA8L2c+Cjwvc3ZnPgo="
                                                                                                 width="18px"
                                                                                                 height="18px"
-                                                                                                class="css-zoh368"></span><em id="like">1520</em><span
+                                                                                                class="css-zoh368"></span><em class="like-sum">1520</em><span
                                                                                                 src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxwYXRoIGZpbGw9IiNkNGQ0ZDQiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTkuODcgMTguMDE5bC0zLjMxNCAzLjMxNHYtNC41N2MtMi4zNTYtMS40MTItMy44OS0zLjcxNi0zLjg5LTYuMzE5IDAtNC4yOTUgNC4xOC03Ljc3NyA5LjMzNC03Ljc3NyA1LjE1NSAwIDkuMzMzIDMuNDgyIDkuMzMzIDcuNzc3IDAgNC4yOTYtNC4xNzggNy43NzgtOS4zMzMgNy43NzgtLjczMyAwLTEuNDQ2LS4wNy0yLjEzLS4yMDN6Ii8+Cjwvc3ZnPgo="
                                                                                                 width="18px"
                                                                                                 height="18px"
-                                                                                                class="css-43cye7"></span><em id="recomment">13</em>
+                                                                                                class="css-43cye7"></span><em class="recomm-sum">13</em>
                                                                                         </div>
                                                                                         <div class="css-hy68ty">
                                                                                             <button class="css-1jrmj77-StylelessButton">
@@ -9171,6 +9244,9 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                                <div id="loading-icon">
+                                                                    <img src="https://icon-library.com/images/spinner-icon-gif/spinner-icon-gif-28.jpg" height="35" width="35"/>
+                                                                </div>
                                                             </div>
                                                             <div direction="left" class="css-a89h8a"></div>
                                                             <div direction="right" class="css-1qgb5vh"></div>
@@ -9193,6 +9269,11 @@
                                             </div>
                                         </div>
                                         <div class="css-wpsvu8">
+                                            <section class="css-e2gdle-Self e2ouywk0">
+                                                <div class="css-1wjbj9j-Self e1adaxwi0">
+
+                                                </div>
+                                            </section>
                                             <div class="css-1nhig6u-RoundedCornerBlock-RoundedCornerBlock">
                                                 <div class="css-1oj6s32">
                                                     <section class="w_exposed_cell css-1impywp" data-rowindex="4">
@@ -9260,8 +9341,6 @@
                                                             </div>
                                                         </div>
                                                     </section>
-
-
                                                 </div>
                                             </div>
                                             <div class="css-gdpty9"></div>
@@ -9280,148 +9359,432 @@
                                                         </div>
                                                         <div class="css-1gkas1x-Grid e1689zdh0">
                                                             <div class="css-1y901al-Row emmoxnt0">
-                                                                <ul class="css-27z1qm-VisualUl-ContentGrid e14whxmg0 webtoon-table-same">
-                                                                    <li class="css-1hp6p72 webtoon-tr-same"><a title="금세 사랑에 빠지는"
-                                                                                                               th:href="@{'/webtoon/'+${webtoonG.webIdx}}">
+                                                                <ul
+                                                                        class="css-27z1qm-VisualUl-ContentGrid e14whxmg0 webtoon-table-same">
+                                                                    <li class="css-1hp6p72 webtoon-tr-same">
+                                                                        <a title="그 여자 작사 그 남자 작곡"
+                                                                           href="/ko-KR/contents/mLOP2V5">
                                                                         <div class="css-1qmeemv">
-                                                                            <div class=" css-tpjapx-StyledLazyLoadingImage ezcopuc0">
+                                                                            <div
+                                                                                    class=" css-tpjapx-StyledLazyLoadingImage ezcopuc0">
                                                                                 <img src="https://an2-img.amz.wtchn.net/image/v2/0R0x-3L9CUQq9JhWDksquQ.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1KbklsMHNJbkFpT2lJdmRqSXZjM1J2Y21VdmQyVmlkRzl2Ymk4eE5qUXlOalk1TnpBeU5EUXhPRGN5TVRneUlpd2ljU0k2T0RBc0luY2lPalE1TUgwLlVidG5XRXRNbkpDdnlSc3N3M2lqNXZ2X253THNlalc5dURDNUM1UEdBRDg"
                                                                                      class="css-qhzw1o-StyledImg ezcopuc1 webtoon-img-same">
                                                                             </div>
                                                                         </div>
                                                                         <div class="css-ixy093">
-                                                                            <div class="css-niy0za webtoon-title-same">금세 사랑에 빠지는</div>
+                                                                            <div
+                                                                                    class="css-niy0za webtoon-title-same">
+                                                                                금세 사랑에 빠지는</div>
                                                                             <div>
-                                                                                <div class="css-or38u3" th:text="*{starList().size() != 0} ?'평균 ★' + ${avg}  : ''" >예상 ★ 4.4</div>
-                                                                                <div class="css-1vvt4am">웹툰</div>
+                                                                                <div class="css-m9i0qw">평균 ★ 2.5
+                                                                                </div>
+                                                                                <div class="css-1vvt4am">웹툰
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </a></li>
-                                                                    <li class="css-1hp6p72"><a title="선을 넘은 연애"
-                                                                                               href="/ko-KR/contents/woR7GAr">
+                                                                    <li class="css-1hp6p72"><a title="그 여자 작사 그 남자 작곡"
+                                                                                               href="/ko-KR/contents/mLOP2V5">
                                                                         <div class="css-1qmeemv">
-                                                                            <div class=" css-1tpsvov-StyledLazyLoadingImage ezcopuc0">
-                                                                                <img src="https://an2-img.amz.wtchn.net/image/v2/u4f7G9kHW-LSzllfRMjT6w.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1KbklsMHNJbkFpT2lJdmRqSXZjM1J2Y21VdmQyVmlkRzl2Ymk4eE5qVTNNakkwTURjd056ZzRNakkzTlRreElpd2ljU0k2T0RBc0luY2lPalE1TUgwLlVNSk1SUkg1bXVzbjAtUzFBaVV3NHdFSHRfOXJ3NWlqdURzQkRRRGx3OTg"
+                                                                            <div class=" css-unzuzl-StyledLazyLoadingImage ezcopuc0">
+                                                                                <img src="https://an2-img.amz.wtchn.net/image/v2/c_Pi0LE0_sthoastM36qlQ.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXhMM3BzTkdOaE9IUmxhamR2WlRKNmRUaG1NRFJ5SW4wLmFlTHVZWEdLYldRWGpfb2R6VVlTc2U0V01CclZHVzRTeGRoOGNhZ1RNcTQ"
+                                                                                     class="css-qhzw1o-StyledImg ezcopuc1">
+                                                                            </div>
+                                                                            <div class="ottBadge css-oobk33"
+                                                                                 src="https://an2-img.amz.wtchn.net/image/v2/33c15d90f101414a351372f19172859f.png?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKd1lYUm9Jam9pTDNZeUwzTjBiM0psTDNWcGJXRm5aUzh4TmpFeE1qQXdNVGN3T1RZd05qWTVNRE0xSW4wLlFwWFc3MERPaF9GR3ZMWVVzSUFCOFdLNWhLRjE3Ym5za1Z1bVFEN0lsSkU"></div>
+                                                                        </div>
+                                                                        <div class="css-ixy093">
+                                                                            <div class="css-niy0za">그 여자 작사 그 남자 작곡
+                                                                            </div>
+                                                                            <div>
+                                                                                <div class="css-1kcd80z">평가함 ★ 5.0</div>
+                                                                                <div class="css-1vvt4am">영화</div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </a></li>
+                                                                    <li class="css-1hp6p72"><a title="네번의 결혼식과 한번의 장례식"
+                                                                                               href="/ko-KR/contents/moW4Bqd">
+                                                                        <div class="css-1qmeemv">
+                                                                            <div class=" css-unzuzl-StyledLazyLoadingImage ezcopuc0">
+                                                                                <img src="https://an2-img.amz.wtchn.net/image/v2/PaZVaU_j6UM6n9rQYk0Lvg.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXhMM0ZvWjJWdlluSmpialUzTkd4ck9YUTNkMnhpSW4wLmJKelMwZkVZWFI1ZlhGWmVqbThzdjFMRVNvM3R5QWdZV1ByUDVOM3Q2VXM"
+                                                                                     class="css-qhzw1o-StyledImg ezcopuc1">
+                                                                            </div>
+                                                                            <div class="ottBadge css-oobk33"
+                                                                                 src="https://an2-img.amz.wtchn.net/image/v2/33c15d90f101414a351372f19172859f.png?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKd1lYUm9Jam9pTDNZeUwzTjBiM0psTDNWcGJXRm5aUzh4TmpFeE1qQXdNVGN3T1RZd05qWTVNRE0xSW4wLlFwWFc3MERPaF9GR3ZMWVVzSUFCOFdLNWhLRjE3Ym5za1Z1bVFEN0lsSkU"></div>
+                                                                        </div>
+                                                                        <div class="css-ixy093">
+                                                                            <div class="css-niy0za">네번의 결혼식과 한번의 장례식
+                                                                            </div>
+                                                                            <div>
+                                                                                <div class="css-or38u3">예상 ★ 3.7</div>
+                                                                                <div class="css-1vvt4am">영화</div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </a></li>
+                                                                    <li class="css-1hp6p72"><a title="노팅 힐"
+                                                                                               href="/ko-KR/contents/my5Y83d">
+                                                                        <div class="css-1qmeemv">
+                                                                            <div class=" css-unzuzl-StyledLazyLoadingImage ezcopuc0">
+                                                                                <img src="https://an2-img.amz.wtchn.net/image/v2/X_Uu6Uz2xR7zLxYAkyh2UA.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXhMM2cxYm05NGIyWXdNM2gwZUhZMmVtZHRjbTVtSW4wLm1lR0NnUDBlaHJIeWtJUzVjT3VUMFgtdlVjMnhLUFQ0RXEzc2dhbnN4LWc"
+                                                                                     class="css-qhzw1o-StyledImg ezcopuc1">
+                                                                            </div>
+                                                                            <div class="ottBadge css-5o7sb2"
+                                                                                 src="https://an2-img.amz.wtchn.net/image/v1/updatable_images/2571/original/42e70f1bc34d7af54478a311983ecf6d3601eefa.png"></div>
+                                                                            <div class="ottBadge css-oobk33"
+                                                                                 src="https://an2-img.amz.wtchn.net/image/v2/33c15d90f101414a351372f19172859f.png?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKd1lYUm9Jam9pTDNZeUwzTjBiM0psTDNWcGJXRm5aUzh4TmpFeE1qQXdNVGN3T1RZd05qWTVNRE0xSW4wLlFwWFc3MERPaF9GR3ZMWVVzSUFCOFdLNWhLRjE3Ym5za1Z1bVFEN0lsSkU"></div>
+                                                                        </div>
+                                                                        <div class="css-ixy093">
+                                                                            <div class="css-niy0za">노팅 힐</div>
+                                                                            <div>
+                                                                                <div class="css-or38u3">예상 ★ 4.5</div>
+                                                                                <div class="css-1vvt4am">영화</div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </a></li>
+                                                                    <li class="css-1hp6p72"><a title="유 윌 미스 미"
+                                                                                               href="/ko-KR/contents/myWqBKO">
+                                                                        <div class="css-1qmeemv">
+                                                                            <div class=" css-unzuzl-StyledLazyLoadingImage ezcopuc0">
+                                                                                <img src="https://an2-img.amz.wtchn.net/image/v2/KfYR9N5YXiv_7-HXeUOOTA.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXhMM1l3YzJOM1pEQjROR1ZvWjJ4cllXZGtNM2w0SW4wLnVablg3SHZrNEJHX0djR1FnQ2VvcW5wZ05MRE1DeDMtazFNRnpxNmxiMG8"
                                                                                      class="css-qhzw1o-StyledImg ezcopuc1">
                                                                             </div>
                                                                         </div>
                                                                         <div class="css-ixy093">
-                                                                            <div class="css-niy0za">선을 넘은 연애</div>
+                                                                            <div class="css-niy0za">유 윌 미스 미</div>
                                                                             <div>
-                                                                                <div class="css-m9i0qw">평균 ★ 3.6</div>
-                                                                                <div class="css-1vvt4am">웹툰</div>
+                                                                                <div class="css-m9i0qw">평균 ★ 2.5</div>
+                                                                                <div class="css-1vvt4am">영화</div>
                                                                             </div>
                                                                         </div>
                                                                     </a></li>
-                                                                    <li class="css-1hp6p72"><a title="이두나!"
-                                                                                               href="/ko-KR/contents/wVr3lV8">
+                                                                    <li class="css-1hp6p72"><a title="그는 당신에게 반하지 않았다"
+                                                                                               href="/ko-KR/contents/m5XMv3W">
                                                                         <div class="css-1qmeemv">
-                                                                            <div class=" css-2rvjnu-StyledLazyLoadingImage ezcopuc0">
-                                                                                <img src="https://an2-img.amz.wtchn.net/image/v2/oIkGx0dpBHaHVEpeqCn87Q.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1KbklsMHNJbkFpT2lJdmRqSXZjM1J2Y21VdmQyVmlkRzl2Ymk4eE5qUXlOalk1T1RrME9ERXhOamswTURneklpd2ljU0k2T0RBc0luY2lPalE1TUgwLnkzd25wUjJQTmdpbzVLWFRSU2dTandlMFpmUUVEelVrUFE4cjBFeEJZYzg"
+                                                                            <div class=" css-unzuzl-StyledLazyLoadingImage ezcopuc0">
+                                                                                <img src="https://an2-img.amz.wtchn.net/image/v2/i_E2sPeTC5zUFIk8LwyL8A.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXhMMngzTW1FemEyeHJiR2d4YVdwck1XdGplVzQxSW4wLjNDZEsxdXVocUZGbjFrczdaRExURm9hX2lZMURoSm95VHBrMHA3dk1FZTA"
                                                                                      class="css-qhzw1o-StyledImg ezcopuc1">
                                                                             </div>
                                                                         </div>
                                                                         <div class="css-ixy093">
-                                                                            <div class="css-niy0za">이두나!</div>
+                                                                            <div class="css-niy0za">그는 당신에게 반하지 않았다
+                                                                            </div>
                                                                             <div>
-                                                                                <div class="css-or38u3">예상 ★ 4.3</div>
-                                                                                <div class="css-1vvt4am">웹툰</div>
+                                                                                <div class="css-or38u3">예상 ★ 4.0</div>
+                                                                                <div class="css-1vvt4am">영화</div>
                                                                             </div>
                                                                         </div>
                                                                     </a></li>
-                                                                    <li class="css-1hp6p72"><a title="하루의 하루"
-                                                                                               href="/ko-KR/contents/wVreOmK">
+                                                                    <li class="css-1hp6p72"><a title="뉴욕 아이 러브 유"
+                                                                                               href="/ko-KR/contents/mW92P1O">
                                                                         <div class="css-1qmeemv">
-                                                                            <div class=" css-1bx2eti-StyledLazyLoadingImage ezcopuc0">
-                                                                                <img src="https://an2-img.amz.wtchn.net/image/v2/T6A4NsdUENec1MfaMS6OUQ.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1KbklsMHNJbkFpT2lJdmRqSXZjM1J2Y21VdmQyVmlkRzl2Ymk4eE5qUXlOamN3TlRBek5EVXlNRFV4TlRFMUlpd2ljU0k2T0RBc0luY2lPalE1TUgwLkVSMjlKaGlUeVpOOUduMi1oclg3UlJ4SHVqWFJ2TkRDcjRtUERqcmZSbUk"
+                                                                            <div class=" css-unzuzl-StyledLazyLoadingImage ezcopuc0">
+                                                                                <img src="https://an2-img.amz.wtchn.net/image/v2/SGOO4aHCxVayKQGgnzijsA.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXhMMmx4ZEhkME1IazFaR1ZxYW10dGQyVjNkR0pySW4wLmc4SU1VaFZVYVdOdjVlNHoyRkVzVkNjWUF4YndjT01pRnpCdFRaa2lZbHM"
+                                                                                     class="css-qhzw1o-StyledImg ezcopuc1">
+                                                                            </div>
+                                                                            <div class="ottBadge css-oobk33"
+                                                                                 src="https://an2-img.amz.wtchn.net/image/v2/33c15d90f101414a351372f19172859f.png?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKd1lYUm9Jam9pTDNZeUwzTjBiM0psTDNWcGJXRm5aUzh4TmpFeE1qQXdNVGN3T1RZd05qWTVNRE0xSW4wLlFwWFc3MERPaF9GR3ZMWVVzSUFCOFdLNWhLRjE3Ym5za1Z1bVFEN0lsSkU"></div>
+                                                                        </div>
+                                                                        <div class="css-ixy093">
+                                                                            <div class="css-niy0za">뉴욕 아이 러브 유</div>
+                                                                            <div>
+                                                                                <div class="css-or38u3">예상 ★ 3.4</div>
+                                                                                <div class="css-1vvt4am">영화</div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </a></li>
+                                                                    <li class="css-1hp6p72"><a title="첫 키스만 50번째"
+                                                                                               href="/ko-KR/contents/mv5axqd">
+                                                                        <div class="css-1qmeemv">
+                                                                            <div class=" css-unzuzl-StyledLazyLoadingImage ezcopuc0">
+                                                                                <img src="https://an2-img.amz.wtchn.net/image/v2/ZH0fD1kDnSNyRAjZq6773A.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXhMMkZ4WjNaaGIyOHllV041Y1dOb2QzaG1lbmw0SW4wLk82Zi0tV0x2bmpZUjJEdVJWQkZJQUszbmpTN2VXMzQ0bndBY3ZyYWhqWTA"
+                                                                                     class="css-qhzw1o-StyledImg ezcopuc1">
+                                                                            </div>
+                                                                            <div class="ottBadge css-5o7sb2"
+                                                                                 src="https://an2-img.amz.wtchn.net/image/v1/updatable_images/2571/original/42e70f1bc34d7af54478a311983ecf6d3601eefa.png"></div>
+                                                                            <div class="ottBadge css-oobk33"
+                                                                                 src="https://an2-img.amz.wtchn.net/image/v2/33c15d90f101414a351372f19172859f.png?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKd1lYUm9Jam9pTDNZeUwzTjBiM0psTDNWcGJXRm5aUzh4TmpFeE1qQXdNVGN3T1RZd05qWTVNRE0xSW4wLlFwWFc3MERPaF9GR3ZMWVVzSUFCOFdLNWhLRjE3Ym5za1Z1bVFEN0lsSkU"></div>
+                                                                        </div>
+                                                                        <div class="css-ixy093">
+                                                                            <div class="css-niy0za">첫 키스만 50번째</div>
+                                                                            <div>
+                                                                                <div class="css-1kcd80z">평가함 ★ 4.0</div>
+                                                                                <div class="css-1vvt4am">영화</div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </a></li>
+                                                                    <li class="css-1hp6p72"><a
+                                                                            title="사랑할 때 버려야 할 아까운 것들"
+                                                                            href="/ko-KR/contents/m85XKBd">
+                                                                        <div class="css-1qmeemv">
+                                                                            <div class=" css-unzuzl-StyledLazyLoadingImage ezcopuc0">
+                                                                                <img src="https://an2-img.amz.wtchn.net/image/v2/gUoEKwXSYa9b4klDydculA.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXhMM2RpTkdoaWJuaG5kbkZxWW05aU1YSm1ibmh3SW4wLk02UXBDQjBQTTV3b2lDN0RnY2RBQmZIV1hkNDVqWlUtbmVCeUJLeUZNdUE"
+                                                                                     class="css-qhzw1o-StyledImg ezcopuc1">
+                                                                            </div>
+                                                                            <div class="ottBadge css-5o7sb2"
+                                                                                 src="https://an2-img.amz.wtchn.net/image/v1/updatable_images/2571/original/42e70f1bc34d7af54478a311983ecf6d3601eefa.png"></div>
+                                                                        </div>
+                                                                        <div class="css-ixy093">
+                                                                            <div class="css-niy0za">사랑할 때 버려야 할 아까운 것들
+                                                                            </div>
+                                                                            <div>
+                                                                                <div class="css-or38u3">예상 ★ 4.0</div>
+                                                                                <div class="css-1vvt4am">영화</div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </a></li>
+                                                                    <li class="css-1hp6p72"><a title="남주기 아까운 그녀"
+                                                                                               href="/ko-KR/contents/m5m1Q75">
+                                                                        <div class="css-1qmeemv">
+                                                                            <div class=" css-unzuzl-StyledLazyLoadingImage ezcopuc0">
+                                                                                <img src="https://an2-img.amz.wtchn.net/image/v2/3_PkEpo9H7Rml1Vt90FOEg.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXhMMmx6YkcxemJXOXViV3A1Wkd0dWNXRnBhamszSW4wLlJzYVNzaXA0X2ZHWFY2ay1xSWppbkRVclZmbHRFUlhQY096WlQ2UlRnNjQ"
+                                                                                     class="css-qhzw1o-StyledImg ezcopuc1">
+                                                                            </div>
+                                                                            <div class="ottBadge css-oobk33"
+                                                                                 src="https://an2-img.amz.wtchn.net/image/v2/33c15d90f101414a351372f19172859f.png?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKd1lYUm9Jam9pTDNZeUwzTjBiM0psTDNWcGJXRm5aUzh4TmpFeE1qQXdNVGN3T1RZd05qWTVNRE0xSW4wLlFwWFc3MERPaF9GR3ZMWVVzSUFCOFdLNWhLRjE3Ym5za1Z1bVFEN0lsSkU"></div>
+                                                                        </div>
+                                                                        <div class="css-ixy093">
+                                                                            <div class="css-niy0za">남주기 아까운 그녀</div>
+                                                                            <div>
+                                                                                <div class="css-or38u3">예상 ★ 3.6</div>
+                                                                                <div class="css-1vvt4am">영화</div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </a></li>
+                                                                    <li class="css-1hp6p72"><a title="어바웃 타임"
+                                                                                               href="/ko-KR/contents/mO2x9k5">
+                                                                        <div class="css-1qmeemv">
+                                                                            <div class=" css-unzuzl-StyledLazyLoadingImage ezcopuc0">
+                                                                                <img src="https://an2-img.amz.wtchn.net/image/v2/jENE7VlqUpBKBIfpyHRing.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXhMMmt3WjNsdlpEbDFlRzFwZUdrNVltUjZhV2xySW4wLjRjRFByUGhqQUt2c2tsdndzWmRmUmM2bjlYbGc1OWJaaWhXWXJmaEdMeWc"
+                                                                                     class="css-qhzw1o-StyledImg ezcopuc1">
+                                                                            </div>
+                                                                            <div class="ottBadge css-5o7sb2"
+                                                                                 src="https://an2-img.amz.wtchn.net/image/v1/updatable_images/2571/original/42e70f1bc34d7af54478a311983ecf6d3601eefa.png"></div>
+                                                                            <div class="ottBadge css-oobk33"
+                                                                                 src="https://an2-img.amz.wtchn.net/image/v2/33c15d90f101414a351372f19172859f.png?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKd1lYUm9Jam9pTDNZeUwzTjBiM0psTDNWcGJXRm5aUzh4TmpFeE1qQXdNVGN3T1RZd05qWTVNRE0xSW4wLlFwWFc3MERPaF9GR3ZMWVVzSUFCOFdLNWhLRjE3Ym5za1Z1bVFEN0lsSkU"></div>
+                                                                        </div>
+                                                                        <div class="css-ixy093">
+                                                                            <div class="css-niy0za">어바웃 타임</div>
+                                                                            <div>
+                                                                                <div class="css-1kcd80z">평가함 ★ 5.0</div>
+                                                                                <div class="css-1vvt4am">영화</div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </a></li>
+                                                                    <li class="css-1hp6p72"><a title="발렌타인 데이"
+                                                                                               href="/ko-KR/contents/mWwBnl5">
+                                                                        <div class="css-1qmeemv">
+                                                                            <div class=" css-unzuzl-StyledLazyLoadingImage ezcopuc0">
+                                                                                <img src="https://an2-img.amz.wtchn.net/image/v2/CnFQw-Z4yR0mWCN0stxJww.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXhMMko1TlRReGNXTTROVGczY21kemVIVTBkV2RtSW4wLjlNaWZaTUFIalNYUlNIYVhkQThYeHBVRG9DeV9mMFl5X2k1bGMtMFp5U2M"
                                                                                      class="css-qhzw1o-StyledImg ezcopuc1">
                                                                             </div>
                                                                         </div>
                                                                         <div class="css-ixy093">
-                                                                            <div class="css-niy0za">하루의 하루</div>
+                                                                            <div class="css-niy0za">발렌타인 데이</div>
                                                                             <div>
-                                                                                <div class="css-m9i0qw">평균 ★ 3.5</div>
-                                                                                <div class="css-1vvt4am">웹툰</div>
+                                                                                <div class="css-or38u3">예상 ★ 3.7</div>
+                                                                                <div class="css-1vvt4am">영화</div>
                                                                             </div>
                                                                         </div>
                                                                     </a></li>
-                                                                    <li class="css-1hp6p72"><a title="별과 하나의 시"
-                                                                                               href="/ko-KR/contents/wr3wLQr">
+                                                                    <li class="css-1hp6p72"><a title="입술은 안돼요"
+                                                                                               href="/ko-KR/contents/mdEwpmW">
                                                                         <div class="css-1qmeemv">
-                                                                            <div class=" css-1ftsfvq-StyledLazyLoadingImage ezcopuc0">
-                                                                                <img src="https://an2-img.amz.wtchn.net/image/v2/8r4Ng1VUejDm0BtigKEvEQ.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1KbklsMHNJbkFpT2lJdmRqSXZjM1J2Y21VdmQyVmlkRzl2Ymk4eE5qSTJNVE01TWpFMU5qWTBOemczTmpVM0lpd2ljU0k2T0RBc0luY2lPalE1TUgwLlY2aFNzdm5mU0ZSRE9KYlZOcHRHUGdPT3BrbHZnUmNNNnhMVFJjRGNTOEU"
+                                                                            <div class=" css-unzuzl-StyledLazyLoadingImage ezcopuc0">
+                                                                                <img src="https://an2-img.amz.wtchn.net/image/v2/Vmmxwnw08Ro5WN1fpSAwCA.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXhMM1E0YlRRMlptdDFkbVJzZVRKM2MzbHZlbWcySW4wLkdpVTNVeGI3OUNKNXNmellrR2FGYnVHWXFqNFROU0V1QzBuNzJzQkRYVGM"
                                                                                      class="css-qhzw1o-StyledImg ezcopuc1">
                                                                             </div>
                                                                         </div>
                                                                         <div class="css-ixy093">
-                                                                            <div class="css-niy0za">별과 하나의 시</div>
+                                                                            <div class="css-niy0za">입술은 안돼요</div>
                                                                             <div>
-                                                                                <div class="css-m9i0qw">평균 ★ 3.5</div>
-                                                                                <div class="css-1vvt4am">웹툰</div>
+                                                                                <div class="css-or38u3">예상 ★ 2.5</div>
+                                                                                <div class="css-1vvt4am">영화</div>
                                                                             </div>
                                                                         </div>
                                                                     </a></li>
-                                                                    <li class="css-1hp6p72"><a title="퀸 오브 락"
-                                                                                               href="/ko-KR/contents/w8bndY8">
+                                                                    <li class="css-1hp6p72"><a title="애프터 러브"
+                                                                                               href="/ko-KR/contents/mOo0aPd">
                                                                         <div class="css-1qmeemv">
-                                                                            <div class=" css-17iyoeh-StyledLazyLoadingImage ezcopuc0">
-                                                                                <img src="https://an2-img.amz.wtchn.net/image/v2/gWlRoXmPykMvdUQlOCw5jg.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1KbklsMHNJbkFpT2lJdmRqSXZjM1J2Y21VdmQyVmlkRzl2Ymk4eE5qVTNOVGt3TVRBM016STNOelkxTWpneklpd2ljU0k2T0RBc0luY2lPalE1TUgwLi1PZV9xZmZOWjlJb3U1VWpMTndkSEdFT2QxNVRRUTR1blB0OG9xZmZ4Q0U"
+                                                                            <div class=" css-unzuzl-StyledLazyLoadingImage ezcopuc0">
+                                                                                <img src="https://an2-img.amz.wtchn.net/image/v2/6rMcMfg6mKDCtDqJB1YetQ.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXhMMk5sYXpWcU0yZHRkek5rTm5KcmRIUTVlV1IwSW4wLjU2bW9mblBUOE80elVUMDVKV2xzdUhneVdxQk9aTXYteUdDRm9XWDQ3RUk"
                                                                                      class="css-qhzw1o-StyledImg ezcopuc1">
                                                                             </div>
                                                                         </div>
                                                                         <div class="css-ixy093">
-                                                                            <div class="css-niy0za">퀸 오브 락</div>
+                                                                            <div class="css-niy0za">애프터 러브</div>
                                                                             <div>
-                                                                                <div class="css-m9i0qw">평균 ★ 3.7</div>
-                                                                                <div class="css-1vvt4am">웹툰</div>
+                                                                                <div class="css-or38u3">예상 ★ 3.3</div>
+                                                                                <div class="css-1vvt4am">영화</div>
                                                                             </div>
                                                                         </div>
                                                                     </a></li>
-                                                                    <li class="css-1hp6p72"><a title="그들이 사귀는 세상"
-                                                                                               href="/ko-KR/contents/wgKP6Rr">
+                                                                    <li class="css-1hp6p72"><a title="내 사랑"
+                                                                                               href="/ko-KR/contents/mWqJ7NO">
                                                                         <div class="css-1qmeemv">
-                                                                            <div class=" css-1scbmly-StyledLazyLoadingImage ezcopuc0">
-                                                                                <img src="https://an2-img.amz.wtchn.net/image/v2/vsvx9cluQQeZ3DhaEeDJxA.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1KbklsMHNJbkFpT2lJdmRqSXZjM1J2Y21VdmQyVmlkRzl2Ymk4eE5qUXlOamN3TlRJeE1UTTRORGM1T1RZNUlpd2ljU0k2T0RBc0luY2lPalE1TUgwLlJmemxLNVlRNFBzbXJYWWFzWE1BMkJlYkdub3c4OVBKSmc5WFRyMGVaaGc"
+                                                                            <div class=" css-unzuzl-StyledLazyLoadingImage ezcopuc0">
+                                                                                <img src="https://an2-img.amz.wtchn.net/image/v2/QaBNOfffdUqSDYpJR_Dzow.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXhMM1IzYldabFptMTVZVFl4T0habWRqQmpZakJ5SW4wLjM3NlA4MGdDakowUU5OYVFZV2RXaVhhczVYVDhwZ2RLUjROUUpmck1GT3c"
                                                                                      class="css-qhzw1o-StyledImg ezcopuc1">
                                                                             </div>
                                                                         </div>
                                                                         <div class="css-ixy093">
-                                                                            <div class="css-niy0za">그들이 사귀는 세상</div>
+                                                                            <div class="css-niy0za">내 사랑</div>
+                                                                            <div>
+                                                                                <div class="css-or38u3">예상 ★ 3.5</div>
+                                                                                <div class="css-1vvt4am">영화</div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </a></li>
+                                                                    <li class="css-1hp6p72"><a title="러브"
+                                                                                               href="/ko-KR/contents/m5327Ld">
+                                                                        <div class="css-1qmeemv">
+                                                                            <div class=" css-unzuzl-StyledLazyLoadingImage ezcopuc0">
+                                                                                <img src="https://an2-img.amz.wtchn.net/image/v2/yluCcK5rwc0TZ4HYnfAtDA.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXhMMlYzZUhGNFozZGphM1prZFhWdmNUaDRiMjg1SW4wLldKUkpOWHVrTnZhMHctZERMbGxGTVREUHhVNzVrenBTakNPaVF6WXFzVXM"
+                                                                                     class="css-qhzw1o-StyledImg ezcopuc1">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="css-ixy093">
+                                                                            <div class="css-niy0za">러브</div>
+                                                                            <div>
+                                                                                <div class="css-or38u3">예상 ★ 3.6</div>
+                                                                                <div class="css-1vvt4am">영화</div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </a></li>
+                                                                    <li class="css-1hp6p72"><a title="뉴욕의 연인들"
+                                                                                               href="/ko-KR/contents/mdBrBGd">
+                                                                        <div class="css-1qmeemv">
+                                                                            <div class=" css-unzuzl-StyledLazyLoadingImage ezcopuc0">
+                                                                                <img src="https://an2-img.amz.wtchn.net/image/v2/A_xuKG1LeUrEJH5HIQbWyQ.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXhMMk5zY1RSMVltcHBiWEZwYUhFNWF6QTBZbmRvSW4wLkhXSXpMYTNNNzRGMUlKa2VIYVktOTc3UllLSld1aURlWllmVDJQUi1YVG8"
+                                                                                     class="css-qhzw1o-StyledImg ezcopuc1">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="css-ixy093">
+                                                                            <div class="css-niy0za">뉴욕의 연인들</div>
+                                                                            <div>
+                                                                                <div class="css-or38u3">예상 ★ 3.9</div>
+                                                                                <div class="css-1vvt4am">영화</div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </a></li>
+                                                                    <li class="css-1hp6p72"><a title="시작은 키스!"
+                                                                                               href="/ko-KR/contents/m5njgY5">
+                                                                        <div class="css-1qmeemv">
+                                                                            <div class=" css-unzuzl-StyledLazyLoadingImage ezcopuc0">
+                                                                                <img src="https://an2-img.amz.wtchn.net/image/v2/ya-eiHP2GBZyAEL18sC_2Q.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpFMk5EWXlPREl5T0RNMU1qVXhOVEEwT1RRaWZRLkdsY2d5U1lvVTJ1SHdtUElyRmRjT1JoRnd2czRpR2J0b21ORlptRnFsZU0"
+                                                                                     class="css-qhzw1o-StyledImg ezcopuc1">
+                                                                            </div>
+                                                                            <div class="ottBadge css-5o7sb2"
+                                                                                 src="https://an2-img.amz.wtchn.net/image/v1/updatable_images/2571/original/42e70f1bc34d7af54478a311983ecf6d3601eefa.png"></div>
+                                                                            <div class="ottBadge css-oobk33"
+                                                                                 src="https://an2-img.amz.wtchn.net/image/v2/33c15d90f101414a351372f19172859f.png?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKd1lYUm9Jam9pTDNZeUwzTjBiM0psTDNWcGJXRm5aUzh4TmpFeE1qQXdNVGN3T1RZd05qWTVNRE0xSW4wLlFwWFc3MERPaF9GR3ZMWVVzSUFCOFdLNWhLRjE3Ym5za1Z1bVFEN0lsSkU"></div>
+                                                                        </div>
+                                                                        <div class="css-ixy093">
+                                                                            <div class="css-niy0za">시작은 키스!</div>
+                                                                            <div>
+                                                                                <div class="css-or38u3">예상 ★ 3.9</div>
+                                                                                <div class="css-1vvt4am">영화</div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </a></li>
+                                                                    <li class="css-1hp6p72"><a title="베를린, 아이 러브 유"
+                                                                                               href="/ko-KR/contents/m5NvzKa">
+                                                                        <div class="css-1qmeemv">
+                                                                            <div class=" css-unzuzl-StyledLazyLoadingImage ezcopuc0">
+                                                                                <img src="https://an2-img.amz.wtchn.net/image/v2/qHqTzh342Ll3h6K7QK8J8Q.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXhMMmczTmpodWRXZHVZM2t4TlRSa1luWjJiV3A0SW4wLjNjcGhoQ1JaYUJCenA4eXRmT1JOOUZqVFpfMDB5WHVuUTZIcmotb2p6Mnc"
+                                                                                     class="css-qhzw1o-StyledImg ezcopuc1">
+                                                                            </div>
+                                                                            <div class="ottBadge css-oobk33"
+                                                                                 src="https://an2-img.amz.wtchn.net/image/v2/33c15d90f101414a351372f19172859f.png?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKd1lYUm9Jam9pTDNZeUwzTjBiM0psTDNWcGJXRm5aUzh4TmpFeE1qQXdNVGN3T1RZd05qWTVNRE0xSW4wLlFwWFc3MERPaF9GR3ZMWVVzSUFCOFdLNWhLRjE3Ym5za1Z1bVFEN0lsSkU"></div>
+                                                                        </div>
+                                                                        <div class="css-ixy093">
+                                                                            <div class="css-niy0za">베를린, 아이 러브 유</div>
+                                                                            <div>
+                                                                                <div class="css-or38u3">예상 ★ 3.2</div>
+                                                                                <div class="css-1vvt4am">영화</div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </a></li>
+                                                                    <li class="css-1hp6p72"><a title="사랑해, 파리"
+                                                                                               href="/ko-KR/contents/mO8ZQb5">
+                                                                        <div class="css-1qmeemv">
+                                                                            <div class=" css-unzuzl-StyledLazyLoadingImage ezcopuc0">
+                                                                                <img src="https://an2-img.amz.wtchn.net/image/v2/e6jwLvlGGBRizTD3QMd5aA.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXhMM2wzTWpodlluTnNNM2wyYW1ScmNXMXdabkJtSW4wLlM2M3dIUW9fZ0FmU1lrX01zZ1p5MWx4dG1MbVAtS1VDWHJOc2ZlU2VPTTA"
+                                                                                     class="css-qhzw1o-StyledImg ezcopuc1">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="css-ixy093">
+                                                                            <div class="css-niy0za">사랑해, 파리</div>
+                                                                            <div>
+                                                                                <div class="css-or38u3">예상 ★ 3.9</div>
+                                                                                <div class="css-1vvt4am">영화</div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </a></li>
+                                                                    <li class="css-1hp6p72"><a title="원 데이"
+                                                                                               href="/ko-KR/contents/md7x8N5">
+                                                                        <div class="css-1qmeemv">
+                                                                            <div class=" css-unzuzl-StyledLazyLoadingImage ezcopuc0">
+                                                                                <img src="https://an2-img.amz.wtchn.net/image/v2/AoI9WzpM2I68dhZTereQIA.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXhMMk56ZG1GNWVYcHpkRzB6WW1GamJtSTJOVEJySW4wLnhFOFdOdFlsTVpEcm5hSC1uZVpKdEhENXlWLXBFOEZHQjRqTnBVb2YwZnc"
+                                                                                     class="css-pvl49n-StyledImg ezcopuc1">
+                                                                            </div>
+                                                                            <div class="ottBadge css-oobk33"
+                                                                                 src="https://an2-img.amz.wtchn.net/image/v2/33c15d90f101414a351372f19172859f.png?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKd1lYUm9Jam9pTDNZeUwzTjBiM0psTDNWcGJXRm5aUzh4TmpFeE1qQXdNVGN3T1RZd05qWTVNRE0xSW4wLlFwWFc3MERPaF9GR3ZMWVVzSUFCOFdLNWhLRjE3Ym5za1Z1bVFEN0lsSkU"></div>
+                                                                        </div>
+                                                                        <div class="css-ixy093">
+                                                                            <div class="css-niy0za">원 데이</div>
                                                                             <div>
                                                                                 <div class="css-or38u3">예상 ★ 4.1</div>
-                                                                                <div class="css-1vvt4am">웹툰</div>
+                                                                                <div class="css-1vvt4am">영화</div>
                                                                             </div>
                                                                         </div>
                                                                     </a></li>
-                                                                    <li class="css-1hp6p72"><a title="구름의 노래"
-                                                                                               href="/ko-KR/contents/w1K01Zo">
+                                                                    <li class="css-1hp6p72"><a title="어느 날, 사랑이 걸어왔다"
+                                                                                               href="/ko-KR/contents/md7xbp5">
                                                                         <div class="css-1qmeemv">
-                                                                            <div class=" css-1otsmd-StyledLazyLoadingImage ezcopuc0">
-                                                                                <img src="https://an2-img.amz.wtchn.net/image/v2/Gz9jZghlT9YhT09HdqGgYw.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1KbklsMHNJbkFpT2lJdmRqSXZjM1J2Y21VdmQyVmlkRzl2Ymk4eE5qUXlOalk1TWpVNE9USXdPRFl6TVRNeUlpd2ljU0k2T0RBc0luY2lPalE1TUgwLmh4aV9sZTZ6bUJZbWp4Y2xKaWhjU3B4OUY1M0FHbUpCU09jemdUZDd5ZjQ"
-                                                                                     class="css-qhzw1o-StyledImg ezcopuc1">
+                                                                            <div class=" css-unzuzl-StyledLazyLoadingImage ezcopuc0">
+                                                                                <img src="https://an2-img.amz.wtchn.net/image/v2/BJrw5vFmcibnHjWJ3gAACQ.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXhMM0ZsWnpjNWVuQTVkSFY2YlhodWFIVTNablJySW4wLktQUjFIR0ljdTA5Y0ItaWx3eG50cTh6RTZDMmtYNXlsRWpuQ3FLR2oySlE"
+                                                                                     class="css-pvl49n-StyledImg ezcopuc1">
                                                                             </div>
                                                                         </div>
                                                                         <div class="css-ixy093">
-                                                                            <div class="css-niy0za">구름의 노래</div>
+                                                                            <div class="css-niy0za">어느 날, 사랑이 걸어왔다</div>
                                                                             <div>
-                                                                                <div class="css-m9i0qw">평균 ★ 3.3</div>
-                                                                                <div class="css-1vvt4am">웹툰</div>
+                                                                                <div class="css-or38u3">예상 ★ 4.1</div>
+                                                                                <div class="css-1vvt4am">영화</div>
                                                                             </div>
                                                                         </div>
                                                                     </a></li>
-                                                                    <li class="css-1hp6p72"><a title="랑데뷰"
-                                                                                               href="/ko-KR/contents/wrN2Anr">
+                                                                    <li class="css-1hp6p72"><a title="마이 프리텐드 와이프"
+                                                                                               href="/ko-KR/contents/m5YQRR5">
                                                                         <div class="css-1qmeemv">
-                                                                            <div class=" css-9s83wu-StyledLazyLoadingImage ezcopuc0">
-                                                                                <img src="https://an2-img.amz.wtchn.net/image/v2/1Cpt7yfuOTbXfNmUdOwuSw.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1KbklsMHNJbkFpT2lJdmRqSXZjM1J2Y21VdmQyVmlkRzl2Ymk4eE5qUXlOamN3TnpBNU9EY3hPREE1T0RrNElpd2ljU0k2T0RBc0luY2lPalE1TUgwLmdOUUZVMzVPdnEyaXVSUC1PbHM0LTRrLVVDVGwySkxlN1B6QWd6UVhPWTg"
-                                                                                     class="css-qhzw1o-StyledImg ezcopuc1">
+                                                                            <div class=" css-unzuzl-StyledLazyLoadingImage ezcopuc0">
+                                                                                <img src="https://an2-img.amz.wtchn.net/image/v2/4XIjmp40yrRcXJ2L0Rgziw.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXhMM0YzWW1ad2NXMXRjbXhoZVdsdmNHZHFPVzFuSW4wLl9RQzI0dHJPWGVmSUJ0YkVRR2NOd1FsOXJUdHp5QjdMOEZZM0xMTmY1SmM"
+                                                                                     class="css-pvl49n-StyledImg ezcopuc1">
+                                                                            </div>
+                                                                            <div class="ottBadge css-5o7sb2"
+                                                                                 src="https://an2-img.amz.wtchn.net/image/v1/updatable_images/2571/original/42e70f1bc34d7af54478a311983ecf6d3601eefa.png"></div>
+                                                                        </div>
+                                                                        <div class="css-ixy093">
+                                                                            <div class="css-niy0za">마이 프리텐드 와이프</div>
+                                                                            <div>
+                                                                                <div class="css-or38u3">예상 ★ 3.7</div>
+                                                                                <div class="css-1vvt4am">영화</div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </a></li>
+                                                                    <li class="css-1hp6p72"><a title="크레이지, 스투피드, 러브"
+                                                                                               href="/ko-KR/contents/m53NQLd">
+                                                                        <div class="css-1qmeemv">
+                                                                            <div class=" css-unzuzl-StyledLazyLoadingImage ezcopuc0">
+                                                                                <img src="https://an2-img.amz.wtchn.net/image/v2/Gw_ayWyAxEw7NRWjHEtW8w.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXhMMnRwTjJzd2RtMHdZakZ1WVhSa1ltTjBOMmgySW4wLmFSOWM1V2ZZNHAxVzRFVTlqc0p6RXhsWXhONE13T3BoQWl2anZFcy1scnM"
+                                                                                     class="css-pvl49n-StyledImg ezcopuc1">
                                                                             </div>
                                                                         </div>
                                                                         <div class="css-ixy093">
-                                                                            <div class="css-niy0za">랑데뷰</div>
+                                                                            <div class="css-niy0za">크레이지, 스투피드, 러브</div>
                                                                             <div>
-                                                                                <div class="css-m9i0qw">평균 ★ 4.1</div>
-                                                                                <div class="css-1vvt4am">웹툰</div>
+                                                                                <div class="css-or38u3">예상 ★ 4.1</div>
+                                                                                <div class="css-1vvt4am">영화</div>
                                                                             </div>
                                                                         </div>
                                                                     </a></li>

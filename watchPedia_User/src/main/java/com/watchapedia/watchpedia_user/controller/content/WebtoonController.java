@@ -1,27 +1,34 @@
 package com.watchapedia.watchpedia_user.controller.content;
 
 
-import com.watchapedia.watchpedia_user.model.entity.content.Webtoon;
 import com.watchapedia.watchpedia_user.model.entity.content.ajax.Star;
 import com.watchapedia.watchpedia_user.model.network.response.PersonResponse;
 import com.watchapedia.watchpedia_user.model.network.response.comment.CommentResponse;
 import com.watchapedia.watchpedia_user.model.network.response.content.StarResponse;
-import com.watchapedia.watchpedia_user.model.network.response.content.TvResponse;
 import com.watchapedia.watchpedia_user.model.network.response.content.WebtoonResponse;
 import com.watchapedia.watchpedia_user.model.repository.UserRepository;
 import com.watchapedia.watchpedia_user.model.repository.comment.CommentRepository;
 import com.watchapedia.watchpedia_user.service.PersonService;
+import com.watchapedia.watchpedia_user.service.comment.CommentService;
 import com.watchapedia.watchpedia_user.service.content.WebtoonService;
 import com.watchapedia.watchpedia_user.service.content.ajax.HateService;
 import com.watchapedia.watchpedia_user.service.content.ajax.StarService;
 import com.watchapedia.watchpedia_user.service.content.ajax.WatchService;
 import com.watchapedia.watchpedia_user.service.content.ajax.WishService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 @Controller
 @RequestMapping("/webtoon")
@@ -35,7 +42,7 @@ public class WebtoonController {
     private final WishService wishService;
     private final WatchService watchService;
     private final HateService hateService;
-
+    private final CommentService commentService;
 
     @GetMapping(path="/main")
     public String webtoon(ModelMap map){
@@ -46,13 +53,12 @@ public class WebtoonController {
     @GetMapping("/{webIdx}") // http://localhost:8080/movie/1
     public String webtoonDetail(
             @PathVariable Long webIdx,
+            @PageableDefault(size = 5, sort = "commIdx", direction = Sort.Direction.DESC) Pageable pageable,
             ModelMap map
     ){
         Long userIdx = 12L;
 
         WebtoonResponse webtoon = webtoonService.webtoonView(webIdx);
-        List<Webtoon> webtoonG = webtoonService.Genre(webIdx);
-        webtoonG.remove(0);
 
 //      평균 별점
         double sum = 0;
@@ -86,7 +92,7 @@ public class WebtoonController {
             System.out.println("** 인물정보가 없습니다 **");
         }
 
-        List<CommentResponse> commentList = webtoonService.commentList(webtoon.webIdx(),userIdx);
+        Page<CommentResponse> commentList = commentService.commentList("webtoon",webtoon.webIdx(),userIdx,pageable);
 //      해당 유저가 코멘트를 달았는지
         CommentResponse hasComm = null;
         for(CommentResponse comm: commentList){
@@ -115,8 +121,9 @@ public class WebtoonController {
         }
         Long bigStar = starGraph.entrySet().stream().max((m1, m2) -> m1.getValue() > m2.getValue() ? 1 : -1).get().getKey();
 
+//        비슷한 장르 영화
+        List<WebtoonResponse> similarGenre = webtoonService.similarGenre(webtoon.webGenre(), webtoon.webIdx());
 
-        map.addAttribute("webtoonG", webtoonG);
         map.addAttribute("webtoon", webtoon);
         map.addAttribute("avg", avgStar);
         map.addAttribute("people", personList);
@@ -129,11 +136,12 @@ public class WebtoonController {
         map.addAttribute("graph", starGraph);
         map.addAttribute("bigStar", bigStar);
         map.addAttribute("userIdx", userIdx);
-        map.addAttribute("webtoons", webtoonService.searchWebtoons());
+        map.addAttribute("similarGenre", similarGenre);
         return "/webtoon/webtoonDetail";
     }
 
-    @GetMapping("/{webIdx}/webtoonview")
+
+    @GetMapping("/{webIdx}/info")
     public String webtoonInfo(
             @PathVariable Long webIdx,
             ModelMap map

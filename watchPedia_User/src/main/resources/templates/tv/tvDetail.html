@@ -7541,6 +7541,11 @@
         .css-fwllm4 {
             color: rgb(255, 47, 110);
         }
+
+        .css-13md5na-StyledDropdownMenuItem .icon {
+            margin: 0px 12px;
+        }
+
     </style>
 
     <link rel="icon" href="/assets/img/favicon.png">
@@ -7553,6 +7558,24 @@
     <script defer src="/js/tv/detailWish.js"></script>
     <script defer src="/js/tv/detailWatch.js"></script>
     <script defer src="/js/tv/detailHate.js"></script>
+
+    <style>
+        #loading-icon{
+            position: absolute;
+            top: 50%;
+            display: none;
+        }
+        #loading-icon img{
+            margin: 0 auto;
+        }
+
+        .spoiler-li{
+            display: none;
+        }
+        .not-spoiler-li{
+            display: none;
+        }
+    </style>
 
 </head>
 <body>
@@ -8144,7 +8167,7 @@
                                                                     정보</h2>
                                                                     <div class="css-s289sk">
                                                                         <div class="css-1ugqy9j"><a
-                                                                                th:href="@{'/tv/'+${tv.tvIdx}+'/tvview'}">더보기</a>
+                                                                                th:href="@{'/tv/'+${tv.tvIdx}+'/info'}">더보기</a>
                                                                         </div>
                                                                     </div>
                                                                 </header>
@@ -8785,11 +8808,11 @@
                                                                                                 src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxnIGZpbGw9IiNkNGQ0ZDQiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPHBhdGggZD0iTTMgMjFoNVY5SDN6TTE0LjkwMiA3Ljk5NGg0LjkzOGMuODggMCAxLjU5MS43IDEuNTkxIDEuNTY2IDAgLjg2Ni0uNzEyIDEuNTY3LTEuNTkgMS41NjdoLTQuOTM5Yy0uMzk4IDAtLjYxNS0uMDU1LS44MTItLjE1OGExLjA4NSAxLjA4NSAwIDAgMS0uNDUzLS40NDdjLS4xMDQtLjE5Mi0uMTYtLjQwNS0uMTYtLjc5OHYtLjMyN2MwLS4zOTMuMDU2LS42MDYuMTYtLjguMTA1LS4xOTEuMjU4LS4zNDIuNDUzLS40NDUuMTk3LS4xMDMuNDE0LS4xNTguODEyLS4xNTgiLz4KICAgICAgICA8cGF0aCBkPSJNMTQuMDYgMTFIMTlhMS41OCAxLjU4IDAgMCAxIDEuNTkgMS41NjhjMCAuODY1LS43MTIgMS41NjYtMS41OSAxLjU2NmgtNC45NGMtLjM5OCAwLS42MTUtLjA1NS0uODEtLjE1N2ExLjA4MSAxLjA4MSAwIDAgMS0uNDU0LS40NDhjLS4xMDUtLjE5Mi0uMTYtLjQwNS0uMTYtLjc5OHYtLjMyN2MwLS4zOTIuMDU1LS42MDYuMTYtLjguMTA0LS4xOTEuMjU4LS4zNDIuNDUzLS40NDUuMTk2LS4xMDMuNDEzLS4xNTguODExLS4xNTgiLz4KICAgICAgICA8cGF0aCBkPSJNMTMuMjIgMTQuMDA5aDQuOTM4Yy44NzkgMCAxLjU5LjcgMS41OSAxLjU2NiAwIC44NjYtLjcxMSAxLjU2Ny0xLjU5IDEuNTY3SDEzLjIyYy0uMzk4IDAtLjYxNS0uMDU1LS44MTEtLjE1N2ExLjA5NSAxLjA5NSAwIDAgMS0uNDU0LS40NDhjLS4xMDQtLjE5Mi0uMTYtLjQwNi0uMTYtLjc5OHYtLjMyOGMwLS4zOTEuMDU2LS42MDUuMTYtLjc5OGExLjA5IDEuMDkgMCAwIDEgLjQ1NC0uNDQ2Yy4xOTYtLjEwMy40MTMtLjE1OC44MS0uMTU4Ii8+CiAgICAgICAgPHBhdGggZD0iTTEyLjM3OCAxNy4wMTdoNC45NGMuODc4IDAgMS41OS42NjggMS41OSAxLjQ5IDAgLjgyNC0uNzEyIDEuNDkyLTEuNTkgMS40OTJoLTQuOTRjLS4zOTggMC0uNjE1LS4wNS0uODEtLjE1YTEuMDU4IDEuMDU4IDAgMCAxLS40NTQtLjQyNWMtLjEwNS0uMTgzLS4xNi0uMzg2LS4xNi0uNzZ2LS4zMTJjMC0uMzczLjA1NS0uNTc3LjE2LS43Ni4xMDQtLjE4My4yNTgtLjMyNy40NTMtLjQyNS4xOTYtLjA5OS40MTMtLjE1LjgxMS0uMTUiLz4KICAgICAgICA8cGF0aCBkPSJNMTMuMjAyIDUuMTYyYS45NC45NCAwIDAgMCAuMjc1LS42NjVWMy4yOTZjLS4wNjYtLjUzLjItLjc5Ni43OTUtLjc5Ni44OTYgMCAyLjM4Ny40NzcgMi4zODcgMi4zODcgMCAxLjI3My0uMjY2IDIuMzMzLS43OTYgMy4xODJ2MTEuOTNIOS41VjkuNjZjMC0uNTMxLjI2NS0xLjA2MS43OTUtMS41OTFsMi45MDctMi45MDd6Ii8+CiAgICA8L2c+Cjwvc3ZnPgo="
                                                                                                 width="18px"
                                                                                                 height="18px"
-                                                                                                class="css-zoh368"></span><em id="like">1520</em><span
+                                                                                                class="css-zoh368"></span><em class="like-sum">1520</em><span
                                                                                                 src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxwYXRoIGZpbGw9IiNkNGQ0ZDQiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTkuODcgMTguMDE5bC0zLjMxNCAzLjMxNHYtNC41N2MtMi4zNTYtMS40MTItMy44OS0zLjcxNi0zLjg5LTYuMzE5IDAtNC4yOTUgNC4xOC03Ljc3NyA5LjMzNC03Ljc3NyA1LjE1NSAwIDkuMzMzIDMuNDgyIDkuMzMzIDcuNzc3IDAgNC4yOTYtNC4xNzggNy43NzgtOS4zMzMgNy43NzgtLjczMyAwLTEuNDQ2LS4wNy0yLjEzLS4yMDN6Ii8+Cjwvc3ZnPgo="
                                                                                                 width="18px"
                                                                                                 height="18px"
-                                                                                                class="css-43cye7"></span><em id="recomment">13</em>
+                                                                                                class="css-43cye7"></span><em class="recomm-sum">13</em>
                                                                                         </div>
                                                                                         <div class="css-hy68ty">
                                                                                             <button class="css-1jrmj77-StylelessButton">
@@ -9174,6 +9197,9 @@
                                                                             </ul>
                                                                         </div>
                                                                     </div>
+                                                                </div>
+                                                                <div id="loading-icon">
+                                                                    <img src="https://icon-library.com/images/spinner-icon-gif/spinner-icon-gif-28.jpg" height="35" width="35"/>
                                                                 </div>
                                                             </div>
                                                             <div direction="left" class="css-a89h8a"></div>
@@ -9608,20 +9634,24 @@
                                                         </div>
                                                         <div class="css-1gkas1x-Grid e1689zdh0">
                                                             <div class="css-1y901al-Row emmoxnt0">
-                                                                <ul class="css-27z1qm-VisualUl-ContentGrid e14whxmg0 tv-table-same">
-                                                                    <li class="css-1hp6p72 tv-tr-same"><a title="금세 사랑에 빠지는"
-                                                                                                               th:href="@{'/tv/'+${tvG.tvIdx}}">
+                                                                <ul class="css-27z1qm-VisualUl-ContentGrid e14whxmg0    ">
+                                                                    <li class="css-1hp6p72"><a title="로맨틱 홀리데이"
+                                                                                               href="/ko-KR/contents/mOAZPad">
                                                                         <div class="css-1qmeemv">
-                                                                            <div class=" css-tpjapx-StyledLazyLoadingImage ezcopuc0">
-                                                                                <img src="https://an2-img.amz.wtchn.net/image/v2/0R0x-3L9CUQq9JhWDksquQ.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1KbklsMHNJbkFpT2lJdmRqSXZjM1J2Y21VdmQyVmlkRzl2Ymk4eE5qUXlOalk1TnpBeU5EUXhPRGN5TVRneUlpd2ljU0k2T0RBc0luY2lPalE1TUgwLlVidG5XRXRNbkpDdnlSc3N3M2lqNXZ2X253THNlalc5dURDNUM1UEdBRDg"
-                                                                                     class="css-qhzw1o-StyledImg ezcopuc1 tv-img-same">
+                                                                            <div class=" css-unzuzl-StyledLazyLoadingImage ezcopuc0">
+                                                                                <img src="https://an2-img.amz.wtchn.net/image/v2/18czxRiKprJDG6QiaGH9iQ.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXhMMjUxTjI5d2FUVjBkM0Y1YVdScVpIQm1kV3g1SW4wLnRUYkJCQmNjS1k2SkxkNkwxZmxMRFBIdEo3dkFIdmp0RXY1clZ6cWJJQUk"
+                                                                                     class="css-qhzw1o-StyledImg ezcopuc1">
                                                                             </div>
+                                                                            <div class="ottBadge css-5o7sb2"
+                                                                                 src="https://an2-img.amz.wtchn.net/image/v1/updatable_images/2571/original/42e70f1bc34d7af54478a311983ecf6d3601eefa.png"></div>
+                                                                            <div class="ottBadge css-oobk33"
+                                                                                 src="https://an2-img.amz.wtchn.net/image/v2/33c15d90f101414a351372f19172859f.png?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKd1lYUm9Jam9pTDNZeUwzTjBiM0psTDNWcGJXRm5aUzh4TmpFeE1qQXdNVGN3T1RZd05qWTVNRE0xSW4wLlFwWFc3MERPaF9GR3ZMWVVzSUFCOFdLNWhLRjE3Ym5za1Z1bVFEN0lsSkU"></div>
                                                                         </div>
                                                                         <div class="css-ixy093">
-                                                                            <div class="css-niy0za tv-title-same">금세 사랑에 빠지는</div>
+                                                                            <div class="css-niy0za">유 윌 미스 미</div>
                                                                             <div>
-                                                                                <div class="css-or38u3" th:text="*{starList().size() != 0} ?'평균 ★' + ${avg}  : ''" >예상 ★ 4.4</div>
-                                                                                <div class="css-1vvt4am">웹툰</div>
+                                                                                <div class="css-m9i0qw">평균 ★ 2.5</div>
+                                                                                <div class="css-1vvt4am">영화</div>
                                                                             </div>
                                                                         </div>
                                                                     </a></li>

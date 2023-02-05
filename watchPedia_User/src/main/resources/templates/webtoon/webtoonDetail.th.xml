@@ -1,19 +1,9 @@
 <?xml version="1.0"?>
 <thlogic>
 
-    <!--    <attr sel="#WebBox" th:object="${webtoon}">-->
-    <!--    <attr sel=".web-title" th:text="${webtoon.webTitle}"/>-->
-    <!--    <attr sel=".web-making" th:text="${webtoon.webWriter}+ '・'+${webtoon.webGenre}"/>-->
-    <!--    <attr sel=".web-date" th:text="${webtoon.webSerDay}+ '・'+${webtoon.webSerPeriod}" />-->
-    <!--    <attr sel=".web-webThumbnail" th:style="'background-image:url('+*{webThumbnail}+');'" />-->
-    <!--    <attr sel="div.web-org" th:text="${webtoon.webTitleOrg}" />-->
-    <!--    <attr sel=".web-summary" th:text="${webtoon.webSummary}"/>-->
-    <!--    </attr>-->
 
     <!--        헤더 영화 썸네일, 백미지-->
     <attr sel="div.css-cshjoi-PosterContainer" th:object="${webtoon}">
-        <!--        <attr sel="div.css-92c08v-BlurPoster"/>-->
-        <!--              th:style="'background-image:url('+*{webBackImg}+');'"/>-->
         <attr sel="img.css-qhzw1o-StyledImg" th:src="*{webThumbnail}" th:alt="*{webTitle}" th:id="*{webIdx}"/>
     </attr>
     <!--    헤더 영화 정보-->
@@ -159,7 +149,7 @@
     <attr sel="section#content_credits" th:if="${webtoon.webPeople} != null">
         <attr sel="ul.css-1br354h-VisualUl-PeopleStackableUl" th:remove="all-but-first">
             <attr sel="li.css-54rr1e" th:each="person, i: ${people}">
-                <attr sel="div.css-1o7yycy-ProfilePhotoImage" th:style="'background-image:url('+ ${person.photo} +');'"/>
+                <attr sel="div.css-1o7yycy-ProfilePhotoImage" th:style="${person.photo} != null ? 'background-image:url('+ ${person.photo} +');' : _"/>
                 <attr sel="div.css-17vuhtq" th:text="${person.name}"/>
                 <attr sel="div.css-1evnpxk-StyledSubtitle" th:text="${person.role}"/>
             </attr>
@@ -181,8 +171,8 @@
     </attr>
 
     <!--    댓글 -->
-    <attr sel="section[data-rowindex='10']" th:if="${comment} != null">
-        <attr sel="span.css-wzn7fp" th:text="${comment.size()} >= 10 ? ${#strings.substring(comment.size(),0,#strings.length(comment.size()-2))} + '0+' : ${comment.size()}"/>
+    <attr sel="section[data-rowindex='10']" th:if="${comment.getTotalElements()} > 0">
+        <attr sel="span.css-wzn7fp" th:text="${comment.getTotalElements()} >= 10 ? (${#strings.substring(comment.getTotalElements(),0,#strings.length(comment.getTotalElements()-2))} + '0+') : ${comment.getTotalElements()}"/>
         <attr sel="ul.css-nh9j5x-VisualUl-CommentHorizontalUl" th:remove="all-but-first">
             <attr sel="li.css-1fryc54" th:each="comm : ${comment}">
                 <!--                댓글 링크 연결-->
@@ -193,23 +183,23 @@
                 <attr sel="div.css-1cvf9dk">
                     <attr sel="a.css-1f9m1s4-StylelessLocalLink" th:href="'/user/' + ${comm.user().getUserIdx()}"/>
                 </attr>
-                <!---->
+
                 <attr sel="div.css-1agoci2" th:text="${comm.user().getUserName()}"/>
-                <!---->
+
                 <!--                스포일러 체크-->
                 <attr sel="span.css-xstsdj" th:if="${comm.spoiler} == true"/>
                 <attr sel="div.css-1yrlzf9-StyledText" th:class="${comm.spoiler} == true ? _ : 'css-qxbzku-StyledText eb5y16b1'" th:text="${comm.text}"/>
                 <!--                스포일러일 경우 좋아요와 대댓글 막힘 -->
                 <attr sel="div.css-1jm9uak" th:class="${comm.spoiler} == true ? _ : 'css-1atijos'">
                     <!--                댓글 좋아요, 대댓글 수 -->
-                    <attr sel="em#like" th:text="${comm.likeSum}"/>
-                    <attr sel="em#recomment" th:text="${comm.recommSum}"/>
+                    <attr sel="em.like-sum" th:text="${comm.likeSum}"/>
+                    <attr sel="em.recomm-sum" th:text="${comm.recommSum}"/>
                 </attr>
-                <!---->
+
                 <attr sel="span.css-zoh368" th:style="${comm.spoiler} == true ? _ : 'background-image:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGcgZmlsbD0iIzc4Nzg3OCI+CiAgICAgICAgICAgIDxwYXRoIGQ9Ik02Ljc1IDkuNDg1aC0zYTEgMSAwIDAgMC0xIDF2MTBhMSAxIDAgMCAwIDEgMWgzYTEgMSAwIDAgMCAxLTF2LTEwYTEgMSAwIDAgMC0xLTFNMjAuNjU3IDguNTY2YTIuMzYzIDIuMzYzIDAgMCAwLTEuNzc5LS44MTNIMTYuNjJsLjE2NC0uNjI3Yy4xMzctLjUyOC4yMDEtMS4xMi4yMDEtMS44NjMgMC0xLjkxOS0xLjM3NS0yLjc3OC0yLjczOC0yLjc3OC0uNDQ0IDAtLjc2Ni4xMjMtLjk4Ni4zNzYtLjIuMjI3LS4yODIuNTMtLjI0My45MzVsLjAzIDEuMjMtMi45MDMgMi45NGMtLjU5My42LS44OTQgMS4yMy0uODk0IDEuODcydjkuNjQ3YS41LjUgMCAwIDAgLjUuNWg3LjY4N2EyLjM4OCAyLjM4OCAwIDAgMCAyLjM0OC0yLjA3bDEuNDQ1LTcuNDUyYTIuNDQgMi40NCAwIDAgMC0uNTc0LTEuODk3Ii8+CiAgICAgICAgPC9nPgogICAgPC9nPgo8L3N2Zz4K);'"/>
                 <attr sel="span.css-43cye7" th:style="${comm.spoiler} == true ? _ : 'background-image:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxwYXRoIGZpbGw9IiM3ODc4NzgiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTkuODU3IDE3Ljc4Nkw2IDIxdi00LjkxYy0xLjg0MS0xLjM3My0zLTMuMzY5LTMtNS41OUMzIDYuMzU4IDcuMDMgMyAxMiAzczkgMy4zNTggOSA3LjVjMCA0LjE0Mi00LjAzIDcuNS05IDcuNS0uNzM5IDAtMS40NTYtLjA3NC0yLjE0My0uMjE0eiIvPgo8L3N2Zz4K);'"/>
                 <attr sel="div.css-hy68ty">
-                    <attr sel="button" th:class="${comm.spoiler} == true ? _ : (${comm.hasLike} == true ? 'css-jj4q3s-StylelessButton-UserActionButton' : 'css-1h18l7j-StylelessButton '+${comm.hasLike})"
+                    <attr sel="button" th:class="${comm.hasLike} == true ? 'css-jj4q3s-StylelessButton-UserActionButton' : (${comm.spoiler} == true ? _ : 'css-1h18l7j-StylelessButton')"
                           th:disabled="${comm.spoiler} == true ? 'disabled' : _"/>
                 </attr>
             </attr>
@@ -217,13 +207,23 @@
     </attr>
 
     <!--    유사한 작품-->
-    <attr sel=".webtoon-table-same" th:remove="all-but-first" >
-        <attr sel=".webtoon-tr-same"  th:each="webtoonG, index : ${webtoonG}" th:if="${index.index < 7}"
-              th:object=" ${webtoon}" >
-            <attr sel=".webtoon-title-same" th:text="${webtoonG.webTitle}"/>
-            <attr sel=".webtoon-img-same" th:src="${webtoonG.webThumbnail}"/>
-            <!--            <attr sel="div.css-or38u3"-->
-            <!--                  th:text="*{starList().size() != 0} ?'평균 ★' + ${avg}  : ''"/>-->
+    <attr sel="section[data-rowindex='13']" th:if="${similarGenre.size()} > 0">
+        <attr sel="ul.css-27z1qm-VisualUl-ContentGrid" th:remove="all-but-first">
+            <attr sel="li.css-1hp6p72" th:each="webtoon : ${similarGenre}">
+                <attr sel="a" th:title="webtoon.webTitle" th:href="'/webtoon/' + ${webtoon.webIdx}"/>
+                <attr sel="img.css-qhzw1o-StyledImg" th:src="${webtoon.webThumbnail}"/>
+
+<!--                <attr sel="div.css-1qmeemv">-->
+<!--                    &lt;!&ndash;                넷플릭스 아이콘&ndash;&gt;-->
+<!--                    <attr sel="div.css-5o7sb2" th:if="${webtoon.webWatch} != null and ${#strings.contains(webtoon.webWatch,'aHR0cHM6Ly93d3cubmV0ZmxpeC5jb20vdGl0b')}"/>-->
+<!--                    &lt;!&ndash;                왓챠 아이콘 &ndash;&gt;-->
+<!--                    <attr sel="div.css-oobk33" th:if="${webtoon.webWatch} != null and ${#strings.contains(webtoon.webWatch,'aHR0cHM6Ly93YXRjaGEuY29tL3dhd')}"/>-->
+<!--                </attr>-->
+                <attr sel="div.css-ixy093">
+                    <attr sel="div.css-niy0za" th:text="${webtoon.webTitle}"/>
+                    <attr sel="div.css-m9i0qw" th:if="${webtoon.avgStar} != 0.0" th:text="'평균 ★ ' + (${webtoon.avgStar} != 0 ? ${webtoon.avgStar} : _)"/>
+                </attr>
+            </attr>
         </attr>
     </attr>
 
