@@ -11,6 +11,6 @@ spring:
         format_sql: true
   thymeleaf3.decoupled-logic: true
 server:
-  port: 8787
+  port: 8181
 
 

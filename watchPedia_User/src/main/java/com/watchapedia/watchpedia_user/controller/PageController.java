@@ -1,5 +1,6 @@
 package com.watchapedia.watchpedia_user.controller;
 
+import com.watchapedia.watchpedia_user.model.dto.UserSessionDto;
 import com.watchapedia.watchpedia_user.model.dto.comment.CommentDto;
 import com.watchapedia.watchpedia_user.model.entity.content.ajax.Star;
 import com.watchapedia.watchpedia_user.model.network.request.ajax.StarRequest;
@@ -14,6 +15,8 @@ import com.watchapedia.watchpedia_user.model.repository.content.MovieRepository;
 import com.watchapedia.watchpedia_user.service.comment.CommentService;
 import com.watchapedia.watchpedia_user.service.content.MovieService;
 import com.watchapedia.watchpedia_user.service.content.ajax.StarService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -39,11 +42,15 @@ public class PageController {
     private final CommentRepository commentRepository;
     private final UserRepository userRepository;
 
-    @GetMapping("/")
-    public String movie(ModelMap map){
+    @GetMapping(path="/")
+    public String movie(ModelMap map, HttpSession session, HttpServletRequest request){
+        UserSessionDto userSessionDto = (UserSessionDto) session.getAttribute("userSession");
+
+        map.addAttribute("userSession", userSessionDto);
         map.addAttribute("movies", movieService.searchMovies());
         return "movie/movieMain";
     }
+
     //     별점 저장
     @PostMapping("/estimate") // http://localhost:8080/estimate
     @ResponseBody
@@ -130,4 +137,7 @@ public class PageController {
         mv.put("commentList", commentList);
         return mv;
     }
+
+
+
 }
