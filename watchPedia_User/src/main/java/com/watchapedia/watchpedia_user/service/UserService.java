@@ -45,4 +45,21 @@ public class UserService {
 
     }
 
+    public String save(UserRequestDto userRequestDto) {
+        UserDto userDto = UserDto.requestReceive(userRequestDto);
+        User user = User.of(userDto);
+        User userEmail_check = this.userRepository.findByUserEmail(userRequestDto.userEmail());
+        if (userEmail_check != null) {
+            return "USEREMAILALREADYEXIST";
+        } else {
+            User userSsn_check = this.userRepository.findByUserSsn1AndUserSsn2(userRequestDto.userSsn1(), userRequestDto.userSsn2());
+            if (userSsn_check != null) {
+                return "USEREMSSNALREADYEXIST";
+            } else {
+                this.userRepository.save(user);
+                return "SUCCESS";
+            }
+        }
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.watchapedia.watchpedia_user.model.entity;
 
+import com.watchapedia.watchpedia_user.model.dto.UserDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -41,5 +42,23 @@ public class User {
     @Column(length =100)
     private String userLikeGenre;
 
-
+    public static User of(UserDto userDto) {
+        return new User(
+                userDto.userIdx(),
+                userDto.userPw(),
+                userDto.userSsn1(),
+                userDto.userSsn2(),
+                userDto.userEmail(),
+                userDto.userStatus(),
+                userDto.userCautionCnt(),
+                userDto.userWarningCnt(),
+                userDto.userSuspensionCnt(),
+                userDto.userLatelyStop(),
+                userDto.userReleaseDate(),
+                userDto.userType(),
+                userDto.userName(),
+                userDto.userLikeActor(),
+                userDto.userLikeDirector(),
+                userDto.userLikeGenre());
+    }
 }
