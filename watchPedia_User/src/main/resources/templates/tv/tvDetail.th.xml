@@ -4,14 +4,14 @@
 <!--        헤더 영화 썸네일, 백미지-->
     <attr sel="div.css-cshjoi-PosterContainer" th:object="${tv}">
         <attr sel="div.css-92c08v-BlurPoster"
-              th:style="'background-image:url('+*{tvBackImg}+');'"/>
-        <attr sel="img.css-qhzw1o-StyledImg" th:src="*{tvThumbnail}" th:alt="*{tvTitle}" th:id="*{tvIdx}"/>
+              th:style="'background-image:url('+*{backImg}+');'"/>
+        <attr sel="img.css-qhzw1o-StyledImg" th:src="*{thumbnail}" th:alt="*{title}" th:id="*{idx}"/>
     </attr>
     <!--    헤더 영화 정보-->
     <attr sel="div.css-1p7n6er-Pane" th:object="${tv}">
-        <attr sel="h1.css-171k8ad-Title" th:text="*{tvTitle}"/>
+        <attr sel="h1.css-171k8ad-Title" th:text="*{title}"/>
         <attr sel="div.css-11h0kfd-Detail"
-              th:text="*{tvMakingDate} + ' ・ ' + *{tvGenre} + ' ・ ' + *{tvCountry}"/>
+              th:text="*{makingDate} + ' ・ ' + *{genre} + ' ・ ' + *{country}"/>
         <attr sel="div.css-og1gu8-ContentRatings"
               th:utext="*{starList().size() != 0} ?'평균 ★' + ${avg} + ' (' + *{starList().size()} + '명)' : '<br/>'"/>
         <!--       준 별점 정보 표시 -->
@@ -43,9 +43,9 @@
     <!--    관심없어요 버튼 -->
     <attr sel="div#hate" th:class="${hasHate} == true ? 'e1svyhwg29 css-13md5na-StyledDropdownMenuItem' : _"/>
     <attr sel="div#more-modal">
-    <attr sel="span.css-bhgne5-StyledBackground" th:style="'background-image:url('+${tv.tvThumbnail}+')'"/>
-    <attr sel="div.css-5kofsl" th:text="${tv.tvTitle}"/>
-    <attr sel="div.css-17s1j6g" th:text="'tv ・ '+${tv.tvMakingDate}"/>
+    <attr sel="span.css-bhgne5-StyledBackground" th:style="'background-image:url('+${tv.thumbnail}+')'"/>
+    <attr sel="div.css-5kofsl" th:text="${tv.title}"/>
+    <attr sel="div.css-17s1j6g" th:text="'tv ・ '+${tv.makingDate}"/>
         <attr sel="div.css-bgi4sk">
             <attr sel="span" th:class="${hasHate} == true ? 'css-fwllm4' : _"/>
             <attr sel="img" th:src="${hasHate} == true ? 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPHBhdGggZD0iTTAgMGgyNHYyNEgweiIvPgogICAgICAgIDxwYXRoIGZpbGw9IiNGRjJGNkUiIGQ9Ik0xMS41NjYgMTkuMzEyYy4zNzcuNjc4Ljg2IDEuMjg4IDEuNDI4IDEuODA4QTkuMzMzIDkuMzMzIDAgMSAxIDExIDIuNjY3YTkuMzM3IDkuMzM3IDAgMCAxIDguODIyIDYuMjggNy4xNyA3LjE3IDAgMCAwLTIuMjg1LS4yNzRBNy4zMzMgNy4zMzMgMCAwIDAgMTEgNC42NjdhNy4zMDIgNy4zMDIgMCAwIDAtNC41MjUgMS41NjJsNS40OSA1LjQ5YTcuMTQxIDcuMTQxIDAgMCAwLS45NDUgMS44ODRMNS4wODMgNy42NjZhNy4zMzMgNy4zMzMgMCAwIDAgNi40ODIgMTEuNjQ1eiIvPgogICAgICAgIDxwYXRoIGZpbGw9IiNGRjJGNkUiIGQ9Ik0yMi42MTEgMTIuMTYxTDE4LjE3MyAxNi42bC0xLjgzMy0xLjgzM2EuODQ0Ljg0NCAwIDEgMC0xLjE5MyAxLjE5NGwyLjEyNiAyLjEyNmEuODQ3Ljg0NyAwIDAgMCAuMTQ3LjExNy43ODUuNzg1IDAgMCAwIDEuMjE5LjE0Mmw0LjgyNi00LjgyNmE2IDYgMCAxIDEtLjg1NC0xLjM2eiIvPgogICAgPC9nPgo8L3N2Zz4K' : _"/>
@@ -54,9 +54,9 @@
 <!---->
 
     <!--        감상가능한 곳 719 이상-->
-    <attr sel="section.css-1impywp" th:if="${tv.tvWatch} != null">
+    <attr sel="section.css-1impywp" th:if="${tv.watch} != null">
         <attr sel="ul.css-1ohwri2-VisualUl-PartnerStackableUl" th:remove="all-but-first">
-            <attr sel="li.css-wj6fn0" th:each="wat : ${#strings.arraySplit(tv.tvWatch,',')}">
+            <attr sel="li.css-wj6fn0" th:each="wat : ${#strings.arraySplit(tv.watch,',')}">
                 <attr sel="a.css-1wacncs-InnerPartOfListWithImage" th:href="${wat}"
                       th:title="${#strings.contains(wat,'aHR0cHM6Ly93d3cubmV0ZmxpeC5jb20vdGl0b')} or ${#strings.contains(wat,'netflix')}?
                             '넷플릭스' : (${#strings.contains(wat,'aHR0cHM6Ly93YXRjaGEuY29tL3dhd')} or ${#strings.contains(wat,'https://watcha.com/watch/')} ?
@@ -93,9 +93,9 @@
     </attr>
 
     <!--        감상가능한 곳 719 이상-->
-    <attr sel="section.css-l1ynz5" th:if="${tv.tvWatch} != null">
+    <attr sel="section.css-l1ynz5" th:if="${tv.watch} != null">
         <attr sel="ul.css-1ohwri2-VisualUl-PartnerStackableUl" th:remove="all-but-first">
-            <attr sel="li.css-wj6fn0" th:each="wat : ${#strings.arraySplit(tv.tvWatch,',')}">
+            <attr sel="li.css-wj6fn0" th:each="wat : ${#strings.arraySplit(tv.watch,',')}">
                 <attr sel="a.css-1wacncs-InnerPartOfListWithImage" th:href="${wat}"
                       th:title="${#strings.contains(wat,'aHR0cHM6Ly93d3cubmV0ZmxpeC5jb20vdGl0b')} or ${#strings.contains(wat,'netflix')}?
                             '넷플릭스' : (${#strings.contains(wat,'aHR0cHM6Ly93YXRjaGEuY29tL3dhd')}  or ${#strings.contains(wat,'https://watcha.com/watch/')}?
@@ -134,9 +134,9 @@
     </attr>
 <!---->
     <!--    갤러리 -->
-    <attr sel="section.gallery" th:if="${tv.tvGallery} != null">
+    <attr sel="section.gallery" th:if="${tv.gallery} != null">
         <attr sel="ul.css-1cduxg0-VisualUl" th:remove="all-but-first">
-            <attr sel="li.css-1cw0vk0" th:each="photo, idx : ${#strings.arraySplit(tv.tvGallery,'|')}"
+            <attr sel="li.css-1cw0vk0" th:each="photo, idx : ${#strings.arraySplit(tv.gallery,'|')}"
                   th:classappend="${idx.first} ? 'first' : (${idx.last ? 'last' : _})"
             >
                 <attr sel="img.e1q5rx9q1" th:src="${photo}"/>
@@ -145,9 +145,9 @@
     </attr>
 <!---->
     <!--    영상 -->
-    <attr sel="section.video" th:if="${tv.tvVideo} != null">
+    <attr sel="section.video" th:if="${tv.video} != null">
         <attr sel="ul.css-wq135y-VisualUl-VideoHorizontalUl" th:remove="all-but-first">
-            <attr sel="li.css-1xgzykb-VideoListItem" th:each="video : ${#strings.arraySplit(tv.tvVideo,'|')}">
+            <attr sel="li.css-1xgzykb-VideoListItem" th:each="video : ${#strings.arraySplit(tv.video,'|')}">
                 <attr sel="a.css-18apgv4" th:href="${#strings.arraySplit(video,',')[0]}"/>
                 <attr sel="div.css-1fucs4t-StyledText" th:if="${#lists.size(#strings.arraySplit(video,','))} > 1" th:text="${#strings.arraySplit(video,',')[1]}"/>
             </attr>
@@ -155,7 +155,7 @@
     </attr>
 
     <!--    출연정보 -->
-    <attr sel="section#content_credits" th:if="${tv.tvPeople} != null">
+    <attr sel="section#content_credits" th:if="${tv.people} != null">
         <attr sel="ul.css-1br354h-VisualUl-PeopleStackableUl" th:remove="all-but-first">
             <attr sel="li.css-54rr1e" th:each="person, i: ${people}">
                 <attr sel="div.css-1o7yycy-ProfilePhotoImage" th:style="${person.photo} != null ? 'background-image:url('+ ${person.photo} +');' : _"/>
@@ -218,17 +218,17 @@
     <attr sel="section[data-rowindex='13']" th:if="${similarGenre.size()} > 0">
         <attr sel="ul.css-27z1qm-VisualUl-ContentGrid" th:remove="all-but-first">
             <attr sel="li.css-1hp6p72" th:each="tv : ${similarGenre}">
-                <attr sel="a" th:title="tv.tvTitle" th:href="'/tv/' + ${tv.tvIdx}"/>
-                <attr sel="img.css-qhzw1o-StyledImg" th:src="${tv.tvThumbnail}"/>
+                <attr sel="a" th:title="tv.title" th:href="'/tv/' + ${tv.idx}"/>
+                <attr sel="img.css-qhzw1o-StyledImg" th:src="${tv.thumbnail}"/>
 
                 <attr sel="div.css-1qmeemv">
                     <!--                넷플릭스 아이콘-->
-                    <attr sel="div.css-5o7sb2" th:if="${tv.tvWatch} != null and ${#strings.contains(tv.tvWatch,'aHR0cHM6Ly93d3cubmV0ZmxpeC5jb20vdGl0b')}"/>
+                    <attr sel="div.css-5o7sb2" th:if="${tv.watch} != null and ${#strings.contains(tv.watch,'aHR0cHM6Ly93d3cubmV0ZmxpeC5jb20vdGl0b')}"/>
                     <!--                왓챠 아이콘 -->
-                    <attr sel="div.css-oobk33" th:if="${tv.tvWatch} != null and ${#strings.contains(tv.tvWatch,'aHR0cHM6Ly93YXRjaGEuY29tL3dhd')}"/>
+                    <attr sel="div.css-oobk33" th:if="${tv.watch} != null and ${#strings.contains(tv.watch,'aHR0cHM6Ly93YXRjaGEuY29tL3dhd')}"/>
                 </attr>
                 <attr sel="div.css-ixy093">
-                    <attr sel="div.css-niy0za" th:text="${tv.tvTitle}"/>
+                    <attr sel="div.css-niy0za" th:text="${tv.title}"/>
                     <attr sel="div.css-m9i0qw" th:if="${tv.avgStar} != 0.0" th:text="'평균 ★ ' + (${tv.avgStar} != 0 ? ${tv.avgStar} : _)"/>
                 </attr>
             </attr>

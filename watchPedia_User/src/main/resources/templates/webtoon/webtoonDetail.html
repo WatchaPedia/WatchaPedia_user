@@ -64,7 +64,7 @@
 
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title th:text="${webtoon.webTitle} + ' - 왓챠피디아'">아바타:물의 길 (2022) - 왓챠피디아</title>
+    <title th:text="${webtoon.title} + ' - 왓챠피디아'">아바타:물의 길 (2022) - 왓챠피디아</title>
     <meta data-rh="true" content="추천, 평가, 영화, 책, 드라마, 애니메이션" name="keywords">
     <meta data-rh="true" content="9811060e374931ab817c913e27ba9851e42122b6" name="naver-site-verification">
     <meta data-rh="true" content="website" property="og:type">
@@ -8213,7 +8213,7 @@
                                                                     정보</h2>
                                                                     <div class="css-s289sk">
                                                                         <div class="css-1ugqy9j"><a
-                                                                                th:href="@{'/webtoon/'+${webtoon.webIdx}+'/info'}">더보기</a>
+                                                                                th:href="@{'/webtoon/'+${webtoon.idx}+'/info'}">더보기</a>
                                                                         </div>
                                                                     </div>
                                                                 </header>
@@ -8223,14 +8223,14 @@
                                                             <div class="css-1y901al-Row emmoxnt0">
                                                                 <article class="css-1k6vajx-Overview eokm2780" th:object="${webtoon}">
                                                                     <div class="css-wvh1uf-Summary eokm2781">
-                                                                        <span th:text="*{webTitleOrg}">Avatar: The
+                                                                        <span th:text="*{titleOrg}">Avatar: The
                                                                         Way of Water</span>
                                                                         <span
-                                                                                class="css-1t00yeb-OverviewMeta eokm2782" th:text="*{webWriter} + '·' + *{webGenre}">2022 · 미국 · 액션</span><br><span
-                                                                            class="css-1t00yeb-OverviewMeta eokm2782" th:text="*{webSerDetail} + '(' + *{webSerDay} + ') ·' + *{webSerPeriod}">3시간 12분 · 12세</span>
+                                                                                class="css-1t00yeb-OverviewMeta eokm2782" th:text="*{writer} + '·' + *{genre}">2022 · 미국 · 액션</span><br><span
+                                                                            class="css-1t00yeb-OverviewMeta eokm2782" th:text="*{serDetail} + '(' + *{serDay} + ') ·' + *{serPeriod}">3시간 12분 · 12세</span>
                                                                     </div>
                                                                     <div class=" css-k82gae-StyledSelf eb5y16b0">
-                                                                        <div class="css-kywn6v-StyledText eb5y16b1" th:text="*{webSummary}">&lt;아바타:
+                                                                        <div class="css-kywn6v-StyledText eb5y16b1" th:text="*{summary}">&lt;아바타:
                                                                             물의 길&gt;은 판도라 행성에서 '제이크 설리'와 '네이티리'가 이룬 가족이
                                                                             겪게 되는 무자비한 위협과 살아남기 위해 떠나야 하는 긴 여정과 전투, 그리고
                                                                             견뎌내야 할 상처에 대한 이야기를 그렸다. 월드와이드 역대 흥행 순위 1위를
@@ -8804,7 +8804,7 @@
                                                                     코멘트</h2><span class="css-wzn7fp">10+</span>
                                                                     <div class="css-s289sk">
                                                                         <div class="css-1ugqy9j"><a
-                                                                                th:onclick="'location.href=\'/webtoon/'+ ${webtoon.webIdx} +'/comments\''">더보기</a>
+                                                                                th:onclick="'location.href=\'/webtoon/'+ ${webtoon.idx} +'/comments\''">더보기</a>
                                                                         </div>
                                                                     </div>
                                                                 </header>
@@ -9958,7 +9958,7 @@
                 <div class="css-1p257d1-modalAddStyle">
                     <header title="" class="css-166ww79-HeaderBarPrimitive-headerAddStyle">
                         <div class="css-19pxr9t"><button aria-label="close" class="css-1d7tft4-StylelessButton-HeaderCloseButtonSelf e1k34u8y0"></button></div>
-                        <em class="css-10mjbgt" th:text="${webtoon.webTitle}">아바타: 물의 길</em>
+                        <em class="css-10mjbgt" th:text="${webtoon.title}">아바타: 물의 길</em>
                         <div class="css-19pxr9t">
                             <button class="css-1lvet1d-StylelessButton"></button>
                             <button class="css-r2q33l-StylelessButton">저장</button>

@@ -6,53 +6,54 @@ import com.watchapedia.watchpedia_user.model.entity.content.ajax.Star;
 import java.util.List;
 
 public record TvResponse(
-        Long tvIdx,
-        String tvThumbnail,
-        String tvTitle,
-        String tvTitleOrg,
-        String tvMakingDate,
-        String tvCountry,
-        String tvGenre,
-        String tvChannel,
-        String tvAge,
-        String tvPeople,
-        String tvSummary,
-        String tvGallery,
-        String tvVideo,
-        String tvWatch,
-        String tvBackImg,
+        Long idx,
+        String thumbnail,
+        String title,
+        String titleOrg,
+        String makingDate,
+        String country,
+        String genre,
+        String time,
+        String age,
+        String people,
+        String summary,
+        String gallery,
+        String video,
+        String watch,
+        String backImg,
         List<Star> starList,
         double avgStar
 ) {
     public static TvResponse of(
-            Long tvIdx,
-            String tvThumbnail,
-            String tvTitle,
-            String tvTitleOrg,
-            String tvMakingDate,
-            String tvCountry,
-            String tvGenre,
-            String tvChannel,
-            String tvAge,
-            String tvPeople,
-            String tvSummary,
-            String tvGallery,
-            String tvVideo,
-            String tvWatch,
-            String tvBackImg,
+            Long idx,
+            String thumbnail,
+            String title,
+            String titleOrg,
+            String makingDate,
+            String country,
+            String genre,
+            String time,
+            String age,
+            String people,
+            String summary,
+            String gallery,
+            String video,
+            String watch,
+            String backImg,
             List<Star> starList
+
     ){
         return new TvResponse(
-                tvIdx, tvThumbnail, tvTitle, tvTitleOrg, tvMakingDate, tvCountry, tvGenre, tvChannel, tvAge,
-                tvPeople, tvSummary, tvGallery, tvVideo, tvWatch, tvBackImg, starList,0.0
+                idx, thumbnail, title, titleOrg, makingDate, country, genre, time, age,
+                people, summary, gallery, video, watch, backImg, starList,0.0
         );
     }
     public static TvResponse of(
-            Long tvIdx, String tvThumbnail, String tvTitle, String tvWatch, Double avgStar
+            Long idx, String thumbnail, String title, String watch, Double avgStar
     ){
         return new TvResponse(
-                tvIdx, tvThumbnail, tvTitle, null, null, null, null, null, null,
-                null, null, null, null, tvWatch, null, null, avgStar
+                idx, thumbnail, title, null, null, null, null, null, null,
+                null, null, null, null, watch, null, null, avgStar
         );
     }
 

@@ -4,13 +4,13 @@
 
     <!--        헤더 영화 썸네일, 백미지-->
     <attr sel="div.css-cshjoi-PosterContainer" th:object="${webtoon}">
-        <attr sel="img.css-qhzw1o-StyledImg" th:src="*{webThumbnail}" th:alt="*{webTitle}" th:id="*{webIdx}"/>
+        <attr sel="img.css-qhzw1o-StyledImg" th:src="*{thumbnail}" th:alt="*{title}" th:id="*{idx}"/>
     </attr>
     <!--    헤더 영화 정보-->
     <attr sel="div.css-1p7n6er-Pane" th:object="${webtoon}">
-        <attr sel="h1.css-171k8ad-Title" th:text="*{webTitle}"/>
+        <attr sel="h1.css-171k8ad-Title" th:text="*{title}"/>
         <attr sel="div.css-11h0kfd-Detail"
-              th:text="*{webWriter} + ' ・ ' + *{webGenre} "/>
+              th:text="*{writer} + ' ・ ' + *{genre} "/>
         <attr sel="div.css-og1gu8-ContentRatings"
               th:utext="*{starList().size() != 0} ?'평균 ★' + ${avg} + ' (' + *{starList().size()} + '명)' : '<br/>'"/>
         <!--               준 별점 정보 표시-->
@@ -42,9 +42,9 @@
     <!--    관심없어요 버튼 -->
     <attr sel="div#hate" th:class="${hasHate} == true ? 'e1svyhwg29 css-13md5na-StyledDropdownMenuItem' : _"/>
     <attr sel="div#more-modal">
-        <attr sel="span.css-bhgne5-StyledBackground" th:style="'background-image:url('+${webtoon.webThumbnail}+')'"/>
-        <attr sel="div.css-5kofsl" th:text="${webtoon.webTitle}"/>
-        <attr sel="div.css-17s1j6g" th:text="'웹툰 ・ '+${webtoon.webGenre}"/>
+        <attr sel="span.css-bhgne5-StyledBackground" th:style="'background-image:url('+${webtoon.thumbnail}+')'"/>
+        <attr sel="div.css-5kofsl" th:text="${webtoon.title}"/>
+        <attr sel="div.css-17s1j6g" th:text="'웹툰 ・ '+${webtoon.genre}"/>
         <attr sel="div.css-bgi4sk">
             <attr sel="span" th:class="${hasHate} == true ? 'css-fwllm4' : _"/>
             <attr sel="img" th:src="${hasHate} == true ? 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPHBhdGggZD0iTTAgMGgyNHYyNEgweiIvPgogICAgICAgIDxwYXRoIGZpbGw9IiNGRjJGNkUiIGQ9Ik0xMS41NjYgMTkuMzEyYy4zNzcuNjc4Ljg2IDEuMjg4IDEuNDI4IDEuODA4QTkuMzMzIDkuMzMzIDAgMSAxIDExIDIuNjY3YTkuMzM3IDkuMzM3IDAgMCAxIDguODIyIDYuMjggNy4xNyA3LjE3IDAgMCAwLTIuMjg1LS4yNzRBNy4zMzMgNy4zMzMgMCAwIDAgMTEgNC42NjdhNy4zMDIgNy4zMDIgMCAwIDAtNC41MjUgMS41NjJsNS40OSA1LjQ5YTcuMTQxIDcuMTQxIDAgMCAwLS45NDUgMS44ODRMNS4wODMgNy42NjZhNy4zMzMgNy4zMzMgMCAwIDAgNi40ODIgMTEuNjQ1eiIvPgogICAgICAgIDxwYXRoIGZpbGw9IiNGRjJGNkUiIGQ9Ik0yMi42MTEgMTIuMTYxTDE4LjE3MyAxNi42bC0xLjgzMy0xLjgzM2EuODQ0Ljg0NCAwIDEgMC0xLjE5MyAxLjE5NGwyLjEyNiAyLjEyNmEuODQ3Ljg0NyAwIDAgMCAuMTQ3LjExNy43ODUuNzg1IDAgMCAwIDEuMjE5LjE0Mmw0LjgyNi00LjgyNmE2IDYgMCAxIDEtLjg1NC0xLjM2eiIvPgogICAgPC9nPgo8L3N2Zz4K' : _"/>
@@ -146,7 +146,7 @@
 
 
     <!--    출연정보 -->
-    <attr sel="section#content_credits" th:if="${webtoon.webPeople} != null">
+    <attr sel="section#content_credits" th:if="${webtoon.people} != null">
         <attr sel="ul.css-1br354h-VisualUl-PeopleStackableUl" th:remove="all-but-first">
             <attr sel="li.css-54rr1e" th:each="person, i: ${people}">
                 <attr sel="div.css-1o7yycy-ProfilePhotoImage" th:style="${person.photo} != null ? 'background-image:url('+ ${person.photo} +');' : _"/>
@@ -210,8 +210,8 @@
     <attr sel="section[data-rowindex='13']" th:if="${similarGenre.size()} > 0">
         <attr sel="ul.css-27z1qm-VisualUl-ContentGrid" th:remove="all-but-first">
             <attr sel="li.css-1hp6p72" th:each="webtoon : ${similarGenre}">
-                <attr sel="a" th:title="webtoon.webTitle" th:href="'/webtoon/' + ${webtoon.webIdx}"/>
-                <attr sel="img.css-qhzw1o-StyledImg" th:src="${webtoon.webThumbnail}"/>
+                <attr sel="a" th:title="webtoon.title" th:href="'/webtoon/' + ${webtoon.idx}"/>
+                <attr sel="img.css-qhzw1o-StyledImg" th:src="${webtoon.thumbnail}"/>
 
 <!--                <attr sel="div.css-1qmeemv">-->
 <!--                    &lt;!&ndash;                넷플릭스 아이콘&ndash;&gt;-->
@@ -220,7 +220,7 @@
 <!--                    <attr sel="div.css-oobk33" th:if="${webtoon.webWatch} != null and ${#strings.contains(webtoon.webWatch,'aHR0cHM6Ly93YXRjaGEuY29tL3dhd')}"/>-->
 <!--                </attr>-->
                 <attr sel="div.css-ixy093">
-                    <attr sel="div.css-niy0za" th:text="${webtoon.webTitle}"/>
+                    <attr sel="div.css-niy0za" th:text="${webtoon.title}"/>
                     <attr sel="div.css-m9i0qw" th:if="${webtoon.avgStar} != 0.0" th:text="'평균 ★ ' + (${webtoon.avgStar} != 0 ? ${webtoon.avgStar} : _)"/>
                 </attr>
             </attr>

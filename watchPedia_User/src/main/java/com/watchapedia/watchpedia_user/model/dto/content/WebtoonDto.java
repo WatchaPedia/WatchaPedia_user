@@ -52,6 +52,7 @@ public record WebtoonDto(
                 entity.getWebAge(),
                 entity.getWebSummary(),
                 entity.getWebPeople(),
+//                entity.getWebMakingDate(),
                 entity.getWebWatch(),
                 entity.getStar()
         );

@@ -75,15 +75,15 @@ public class TvController {
         }
 
 //        해당 유저가 별점을 매겼는지
-        StarResponse hasStar = starService.findStar("tv",tv.tvIdx(), userIdx);
+        StarResponse hasStar = starService.findStar("tv",tv.idx(), userIdx);
 
 //        인물 리스트
         List<String> peopleList = new ArrayList<>();
 
         List<String> people = new ArrayList<>();
         List<PersonResponse> personList = new ArrayList<>();
-        if(tv.tvPeople() != null){
-            peopleList = List.of(tv.tvPeople().split(","));
+        if(tv.people() != null){
+            peopleList = List.of(tv.people().split(","));
             for(String per : peopleList){
                 people.add(per.split("\\(")[0] + "," + per.split("\\(")[1].split("\\)")[0]);
             }
@@ -94,7 +94,7 @@ public class TvController {
             System.out.println("** 인물정보가 없습니다 **");
         }
 
-        Page<CommentResponse> commentList = commentService.commentList("tv",tv.tvIdx(),userIdx,pageable);
+        Page<CommentResponse> commentList = commentService.commentList("tv",tv.idx(),userIdx,pageable);
 //      해당 유저가 코멘트를 달았는지
         CommentResponse hasComm = null;
         for(CommentResponse comm: commentList){
@@ -103,9 +103,9 @@ public class TvController {
             }
         };
 
-        boolean hasWish = wishService.findWish("tv",tv.tvIdx(),userIdx);
-        boolean hasWatch = watchService.findWatch("tv",tv.tvIdx(),userIdx);
-        boolean hasHate = hateService.findHate(userIdx,"tv",tv.tvIdx());
+        boolean hasWish = wishService.findWish("tv",tv.idx(),userIdx);
+        boolean hasWatch = watchService.findWatch("tv",tv.idx(),userIdx);
+        boolean hasHate = hateService.findHate(userIdx,"tv",tv.idx());
 
 //        별점 그래프
         HashMap<Long, Integer> starGraph = new HashMap<Long,Integer>(){{
@@ -124,7 +124,7 @@ public class TvController {
         Long bigStar = starGraph.entrySet().stream().max((m1, m2) -> m1.getValue() > m2.getValue() ? 1 : -1).get().getKey();
 
 //        비슷한 장르 영화
-        List<TvResponse> similarGenre = tvService.similarGenre(tv.tvGenre(), tv.tvIdx());
+        List<TvResponse> similarGenre = tvService.similarGenre(tv.genre(), tv.idx());
 
         map.addAttribute("tv", tv);
         map.addAttribute("avg", avgStar);
@@ -160,8 +160,8 @@ public class TvController {
     ){
         Long userIdx = 12L;
         TvResponse tv = tvService.tvView(tvIdx);
-        List<String> gallery = Arrays.stream(tv.tvGallery().split("[|]")).toList();
-        String title = tv.tvTitle();
+        List<String> gallery = Arrays.stream(tv.gallery().split("[|]")).toList();
+        String title = tv.title();
 
         map.addAttribute("gallery", gallery);
         map.addAttribute("title", title);

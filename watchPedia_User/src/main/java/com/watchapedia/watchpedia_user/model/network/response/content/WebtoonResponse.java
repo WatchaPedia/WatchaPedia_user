@@ -6,49 +6,51 @@ import com.watchapedia.watchpedia_user.model.entity.content.ajax.Star;
 import java.util.List;
 
 public record WebtoonResponse(
-        Long webIdx,
-        String webThumbnail,
-        String webTitle,
-        String webTitleOrg,
-        String webWriter,
-        String webGenre,
-        String webSerDetail,
-        String webSerDay,
-        String webSerPeriod,
-        String webAge,
-        String webSummary,
-        String webPeople,
+        Long idx,
+        String thumbnail,
+        String title,
+        String titleOrg,
+        String writer,
+        String genre,
+        String serDetail,
+        String serDay,
+        String serPeriod,
+        String age,
+        String summary,
+        String people,
+        String makingDate,
         String webWatch,
         List<Star> starList,
         double avgStar
 ) {
     public static WebtoonResponse of(
-            Long webIdx,
-            String webThumbnail,
-            String webTitle,
-            String webTitleOrg,
-            String webWriter,
-            String webGenre,
-            String webSerDetail,
-            String webSerDay,
-            String webSerPeriod,
-            String webAge,
-            String webSummary,
-            String webPeople,
+            Long idx,
+            String thumbnail,
+            String title,
+            String titleOrg,
+            String writer,
+            String genre,
+            String serDetail,
+            String serDay,
+            String serPeriod,
+            String age,
+            String summary,
+            String people,
+            String makingDate,
             String webWatch,
             List<Star> starList
     ){
         return new WebtoonResponse(
-                webIdx, webThumbnail, webTitle, webTitleOrg, webWriter, webGenre, webSerDetail, webSerDay, webSerPeriod,
-                webAge, webSummary, webPeople, webWatch, starList,0.0
+                idx, thumbnail, title, titleOrg, writer, genre, serDetail, serDay, serPeriod,
+                age, summary, people, makingDate, webWatch, starList,0.0
         );
     }
     public static WebtoonResponse of(
-            Long webIdx, String webThumbnail, String webTitle, String webWatch, Double avgStar
+            Long idx, String thumbnail, String title, String watch, Double avgStar
     ){
         return new WebtoonResponse(
-                webIdx, webThumbnail, webTitle, null, null, null, null, null, null,
-                null, null, null, webWatch , null,  avgStar
+                idx, thumbnail, title, null, null, null, null, null, null,
+                null, null, null, watch , null,null,  avgStar
         );
     }
 
@@ -66,6 +68,7 @@ public record WebtoonResponse(
                 dto.webAge(),
                 dto.webSummary(),
                 dto.webPeople(),
+                "",
                 dto.webWatch(),
                 dto.starList(),
                 0

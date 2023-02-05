@@ -73,15 +73,15 @@ public class WebtoonController {
         }
 
 //        해당 유저가 별점을 매겼는지
-        StarResponse hasStar = starService.findStar("webtoon",webtoon.webIdx(), userIdx);
+        StarResponse hasStar = starService.findStar("webtoon",webtoon.idx(), userIdx);
 
 //        인물 리스트
         List<String> peopleList = new ArrayList<>();
 
         List<String> people = new ArrayList<>();
         List<PersonResponse> personList = new ArrayList<>();
-        if(webtoon.webPeople() != null){
-            peopleList = List.of(webtoon.webPeople().split(","));
+        if(webtoon.people() != null){
+            peopleList = List.of(webtoon.people().split(","));
             for(String per : peopleList){
                 people.add(per.split("\\(")[0] + "," + per.split("\\(")[1].split("\\)")[0]);
             }
@@ -92,7 +92,7 @@ public class WebtoonController {
             System.out.println("** 인물정보가 없습니다 **");
         }
 
-        Page<CommentResponse> commentList = commentService.commentList("webtoon",webtoon.webIdx(),userIdx,pageable);
+        Page<CommentResponse> commentList = commentService.commentList("webtoon",webtoon.idx(),userIdx,pageable);
 //      해당 유저가 코멘트를 달았는지
         CommentResponse hasComm = null;
         for(CommentResponse comm: commentList){
@@ -101,9 +101,9 @@ public class WebtoonController {
             }
         };
 
-        boolean hasWish = wishService.findWish("webtoon",webtoon.webIdx(),userIdx);
-        boolean hasWatch = watchService.findWatch("webtoon",webtoon.webIdx(),userIdx);
-        boolean hasHate = hateService.findHate(userIdx,"webtoon",webtoon.webIdx());
+        boolean hasWish = wishService.findWish("webtoon",webtoon.idx(),userIdx);
+        boolean hasWatch = watchService.findWatch("webtoon",webtoon.idx(),userIdx);
+        boolean hasHate = hateService.findHate(userIdx,"webtoon",webtoon.idx());
 
 //        별점 그래프
         HashMap<Long, Integer> starGraph = new HashMap<Long,Integer>(){{
@@ -122,7 +122,7 @@ public class WebtoonController {
         Long bigStar = starGraph.entrySet().stream().max((m1, m2) -> m1.getValue() > m2.getValue() ? 1 : -1).get().getKey();
 
 //        비슷한 장르 영화
-        List<WebtoonResponse> similarGenre = webtoonService.similarGenre(webtoon.webGenre(), webtoon.webIdx());
+        List<WebtoonResponse> similarGenre = webtoonService.similarGenre(webtoon.genre(), webtoon.idx());
 
         map.addAttribute("webtoon", webtoon);
         map.addAttribute("avg", avgStar);
