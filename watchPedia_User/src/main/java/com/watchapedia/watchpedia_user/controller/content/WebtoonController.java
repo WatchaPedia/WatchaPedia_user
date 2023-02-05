@@ -22,9 +22,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,8 +43,15 @@ public class WebtoonController {
     private final CommentService commentService;
 
     @GetMapping(path="/main")
-    public String webtoon(ModelMap map){
+    public String webtoon(
+            @PathVariable(required = false) Long webIdx,
+            @PageableDefault(size = 5, sort = "commIdx", direction = Sort.Direction.DESC) Pageable pageable,
+            ModelMap map
+    ){
+        List<WebtoonResponse> webtoonstar = webtoonService.webtoonstar(webIdx);
+        map.addAttribute("webtoonstar", webtoonstar);
         map.addAttribute("webtoons", webtoonService.searchWebtoons());
+
         return "/webtoon/webtoonMain";
     }
 

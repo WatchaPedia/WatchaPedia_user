@@ -69,7 +69,28 @@ public class WebtoonService {
 
     @Transactional(readOnly = true) //데이터를 불러오기만 할 때(수정X)
     public List<Webtoon> searchWebtoons() {
-        return webtoonRepository.findAll();
-    }
+            return webtoonRepository.findAll();
 
+        }
+
+    @Transactional(readOnly = true)
+    public List<WebtoonResponse> webtoonstar(Long webIdx) {
+        List<WebtoonResponse> result = new ArrayList<>();
+        List<Long> webIdxList = new ArrayList<>(16);
+        for (Long idx : webIdxList) {
+            if (idx == webIdx) continue;
+            WebtoonDto dto = WebtoonDto.from(webtoonRepository.getReferenceById(idx));
+            double sum = 0;
+
+            if (dto.starList().size() > 0) {
+                for (Star star : dto.starList()) {
+                    sum += star.getStarPoint();
+                }
+                result.add(WebtoonResponse.of(Math.round((sum / dto.starList().size()) * 10.0) / 10.0));
+            } else {
+                result.add(WebtoonResponse.of(0.0));
+            }
+        }
+          return result;
+    }
 }
