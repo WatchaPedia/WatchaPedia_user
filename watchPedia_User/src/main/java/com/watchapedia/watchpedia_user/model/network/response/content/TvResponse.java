@@ -13,7 +13,7 @@ public record TvResponse(
         String makingDate,
         String country,
         String genre,
-        String time,
+        String channel,
         String age,
         String people,
         String summary,
@@ -32,7 +32,7 @@ public record TvResponse(
             String makingDate,
             String country,
             String genre,
-            String time,
+            String channel,
             String age,
             String people,
             String summary,
@@ -44,7 +44,7 @@ public record TvResponse(
 
     ){
         return new TvResponse(
-                idx, thumbnail, title, titleOrg, makingDate, country, genre, time, age,
+                idx, thumbnail, title, titleOrg, makingDate, country, genre, channel, age,
                 people, summary, gallery, video, watch, backImg, starList,0.0
         );
     }

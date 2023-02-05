@@ -5,10 +5,9 @@
         <attr sel=".webtoon-tr" th:each="webtoon : ${webtoons}" th:if="${webtoon.webAge == '전체연령가'}">
             <attr sel=".webtoon-title" th:text="${webtoon.webTitle}"/>
             <attr sel=".webtoon-img" th:src="${webtoon.webThumbnail}" />
-            <attr sel =".css-xgmur2">
-                <attr sel="dic.span"
-                      th:if="${webtoon.avgStar} != 0.0" th:text="'평균 ★ ' + (${webtoon.avgStar} != 0 ? ${webtoon.avgStar} : _)"/>
-            </attr>
+            <attr sel=".average"
+                      th:if="${webtoon.avg} != 0.0" th:text="'평균 ★ ' + (${webtoon.avg} != 0 ? ${webtoon.avg} : _)"/>
+
         </attr>
     </attr>
 

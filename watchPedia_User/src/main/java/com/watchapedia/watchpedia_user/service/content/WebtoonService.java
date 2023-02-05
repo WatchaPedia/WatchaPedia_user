@@ -67,30 +67,29 @@ public class WebtoonService {
         return result;
     }
 
-    @Transactional(readOnly = true) //데이터를 불러오기만 할 때(수정X)
-    public List<Webtoon> searchWebtoons() {
-            return webtoonRepository.findAll();
-
-        }
+//    @Transactional(readOnly = true) //데이터를 불러오기만 할 때(수정X)
+//    public List<Webtoon> searchWebtoons() {
+//            return webtoonRepository.findAll();
+//
+//        }
 
     @Transactional(readOnly = true)
-    public List<WebtoonResponse> webtoonstar(Long webIdx) {
-        List<WebtoonResponse> result = new ArrayList<>();
-        List<Long> webIdxList = new ArrayList<>(16);
-        for (Long idx : webIdxList) {
-            if (idx == webIdx) continue;
-            WebtoonDto dto = WebtoonDto.from(webtoonRepository.getReferenceById(idx));
-            double sum = 0;
+    public List<WebtoonDto> webtoons() {
+        //빈 웹툰리스폰스 리스트
+        List<WebtoonDto> result = new ArrayList<>();
 
-            if (dto.starList().size() > 0) {
-                for (Star star : dto.starList()) {
-                    sum += star.getStarPoint();
-                }
-                result.add(WebtoonResponse.of(Math.round((sum / dto.starList().size()) * 10.0) / 10.0));
-            } else {
-                result.add(WebtoonResponse.of(0.0));
+        List<Webtoon> webtoonList = webtoonRepository.findAll();
+
+        for(Webtoon w : webtoonList){
+            double sum = 0;
+            int starCount = 0;
+            for(Star s : w.getStar()){
+                sum += s.getStarPoint();
+                starCount = w.getStar().size();
             }
+            Double avg = Math.round((sum / starCount) * 10.0) / 10.0;
+            result.add(WebtoonDto.from(w, avg));
         }
-          return result;
+        return result;
     }
 }

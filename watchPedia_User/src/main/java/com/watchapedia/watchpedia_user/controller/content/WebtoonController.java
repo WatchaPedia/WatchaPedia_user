@@ -1,6 +1,7 @@
 package com.watchapedia.watchpedia_user.controller.content;
 
 
+import com.watchapedia.watchpedia_user.model.dto.content.WebtoonDto;
 import com.watchapedia.watchpedia_user.model.entity.content.ajax.Star;
 import com.watchapedia.watchpedia_user.model.network.response.PersonResponse;
 import com.watchapedia.watchpedia_user.model.network.response.comment.CommentResponse;
@@ -44,13 +45,10 @@ public class WebtoonController {
 
     @GetMapping(path="/main")
     public String webtoon(
-            @PathVariable(required = false) Long webIdx,
-            @PageableDefault(size = 5, sort = "commIdx", direction = Sort.Direction.DESC) Pageable pageable,
             ModelMap map
     ){
-        List<WebtoonResponse> webtoonstar = webtoonService.webtoonstar(webIdx);
-        map.addAttribute("webtoonstar", webtoonstar);
-        map.addAttribute("webtoons", webtoonService.searchWebtoons());
+        List<WebtoonDto> webtoons = webtoonService.webtoons();
+        map.addAttribute("webtoons", webtoons);
 
         return "/webtoon/webtoonMain";
     }
