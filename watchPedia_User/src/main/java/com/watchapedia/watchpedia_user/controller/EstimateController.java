@@ -47,28 +47,33 @@ public class EstimateController {
 //        Page<EstimateContent> newList = new PageImpl<>(contentList.subList(start, end), pageRequest, contentList.size());
 
         return new ModelAndView("/valueContent")
-                .addObject("userIdx",userIdx);
+                .addObject("userIdx",userIdx)
+                .addObject("movieStar",starRepository.findByStarContentTypeAndStarUserIdx("movie",userIdx).size())
+                .addObject("tvStar",starRepository.findByStarContentTypeAndStarUserIdx("tv",userIdx).size())
+                .addObject("bookStar",starRepository.findByStarContentTypeAndStarUserIdx("book",userIdx).size())
+                .addObject("webStar",starRepository.findByStarContentTypeAndStarUserIdx("webtoon",userIdx).size());
     }
 
-    @GetMapping("/estimate/page") // http://localhost:8080/estimate/page
+    @GetMapping("/estimate/{contentType}") // http://localhost:8080/estimate/page
     @ResponseBody
     public Map<String, Object> estimatePage(
-            @RequestBody(required = false) String contentType,
+            @PathVariable String contentType,
             @PageableDefault(size = 9) Pageable pageable
     ){
         Long userIdx = 12L;
         User user = userRepository.getReferenceById(userIdx);
-        System.out.println("진입 : " +contentType);
 
+        Map<String,Object> contentMap = new HashMap<>();
         List<EstimateContent> contentList = new ArrayList<>();
-        if(contentType == null || contentType.contains("movie")) contentList = starService.movieList(user,pageable);
-        else if(contentType.contains("tv")) contentList = starService.tvList(user,pageable);
-//        if(contentType.contains("book")) contentList = starService.tvList(user,pageable);
-        else if(contentType.contains("webtoon")) contentList = starService.webList(user,pageable);
+        if(contentType == null || contentType.contains("movie")) contentMap = starService.movieList(user,pageable);
+        else if(contentType.contains("tv")) contentMap = starService.tvList(user,pageable);
+//        if(contentType.contains("book")) contentMap = starService.tvList(user,pageable);
+        else if(contentType.contains("webtoon")) contentMap = starService.webList(user,pageable);
 
         Map<String, Object> mv = new HashMap<>();
-        mv.put("content", contentList);
 
+        mv.put("content", contentMap.get("contentList"));
+        mv.put("last", contentMap.get("last"));
         return mv;
     }
 
