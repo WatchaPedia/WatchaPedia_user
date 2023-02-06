@@ -11,6 +11,19 @@ function loginModalOn(){
     needLoginModal.classList.add('on');
     needLoginModal.classList.remove('off');
 }
+// 로그인모달 바깥 클릭 시
+document.addEventListener("click",(e)=>{
+    if(needLoginModal.style.display == 'block'){
+        if(!needLoginModal.querySelector("div.css-ikkedy").contains(e.target)){
+            main.style.display = 'none';
+            main.classList.add('off');
+            main.classList.remove('on');
+            needLoginModal.style.display = 'none';
+            needLoginModal.classList.add('off');
+            needLoginModal.classList.remove('on');
+        }
+    }
+},true)
 // 로그인모달 value 초기화
 needLoginModal.querySelectorAll("span[data-test='clearButton']").item(0).addEventListener('click',()=>{
     needLoginModal.querySelector("input[name='email']").value = null
@@ -18,6 +31,11 @@ needLoginModal.querySelectorAll("span[data-test='clearButton']").item(0).addEven
 needLoginModal.querySelectorAll("span[data-test='clearButton']").item(1).addEventListener('click',()=>{
     needLoginModal.querySelector("input[name='password']").value = null
 })
+// 로그인모달 확인 클릭 시
+needLoginModal.querySelector("button.css-qr0uqd-StylelessButton").addEventListener('click',()=>{
+    console.log("체크")
+})
+
 
 const reportBnt = document.querySelector('div.css-1d7xpnn-CommentContainer .css-1b4hoch-SVG');
 const reportBnt2 = document.querySelector('.e1bglx4g0');
