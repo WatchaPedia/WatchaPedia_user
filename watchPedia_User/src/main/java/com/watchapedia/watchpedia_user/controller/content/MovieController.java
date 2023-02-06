@@ -115,9 +115,11 @@ public class MovieController {
                 }
             }
 
+
             hasWish = wishService.findWish("movie",movie.idx(),dto.userIdx());
             hasWatch = watchService.findWatch("movie",movie.idx(),dto.userIdx());
             hasHate = hateService.findHate(dto.userIdx(),"movie",movie.idx());
+
         }
 
 //        별점 그래프
