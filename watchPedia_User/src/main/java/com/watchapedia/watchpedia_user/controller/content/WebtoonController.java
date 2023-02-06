@@ -49,7 +49,6 @@ public class WebtoonController {
     ){
         List<WebtoonDto> webtoons = webtoonService.webtoons();
         map.addAttribute("webtoons", webtoons);
-
         return "/webtoon/webtoonMain";
     }
 

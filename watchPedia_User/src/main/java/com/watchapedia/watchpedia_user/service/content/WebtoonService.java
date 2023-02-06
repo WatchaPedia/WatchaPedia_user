@@ -67,12 +67,6 @@ public class WebtoonService {
         return result;
     }
 
-//    @Transactional(readOnly = true) //데이터를 불러오기만 할 때(수정X)
-//    public List<Webtoon> searchWebtoons() {
-//            return webtoonRepository.findAll();
-//
-//        }
-
     @Transactional(readOnly = true)
     public List<WebtoonDto> webtoons() {
         //빈 웹툰리스폰스 리스트
@@ -80,15 +74,15 @@ public class WebtoonService {
 
         List<Webtoon> webtoonList = webtoonRepository.findAll();
 
-        for(Webtoon w : webtoonList){
+        for(Webtoon webtoon : webtoonList){
             double sum = 0;
             int starCount = 0;
-            for(Star s : w.getStar()){
-                sum += s.getStarPoint();
-                starCount = w.getStar().size();
+            for(Star star : webtoon.getStar()){
+                sum += star.getStarPoint();
+                starCount = webtoon.getStar().size();
             }
             Double avg = Math.round((sum / starCount) * 10.0) / 10.0;
-            result.add(WebtoonDto.from(w, avg));
+            result.add(WebtoonDto.from(webtoon, avg));
         }
         return result;
     }

@@ -67,9 +67,25 @@ public class TvService {
         return result;
     }
 
-    @Transactional(readOnly = true) //데이터를 불러오기만 할 때(수정X)
-    public List<Tv> searchTvs() {
-        return tvRepository.findAll();
+
+    @Transactional(readOnly = true)
+    public List<TvDto> tvs() {
+        //빈 웹툰리스폰스 리스트
+        List<TvDto> result = new ArrayList<>();
+
+        List<Tv> tvList = tvRepository.findAll();
+
+        for(Tv tv : tvList){
+            double sum = 0;
+            int starCount = 0;
+            for(Star star : tv.getStar()){
+                sum += star.getStarPoint();
+                starCount = tv.getStar().size();
+            }
+            Double avg = Math.round((sum / starCount) * 10.0) / 10.0;
+            result.add(TvDto.from(tv, avg));
+        }
+        return result;
     }
 
 }

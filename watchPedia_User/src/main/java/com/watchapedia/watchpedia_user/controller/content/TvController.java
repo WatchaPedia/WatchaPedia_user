@@ -1,5 +1,7 @@
 package com.watchapedia.watchpedia_user.controller.content;
 
+import com.watchapedia.watchpedia_user.model.dto.content.TvDto;
+import com.watchapedia.watchpedia_user.model.dto.content.WebtoonDto;
 import com.watchapedia.watchpedia_user.model.entity.content.ajax.Star;
 import com.watchapedia.watchpedia_user.model.network.response.PersonResponse;
 import com.watchapedia.watchpedia_user.model.network.response.comment.CommentResponse;
@@ -46,9 +48,12 @@ public class TvController {
     private final CommentService commentService;
 
     @GetMapping(path="/main")
-    public String movie(ModelMap map){
-        map.addAttribute("tvs", tvService.searchTvs());
-        return "tv/tvMain";
+    public String tv(
+            ModelMap map
+    ){
+        List<TvDto> tvs = tvService.tvs();
+        map.addAttribute("tvs", tvs);
+        return "/tv/tvMain";
     }
 
 

@@ -2,6 +2,8 @@ package com.watchapedia.watchpedia_user.controller;
 
 import com.watchapedia.watchpedia_user.model.dto.UserSessionDto;
 import com.watchapedia.watchpedia_user.model.dto.comment.CommentDto;
+import com.watchapedia.watchpedia_user.model.dto.content.MovieDto;
+import com.watchapedia.watchpedia_user.model.dto.content.WebtoonDto;
 import com.watchapedia.watchpedia_user.model.entity.content.ajax.Star;
 import com.watchapedia.watchpedia_user.model.network.request.ajax.StarRequest;
 import com.watchapedia.watchpedia_user.model.network.response.PersonResponse;
@@ -49,7 +51,8 @@ public class PageController {
         UserSessionDto userSessionDto = (UserSessionDto) session.getAttribute("userSession");
 
         map.addAttribute("userSession", userSessionDto);
-        map.addAttribute("movies", movieService.searchMovies());
+        List<MovieDto> movies = movieService.movies();
+        map.addAttribute("movies", movies);
         return "movie/movieMain";
     }
 

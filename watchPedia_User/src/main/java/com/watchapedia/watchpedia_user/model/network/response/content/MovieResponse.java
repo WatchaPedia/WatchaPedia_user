@@ -23,6 +23,7 @@ public record MovieResponse(
         String backImg,
         List<Star> starList,
         double avgStar
+
 ) {
     public static MovieResponse of(
             Long idx, String thumbnail, String title, String titleOrg, String makingDate,

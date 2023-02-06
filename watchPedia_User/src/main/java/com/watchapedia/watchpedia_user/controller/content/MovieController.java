@@ -1,5 +1,7 @@
 package com.watchapedia.watchpedia_user.controller.content;
 
+import com.watchapedia.watchpedia_user.model.dto.content.MovieDto;
+import com.watchapedia.watchpedia_user.model.dto.content.TvDto;
 import com.watchapedia.watchpedia_user.model.entity.content.ajax.Star;
 import com.watchapedia.watchpedia_user.model.entity.User;
 import com.watchapedia.watchpedia_user.model.network.response.*;
@@ -45,9 +47,12 @@ public class MovieController {
     private final CommentService commentService;
 
     @GetMapping(path="/main")
-    public String movie(ModelMap map){
-        map.addAttribute("movies", movieService.searchMovies());
-        return "movie/movieMain";
+    public String movie(
+            ModelMap map
+    ){
+        List<MovieDto> movies = movieService.movies();
+        map.addAttribute("movies", movies);
+        return "/movie/movieMain";
     }
 
 

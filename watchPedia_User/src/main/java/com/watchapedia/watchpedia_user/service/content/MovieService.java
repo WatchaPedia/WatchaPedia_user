@@ -3,10 +3,12 @@ package com.watchapedia.watchpedia_user.service.content;
 import com.watchapedia.watchpedia_user.model.dto.comment.CommentDto;
 import com.watchapedia.watchpedia_user.model.dto.content.MovieDto;
 import com.watchapedia.watchpedia_user.model.dto.comment.RecommentDto;
+import com.watchapedia.watchpedia_user.model.dto.content.TvDto;
 import com.watchapedia.watchpedia_user.model.entity.comment.Comment;
 import com.watchapedia.watchpedia_user.model.entity.comment.Spoiler;
 import com.watchapedia.watchpedia_user.model.entity.User;
 import com.watchapedia.watchpedia_user.model.entity.content.Movie;
+import com.watchapedia.watchpedia_user.model.entity.content.Tv;
 import com.watchapedia.watchpedia_user.model.entity.content.ajax.Star;
 import com.watchapedia.watchpedia_user.model.network.response.comment.CommentResponse;
 import com.watchapedia.watchpedia_user.model.network.response.content.MovieResponse;
@@ -74,9 +76,30 @@ public class MovieService {
         return result;
     }
 
-    @Transactional(readOnly = true) //데이터를 불러오기만 할 때(수정X)
-    public List<Movie> searchMovies() {
-        return movieRepository.findAll();
+//    @Transactional(readOnly = true) //index 페이지 출력
+//    public List<Movie> searchMovies() {
+//        return movieRepository.findAll();
+//    }
+
+    // 무비 메인페이지 별점 등록 및 출력
+    @Transactional(readOnly = true)
+    public List<MovieDto> movies() {
+        //빈 웹툰리스폰스 리스트
+        List<MovieDto> result = new ArrayList<>();
+
+        List<Movie> movieList = movieRepository.findAll();
+
+        for(Movie movie : movieList){
+            double sum = 0;
+            int starCount = 0;
+            for(Star star : movie.getStar()){
+                sum += star.getStarPoint();
+                starCount = movie.getStar().size();
+            }
+            Double avg = Math.round((sum / starCount) * 10.0) / 10.0;
+            result.add(MovieDto.from(movie, avg));
+        }
+        return result;
     }
 
 }

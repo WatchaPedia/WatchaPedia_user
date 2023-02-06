@@ -1,12 +1,18 @@
 <?xml version="1.0"?>
 <thlogic>
-<!--    웹툰 페이지 최상단-->
+<!--   영화 페이지 최상단-->
 <attr sel=".movie-table" th:remove="all-but-first" >
     <attr sel=".movie-tr" th:each="movie, i : ${movies}" >
         <attr sel=".movie-title" th:text="${movie.movTitle}"/>
         <attr sel=".movie-img" th:src="${movie.movThumbnail}" />
         <attr sel=".movie-making" th:text="${movie.movMakingDate} + ' ・ ' +  ${movie.movCountry}" />
         <attr sel=".movie-idx" th:text="${i.count}" />
+        <attr sel=".average"
+              th:if="${movie.avg} != 0.0" th:text="'평균 ★ ' + (${movie.avg} != 0 ? ${movie.avg} : _)"/>
+        <attr sel="div.css-5o7sb2" th:if="${movie.movWatch} != null and ${#strings.contains(movie.movWatch,'aHR0cHM6Ly93YXRjaGEuY29tL3dhd')}"/>
+        <!--                왓챠 아이콘 -->
+        <attr sel="div.css-oobk33" th:if="${movie.movWatch} != null and ${#strings.contains(movie.movWatch,'aHR0cHM6Ly93d3cubmV0ZmxpeC5jb20vdGl0b')}"/>
     </attr>
+
 </attr>
 </thlogic>
