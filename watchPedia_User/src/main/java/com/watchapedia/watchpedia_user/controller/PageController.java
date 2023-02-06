@@ -88,10 +88,11 @@ public class PageController {
             @PathVariable String contentType,
             @PathVariable Long contentIdx,
             @PageableDefault(size = 3, sort = "commIdx", direction = Sort.Direction.DESC) Pageable pageable,
-            ModelMap map
+            ModelMap map,
+            HttpSession session
     ){
-        Long userIdx = 12L;
-        Page<CommentResponse> commentList = commentService.commentList(contentType,contentIdx,userIdx, pageable);
+        UserSessionDto dto = (UserSessionDto) session.getAttribute("userSession");
+        Page<CommentResponse> commentList = commentService.commentList(contentType,contentIdx,dto.userIdx(), pageable);
         String contentTitle = "";
 
         switch (contentType){
@@ -108,7 +109,7 @@ public class PageController {
 //
 //            }
         }
-        map.addAttribute("userIdx", userIdx);
+        map.addAttribute("userSession", dto);
         map.addAttribute("commentList", commentList);
         map.addAttribute("contentTitle", contentTitle);
         return "/comments";
@@ -120,9 +121,11 @@ public class PageController {
             @PathVariable String contentType,
             @PathVariable Long contentIdx,
             @PageableDefault(size = 3, sort = "commIdx", direction = Sort.Direction.DESC) Pageable pageable
+            ,
+            HttpSession session
     ){
-        Long userIdx = 12L;
-        Page<CommentResponse> commentList = commentService.commentList(contentType,contentIdx,userIdx, pageable);
+        UserSessionDto dto = (UserSessionDto) session.getAttribute("userSession");
+        Page<CommentResponse> commentList = commentService.commentList(contentType,contentIdx,dto.userIdx(), pageable);
 
         Map<String, Object> mv = new HashMap<>();
         mv.put("commentList", commentList);
@@ -134,11 +137,11 @@ public class PageController {
     public Map<String, Object> movieDetail(
             @PathVariable String contentType,
             @PathVariable Long contentIdx,
-            @PageableDefault(size = 5, sort = "commIdx", direction = Sort.Direction.DESC) Pageable pageable
+            @PageableDefault(size = 5, sort = "commIdx", direction = Sort.Direction.DESC) Pageable pageable,
+            HttpSession session
     ){
-        Long userIdx = 12L;
-
-        Page<CommentResponse> commentList = commentService.commentList(contentType,contentIdx,userIdx,pageable);
+        UserSessionDto dto = (UserSessionDto) session.getAttribute("userSession");
+        Page<CommentResponse> commentList = commentService.commentList(contentType,contentIdx,dto.userIdx(),pageable);
 
         Map<String, Object> mv = new HashMap<>();
         mv.put("commentList", commentList);

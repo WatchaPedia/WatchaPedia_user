@@ -1,6 +1,8 @@
 package com.watchapedia.watchpedia_user.controller;
 
+import com.watchapedia.watchpedia_user.model.dto.UserSessionDto;
 import com.watchapedia.watchpedia_user.model.entity.User;
+import com.watchapedia.watchpedia_user.model.network.request.UserRequestDto;
 import com.watchapedia.watchpedia_user.model.network.response.content.EstimateContent;
 import com.watchapedia.watchpedia_user.model.repository.comment.CommentRepository;
 import com.watchapedia.watchpedia_user.model.repository.content.MovieRepository;
@@ -10,6 +12,7 @@ import com.watchapedia.watchpedia_user.model.repository.UserRepository;
 import com.watchapedia.watchpedia_user.model.repository.content.ajax.WatchRepository;
 import com.watchapedia.watchpedia_user.model.repository.content.ajax.WishRepository;
 import com.watchapedia.watchpedia_user.service.content.ajax.StarService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.*;
 import org.springframework.data.web.PageableDefault;
@@ -35,8 +38,9 @@ public class EstimateController {
 
     @GetMapping("/estimate") // http://localhost:8080/estimate
     public ModelAndView estimateMain(
+            HttpSession session
     ){
-        Long userIdx = 12L;
+        UserSessionDto dto = (UserSessionDto) session.getAttribute("userSession");
 //        User user = userRepository.getReferenceById(userIdx);
 //        List<EstimateContent> contentList = contentList = starService.movieList(user,pageable);
 
@@ -47,21 +51,22 @@ public class EstimateController {
 //        Page<EstimateContent> newList = new PageImpl<>(contentList.subList(start, end), pageRequest, contentList.size());
 
         return new ModelAndView("/valueContent")
-                .addObject("userIdx",userIdx)
-                .addObject("movieStar",starRepository.findByStarContentTypeAndStarUserIdx("movie",userIdx).size())
-                .addObject("tvStar",starRepository.findByStarContentTypeAndStarUserIdx("tv",userIdx).size())
-                .addObject("bookStar",starRepository.findByStarContentTypeAndStarUserIdx("book",userIdx).size())
-                .addObject("webStar",starRepository.findByStarContentTypeAndStarUserIdx("webtoon",userIdx).size());
+                .addObject("userSession",dto)
+                .addObject("movieStar",starRepository.findByStarContentTypeAndStarUserIdx("movie",dto.userIdx()).size())
+                .addObject("tvStar",starRepository.findByStarContentTypeAndStarUserIdx("tv",dto.userIdx()).size())
+                .addObject("bookStar",starRepository.findByStarContentTypeAndStarUserIdx("book",dto.userIdx()).size())
+                .addObject("webStar",starRepository.findByStarContentTypeAndStarUserIdx("webtoon",dto.userIdx()).size());
     }
 
     @GetMapping("/estimate/{contentType}") // http://localhost:8080/estimate/page
     @ResponseBody
     public Map<String, Object> estimatePage(
             @PathVariable String contentType,
-            @PageableDefault(size = 9) Pageable pageable
+            @PageableDefault(size = 9) Pageable pageable,
+            HttpSession session
     ){
-        Long userIdx = 12L;
-        User user = userRepository.getReferenceById(userIdx);
+        UserSessionDto dto = (UserSessionDto) session.getAttribute("userSession");
+        User user = userRepository.findById(dto.userIdx()).get();
 
         Map<String,Object> contentMap = new HashMap<>();
         List<EstimateContent> contentList = new ArrayList<>();
