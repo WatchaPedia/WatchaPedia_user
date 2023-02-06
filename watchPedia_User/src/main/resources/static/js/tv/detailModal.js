@@ -10,56 +10,64 @@ const close2 = document.querySelector('.e1k34u8y0');
 const main = document.querySelector('.css-14gy7wr');
 const commentModal = commentBtn.querySelector("div.e1svyhwg28");
 const commentModal2 = main.querySelector("div#comment-modal");
-
+const hasComment = document.querySelector("div.hasComm");
 // 코멘트 열기, 닫기
 commentBtn.addEventListener('click',() => {
-    if(hasComment.style.display == "block"){
-        commentModal.style.display='block'
-        commentModal.classList.add('on');
-        commentModal.classList.remove('off');
+    if(document.querySelector("#login-idx")){
+        if(hasComment.style.display == "block"){
+            commentModal.style.display='block'
+            commentModal.classList.add('on');
+            commentModal.classList.remove('off');
+        }else{
+            main.style.display = 'block';
+            main.classList.add('on');
+            main.classList.remove('off');
+            comment.style.display = 'block';
+            comment.classList.add('on');
+            comment.classList.remove('off');
+        }
     }else{
-        main.style.display = 'block';
-        main.classList.add('on');
-        main.classList.remove('off');
-        comment.style.display = 'block';
-        comment.classList.add('on');
-        comment.classList.remove('off');
+        loginModalOn()
     }
 
 })
 commentBtn2.addEventListener('click',() => {
-    if(hasComment.style.display == "block"){
-        main.style.display = 'block';
-        main.classList.add('on');
-        main.classList.remove('off');
-        commentModal2.style.display='block'
-        commentModal2.classList.add('on');
-        commentModal2.classList.remove('off');
-    }else{
-        main.style.display = 'block';
-        main.classList.add('on');
-        main.classList.remove('off');
-        comment.style.display = 'block';
-        comment.classList.add('on');
-        comment.classList.remove('off');
-    }
+    if(document.querySelector("#login-idx")) {
+        if (hasComment.style.display == "block") {
+            main.style.display = 'block';
+            main.classList.add('on');
+            main.classList.remove('off');
+            commentModal2.style.display = 'block'
+            commentModal2.classList.add('on');
+            commentModal2.classList.remove('off');
+        } else {
+            main.style.display = 'block';
+            main.classList.add('on');
+            main.classList.remove('off');
+            comment.style.display = 'block';
+            comment.classList.add('on');
+            comment.classList.remove('off');
+        }
+    }else {loginModalOn()}
 })
 commentBtn3.addEventListener('click',() => {
-    if(comment.classList.contains('off')){
-        main.style.display = 'block';
-        main.classList.add('on');
-        main.classList.remove('off');
-        comment.style.display = 'block';
-        comment.classList.add('on');
-        comment.classList.remove('off');
-    }else{
-        main.style.display = 'none';
-        main.classList.add('off');
-        main.classList.remove('on');
-        comment.style.display = 'none';
-        comment.classList.add('off');
-        comment.classList.remove('on');
-    }
+    if(document.querySelector("#login-idx")) {
+        if (comment.classList.contains('off')) {
+            main.style.display = 'block';
+            main.classList.add('on');
+            main.classList.remove('off');
+            comment.style.display = 'block';
+            comment.classList.add('on');
+            comment.classList.remove('off');
+        } else {
+            main.style.display = 'none';
+            main.classList.add('off');
+            main.classList.remove('on');
+            comment.style.display = 'none';
+            comment.classList.add('off');
+            comment.classList.remove('on');
+        }
+    }else{loginModalOn()}
 })
 commentModal2.querySelector("div.css-9du7fu").addEventListener('click',()=>{
     main.style.display = 'none';

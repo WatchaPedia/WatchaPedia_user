@@ -120,25 +120,26 @@ public class CommentService {
         boolean hasSpo = false;
         boolean hasInap = false;
 
-        Report report = reportRepository.findByReportCommTypeAndReportCommIdx("comm",comment.getCommIdx());
-        if(report != null){
-            if(report.getReportReporter().contains(",")){
-                for(String idx : report.getReportReporter().split(", ")){
-                    if(Long.parseLong(idx.split("[|]")[0]) == userIdx
-                    ){
-                        if(idx.split("[|]")[1].equals("스포")) hasSpo = true;
-                        if(idx.split("[|]")[1].equals("부적절")) hasInap = true;
+        if(userIdx!=null) {
+            Report report = reportRepository.findByReportCommTypeAndReportCommIdx("comm", comment.getCommIdx());
+            if (report != null) {
+                if (report.getReportReporter().contains(",")) {
+                    for (String idx : report.getReportReporter().split(", ")) {
+                        if (Long.parseLong(idx.split("[|]")[0]) == userIdx
+                        ) {
+                            if (idx.split("[|]")[1].equals("스포")) hasSpo = true;
+                            if (idx.split("[|]")[1].equals("부적절")) hasInap = true;
+                        }
                     }
-                }
-            }else{
-                if(Long.parseLong(report.getReportReporter().split("[|]")[0]) == userIdx
-                ){
-                    if(report.getReportReporter().split("[|]")[1].equals("스포")) hasSpo = true;
-                    if(report.getReportReporter().split("[|]")[1].equals("부적절")) hasInap = true;
+                } else {
+                    if (Long.parseLong(report.getReportReporter().split("[|]")[0]) == userIdx
+                    ) {
+                        if (report.getReportReporter().split("[|]")[1].equals("스포")) hasSpo = true;
+                        if (report.getReportReporter().split("[|]")[1].equals("부적절")) hasInap = true;
+                    }
                 }
             }
         }
-
         return CommentResponse.from(
                 CommentDto.from(comment),
                 spoilerRepository.findBySpoCommentIdx(comment.getCommIdx()) != null ? true:false,
@@ -146,31 +147,32 @@ public class CommentService {
                 recommentRepository.findByRecommCommIdx(comment.getCommIdx(),pageable).map(RecommentDto::from).map(
                         dto -> {
                             Recomment recomment = recommentRepository.getReferenceById(dto.idx());
-                            Report findReport = reportRepository.findByReportCommTypeAndReportCommIdx("re",dto.idx());
                             boolean hasReport = false;
-                            if(findReport != null){
-                                for(String idx: findReport.getReportReporter().split(", ")){
-                                    if(Long.parseLong(idx.split("[|]")[0]) == userIdx){
-                                        hasReport = true;
+                            if(userIdx != null) {
+                                Report findReport = reportRepository.findByReportCommTypeAndReportCommIdx("re", dto.idx());
+                                if (findReport != null) {
+                                    for (String idx : findReport.getReportReporter().split(", ")) {
+                                        if (Long.parseLong(idx.split("[|]")[0]) == userIdx) {
+                                            hasReport = true;
+                                        }
                                     }
                                 }
                             }
                             return RecommentResponse.of(dto.idx(),dto.commIdx(),dto.userIdx().getUserIdx(),dto.name(),dto.text(),
                                     dto.regDate(), relikeRepository.findByRelikeRecommIdx(recomment.getRecommIdx()),
-                                    relikeRepository.findByRelikeRecommIdxAndRelikeUserIdx(recomment.getRecommIdx(),userIdx) != null ? true : false
-                                    ,hasReport
+                                    userIdx!=null?(relikeRepository.findByRelikeRecommIdxAndRelikeUserIdx(recomment.getRecommIdx(),userIdx) != null ? true : false):false
+                                    ,userIdx!=null?hasReport:false
                             );
                         }
                 ),
-                likeRepository.findByLikeCommentIdxAndLikeUserIdx(comment.getCommIdx(),userIdx) != null ?
-                        true : false
+                userIdx!=null?(likeRepository.findByLikeCommentIdxAndLikeUserIdx(comment.getCommIdx(),userIdx) != null ?
+                        true : false) : false
                 , hasSpo, hasInap
         );
     }
 
     public Page<CommentResponse> commentList(String contentType, Long contentIdx, Long userIdx, Pageable pageable){
         Page<CommentResponse> commentResponseList = null;
-
         commentResponseList = commentRepository.findByCommContentTypeAndCommContentIdx(
                 contentType,contentIdx, pageable
         ).map(CommentDto::from).map(dto -> {
@@ -178,7 +180,7 @@ public class CommentService {
                     spoilerRepository.findBySpoCommentIdx(dto.idx()) != null ? true : false,
                     likeRepository.findByLikeCommentIdx(dto.idx()).size(),
                     (long) recommentRepository.findByRecommCommIdx(dto.idx()).size(),
-                    likeRepository.findByLikeCommentIdxAndLikeUserIdx(dto.idx(),userIdx) != null ? true : false
+                    userIdx!=null?(likeRepository.findByLikeCommentIdxAndLikeUserIdx(dto.idx(),userIdx) != null ? true : false):false
                     );
         });
 

@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<thlogic>
+    <attr sel="#cheak" th:if="${loginerrorMessage != null}">
+        <attr sel="#check2" th:text="${loginerrorMessage}"/>
+    </attr>
+</thlogic>

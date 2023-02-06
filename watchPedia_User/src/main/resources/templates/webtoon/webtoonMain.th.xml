@@ -5,16 +5,20 @@
         <attr sel=".webtoon-tr" th:each="webtoon : ${webtoons}" th:if="${webtoon.webAge == '전체연령가'}">
             <attr sel=".webtoon-title" th:text="${webtoon.webTitle}"/>
             <attr sel=".webtoon-img" th:src="${webtoon.webThumbnail}" />
-<!--            <attr sel="div.css-xgmur2"-->
-<!--                  th:text="*{starList().size() != 0} ?'평균 ★' + ${avg}  : ''"/>-->
-<!--        </attr>-->
+            <attr sel=".average"
+                      th:if="${webtoon.avg} != 0.0" th:text="'평균 ★ ' + (${webtoon.avg} != 0 ? ${webtoon.avg} : _)"/>
+
         </attr>
     </attr>
+
+
     <!--금요일에 보는 웹툰-->
     <attr sel=".webtoon-table-day" th:remove="all-but-first">
         <attr sel=".webtoon-tr-day" th:if="${webtoon.webSerDay == '금'}" th:each="webtoon : ${webtoons}">
             <attr sel=".webtoon-title-day" th:text="${webtoon.webTitle}"/>
             <attr sel=".webtoon-img-day" th:src="${webtoon.webThumbnail}" />
+            <attr sel=".average"
+                  th:if="${webtoon.avg} != 0.0" th:text="'평균 ★ ' + (${webtoon.avg} != 0 ? ${webtoon.avg} : _)"/>
         </attr>
     </attr>
 

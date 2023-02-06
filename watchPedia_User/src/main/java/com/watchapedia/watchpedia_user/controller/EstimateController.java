@@ -1,6 +1,8 @@
 package com.watchapedia.watchpedia_user.controller;
 
+import com.watchapedia.watchpedia_user.model.dto.UserSessionDto;
 import com.watchapedia.watchpedia_user.model.entity.User;
+import com.watchapedia.watchpedia_user.model.network.request.UserRequestDto;
 import com.watchapedia.watchpedia_user.model.network.response.content.EstimateContent;
 import com.watchapedia.watchpedia_user.model.repository.comment.CommentRepository;
 import com.watchapedia.watchpedia_user.model.repository.content.MovieRepository;
@@ -10,6 +12,7 @@ import com.watchapedia.watchpedia_user.model.repository.UserRepository;
 import com.watchapedia.watchpedia_user.model.repository.content.ajax.WatchRepository;
 import com.watchapedia.watchpedia_user.model.repository.content.ajax.WishRepository;
 import com.watchapedia.watchpedia_user.service.content.ajax.StarService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.*;
 import org.springframework.data.web.PageableDefault;
@@ -35,8 +38,9 @@ public class EstimateController {
 
     @GetMapping("/estimate") // http://localhost:8080/estimate
     public ModelAndView estimateMain(
+            HttpSession session
     ){
-        Long userIdx = 12L;
+        UserSessionDto dto = (UserSessionDto) session.getAttribute("userSession");
 //        User user = userRepository.getReferenceById(userIdx);
 //        List<EstimateContent> contentList = contentList = starService.movieList(user,pageable);
 
@@ -45,30 +49,38 @@ public class EstimateController {
 //        int start = (int) pageRequest.getOffset();
 //        int end = Math.min((start + pageRequest.getPageSize()), contentList.size());
 //        Page<EstimateContent> newList = new PageImpl<>(contentList.subList(start, end), pageRequest, contentList.size());
-
-        return new ModelAndView("/valueContent")
-                .addObject("userIdx",userIdx);
+        if(dto!=null){
+            return new ModelAndView("/valueContent")
+                    .addObject("userSession",dto)
+                    .addObject("movieStar",starRepository.findByStarContentTypeAndStarUserIdx("movie",dto.userIdx()).size())
+                    .addObject("tvStar",starRepository.findByStarContentTypeAndStarUserIdx("tv",dto.userIdx()).size())
+                    .addObject("bookStar",starRepository.findByStarContentTypeAndStarUserIdx("book",dto.userIdx()).size())
+                    .addObject("webStar",starRepository.findByStarContentTypeAndStarUserIdx("webtoon",dto.userIdx()).size());
+        }
+        return new ModelAndView("/user/login");
     }
 
-    @GetMapping("/estimate/page") // http://localhost:8080/estimate/page
+    @GetMapping("/estimate/{contentType}") // http://localhost:8080/estimate/page
     @ResponseBody
     public Map<String, Object> estimatePage(
-            @RequestBody(required = false) String contentType,
-            @PageableDefault(size = 9) Pageable pageable
+            @PathVariable String contentType,
+            @PageableDefault(size = 9) Pageable pageable,
+            HttpSession session
     ){
-        Long userIdx = 12L;
-        User user = userRepository.getReferenceById(userIdx);
-        System.out.println("진입 : " +contentType);
+        UserSessionDto dto = (UserSessionDto) session.getAttribute("userSession");
+        User user = userRepository.findById(dto.userIdx()).get();
 
+        Map<String,Object> contentMap = new HashMap<>();
         List<EstimateContent> contentList = new ArrayList<>();
-        if(contentType == null || contentType.contains("movie")) contentList = starService.movieList(user,pageable);
-        else if(contentType.contains("tv")) contentList = starService.tvList(user,pageable);
-//        if(contentType.contains("book")) contentList = starService.tvList(user,pageable);
-        else if(contentType.contains("webtoon")) contentList = starService.webList(user,pageable);
+        if(contentType == null || contentType.contains("movie")) contentMap = starService.movieList(user,pageable);
+        else if(contentType.contains("tv")) contentMap = starService.tvList(user,pageable);
+//        if(contentType.contains("book")) contentMap = starService.tvList(user,pageable);
+        else if(contentType.contains("webtoon")) contentMap = starService.webList(user,pageable);
 
         Map<String, Object> mv = new HashMap<>();
-        mv.put("content", contentList);
 
+        mv.put("content", contentMap.get("contentList"));
+        mv.put("last", contentMap.get("last"));
         return mv;
     }
 

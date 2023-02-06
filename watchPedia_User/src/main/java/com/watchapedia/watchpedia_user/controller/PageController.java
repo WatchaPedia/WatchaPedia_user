@@ -1,6 +1,9 @@
 package com.watchapedia.watchpedia_user.controller;
 
+import com.watchapedia.watchpedia_user.model.dto.UserSessionDto;
 import com.watchapedia.watchpedia_user.model.dto.comment.CommentDto;
+import com.watchapedia.watchpedia_user.model.dto.content.MovieDto;
+import com.watchapedia.watchpedia_user.model.dto.content.WebtoonDto;
 import com.watchapedia.watchpedia_user.model.entity.content.ajax.Star;
 import com.watchapedia.watchpedia_user.model.network.request.ajax.StarRequest;
 import com.watchapedia.watchpedia_user.model.network.response.PersonResponse;
@@ -11,9 +14,13 @@ import com.watchapedia.watchpedia_user.model.network.response.content.StarRespon
 import com.watchapedia.watchpedia_user.model.repository.comment.CommentRepository;
 import com.watchapedia.watchpedia_user.model.repository.UserRepository;
 import com.watchapedia.watchpedia_user.model.repository.content.MovieRepository;
+import com.watchapedia.watchpedia_user.model.repository.content.TvRepository;
+import com.watchapedia.watchpedia_user.model.repository.content.WebtoonRepository;
 import com.watchapedia.watchpedia_user.service.comment.CommentService;
 import com.watchapedia.watchpedia_user.service.content.MovieService;
 import com.watchapedia.watchpedia_user.service.content.ajax.StarService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -39,11 +46,16 @@ public class PageController {
     private final CommentRepository commentRepository;
     private final UserRepository userRepository;
 
-    @GetMapping("/")
-    public String movie(ModelMap map){
-        map.addAttribute("movies", movieService.searchMovies());
+    @GetMapping(path="/")
+    public String movie(ModelMap map, HttpSession session, HttpServletRequest request){
+        UserSessionDto userSessionDto = (UserSessionDto) session.getAttribute("userSession");
+
+        map.addAttribute("userSession", userSessionDto);
+        List<MovieDto> movies = movieService.movies();
+        map.addAttribute("movies", movies);
         return "movie/movieMain";
     }
+
     //     별점 저장
     @PostMapping("/estimate") // http://localhost:8080/estimate
     @ResponseBody
@@ -68,33 +80,36 @@ public class PageController {
 
     private final CommentService commentService;
     private final MovieRepository movieRepository;
+    private final TvRepository tvRepository;
+    private final WebtoonRepository webtoonRepository;
 
     @GetMapping("/{contentType}/{contentIdx}/comments") // http://localhost:8080/movie/1/comments
     public String commentList(
             @PathVariable String contentType,
             @PathVariable Long contentIdx,
             @PageableDefault(size = 3, sort = "commIdx", direction = Sort.Direction.DESC) Pageable pageable,
-            ModelMap map
+            ModelMap map,
+            HttpSession session
     ){
-        Long userIdx = 12L;
-        Page<CommentResponse> commentList = commentService.commentList(contentType,contentIdx,userIdx, pageable);
+        UserSessionDto dto = (UserSessionDto) session.getAttribute("userSession");
+        Page<CommentResponse> commentList = commentService.commentList(contentType,contentIdx,dto!=null?dto.userIdx():null, pageable);
         String contentTitle = "";
 
         switch (contentType){
             case "movie" ->{
                 contentTitle = movieRepository.findById(contentIdx).get().getMovTitle();
             }
-//            case "tv" -> {
-//
-//            }
-//            case "webtoon" -> {
-//
-//            }
+            case "tv" ->{
+                contentTitle = tvRepository.findById(contentIdx).get().getTvTitle();
+            }
+            case "webtoon" ->{
+                contentTitle = webtoonRepository.findById(contentIdx).get().getWebTitle();
+            }
 //            case "book" -> {
 //
 //            }
         }
-        map.addAttribute("userIdx", userIdx);
+        map.addAttribute("userSession", dto);
         map.addAttribute("commentList", commentList);
         map.addAttribute("contentTitle", contentTitle);
         return "/comments";
@@ -106,9 +121,11 @@ public class PageController {
             @PathVariable String contentType,
             @PathVariable Long contentIdx,
             @PageableDefault(size = 3, sort = "commIdx", direction = Sort.Direction.DESC) Pageable pageable
+            ,
+            HttpSession session
     ){
-        Long userIdx = 12L;
-        Page<CommentResponse> commentList = commentService.commentList(contentType,contentIdx,userIdx, pageable);
+        UserSessionDto dto = (UserSessionDto) session.getAttribute("userSession");
+        Page<CommentResponse> commentList = commentService.commentList(contentType,contentIdx,dto!=null?dto.userIdx():null, pageable);
 
         Map<String, Object> mv = new HashMap<>();
         mv.put("commentList", commentList);
@@ -120,14 +137,17 @@ public class PageController {
     public Map<String, Object> movieDetail(
             @PathVariable String contentType,
             @PathVariable Long contentIdx,
-            @PageableDefault(size = 5, sort = "commIdx", direction = Sort.Direction.DESC) Pageable pageable
+            @PageableDefault(size = 5, sort = "commIdx", direction = Sort.Direction.DESC) Pageable pageable,
+            HttpSession session
     ){
-        Long userIdx = 12L;
-
-        Page<CommentResponse> commentList = commentService.commentList(contentType,contentIdx,userIdx,pageable);
+        UserSessionDto dto = (UserSessionDto) session.getAttribute("userSession");
+        Page<CommentResponse> commentList = commentService.commentList(contentType,contentIdx,dto!=null?dto.userIdx():null,pageable);
 
         Map<String, Object> mv = new HashMap<>();
         mv.put("commentList", commentList);
         return mv;
     }
+
+
+
 }

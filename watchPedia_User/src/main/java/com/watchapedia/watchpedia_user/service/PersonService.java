@@ -1,6 +1,7 @@
 package com.watchapedia.watchpedia_user.service;
 
 import com.watchapedia.watchpedia_user.model.dto.PersonDto;
+import com.watchapedia.watchpedia_user.model.network.request.UserRequestDto;
 import com.watchapedia.watchpedia_user.model.network.response.PersonResponse;
 import com.watchapedia.watchpedia_user.model.repository.PersonRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,4 +24,5 @@ public class PersonService {
         ).toList();
         return personList;
     }
+
 }

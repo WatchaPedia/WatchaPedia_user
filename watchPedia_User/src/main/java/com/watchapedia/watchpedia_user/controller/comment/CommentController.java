@@ -1,15 +1,21 @@
 package com.watchapedia.watchpedia_user.controller.comment;
 
+import com.watchapedia.watchpedia_user.model.dto.UserSessionDto;
 import com.watchapedia.watchpedia_user.model.entity.comment.Comment;
 import com.watchapedia.watchpedia_user.model.entity.content.ajax.Star;
 import com.watchapedia.watchpedia_user.model.network.request.comment.CommentRequest;
 import com.watchapedia.watchpedia_user.model.network.request.comment.LikeRequest;
 import com.watchapedia.watchpedia_user.model.network.response.comment.CommentResponse;
 import com.watchapedia.watchpedia_user.model.network.response.content.MovieResponse;
+import com.watchapedia.watchpedia_user.model.network.response.content.TvResponse;
+import com.watchapedia.watchpedia_user.model.network.response.content.WebtoonResponse;
 import com.watchapedia.watchpedia_user.model.repository.content.ajax.StarRepository;
 import com.watchapedia.watchpedia_user.model.repository.UserRepository;
 import com.watchapedia.watchpedia_user.service.comment.CommentService;
 import com.watchapedia.watchpedia_user.service.content.MovieService;
+import com.watchapedia.watchpedia_user.service.content.TvService;
+import com.watchapedia.watchpedia_user.service.content.WebtoonService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -63,34 +69,39 @@ public class CommentController {
     ){
         return commentService.likeSave(request);
     }
-
+    final TvService tvService;
+    final WebtoonService webtoonService;
     final MovieService movieService;
     @GetMapping("/{commentIdx}")
     public String commentView(
             @PathVariable Long commentIdx,
             @PageableDefault(size = 9, sort = "recommIdx", direction = Sort.Direction.ASC) Pageable pageable,
-            ModelMap map
+            ModelMap map,
+            HttpSession session
     ){
-        Long userIdx = 12L;
-        CommentResponse comment = commentService.findComment(commentIdx, userIdx, pageable);
+        UserSessionDto dto = (UserSessionDto) session.getAttribute("userSession");
+        CommentResponse comment = commentService.findComment(commentIdx, dto!=null?dto.userIdx():null, pageable);
 
         switch (comment.contentType()){
             case "movie" -> {
                 MovieResponse content =movieService.movieView(comment.contentIdx());
                 map.addAttribute("content", content);
             }
-//            case "tv" -> {
-//                map.addAttribute("content", content);
-//            }
-//            case "webtoon" -> {
-//                map.addAttribute("content", content);
-//            }
+            case "tv" -> {
+                TvResponse content = tvService.tvView(comment.contentIdx());
+                map.addAttribute("content", content);
+            }
+
+            case "webtoon" -> {
+                WebtoonResponse content = webtoonService.webtoonView(comment.contentIdx());
+                map.addAttribute("content", content);
+            }
 //            case "book" -> {
 //                map.addAttribute("content", content);
 //            }
         }
         map.addAttribute("comment", comment);
-        map.addAttribute("userIdx", userIdx);
+        map.addAttribute("userSession", dto);
 
         return "/recomment";
     }
@@ -99,10 +110,11 @@ public class CommentController {
     @ResponseBody
     public Map<String, Object> commentView(
             @PathVariable Long commentIdx,
-            @PageableDefault(size = 9, sort = "recommIdx", direction = Sort.Direction.ASC) Pageable pageable
+            @PageableDefault(size = 9, sort = "recommIdx", direction = Sort.Direction.ASC) Pageable pageable,
+            HttpSession session
     ){
-        Long userIdx = 12L;
-        CommentResponse comment = commentService.findComment(commentIdx, userIdx, pageable);
+        UserSessionDto dto = (UserSessionDto) session.getAttribute("userSession");
+        CommentResponse comment = commentService.findComment(commentIdx, dto.userIdx(), pageable);
         Map<String, Object> mv = new HashMap<>();
 
         mv.put("comment", comment.recomment());

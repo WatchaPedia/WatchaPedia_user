@@ -2,12 +2,12 @@ package com.watchapedia.watchpedia_user.model.dto;
 
 
 import com.watchapedia.watchpedia_user.model.entity.User;
+import com.watchapedia.watchpedia_user.model.network.request.UserRequestDto;
 
 import java.time.LocalDateTime;
 
 public record UserDto(
     Long userIdx,
-    String userId,
     String userPw,
     Long userSsn1,
     Long userSsn2,
@@ -25,14 +25,14 @@ public record UserDto(
     String userLikeGenre
 ){
     public static UserDto of(
-            Long userIdx, String userId, String userPw, Long userSsn1, Long userSsn2,
+            Long userIdx, String userPw, Long userSsn1, Long userSsn2,
             String userEmail, String userStatus, Long userCautionCnt, Long userWarningCnt,
             Long userSuspensionCnt, LocalDateTime userLatelyStop, LocalDateTime userReleaseDate,
             String userType, String userName, String userLikeActor, String userLikeDirector,
             String userLikeGenre
     ){
         return new UserDto(
-                userIdx, userId, userPw, userSsn1, userSsn2, userEmail, userStatus,
+                userIdx, userPw, userSsn1, userSsn2, userEmail, userStatus,
                 userCautionCnt, userWarningCnt, userSuspensionCnt, userLatelyStop,
                 userReleaseDate, userType, userName, userLikeActor, userLikeDirector,
                 userLikeGenre
@@ -40,11 +40,11 @@ public record UserDto(
     }
 
     public static UserDto of(
-            String userId, String userPw, Long userSsn1, Long userSsn2,
+            String userPw, Long userSsn1, Long userSsn2,
             String userEmail, String userName
     ){
         return new UserDto(
-                null, userId, userPw, userSsn1, userSsn2, userEmail, null,
+                null, userPw, userSsn1, userSsn2, userEmail, null,
                 null, null, null, null, null, null, userName, null, null,
                 null
         );
@@ -53,7 +53,6 @@ public record UserDto(
     public static UserDto from(User entity){
         return new UserDto(
                 entity.getUserIdx(),
-                entity.getUserId(),
                 entity.getUserPw(),
                 entity.getUserSsn1(),
                 entity.getUserSsn2(),
@@ -71,11 +70,31 @@ public record UserDto(
                 entity.getUserLikeGenre()
         );
     }
-
-    public User toEntity(){
-        return User.of(
-                userId, userPw, userSsn1, userSsn2,
-                userEmail, userName
+    public static UserDto requestReceive(UserRequestDto userRequestdto){
+        return new UserDto(
+                null,
+                userRequestdto.userPw(),
+                userRequestdto.userSsn1(),
+                userRequestdto.userSsn2(),
+                userRequestdto.userEmail(),
+                "활동",
+                0L,
+                0L,
+                0L,
+                null,
+                null,
+                "일반유저",
+                userRequestdto.userName(),
+                null,
+                null,
+                null
         );
     }
+
+//    public User toEntity(){
+//        return User.of(
+//                userId, userPw, userSsn1, userSsn2,
+//                userEmail, userName
+//        );
+//    }
 }
