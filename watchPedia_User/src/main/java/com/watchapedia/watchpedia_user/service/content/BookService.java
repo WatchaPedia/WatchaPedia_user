@@ -24,12 +24,12 @@ public class BookService {
     }
 
     @Transactional(readOnly = true)
-    public List<BookResponse> similarGenre(String bookGenre, Long bookIdx){
+    public List<BookResponse> similarGenre(String bookCategory, Long bookIdx){
         List<BookResponse> result = new ArrayList<>();
 
         List<Long> bookIdxList = new ArrayList<>(16);
-        if(bookGenre.contains("/")){
-            List<String> genreList = Arrays.stream(bookGenre.split("/")).toList();
+        if(bookCategory.contains("/")){
+            List<String> genreList = Arrays.stream(bookCategory.split("/")).toList();
             HashMap<Long, Integer> containBook = new HashMap<>();
             for(String idx: genreList){
                 for(Book book: bookRepository.findByBookCategoryContaining(idx)){
@@ -45,7 +45,7 @@ public class BookService {
                 bookIdxList.add(entry.getKey());
             }
         }else{
-            for(Book idx: bookRepository.findByBookCategoryContaining(bookGenre)){
+            for(Book idx: bookRepository.findByBookCategoryContaining(bookCategory)){
                 bookIdxList.add(idx.getBookIdx());
             }
         }

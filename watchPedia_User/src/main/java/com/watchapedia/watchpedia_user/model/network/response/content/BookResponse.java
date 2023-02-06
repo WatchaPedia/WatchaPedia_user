@@ -29,7 +29,7 @@ public record BookResponse(
     ){
         return new BookResponse(
                 idx, thumbnail, title, null, null, null, null, null, null,
-                null, null, null, null , null,buy, null, avgStar
+                null, null, null, null , null, buy, null, avgStar
         );
     }
 
