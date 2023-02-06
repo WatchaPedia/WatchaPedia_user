@@ -148,6 +148,21 @@ public class PageController {
         return mv;
     }
 
+    @GetMapping(path="/personDetail")  // localhost:9090/personDetail
+    public ModelAndView personDetail(){
+        return new ModelAndView("/personDetail");
+    }
 
+
+    @GetMapping(path="/mypage/analysis")  // localhost:9090/mypage/analysis
+    public ModelAndView analysis(){
+        return new ModelAndView("/mypage/analysis") ;
+    }
+
+
+    @GetMapping(path="/mypage/myPage")  // localhost:9090/mypage/myPage
+    public ModelAndView myPage(){
+        return new ModelAndView("/mypage/myPage") ;
+    }
 
 }

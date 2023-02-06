@@ -21,7 +21,8 @@ public record BookDto(
         String bookPubSummary,
         String bookBackImg,
         String bookBuy,
-        List<Star> starList
+        List<Star> starList,
+        double avg
 ) {
     public static BookDto of(
             Long bookIdx,
@@ -39,16 +40,17 @@ public record BookDto(
             String bookPubSummary,
             String bookBackImg,
             String bookBuy,
-            List<Star> starList
+            List<Star> starList,
+            double avg
     ){
 
         return new BookDto(bookIdx, bookThumbnail, bookTitle, bookTitleSub,
                 bookWriter, bookCategory, bookAtDate, bookPage, bookAge, bookSummary, bookPeople, bookContentIdx, bookPubSummary, bookBackImg, bookBuy,
-                starList
+                starList, avg
         );
     }
 
-    public static BookDto from(Book entity){
+    public static BookDto from(Book entity) {
         return new BookDto(
                 entity.getBookIdx(),
                 entity.getBookThumbnail(),
@@ -65,9 +67,33 @@ public record BookDto(
                 entity.getBookPubSummary(),
                 entity.getBookBackImg(),
                 entity.getBookBuy(),
-                entity.getStar()
+                entity.getStar(),
+                0.0
         );
     }
+        public static BookDto from(Book entity, double avg){
+            return new BookDto(
+                    entity.getBookIdx(),
+                    entity.getBookThumbnail(),
+                    entity.getBookTitle(),
+                    entity.getBookTitleSub(),
+                    entity.getBookWriter(),
+                    entity.getBookCategory(),
+                    entity.getBookAtDate(),
+                    entity.getBookPage(),
+                    entity.getBookAge(),
+                    entity.getBookSummary(),
+                    entity.getBookPeople(),
+                    entity.getBookContentIdx(),
+                    entity.getBookPubSummary(),
+                    entity.getBookBackImg(),
+                    entity.getBookBuy(),
+                    entity.getStar(),
+                    avg
+            );
+    }
+
+
 }
 
 

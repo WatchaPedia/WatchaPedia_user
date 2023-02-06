@@ -6,20 +6,31 @@ import com.watchapedia.watchpedia_user.model.entity.content.ajax.Star;
 import java.util.List;
 
 public record BookResponse(
-        Long bookIdx,String bookThumbnail,String bookTitle,String bookTitleSub,
-        String bookWriter,String bookCategory,String bookAtDate,String bookPage,
-        String bookAge,String bookSummary,String bookPeople,String bookContentIdx,String bookPubSummary,
-        String bookBackImg,String bookBuy,List<Star> starList
+        Long idx,String thumbnail,String title,String titleSub,
+        String writer,String category,String atDate,String page,
+        String age,String summary,String people,String contentIdx,String pubSummary,
+        String backImg,String buy,List<Star> starList, double avgStar
 ){
     public static BookResponse of(
-            Long bookIdx, String bookThumbnail, String bookTitle, String bookTitleSub,
-            String bookWriter, String bookCategory, String bookAtDate,
-            String bookPage, String bookAge, String bookSummary, String bookPeople,
-            String bookContentIdx, String bookPubSummary, String bookBackImg,
-            String bookBuy,List<Star> starList){
-        return new BookResponse(bookIdx, bookThumbnail, bookTitle, bookTitleSub,
-                bookWriter, bookCategory, bookAtDate, bookPage, bookAge, bookSummary,
-                bookPeople, bookContentIdx, bookPubSummary, bookBackImg, bookBuy,starList);
+            Long idx, String thumbnail, String title, String titleSub,
+            String writer, String category, String atDate,
+            String page, String age, String summary, String people,
+            String contentIdx, String pubSummary, String backImg,
+            String buy,List<Star> starList
+    ){
+
+        return new BookResponse(idx, thumbnail, title, titleSub,
+                writer, category, atDate, page, age, summary,
+                people, contentIdx, pubSummary, backImg, buy,starList,0.0);
+    }
+
+    public static BookResponse of(
+            Long idx, String thumbnail, String title, String buy, Double avgStar
+    ){
+        return new BookResponse(
+                idx, thumbnail, title, null, null, null, null, null, null,
+                null, null, null, null , null,buy, null, avgStar
+        );
     }
 
     public static BookResponse from (BookDto dto){
@@ -39,7 +50,8 @@ public record BookResponse(
                 dto.bookPubSummary(),
                 dto.bookBackImg(),
                 dto.bookBuy(),
-                dto.starList()
+                dto.starList(),
+                0
         );
     }
 }
