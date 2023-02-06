@@ -25,19 +25,20 @@ public class UserService {
     }
 
     public UserRequestDto login(UserRequestDto userRequestDto){
-        Optional<User> byUserEmail = userRepository.findByUserEmailAndUserStatus(userRequestDto.userEmail(), "활동");
+        Optional<User> byUserEmail = userRepository.findByUserEmailAndUserStatusAndUserPw(userRequestDto.userEmail(), "활동", userRequestDto.userPw());
         if (byUserEmail.isPresent()) {
             // 조회 결과가 있다(해당 이메일을 가진 회원 정보가 있다)
             User user = byUserEmail.get();
-            if (user.getUserPw().equals(userRequestDto.userPw())) {
-                // 비밀번호 일치
-                // entity -> dto -> request 변환 후 리턴
-                UserRequestDto dto = UserRequestDto.from(UserDto.from(user));
-                return dto;
-            } else {
-                // 비밀번호 불일치(로그인실패)
-                return null;
-            }
+
+//            if (user.getUserPw().equals(userRequestDto.userPw())) {
+//                // 비밀번호 일치
+//                // entity -> dto -> request 변환 후 리턴
+            UserRequestDto dto = UserRequestDto.from(UserDto.from(user));
+            return dto;
+//            } else {
+//                // 비밀번호 불일치(로그인실패)
+//                return null;
+//            }
         } else {
             // 조회 결과가 없다(해당 이메일을 가진 회원이 없다)
             return null;

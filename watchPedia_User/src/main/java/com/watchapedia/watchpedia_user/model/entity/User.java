@@ -1,5 +1,6 @@
 package com.watchapedia.watchpedia_user.model.entity;
 
+import com.watchapedia.watchpedia_user.config.PasswordConverter;
 import com.watchapedia.watchpedia_user.model.dto.UserDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -18,7 +19,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userIdx;
-    @Column(length =100)
+    @Convert(converter = PasswordConverter.class)
     private String userPw;
     private Long userSsn1;
     private Long userSsn2;

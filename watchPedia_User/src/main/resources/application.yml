@@ -10,6 +10,9 @@ spring:
       hibernate:
         format_sql: true
   thymeleaf3.decoupled-logic: true
+  data.rest:
+    base-path: /api
+    detection-strategy: annotated
 server:
 
   port: 9125
