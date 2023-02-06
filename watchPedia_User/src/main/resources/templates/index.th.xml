@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<thlogic>
+    <!--    웹툰 페이지 최상단-->
+    <attr sel=".movie-table" th:remove="all-but-first" >
+        <attr sel=".movie-tr" th:each="movie, i : ${movies}" >
+            <attr sel=".movie-title" th:text="${movie.movTitle}"/>
+            <attr sel=".movie-img" th:src="${movie.movThumbnail}" />
+            <attr sel=".movie-making" th:text="${movie.movMakingDate} + ' ・ ' +  ${movie.movCountry}" />
+            <attr sel=".movie-idx" th:text="${i.count}" />
+        </attr>
+    </attr>
+</thlogic>

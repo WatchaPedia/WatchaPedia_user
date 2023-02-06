@@ -1,7 +1,5 @@
 package com.watchapedia.watchpedia_user.controller.content;
 
-
-import com.watchapedia.watchpedia_user.model.entity.content.Tv;
 import com.watchapedia.watchpedia_user.model.entity.content.ajax.Star;
 import com.watchapedia.watchpedia_user.model.network.response.PersonResponse;
 import com.watchapedia.watchpedia_user.model.network.response.comment.CommentResponse;
@@ -10,17 +8,27 @@ import com.watchapedia.watchpedia_user.model.network.response.content.TvResponse
 import com.watchapedia.watchpedia_user.model.repository.UserRepository;
 import com.watchapedia.watchpedia_user.model.repository.comment.CommentRepository;
 import com.watchapedia.watchpedia_user.service.PersonService;
+import com.watchapedia.watchpedia_user.service.comment.CommentService;
 import com.watchapedia.watchpedia_user.service.content.TvService;
 import com.watchapedia.watchpedia_user.service.content.ajax.HateService;
 import com.watchapedia.watchpedia_user.service.content.ajax.StarService;
 import com.watchapedia.watchpedia_user.service.content.ajax.WatchService;
 import com.watchapedia.watchpedia_user.service.content.ajax.WishService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
 @Controller
 @RequestMapping("/tv")
@@ -35,24 +43,24 @@ public class TvController {
     private final WatchService watchService;
     private final HateService hateService;
 
+    private final CommentService commentService;
 
     @GetMapping(path="/main")
-    public String tv(ModelMap map){
+    public String movie(ModelMap map){
         map.addAttribute("tvs", tvService.searchTvs());
-        return "/tv/tvMain";
+        return "tv/tvMain";
     }
 
 
     @GetMapping("/{tvIdx}") // http://localhost:8080/movie/1
     public String tvDetail(
             @PathVariable Long tvIdx,
+            @PageableDefault(size = 5, sort = "commIdx", direction = Sort.Direction.DESC) Pageable pageable,
             ModelMap map
     ){
         Long userIdx = 12L;
 
         TvResponse tv = tvService.tvView(tvIdx);
-        List<Tv> tvG = tvService.Genre(tvIdx);
-        tvG.remove(0);
 
 //      평균 별점
         double sum = 0;
@@ -67,15 +75,15 @@ public class TvController {
         }
 
 //        해당 유저가 별점을 매겼는지
-        StarResponse hasStar = starService.findStar("tv",tv.tvIdx(), userIdx);
+        StarResponse hasStar = starService.findStar("tv",tv.idx(), userIdx);
 
 //        인물 리스트
         List<String> peopleList = new ArrayList<>();
 
         List<String> people = new ArrayList<>();
         List<PersonResponse> personList = new ArrayList<>();
-        if(tv.tvPeople() != null){
-            peopleList = List.of(tv.tvPeople().split(","));
+        if(tv.people() != null){
+            peopleList = List.of(tv.people().split(","));
             for(String per : peopleList){
                 people.add(per.split("\\(")[0] + "," + per.split("\\(")[1].split("\\)")[0]);
             }
@@ -86,7 +94,7 @@ public class TvController {
             System.out.println("** 인물정보가 없습니다 **");
         }
 
-        List<CommentResponse> commentList = tvService.commentList(tv.tvIdx(),userIdx);
+        Page<CommentResponse> commentList = commentService.commentList("tv",tv.idx(),userIdx,pageable);
 //      해당 유저가 코멘트를 달았는지
         CommentResponse hasComm = null;
         for(CommentResponse comm: commentList){
@@ -95,9 +103,9 @@ public class TvController {
             }
         };
 
-        boolean hasWish = wishService.findWish("tv",tv.tvIdx(),userIdx);
-        boolean hasWatch = watchService.findWatch("tv",tv.tvIdx(),userIdx);
-        boolean hasHate = hateService.findHate(userIdx,"tv",tv.tvIdx());
+        boolean hasWish = wishService.findWish("tv",tv.idx(),userIdx);
+        boolean hasWatch = watchService.findWatch("tv",tv.idx(),userIdx);
+        boolean hasHate = hateService.findHate(userIdx,"tv",tv.idx());
 
 //        별점 그래프
         HashMap<Long, Integer> starGraph = new HashMap<Long,Integer>(){{
@@ -115,7 +123,9 @@ public class TvController {
         }
         Long bigStar = starGraph.entrySet().stream().max((m1, m2) -> m1.getValue() > m2.getValue() ? 1 : -1).get().getKey();
 
-        map.addAttribute("tvG", tvG);
+//        비슷한 장르 영화
+        List<TvResponse> similarGenre = tvService.similarGenre(tv.genre(), tv.idx());
+
         map.addAttribute("tv", tv);
         map.addAttribute("avg", avgStar);
         map.addAttribute("people", personList);
@@ -128,11 +138,11 @@ public class TvController {
         map.addAttribute("graph", starGraph);
         map.addAttribute("bigStar", bigStar);
         map.addAttribute("userIdx", userIdx);
-        map.addAttribute("tvs", tvService.searchTvs());
+        map.addAttribute("similarGenre", similarGenre);
         return "/tv/tvDetail";
     }
 
-    @GetMapping("/{tvIdx}/tvview")
+    @GetMapping("/{tvIdx}/info")
     public String tvInfo(
             @PathVariable Long tvIdx,
             ModelMap map
@@ -144,20 +154,19 @@ public class TvController {
     }
 
     @GetMapping("/{tvIdx}/gallery")
-    public String movieGallery(
+    public String tvGallery(
             @PathVariable Long tvIdx,
             ModelMap map
     ){
         Long userIdx = 12L;
         TvResponse tv = tvService.tvView(tvIdx);
-        List<String> gallery = Arrays.stream(tv.tvGallery().split("[|]")).toList();
-        String title = tv.tvTitle();
+        List<String> gallery = Arrays.stream(tv.gallery().split("[|]")).toList();
+        String title = tv.title();
 
         map.addAttribute("gallery", gallery);
         map.addAttribute("title", title);
         map.addAttribute("userIdx", userIdx);
         return "/gallery";
     }
-
 
 }

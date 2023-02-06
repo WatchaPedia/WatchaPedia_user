@@ -6,10 +6,14 @@ import com.watchapedia.watchpedia_user.model.network.request.comment.CommentRequ
 import com.watchapedia.watchpedia_user.model.network.request.comment.LikeRequest;
 import com.watchapedia.watchpedia_user.model.network.response.comment.CommentResponse;
 import com.watchapedia.watchpedia_user.model.network.response.content.MovieResponse;
+import com.watchapedia.watchpedia_user.model.network.response.content.TvResponse;
+import com.watchapedia.watchpedia_user.model.network.response.content.WebtoonResponse;
 import com.watchapedia.watchpedia_user.model.repository.content.ajax.StarRepository;
 import com.watchapedia.watchpedia_user.model.repository.UserRepository;
 import com.watchapedia.watchpedia_user.service.comment.CommentService;
 import com.watchapedia.watchpedia_user.service.content.MovieService;
+import com.watchapedia.watchpedia_user.service.content.TvService;
+import com.watchapedia.watchpedia_user.service.content.WebtoonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -63,7 +67,8 @@ public class CommentController {
     ){
         return commentService.likeSave(request);
     }
-
+    final TvService tvService;
+    final WebtoonService webtoonService;
     final MovieService movieService;
     @GetMapping("/{commentIdx}")
     public String commentView(
@@ -79,12 +84,15 @@ public class CommentController {
                 MovieResponse content =movieService.movieView(comment.contentIdx());
                 map.addAttribute("content", content);
             }
-//            case "tv" -> {
-//                map.addAttribute("content", content);
-//            }
-//            case "webtoon" -> {
-//                map.addAttribute("content", content);
-//            }
+            case "tv" -> {
+                TvResponse content = tvService.tvView(comment.contentIdx());
+                map.addAttribute("content", content);
+            }
+
+            case "webtoon" -> {
+                WebtoonResponse content = webtoonService.webtoonView(comment.contentIdx());
+                map.addAttribute("content", content);
+            }
 //            case "book" -> {
 //                map.addAttribute("content", content);
 //            }

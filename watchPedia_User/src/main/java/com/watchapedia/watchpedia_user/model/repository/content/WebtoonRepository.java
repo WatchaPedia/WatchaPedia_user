@@ -10,7 +10,5 @@ import java.util.List;
 @Repository
 public interface WebtoonRepository extends JpaRepository<Webtoon, Long> {
 
-    List<Webtoon> findByWebGenre(String webGenre);
-
-    Webtoon findByWebIdx(Long WebIdx);
+    List<Webtoon> findByWebGenreContaining(String webGenre);
 }

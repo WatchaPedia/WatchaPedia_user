@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<thlogic>
+    <attr sel="#emailcheck" th:if="${errorMessage != null}">
+        <attr sel="#emailcheck2" th:text="${errorMessage}"/>
+    </attr>
+</thlogic>

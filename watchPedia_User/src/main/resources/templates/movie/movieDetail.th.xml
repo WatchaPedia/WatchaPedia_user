@@ -145,7 +145,8 @@
         <attr sel="ul.css-wq135y-VisualUl-VideoHorizontalUl" th:remove="all-but-first">
             <attr sel="li.css-1xgzykb-VideoListItem" th:each="video : ${#strings.arraySplit(movie.video,'|')}">
                 <attr sel="a.css-18apgv4" th:href="${#strings.arraySplit(video,',')[0]}"/>
-                <attr sel="div.css-1fucs4t-StyledText" th:if="${#lists.size(#strings.arraySplit(video,','))} > 1" th:text="${#strings.arraySplit(video,',')[1]}"/>
+                <attr sel="div.css-1fucs4t-StyledText" th:if="${#lists.size(#strings.arraySplit(video,','))} > 1"
+                      th:text="${#strings.arraySplit(video,',')[1]}" />
             </attr>
         </attr>
     </attr>

@@ -37,6 +37,7 @@ public class Webtoon {
     private String webSummary;
     private String webPeople;
     private String webWatch;
+//    private String webMakingDate;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "starContentIdx")
     private List<Star> star;

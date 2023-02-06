@@ -1,5 +1,6 @@
 package com.watchapedia.watchpedia_user.controller;
 
+import com.watchapedia.watchpedia_user.model.dto.UserSessionDto;
 import com.watchapedia.watchpedia_user.model.dto.comment.CommentDto;
 import com.watchapedia.watchpedia_user.model.entity.content.ajax.Star;
 import com.watchapedia.watchpedia_user.model.network.request.ajax.StarRequest;
@@ -11,8 +12,13 @@ import com.watchapedia.watchpedia_user.model.network.response.content.StarRespon
 import com.watchapedia.watchpedia_user.model.repository.comment.CommentRepository;
 import com.watchapedia.watchpedia_user.model.repository.UserRepository;
 import com.watchapedia.watchpedia_user.model.repository.content.MovieRepository;
+import com.watchapedia.watchpedia_user.model.repository.content.TvRepository;
+import com.watchapedia.watchpedia_user.model.repository.content.WebtoonRepository;
 import com.watchapedia.watchpedia_user.service.comment.CommentService;
+import com.watchapedia.watchpedia_user.service.content.MovieService;
 import com.watchapedia.watchpedia_user.service.content.ajax.StarService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -33,8 +39,19 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class PageController {
     final StarService starService;
+
+    final MovieService movieService;
     private final CommentRepository commentRepository;
     private final UserRepository userRepository;
+
+    @GetMapping(path="/")
+    public String movie(ModelMap map, HttpSession session, HttpServletRequest request){
+        UserSessionDto userSessionDto = (UserSessionDto) session.getAttribute("userSession");
+
+        map.addAttribute("userSession", userSessionDto);
+        map.addAttribute("movies", movieService.searchMovies());
+        return "movie/movieMain";
+    }
 
     //     별점 저장
     @PostMapping("/estimate") // http://localhost:8080/estimate
@@ -60,6 +77,8 @@ public class PageController {
 
     private final CommentService commentService;
     private final MovieRepository movieRepository;
+    private final TvRepository tvRepository;
+    private final WebtoonRepository webtoonRepository;
 
     @GetMapping("/{contentType}/{contentIdx}/comments") // http://localhost:8080/movie/1/comments
     public String commentList(
@@ -76,12 +95,12 @@ public class PageController {
             case "movie" ->{
                 contentTitle = movieRepository.findById(contentIdx).get().getMovTitle();
             }
-//            case "tv" -> {
-//
-//            }
-//            case "webtoon" -> {
-//
-//            }
+            case "tv" ->{
+                contentTitle = tvRepository.findById(contentIdx).get().getTvTitle();
+            }
+            case "webtoon" ->{
+                contentTitle = webtoonRepository.findById(contentIdx).get().getWebTitle();
+            }
 //            case "book" -> {
 //
 //            }
@@ -122,4 +141,7 @@ public class PageController {
         mv.put("commentList", commentList);
         return mv;
     }
+
+
+
 }
