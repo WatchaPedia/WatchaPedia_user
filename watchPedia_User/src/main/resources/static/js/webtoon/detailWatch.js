@@ -6,7 +6,7 @@ watch.addEventListener('click', () => {
         data: JSON.stringify({
             contentType: "webtoon",
             contentIdx: contentIdx,
-            userIdx: loginIdx
+             userIdx: loginIdx.title
         }),
         type: "POST",
         dataType: "json",
