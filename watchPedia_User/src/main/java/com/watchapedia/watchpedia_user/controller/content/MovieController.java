@@ -1,5 +1,8 @@
 package com.watchapedia.watchpedia_user.controller.content;
 
+import com.watchapedia.watchpedia_user.model.dto.UserSessionDto;
+import com.watchapedia.watchpedia_user.model.dto.content.MovieDto;
+import com.watchapedia.watchpedia_user.model.dto.content.TvDto;
 import com.watchapedia.watchpedia_user.model.entity.content.ajax.Star;
 import com.watchapedia.watchpedia_user.model.entity.User;
 import com.watchapedia.watchpedia_user.model.network.response.*;
@@ -15,6 +18,7 @@ import com.watchapedia.watchpedia_user.service.content.ajax.StarService;
 import com.watchapedia.watchpedia_user.service.content.ajax.WatchService;
 import com.watchapedia.watchpedia_user.service.content.ajax.WishService;
 import com.watchapedia.watchpedia_user.service.content.MovieService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -45,19 +49,23 @@ public class MovieController {
     private final CommentService commentService;
 
     @GetMapping(path="/main")
-    public String movie(ModelMap map){
-        map.addAttribute("movies", movieService.searchMovies());
-        return "movie/movieMain";
+    public String movie(
+            ModelMap map
+    ){
+        List<MovieDto> movies = movieService.movies();
+        map.addAttribute("movies", movies);
+        return "/movie/movieMain";
     }
-
 
     @GetMapping("/{movieIdx}") // http://localhost:8080/movie/1
     public String movieDetail(
             @PathVariable Long movieIdx,
             @PageableDefault(size = 5, sort = "commIdx", direction = Sort.Direction.DESC) Pageable pageable,
-            ModelMap map
+            ModelMap map,
+            HttpSession session
     ){
-        Long userIdx = 12L;
+        UserSessionDto dto = (UserSessionDto) session.getAttribute("userSession");
+        Long userIdx = dto.userIdx();
 
         MovieResponse movie = movieService.movieView(movieIdx);
 
@@ -136,7 +144,7 @@ public class MovieController {
         map.addAttribute("hasHate", hasHate);
         map.addAttribute("graph", starGraph);
         map.addAttribute("bigStar", bigStar);
-        map.addAttribute("userIdx", userIdx);
+        map.addAttribute("userSession", dto);
         map.addAttribute("similarGenre", similarGenre);
         return "/movie/movieDetail";
     }
@@ -144,27 +152,31 @@ public class MovieController {
     @GetMapping("/{movieIdx}/info")
     public String movieInfo(
             @PathVariable Long movieIdx,
-            ModelMap map
+            ModelMap map,
+            HttpSession session
     ){
+        UserSessionDto dto = (UserSessionDto) session.getAttribute("userSession");
         MovieResponse movie = movieService.movieView(movieIdx);
 
         map.addAttribute("movie", movie);
+        map.addAttribute("userSession", dto);
         return "/movie/detailInfo";
     }
 
     @GetMapping("/{movieIdx}/gallery")
     public String movieGallery(
             @PathVariable Long movieIdx,
-            ModelMap map
+            ModelMap map,
+            HttpSession session
     ){
-        Long userIdx = 12L;
+        UserSessionDto dto = (UserSessionDto) session.getAttribute("userSession");
         MovieResponse movie = movieService.movieView(movieIdx);
         List<String> gallery = Arrays.stream(movie.gallery().split("[|]")).toList();
         String title = movie.title();
 
         map.addAttribute("gallery", gallery);
         map.addAttribute("title", title);
-        map.addAttribute("userIdx", userIdx);
+        map.addAttribute("userSession", dto);
         return "/gallery";
     }
 

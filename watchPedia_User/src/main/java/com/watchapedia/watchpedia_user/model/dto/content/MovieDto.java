@@ -21,8 +21,24 @@ public record MovieDto(
         String movVideo,
         String movWatch,
         String movBackImg,
-        List<Star> starList
+        List<Star> starList,
+        double avg
 ) {
+
+    public static MovieDto of(
+            Long tvIdx, String tvThumbnail, String tvTitle, String tvTitleOrg,
+            String tvMakingDate, String tvChannel, String tvGenre,
+            String tvCountry, String tvAge, String tvPeople, String tvSummary,
+            String tvWatch, String tvGallery, String tvVideo,
+            String tvBackImg, List<Star> starList, double avg
+    ) {
+
+        return new MovieDto(tvIdx, tvThumbnail, tvTitle, tvTitleOrg,
+                tvMakingDate, tvChannel, tvGenre, tvCountry, tvAge,
+                tvPeople, tvSummary, tvWatch, tvGallery, tvVideo, tvBackImg, starList, avg
+        );
+    }
+
     public static MovieDto of(
             Long movIdx, String movThumbnail, String movTitle,
             String movMakingDate, String movCountry
@@ -30,7 +46,7 @@ public record MovieDto(
         return new MovieDto(
                 movIdx,movThumbnail,movTitle,null,movMakingDate,movCountry,
                 null, null, null, null, null,
-                null, null, null, null, null
+                null, null, null, null, null, 0.0
         );
     }
     public static MovieDto from(Movie entity){
@@ -50,7 +66,30 @@ public record MovieDto(
                 entity.getMovVideo(),
                 entity.getMovWatch(),
                 entity.getMovBackImg(),
-                entity.getStar()
+                entity.getStar(),
+                0.0
+        );
+    }
+
+    public static MovieDto from(Movie entity, double avg){
+        return new MovieDto(
+                entity.getMovIdx(),
+                entity.getMovThumbnail(),
+                entity.getMovTitle(),
+                entity.getMovTitleOrg(),
+                entity.getMovMakingDate(),
+                entity.getMovCountry(),
+                entity.getMovGenre(),
+                entity.getMovTime(),
+                entity.getMovAge(),
+                entity.getMovPeople(),
+                entity.getMovSummary(),
+                entity.getMovGallery(),
+                entity.getMovVideo(),
+                entity.getMovWatch(),
+                entity.getMovBackImg(),
+                entity.getStar(),
+                avg
         );
     }
 }

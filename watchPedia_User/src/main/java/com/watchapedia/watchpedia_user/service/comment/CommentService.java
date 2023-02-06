@@ -170,7 +170,6 @@ public class CommentService {
 
     public Page<CommentResponse> commentList(String contentType, Long contentIdx, Long userIdx, Pageable pageable){
         Page<CommentResponse> commentResponseList = null;
-
         commentResponseList = commentRepository.findByCommContentTypeAndCommContentIdx(
                 contentType,contentIdx, pageable
         ).map(CommentDto::from).map(dto -> {

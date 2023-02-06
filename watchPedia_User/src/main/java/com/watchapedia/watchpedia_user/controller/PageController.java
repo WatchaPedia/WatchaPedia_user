@@ -2,6 +2,8 @@ package com.watchapedia.watchpedia_user.controller;
 
 import com.watchapedia.watchpedia_user.model.dto.UserSessionDto;
 import com.watchapedia.watchpedia_user.model.dto.comment.CommentDto;
+import com.watchapedia.watchpedia_user.model.dto.content.MovieDto;
+import com.watchapedia.watchpedia_user.model.dto.content.WebtoonDto;
 import com.watchapedia.watchpedia_user.model.entity.content.ajax.Star;
 import com.watchapedia.watchpedia_user.model.network.request.ajax.StarRequest;
 import com.watchapedia.watchpedia_user.model.network.response.PersonResponse;
@@ -49,7 +51,8 @@ public class PageController {
         UserSessionDto userSessionDto = (UserSessionDto) session.getAttribute("userSession");
 
         map.addAttribute("userSession", userSessionDto);
-        map.addAttribute("movies", movieService.searchMovies());
+        List<MovieDto> movies = movieService.movies();
+        map.addAttribute("movies", movies);
         return "movie/movieMain";
     }
 
@@ -85,10 +88,11 @@ public class PageController {
             @PathVariable String contentType,
             @PathVariable Long contentIdx,
             @PageableDefault(size = 3, sort = "commIdx", direction = Sort.Direction.DESC) Pageable pageable,
-            ModelMap map
+            ModelMap map,
+            HttpSession session
     ){
-        Long userIdx = 12L;
-        Page<CommentResponse> commentList = commentService.commentList(contentType,contentIdx,userIdx, pageable);
+        UserSessionDto dto = (UserSessionDto) session.getAttribute("userSession");
+        Page<CommentResponse> commentList = commentService.commentList(contentType,contentIdx,dto.userIdx(), pageable);
         String contentTitle = "";
 
         switch (contentType){
@@ -105,7 +109,7 @@ public class PageController {
 //
 //            }
         }
-        map.addAttribute("userIdx", userIdx);
+        map.addAttribute("userSession", dto);
         map.addAttribute("commentList", commentList);
         map.addAttribute("contentTitle", contentTitle);
         return "/comments";
@@ -117,9 +121,11 @@ public class PageController {
             @PathVariable String contentType,
             @PathVariable Long contentIdx,
             @PageableDefault(size = 3, sort = "commIdx", direction = Sort.Direction.DESC) Pageable pageable
+            ,
+            HttpSession session
     ){
-        Long userIdx = 12L;
-        Page<CommentResponse> commentList = commentService.commentList(contentType,contentIdx,userIdx, pageable);
+        UserSessionDto dto = (UserSessionDto) session.getAttribute("userSession");
+        Page<CommentResponse> commentList = commentService.commentList(contentType,contentIdx,dto.userIdx(), pageable);
 
         Map<String, Object> mv = new HashMap<>();
         mv.put("commentList", commentList);
@@ -131,11 +137,11 @@ public class PageController {
     public Map<String, Object> movieDetail(
             @PathVariable String contentType,
             @PathVariable Long contentIdx,
-            @PageableDefault(size = 5, sort = "commIdx", direction = Sort.Direction.DESC) Pageable pageable
+            @PageableDefault(size = 5, sort = "commIdx", direction = Sort.Direction.DESC) Pageable pageable,
+            HttpSession session
     ){
-        Long userIdx = 12L;
-
-        Page<CommentResponse> commentList = commentService.commentList(contentType,contentIdx,userIdx,pageable);
+        UserSessionDto dto = (UserSessionDto) session.getAttribute("userSession");
+        Page<CommentResponse> commentList = commentService.commentList(contentType,contentIdx,dto.userIdx(),pageable);
 
         Map<String, Object> mv = new HashMap<>();
         mv.put("commentList", commentList);

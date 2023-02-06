@@ -6,6 +6,11 @@
             <attr sel="#tv-making-date" th:text="${tv.tvMakingDate} + '・'+ ${tv.tvCountry}+ '・'+${tv.tvChannel}"/>
             <attr sel="#tv-tvThumbnail" th:src="${tv.tvThumbnail}" />
             <attr sel="#tv-idx" th:text="${i.count}" />
+            <attr sel=".average"
+                  th:if="${tv.avg} != 0.0" th:text="'평균 ★ ' + (${tv.avg} != 0 ? ${tv.avg} : _)"/>
+            <attr sel="div.css-5o7sb2" th:if="${tv.tvWatch} != null and ${#strings.contains(tv.tvWatch,'aHR0cHM6Ly93YXRjaGEuY29tL3dhd')}"/>
+            <!--                왓챠 아이콘 -->
+            <attr sel="div.css-oobk33" th:if="${tv.tvWatch} != null and ${#strings.contains(tv.tvWatch,'aHR0cHM6Ly93d3cubmV0ZmxpeC5jb20vdGl0b')}"/>
         </attr>
     </attr>
 
