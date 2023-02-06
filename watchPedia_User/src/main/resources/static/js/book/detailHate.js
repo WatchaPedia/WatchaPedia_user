@@ -9,7 +9,7 @@ function hateSave() {
         url: '/hate/save',
         headers: {'Content-Type': 'application/json;charset=UTF-8'},
         data: JSON.stringify({           // HTTP 요청과 함께 서버로 보낼 데이터
-            userIdx: loginIdx,
+             userIdx: loginIdx.idx,
             contentType: "book",
             contentIdx: contentIdx
         }),
