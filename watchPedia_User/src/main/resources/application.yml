@@ -15,6 +15,6 @@ spring:
     detection-strategy: annotated
 server:
 
-  port: 9125
+  port: 9126
 
 

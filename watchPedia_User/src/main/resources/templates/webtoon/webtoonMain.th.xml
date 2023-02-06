@@ -17,6 +17,8 @@
         <attr sel=".webtoon-tr-day" th:if="${webtoon.webSerDay == '금'}" th:each="webtoon : ${webtoons}">
             <attr sel=".webtoon-title-day" th:text="${webtoon.webTitle}"/>
             <attr sel=".webtoon-img-day" th:src="${webtoon.webThumbnail}" />
+            <attr sel=".average"
+                  th:if="${webtoon.avg} != 0.0" th:text="'평균 ★ ' + (${webtoon.avg} != 0 ? ${webtoon.avg} : _)"/>
         </attr>
     </attr>
 
