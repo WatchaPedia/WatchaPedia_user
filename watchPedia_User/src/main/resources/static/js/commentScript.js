@@ -26,35 +26,39 @@ document.addEventListener('scroll', () => { // 스크롤시 이벤트 발생
 })
 
 let commentList = document.querySelectorAll("div.css-bawlbm")
-const loginIdx = document.querySelector("#login-idx").title
+const loginIdx = document.querySelector("#login-idx")
 
 document.addEventListener('click',(e)=>{
     if(e.target.parentElement.classList.contains("css-hy68ty")){
-        let idx = e.target.parentElement.parentElement
-        let likeSum = idx.querySelector("em.like-sum")
-        $.ajax({
-            url: '/comment/like/save',
-            headers: {'Content-Type': 'application/json;charset=UTF-8'},
-            data: JSON.stringify({           // HTTP 요청과 함께 서버로 보낼 데이터
-                userIdx: parseInt(loginIdx),
-                commentIdx: parseInt(idx.id)
-            }),
-            type: 'POST',           // HTTP 요청 방식(GET, POST)
-            dataType: "json",       // 호출 시 데이터 타입
-            success: function (data) {
-                if (data == true) {
-                    idx.querySelector("button.css-1h18l7j-StylelessButton").classList.add("css-jj4q3s-StylelessButton-UserActionButton");
-                    idx.querySelector("button.css-1h18l7j-StylelessButton").classList.remove("css-1h18l7j-StylelessButton");
-                    likeSum.innerHTML = parseInt(likeSum.innerHTML) + 1;
-                } else {
-                    idx.querySelector("button.css-jj4q3s-StylelessButton-UserActionButton").classList.add("css-1h18l7j-StylelessButton");
-                    idx.querySelector("button.css-jj4q3s-StylelessButton-UserActionButton").classList.remove("css-jj4q3s-StylelessButton-UserActionButton");
-                    likeSum.innerHTML = parseInt(likeSum.innerHTML) - 1;
+        if(loginIdx){
+            let idx = e.target.parentElement.parentElement
+            let likeSum = idx.querySelector("em.like-sum")
+            $.ajax({
+                url: '/comment/like/save',
+                headers: {'Content-Type': 'application/json;charset=UTF-8'},
+                data: JSON.stringify({           // HTTP 요청과 함께 서버로 보낼 데이터
+                    userIdx: parseInt(loginIdx.title),
+                    commentIdx: parseInt(idx.id)
+                }),
+                type: 'POST',           // HTTP 요청 방식(GET, POST)
+                dataType: "json",       // 호출 시 데이터 타입
+                success: function (data) {
+                    if (data == true) {
+                        idx.querySelector("button.css-1h18l7j-StylelessButton").classList.add("css-jj4q3s-StylelessButton-UserActionButton");
+                        idx.querySelector("button.css-1h18l7j-StylelessButton").classList.remove("css-1h18l7j-StylelessButton");
+                        likeSum.innerHTML = parseInt(likeSum.innerHTML) + 1;
+                    } else {
+                        idx.querySelector("button.css-jj4q3s-StylelessButton-UserActionButton").classList.add("css-1h18l7j-StylelessButton");
+                        idx.querySelector("button.css-jj4q3s-StylelessButton-UserActionButton").classList.remove("css-jj4q3s-StylelessButton-UserActionButton");
+                        likeSum.innerHTML = parseInt(likeSum.innerHTML) - 1;
+                    }
+                }, error: function () {
+                    alert("에러발생!")
                 }
-            }, error: function () {
-                alert("에러발생!")
-            }
-        })
+            })
+        }else{
+            document.querySelector(".css-14gy7wr").style.display='block';
+        }
     }
 })
 

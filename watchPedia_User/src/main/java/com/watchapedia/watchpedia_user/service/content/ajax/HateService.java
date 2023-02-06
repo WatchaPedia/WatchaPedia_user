@@ -18,6 +18,7 @@ public class HateService {
         Hate check = hateRepository.findByHateUserIdxAndHateContentTypeAndHateContentIdx(
                 request.userIdx(), request.contentType(), request.contentIdx()
         );
+        System.out.println("유저체크" + request.userIdx());
         if(check == null){
             Hate hate = HateDto.of(request.userIdx(), request.contentType(), request.contentIdx()).toEntity();
             hateRepository.save(hate);

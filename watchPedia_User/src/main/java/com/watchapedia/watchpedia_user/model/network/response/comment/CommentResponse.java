@@ -1,5 +1,6 @@
 package com.watchapedia.watchpedia_user.model.network.response.comment;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.watchapedia.watchpedia_user.model.dto.comment.CommentDto;
 import com.watchapedia.watchpedia_user.model.entity.comment.Like;
 import com.watchapedia.watchpedia_user.model.entity.User;
@@ -10,6 +11,8 @@ import java.util.List;
 
 public record CommentResponse(
     Long idx,
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+
     User user,
     String name,
     String text,
