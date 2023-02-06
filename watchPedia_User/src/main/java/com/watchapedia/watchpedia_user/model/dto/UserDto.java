@@ -84,7 +84,7 @@ public record UserDto(
                 null,
                 null,
                 "일반유저",
-                null,
+                userRequestdto.userName(),
                 null,
                 null,
                 null
