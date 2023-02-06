@@ -13,6 +13,7 @@ import com.watchapedia.watchpedia_user.model.network.response.content.StarAndCom
 import com.watchapedia.watchpedia_user.model.network.response.content.StarResponse;
 import com.watchapedia.watchpedia_user.model.repository.comment.CommentRepository;
 import com.watchapedia.watchpedia_user.model.repository.UserRepository;
+import com.watchapedia.watchpedia_user.model.repository.content.BookRepository;
 import com.watchapedia.watchpedia_user.model.repository.content.MovieRepository;
 import com.watchapedia.watchpedia_user.model.repository.content.TvRepository;
 import com.watchapedia.watchpedia_user.model.repository.content.WebtoonRepository;
@@ -82,6 +83,7 @@ public class PageController {
     private final MovieRepository movieRepository;
     private final TvRepository tvRepository;
     private final WebtoonRepository webtoonRepository;
+    private final BookRepository bookRepository;
 
     @GetMapping("/{contentType}/{contentIdx}/comments") // http://localhost:8080/movie/1/comments
     public String commentList(
@@ -105,9 +107,9 @@ public class PageController {
             case "webtoon" ->{
                 contentTitle = webtoonRepository.findById(contentIdx).get().getWebTitle();
             }
-//            case "book" -> {
-//
-//            }
+            case "book" ->{
+                contentTitle = bookRepository.findById(contentIdx).get().getBookTitle();
+            }
         }
         map.addAttribute("userSession", dto);
         map.addAttribute("commentList", commentList);

@@ -74,7 +74,7 @@ public class EstimateController {
         List<EstimateContent> contentList = new ArrayList<>();
         if(contentType == null || contentType.contains("movie")) contentMap = starService.movieList(user,pageable);
         else if(contentType.contains("tv")) contentMap = starService.tvList(user,pageable);
-//        if(contentType.contains("book")) contentMap = starService.tvList(user,pageable);
+        else if(contentType.contains("book")) contentMap = starService.tvList(user,pageable);
         else if(contentType.contains("webtoon")) contentMap = starService.webList(user,pageable);
 
         Map<String, Object> mv = new HashMap<>();

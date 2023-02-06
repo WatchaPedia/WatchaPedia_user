@@ -8142,11 +8142,10 @@
                                                             <div class="css-1y901al-Row emmoxnt0">
                                                                 <article class="css-1k6vajx-Overview eokm2780" th:object="${book}">
                                                                     <div class="css-wvh1uf-Summary eokm2781">
-                                                                        <span th:text="*{titleOrg}">Avatar: The
+                                                                        <span th:text="*{title}">Avatar: The
                                                                         Way of Water</span>
                                                                         <span
                                                                                 class="css-1t00yeb-OverviewMeta eokm2782" th:text="*{writer} + '·' + *{atDate}">2022 · 미국 · 액션</span><br><span
-<!--                                                                            class="css-1t00yeb-OverviewMeta eokm2782" th:text="*{serDetail} + '(' + *{serDay} + ') ·' + *{serPeriod}">3시간 12분 · 12세</span>-->
                                                                     </div>
                                                                     <div class=" css-k82gae-StyledSelf eb5y16b0">
                                                                         <div class="css-kywn6v-StyledText eb5y16b1" th:text="*{summary}">&lt;아바타:
@@ -9878,7 +9877,7 @@
                 <div class="css-1p257d1-modalAddStyle">
                     <header title="" class="css-166ww79-HeaderBarPrimitive-headerAddStyle">
                         <div class="css-19pxr9t"><button aria-label="close" class="css-1d7tft4-StylelessButton-HeaderCloseButtonSelf e1k34u8y0"></button></div>
-                        <em class="css-10mjbgt" th:text="${webtoon.title}">아바타: 물의 길</em>
+                        <em class="css-10mjbgt" th:text="${book.title}">아바타: 물의 길</em>
                         <div class="css-19pxr9t">
                             <button class="css-1lvet1d-StylelessButton"></button>
                             <button class="css-r2q33l-StylelessButton">저장</button>
