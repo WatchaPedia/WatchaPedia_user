@@ -102,6 +102,7 @@ public class CommentController {
         }
         map.addAttribute("comment", comment);
         map.addAttribute("userSession", dto);
+        map.addAttribute("userIdx", dto!=null?dto.userIdx():null);
 
         return "/recomment";
     }

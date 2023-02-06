@@ -6,7 +6,7 @@ wish.addEventListener('click', () => {
             data: JSON.stringify({
                 contentType: "movie",
                 contentIdx: contentIdx,
-                userIdx: loginIdx
+                userIdx: loginIdx.title
             }),
             type: "POST",
             dataType: "json",
