@@ -47,9 +47,8 @@ public class UserController {
     }
 
     @PostMapping("/signup/ajax")
-    public void loginOk(@ModelAttribute UserRequestDto userRequestDto, HttpSession session, HttpServletResponse response) throws IOException {
-        response.setContentType("text/html; charset=UTF-8");
-        PrintWriter out=response.getWriter();
+    @ResponseBody
+    public boolean loginOk(@RequestBody UserRequestDto userRequestDto, HttpSession session) throws IOException {
         userRequestDto = userService.login(userRequestDto);
         System.out.println("진입완료" + userRequestDto);
         if(userRequestDto != null){
@@ -61,10 +60,9 @@ public class UserController {
             int sTime = 60*60;
             session.setMaxInactiveInterval(sTime);
             session.setAttribute("userSession", userSessionDto);
-//            out.println("<script>history.back();location.reload();</script>");
+            return true;
         }else{
-//            out.println("<script>alert('이메일 또는 비밀번호를 확인하세요')</script>");
-//            out.println("<script>history.back()</script>");
+            return false;
         }
     }
 

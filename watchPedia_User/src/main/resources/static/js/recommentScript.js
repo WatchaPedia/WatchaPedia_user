@@ -15,12 +15,14 @@ function loginModalOn(){
 document.addEventListener("click",(e)=>{
     if(needLoginModal.style.display == 'block'){
         if(!needLoginModal.querySelector("div.css-ikkedy").contains(e.target)){
-            main.style.display = 'none';
-            main.classList.add('off');
-            main.classList.remove('on');
-            needLoginModal.style.display = 'none';
-            needLoginModal.classList.add('off');
-            needLoginModal.classList.remove('on');
+            if(alertModal.classList.contains("off")){
+                main.style.display = 'none';
+                main.classList.add('off');
+                main.classList.remove('on');
+                needLoginModal.style.display = 'none';
+                needLoginModal.classList.add('off');
+                needLoginModal.classList.remove('on');
+            }
         }
     }
 },true)
@@ -32,10 +34,35 @@ needLoginModal.querySelectorAll("span[data-test='clearButton']").item(1).addEven
     needLoginModal.querySelector("input[name='password']").value = null
 })
 // 로그인모달 확인 클릭 시
+const alertModal = document.querySelector("#modal-container-h-XEqOEytZK6ag0LO6V2w")
 needLoginModal.querySelector("button.css-qr0uqd-StylelessButton").addEventListener('click',()=>{
-    console.log("체크")
-})
+    $.ajax({
+        url:"/user/signup/ajax",
+        headers: {'Content-Type': 'application/json;charset=UTF-8'},
+        data: JSON.stringify({
+            userEmail:document.querySelector("input[name='userEmail']").value,
+            userPw:document.querySelector("input[name='userPw']").value
+        }),
+        type: 'POST',
+        dataType: 'json',
+        success:function(result){
+            if(result){
+                location.reload();
+            }else{
+                alertModal.style.display = 'block';
+                alertModal.classList.add('on');
+                alertModal.classList.remove('off');
+            }
+        },error:function(){
 
+        }
+    })
+})
+alertModal.querySelector("button.css-sfhtz9-StylelessButton").addEventListener('click',()=>{
+    alertModal.style.display = 'none';
+    alertModal.classList.add('off');
+    alertModal.classList.remove('on');
+})
 
 const reportBnt = document.querySelector('div.css-1d7xpnn-CommentContainer .css-1b4hoch-SVG');
 const reportBnt2 = document.querySelector('.e1bglx4g0');
@@ -580,58 +607,56 @@ function recommentList(){
     let recomment = document.querySelectorAll('section#recomment-list div.css-1m1whp6');
     for(let idx of recomment){
         idx.querySelector('.css-1b4hoch-SVG').addEventListener('click', function (e) {
-            if(!document.querySelector("#login-idx")){
-                loginModalOn()
-            }else{
-                if(idx.querySelector('.css-aa3xw')){
-                    idx.querySelector('.css-aa3xw').classList.add('css-1pfl1eu');
-                    idx.querySelector('.css-aa3xw').classList.remove('css-aa3xw');
-                    recommentIdx = idx.id;
-                    recommentText = idx.querySelector("div.css-yb0jaq");
-                    recommentUserIdx = idx.querySelector("a.css-255jr8").href.split("/user/")[1]
-                    recommentBtn = idx.querySelector("div.css-19hkid5");
-                }else {
-                    idx.querySelector('.css-1pfl1eu').classList.add('css-aa3xw');
-                    idx.querySelector('.css-1pfl1eu').classList.remove('css-1pfl1eu');
-                }
+            if(idx.querySelector('.css-aa3xw')){
+                idx.querySelector('.css-aa3xw').classList.add('css-1pfl1eu');
+                idx.querySelector('.css-aa3xw').classList.remove('css-aa3xw');
+                recommentIdx = idx.id;
+                recommentText = idx.querySelector("div.css-yb0jaq");
+                recommentUserIdx = idx.querySelector("a.css-255jr8").href.split("/user/")[1]
+                recommentBtn = idx.querySelector("div.css-19hkid5");
+            }else {
+                idx.querySelector('.css-1pfl1eu').classList.add('css-aa3xw');
+                idx.querySelector('.css-1pfl1eu').classList.remove('css-1pfl1eu');
             }
-
         })
 
+        // 리코멘트 좋아요
         idx.querySelector("div.css-199ku80>div.css-ov1ktg>div").addEventListener('click',()=>{
-            let btn = idx.querySelector("div.css-199ku80>div.css-ov1ktg>div")
-            let likeSum = btn.querySelector("h4.like-sum").innerHTML
-            $.ajax({
-                url: '/comment/recomment/like/save',
-                headers: {'Content-Type':'application/json;charset=UTF-8'},
-                data: JSON.stringify({
-                    recommIdx: idx.id,
-                    userIdx: loginIdx.title
-                }),
-                type:'POST',
-                dataType:'json',
-                success:function(data){
-                    if(data==true){
-                        idx.querySelector("h4.like-sum").innerHTML=parseInt(likeSum) + 1
-                        btn.querySelector("svg").dataset.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQiIGhlaWdodD0iMTQiIHZpZXdCb3g9IjAgMCAxNCAxNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xLjc1IDEyLjU0MTdINC42NjY2N1Y1LjU0MTc1SDEuNzVWMTIuNTQxN1oiIGZpbGw9IiNGRjJGNkUiLz4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xMi4xOTQ1IDUuMDA1MzZDMTEuOTMxMyA0LjcwMjg0IDExLjU1MiA0LjUyOTA3IDExLjE1MzkgNC41MjkwN0g5LjgxOTQyQzkuOTg4NTcgNC4xMTMzOSAxMC4wNTg2IDMuNjcwNTggMTAuMDU4NiAzLjA4MTEyQzEwLjA1ODYgMS45NjA1MyA5LjI1NDk5IDEuNDU4MjUgOC40NTc2MiAxLjQ1ODI1QzguMjAwMTggMS40NTgyNSA4LjAwNDgyIDEuNTMyNzMgNy44NzY2NyAxLjY3OTk1QzcuNzU1OTMgMS44MTg1MSA3LjcwOTIyIDIuMDAzMjUgNy43MzQ4NSAyLjE5MjA0VjIuODY0MDVDNy43MzQ4NSAyLjkyNTgyIDcuNzEwMzYgMi45ODcwMiA3LjY2NjUxIDMuMDMwOUw2LjA2Mzc4IDQuNjU2MDhDNS43MTc1IDUuMDA2NTIgNS41NDE1IDUuMzc0MjggNS41NDE1IDUuNzQ4OTZWMTEuNjY2NkgxMC4zMTYxQzExLjAxMzIgMTEuNjY2NiAxMS42MDUgMTEuMTM4MyAxMS42ODkzIDEwLjQ1NjVMMTIuNTMwNSA2LjExMjFDMTIuNTgwNiA1LjcxMjAxIDEyLjQ1ODIgNS4zMDg0NiAxMi4xOTQ1IDUuMDA1MzZaIiBmaWxsPSIjRkYyRjZFIi8+Cjwvc3ZnPgo=';
-                        btn.querySelectorAll("svg path").item(0).setAttribute('fill','#FF2F6E');
-                        btn.querySelectorAll("svg path").item(1).setAttribute('fill','#FF2F6E');
-                        btn.querySelectorAll("svg path").item(1).setAttribute('d','M12.1945 5.00536C11.9313 4.70284 11.552 4.52907 11.1539 4.52907H9.81942C9.98857 4.11339 10.0586 3.67058 10.0586 3.08112C10.0586 1.96053 9.25499 1.45825 8.45762 1.45825C8.20018 1.45825 8.00482 1.53273 7.87667 1.67995C7.75593 1.81851 7.70922 2.00325 7.73485 2.19204V2.86405C7.73485 2.92582 7.71036 2.98702 7.66651 3.0309L6.06378 4.65608C5.7175 5.00652 5.5415 5.37428 5.5415 5.74896V11.6666H10.3161C11.0132 11.6666 11.605 11.1383 11.6893 10.4565L12.5305 6.1121C12.5806 5.71201 12.4582 5.30846 12.1945 5.00536Z');
-                        btn.classList.add('css-jpkqok');
-                        btn.classList.remove('css-1d8juai');
-                    }else{
-                        idx.querySelector("h4.like-sum").innerHTML=parseInt(likeSum) - 1
-                        btn.querySelector("svg").dataset.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQiIGhlaWdodD0iMTQiIHZpZXdCb3g9IjAgMCAxNCAxNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0zLjkzNzgzIDUuNTMzMkgyLjE4NzgzQzEuODY1ODMgNS41MzMyIDEuNjA0NDkgNS43OTQ1NCAxLjYwNDQ5IDYuMTE2NTRWMTEuOTQ5OUMxLjYwNDQ5IDEyLjI3MTkgMS44NjU4MyAxMi41MzMyIDIuMTg3ODMgMTIuNTMzMkgzLjkzNzgzQzQuMjYwNDEgMTIuNTMzMiA0LjUyMTE2IDEyLjI3MTkgNC41MjExNiAxMS45NDk5VjYuMTE2NTRDNC41MjExNiA1Ljc5NDU0IDQuMjYwNDEgNS41MzMyIDMuOTM3ODMgNS41MzMyWiIgZmlsbD0iIzg3ODk4QiIvPgo8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTguMTk3MzMgMy4wNDE3OUw4LjE5MTQ5IDIuNzk1NjJMOC4xNzgwOCAyLjIwMTc5TDguMTc2OTEgMi4xNjc5NUw4LjE3MzQxIDIuMTM0N0M4LjE2ODE2IDIuMDc4NyA4LjE3NTc0IDIuMDU0MiA4LjE3NDU4IDIuMDUzMDRDOC4xODQ0OSAyLjA0NzIgOC4yMjc2NiAyLjAzMzIgOC4zMTEwOCAyLjAzMzJDOC40ODA4MyAyLjAzMzIgOS4zMjYwOCAyLjA4MzM3IDkuMzI2MDggMy4wNzA5NUM5LjMyNjA4IDMuNDUzNjIgOS4yOTQ1OCAzLjc1MTEyIDkuMjI2OTEgNC4wMDg5NUw4Ljk4NjU4IDQuOTIzMDRDOC45NjI2NiA1LjAxNTc5IDkuMDMyMDggNS4xMDYyIDkuMTI3NzQgNS4xMDYySDEwLjA3MjdIMTEuMDEyNUMxMS4yNDA2IDUuMTA2MiAxMS40NTgyIDUuMjA1OTUgMTEuNjA5OCA1LjM3OTJDMTEuNzU4NiA1LjU1MTI5IDExLjgzMDkgNS43NzkzNyAxMS44MDkzIDYuMDA4MDRMMTAuOTcwNSAxMC4zMzkzTDEwLjk2NDcgMTAuMzY4NUwxMC45NjEyIDEwLjM5NzZDMTAuOTEzMyAxMC43Nzc0IDEwLjU2NzQgMTEuMDc0OSAxMC4xNzM3IDExLjA3NDlINS45Nzk0OVY1LjczOTdDNS45Nzk0OSA1LjUyMzg3IDYuMDk4NDkgNS4yOTQwNCA2LjMzNDE2IDUuMDU2NjJMNy45Mzk0OSAzLjQzMDI5TDguMTA0NTggMy4yNjI4N0M4LjE5NzMzIDMuMTY2NjIgOC4xOTczMyAzLjA0MTc5IDguMTk3MzMgMy4wNDE3OVpNMTIuMjY5NiA0LjgwNTc5QzExLjk1MTcgNC40NDAwNCAxMS40OTMyIDQuMjMxMiAxMS4wMTI1IDQuMjMxMkgxMC4wNzI3QzEwLjE2MiAzLjg5MjI5IDEwLjIwMTEgMy41MjA3IDEwLjIwMTEgMy4wNzA5NUMxMC4yMDExIDEuNzU2NyA5LjIyMTY2IDEuMTU4MiA4LjMxMTA4IDEuMTU4MkM3Ljk2ODA4IDEuMTU4MiA3LjcwMDMzIDEuMjY1NTQgNy41MTU5OSAxLjQ3NzI5QzcuMzk2OTkgMS42MTI2MiA3LjI2NTc0IDEuODUxMiA3LjMwMzA4IDIuMjIxNjJMNy4zMTY0OSAyLjgxNTQ1TDUuNzExMTYgNC40NDE3OUM1LjMwODY2IDQuODQ4OTUgNS4xMDQ0OSA1LjI4NTg3IDUuMTA0NDkgNS43Mzk3VjExLjM2NjVDNS4xMDQ0OSAxMS42ODg1IDUuMzY1ODMgMTEuOTQ5OSA1LjY4NzgzIDExLjk0OTlIMTAuMTczN0MxMS4wMTQyIDExLjk0OTkgMTEuNzI5NCAxMS4zMTIzIDExLjgyOTcgMTAuNTA1NUwxMi42NzUgNi4xNDA0NUMxMi43MzUxIDUuNjU2ODcgMTIuNTg2OSA1LjE3MDk1IDEyLjI2OTYgNC44MDU3OVoiIGZpbGw9IiM4Nzg5OEIiLz4KPC9zdmc+Cg=='
-                        btn.querySelectorAll("svg path").item(0).setAttribute('fill','#87898B');
-                        btn.querySelectorAll("svg path").item(1).setAttribute('fill','#87898B');
-                        btn.querySelectorAll("svg path").item(1).setAttribute('d','M8.19733 3.04179L8.19149 2.79562L8.17808 2.20179L8.17691 2.16795L8.17341 2.1347C8.16816 2.0787 8.17574 2.0542 8.17458 2.05304C8.18449 2.0472 8.22766 2.0332 8.31108 2.0332C8.48083 2.0332 9.32608 2.08337 9.32608 3.07095C9.32608 3.45362 9.29458 3.75112 9.22691 4.00895L8.98658 4.92304C8.96266 5.01579 9.03208 5.1062 9.12774 5.1062H10.0727H11.0125C11.2406 5.1062 11.4582 5.20595 11.6098 5.3792C11.7586 5.55129 11.8309 5.77937 11.8093 6.00804L10.9705 10.3393L10.9647 10.3685L10.9612 10.3976C10.9133 10.7774 10.5674 11.0749 10.1737 11.0749H5.97949V5.7397C5.97949 5.52387 6.09849 5.29404 6.33416 5.05662L7.93949 3.43029L8.10458 3.26287C8.19733 3.16662 8.19733 3.04179 8.19733 3.04179ZM12.2696 4.80579C11.9517 4.44004 11.4932 4.2312 11.0125 4.2312H10.0727C10.162 3.89229 10.2011 3.5207 10.2011 3.07095C10.2011 1.7567 9.22166 1.1582 8.31108 1.1582C7.96808 1.1582 7.70033 1.26554 7.51599 1.47729C7.39699 1.61262 7.26574 1.8512 7.30308 2.22162L7.31649 2.81545L5.71116 4.44179C5.30866 4.84895 5.10449 5.28587 5.10449 5.7397V11.3665C5.10449 11.6885 5.36583 11.9499 5.68783 11.9499H10.1737C11.0142 11.9499 11.7294 11.3123 11.8297 10.5055L12.675 6.14045C12.7351 5.65687 12.5869 5.17095 12.2696 4.80579Z');
-                        btn.classList.add('css-1d8juai');
-                        btn.classList.remove('css-jpkqok');
+            if(document.querySelector("#login-idx")){
+                let btn = idx.querySelector("div.css-199ku80>div.css-ov1ktg>div")
+                let likeSum = btn.querySelector("h4.like-sum").innerHTML
+                $.ajax({
+                    url: '/comment/recomment/like/save',
+                    headers: {'Content-Type':'application/json;charset=UTF-8'},
+                    data: JSON.stringify({
+                        recommIdx: idx.id,
+                        userIdx: loginIdx.title
+                    }),
+                    type:'POST',
+                    dataType:'json',
+                    success:function(data){
+                        if(data==true){
+                            idx.querySelector("h4.like-sum").innerHTML=parseInt(likeSum) + 1
+                            btn.querySelector("svg").dataset.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQiIGhlaWdodD0iMTQiIHZpZXdCb3g9IjAgMCAxNCAxNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xLjc1IDEyLjU0MTdINC42NjY2N1Y1LjU0MTc1SDEuNzVWMTIuNTQxN1oiIGZpbGw9IiNGRjJGNkUiLz4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xMi4xOTQ1IDUuMDA1MzZDMTEuOTMxMyA0LjcwMjg0IDExLjU1MiA0LjUyOTA3IDExLjE1MzkgNC41MjkwN0g5LjgxOTQyQzkuOTg4NTcgNC4xMTMzOSAxMC4wNTg2IDMuNjcwNTggMTAuMDU4NiAzLjA4MTEyQzEwLjA1ODYgMS45NjA1MyA5LjI1NDk5IDEuNDU4MjUgOC40NTc2MiAxLjQ1ODI1QzguMjAwMTggMS40NTgyNSA4LjAwNDgyIDEuNTMyNzMgNy44NzY2NyAxLjY3OTk1QzcuNzU1OTMgMS44MTg1MSA3LjcwOTIyIDIuMDAzMjUgNy43MzQ4NSAyLjE5MjA0VjIuODY0MDVDNy43MzQ4NSAyLjkyNTgyIDcuNzEwMzYgMi45ODcwMiA3LjY2NjUxIDMuMDMwOUw2LjA2Mzc4IDQuNjU2MDhDNS43MTc1IDUuMDA2NTIgNS41NDE1IDUuMzc0MjggNS41NDE1IDUuNzQ4OTZWMTEuNjY2NkgxMC4zMTYxQzExLjAxMzIgMTEuNjY2NiAxMS42MDUgMTEuMTM4MyAxMS42ODkzIDEwLjQ1NjVMMTIuNTMwNSA2LjExMjFDMTIuNTgwNiA1LjcxMjAxIDEyLjQ1ODIgNS4zMDg0NiAxMi4xOTQ1IDUuMDA1MzZaIiBmaWxsPSIjRkYyRjZFIi8+Cjwvc3ZnPgo=';
+                            btn.querySelectorAll("svg path").item(0).setAttribute('fill','#FF2F6E');
+                            btn.querySelectorAll("svg path").item(1).setAttribute('fill','#FF2F6E');
+                            btn.querySelectorAll("svg path").item(1).setAttribute('d','M12.1945 5.00536C11.9313 4.70284 11.552 4.52907 11.1539 4.52907H9.81942C9.98857 4.11339 10.0586 3.67058 10.0586 3.08112C10.0586 1.96053 9.25499 1.45825 8.45762 1.45825C8.20018 1.45825 8.00482 1.53273 7.87667 1.67995C7.75593 1.81851 7.70922 2.00325 7.73485 2.19204V2.86405C7.73485 2.92582 7.71036 2.98702 7.66651 3.0309L6.06378 4.65608C5.7175 5.00652 5.5415 5.37428 5.5415 5.74896V11.6666H10.3161C11.0132 11.6666 11.605 11.1383 11.6893 10.4565L12.5305 6.1121C12.5806 5.71201 12.4582 5.30846 12.1945 5.00536Z');
+                            btn.classList.add('css-jpkqok');
+                            btn.classList.remove('css-1d8juai');
+                        }else{
+                            idx.querySelector("h4.like-sum").innerHTML=parseInt(likeSum) - 1
+                            btn.querySelector("svg").dataset.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQiIGhlaWdodD0iMTQiIHZpZXdCb3g9IjAgMCAxNCAxNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0zLjkzNzgzIDUuNTMzMkgyLjE4NzgzQzEuODY1ODMgNS41MzMyIDEuNjA0NDkgNS43OTQ1NCAxLjYwNDQ5IDYuMTE2NTRWMTEuOTQ5OUMxLjYwNDQ5IDEyLjI3MTkgMS44NjU4MyAxMi41MzMyIDIuMTg3ODMgMTIuNTMzMkgzLjkzNzgzQzQuMjYwNDEgMTIuNTMzMiA0LjUyMTE2IDEyLjI3MTkgNC41MjExNiAxMS45NDk5VjYuMTE2NTRDNC41MjExNiA1Ljc5NDU0IDQuMjYwNDEgNS41MzMyIDMuOTM3ODMgNS41MzMyWiIgZmlsbD0iIzg3ODk4QiIvPgo8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTguMTk3MzMgMy4wNDE3OUw4LjE5MTQ5IDIuNzk1NjJMOC4xNzgwOCAyLjIwMTc5TDguMTc2OTEgMi4xNjc5NUw4LjE3MzQxIDIuMTM0N0M4LjE2ODE2IDIuMDc4NyA4LjE3NTc0IDIuMDU0MiA4LjE3NDU4IDIuMDUzMDRDOC4xODQ0OSAyLjA0NzIgOC4yMjc2NiAyLjAzMzIgOC4zMTEwOCAyLjAzMzJDOC40ODA4MyAyLjAzMzIgOS4zMjYwOCAyLjA4MzM3IDkuMzI2MDggMy4wNzA5NUM5LjMyNjA4IDMuNDUzNjIgOS4yOTQ1OCAzLjc1MTEyIDkuMjI2OTEgNC4wMDg5NUw4Ljk4NjU4IDQuOTIzMDRDOC45NjI2NiA1LjAxNTc5IDkuMDMyMDggNS4xMDYyIDkuMTI3NzQgNS4xMDYySDEwLjA3MjdIMTEuMDEyNUMxMS4yNDA2IDUuMTA2MiAxMS40NTgyIDUuMjA1OTUgMTEuNjA5OCA1LjM3OTJDMTEuNzU4NiA1LjU1MTI5IDExLjgzMDkgNS43NzkzNyAxMS44MDkzIDYuMDA4MDRMMTAuOTcwNSAxMC4zMzkzTDEwLjk2NDcgMTAuMzY4NUwxMC45NjEyIDEwLjM5NzZDMTAuOTEzMyAxMC43Nzc0IDEwLjU2NzQgMTEuMDc0OSAxMC4xNzM3IDExLjA3NDlINS45Nzk0OVY1LjczOTdDNS45Nzk0OSA1LjUyMzg3IDYuMDk4NDkgNS4yOTQwNCA2LjMzNDE2IDUuMDU2NjJMNy45Mzk0OSAzLjQzMDI5TDguMTA0NTggMy4yNjI4N0M4LjE5NzMzIDMuMTY2NjIgOC4xOTczMyAzLjA0MTc5IDguMTk3MzMgMy4wNDE3OVpNMTIuMjY5NiA0LjgwNTc5QzExLjk1MTcgNC40NDAwNCAxMS40OTMyIDQuMjMxMiAxMS4wMTI1IDQuMjMxMkgxMC4wNzI3QzEwLjE2MiAzLjg5MjI5IDEwLjIwMTEgMy41MjA3IDEwLjIwMTEgMy4wNzA5NUMxMC4yMDExIDEuNzU2NyA5LjIyMTY2IDEuMTU4MiA4LjMxMTA4IDEuMTU4MkM3Ljk2ODA4IDEuMTU4MiA3LjcwMDMzIDEuMjY1NTQgNy41MTU5OSAxLjQ3NzI5QzcuMzk2OTkgMS42MTI2MiA3LjI2NTc0IDEuODUxMiA3LjMwMzA4IDIuMjIxNjJMNy4zMTY0OSAyLjgxNTQ1TDUuNzExMTYgNC40NDE3OUM1LjMwODY2IDQuODQ4OTUgNS4xMDQ0OSA1LjI4NTg3IDUuMTA0NDkgNS43Mzk3VjExLjM2NjVDNS4xMDQ0OSAxMS42ODg1IDUuMzY1ODMgMTEuOTQ5OSA1LjY4NzgzIDExLjk0OTlIMTAuMTczN0MxMS4wMTQyIDExLjk0OTkgMTEuNzI5NCAxMS4zMTIzIDExLjgyOTcgMTAuNTA1NUwxMi42NzUgNi4xNDA0NUMxMi43MzUxIDUuNjU2ODcgMTIuNTg2OSA1LjE3MDk1IDEyLjI2OTYgNC44MDU3OVoiIGZpbGw9IiM4Nzg5OEIiLz4KPC9zdmc+Cg=='
+                            btn.querySelectorAll("svg path").item(0).setAttribute('fill','#87898B');
+                            btn.querySelectorAll("svg path").item(1).setAttribute('fill','#87898B');
+                            btn.querySelectorAll("svg path").item(1).setAttribute('d','M8.19733 3.04179L8.19149 2.79562L8.17808 2.20179L8.17691 2.16795L8.17341 2.1347C8.16816 2.0787 8.17574 2.0542 8.17458 2.05304C8.18449 2.0472 8.22766 2.0332 8.31108 2.0332C8.48083 2.0332 9.32608 2.08337 9.32608 3.07095C9.32608 3.45362 9.29458 3.75112 9.22691 4.00895L8.98658 4.92304C8.96266 5.01579 9.03208 5.1062 9.12774 5.1062H10.0727H11.0125C11.2406 5.1062 11.4582 5.20595 11.6098 5.3792C11.7586 5.55129 11.8309 5.77937 11.8093 6.00804L10.9705 10.3393L10.9647 10.3685L10.9612 10.3976C10.9133 10.7774 10.5674 11.0749 10.1737 11.0749H5.97949V5.7397C5.97949 5.52387 6.09849 5.29404 6.33416 5.05662L7.93949 3.43029L8.10458 3.26287C8.19733 3.16662 8.19733 3.04179 8.19733 3.04179ZM12.2696 4.80579C11.9517 4.44004 11.4932 4.2312 11.0125 4.2312H10.0727C10.162 3.89229 10.2011 3.5207 10.2011 3.07095C10.2011 1.7567 9.22166 1.1582 8.31108 1.1582C7.96808 1.1582 7.70033 1.26554 7.51599 1.47729C7.39699 1.61262 7.26574 1.8512 7.30308 2.22162L7.31649 2.81545L5.71116 4.44179C5.30866 4.84895 5.10449 5.28587 5.10449 5.7397V11.3665C5.10449 11.6885 5.36583 11.9499 5.68783 11.9499H10.1737C11.0142 11.9499 11.7294 11.3123 11.8297 10.5055L12.675 6.14045C12.7351 5.65687 12.5869 5.17095 12.2696 4.80579Z');
+                            btn.classList.add('css-1d8juai');
+                            btn.classList.remove('css-jpkqok');
+                        }
+                    },error:function(){
+                        alert("오류 발생!")
                     }
-                },error:function(){
-                    alert("오류 발생!")
-                }
-            });
+                });
+            }else{loginModalOn()}
         })
     }
 }
@@ -667,19 +692,23 @@ document.addEventListener('click',(e)=>{
             }
         }
         else{
-            if(e.target.innerHTML == "부적절한 표현 신고 취소"){
-                recommentReportModal.querySelector("div.css-148qwic").innerText = "부적절 표현 신고를 취소하시겠어요?"
+            if(document.querySelector("#login-idx")){
+                if(e.target.innerHTML == "부적절한 표현 신고 취소"){
+                    recommentReportModal.querySelector("div.css-148qwic").innerText = "부적절 표현 신고를 취소하시겠어요?"
+                }else{
+                    recommentReportModal.querySelector("div.css-148qwic").innerText = "부적절한 표현으로 신고하시겠어요?"
+                }
+                document.querySelector('.css-1pfl1eu').classList.add('css-aa3xw');
+                document.querySelector('.css-1pfl1eu').classList.remove('css-1pfl1eu');
+                main.style.display = 'block';
+                main.classList.add('on');
+                main.classList.remove('off');
+                recommentReportModal.style.display = 'flex';
+                recommentReportModal.classList.add('on');
+                recommentReportModal.classList.remove('off');
             }else{
-                recommentReportModal.querySelector("div.css-148qwic").innerText = "부적절한 표현으로 신고하시겠어요?"
+                loginModalOn()
             }
-            document.querySelector('.css-1pfl1eu').classList.add('css-aa3xw');
-            document.querySelector('.css-1pfl1eu').classList.remove('css-1pfl1eu');
-            main.style.display = 'block';
-            main.classList.add('on');
-            main.classList.remove('off');
-            recommentReportModal.style.display = 'flex';
-            recommentReportModal.classList.add('on');
-            recommentReportModal.classList.remove('off');
         }
     }
 })
@@ -897,32 +926,34 @@ shareBtn.addEventListener('click', () => {
 const commentIdx = window.location.href.split('/comment/')[1];
 const likeBtn = document.querySelector("button#deckLike");
 likeBtn.addEventListener("click", ()=>{
-    let likeSum = document.querySelector("span.css-1n0dvqq").innerHTML.split('좋아요 ')[1]
-    $.ajax({
-        url:'/comment/like/save',
-        headers: { 'Content-Type': 'application/json;charset=UTF-8' },
-        data: JSON.stringify({           // HTTP 요청과 함께 서버로 보낼 데이터
-            userIdx: loginIdx.title,
-            commentIdx:commentIdx
-        }),
-        type: 'POST',           // HTTP 요청 방식(GET, POST)
-        dataType: "json",       // 호출 시 데이터 타입
-        success : function(data) {
-            if(data == true){
-                likeBtn.classList.add("css-3w1nnz-StylelessButton-StyledActionButton");
-                likeBtn.querySelector("svg.css-vkoibk").classList.add("boing");
-                likeBtn.classList.remove("css-135c2b4-StylelessButton-StyledActionButton");
-                document.querySelector("span.css-1n0dvqq").innerHTML = '좋아요 ' + (parseInt(likeSum) + 1);
-            }else{
-                likeBtn.classList.add("css-135c2b4-StylelessButton-StyledActionButton");
-                likeBtn.classList.remove("css-3w1nnz-StylelessButton-StyledActionButton");
-                likeBtn.querySelector("svg.css-vkoibk").classList.remove("boing");
-                document.querySelector("span.css-1n0dvqq").innerHTML = '좋아요 ' + (parseInt(likeSum) - 1);
+    if(document.querySelector("#login-idx")) {
+        let likeSum = document.querySelector("span.css-1n0dvqq").innerHTML.split('좋아요 ')[1]
+        $.ajax({
+            url: '/comment/like/save',
+            headers: {'Content-Type': 'application/json;charset=UTF-8'},
+            data: JSON.stringify({           // HTTP 요청과 함께 서버로 보낼 데이터
+                userIdx: loginIdx.title,
+                commentIdx: commentIdx
+            }),
+            type: 'POST',           // HTTP 요청 방식(GET, POST)
+            dataType: "json",       // 호출 시 데이터 타입
+            success: function (data) {
+                if (data == true) {
+                    likeBtn.classList.add("css-3w1nnz-StylelessButton-StyledActionButton");
+                    likeBtn.querySelector("svg.css-vkoibk").classList.add("boing");
+                    likeBtn.classList.remove("css-135c2b4-StylelessButton-StyledActionButton");
+                    document.querySelector("span.css-1n0dvqq").innerHTML = '좋아요 ' + (parseInt(likeSum) + 1);
+                } else {
+                    likeBtn.classList.add("css-135c2b4-StylelessButton-StyledActionButton");
+                    likeBtn.classList.remove("css-3w1nnz-StylelessButton-StyledActionButton");
+                    likeBtn.querySelector("svg.css-vkoibk").classList.remove("boing");
+                    document.querySelector("span.css-1n0dvqq").innerHTML = '좋아요 ' + (parseInt(likeSum) - 1);
+                }
+            }, error: function () {
+                alert("에러발생!")
             }
-        },error: function() {
-            alert("에러발생!")
-        }
-    })
+        })
+    }else{loginModalOn();}
 })
 
 button.addEventListener("click",recommentSave);
