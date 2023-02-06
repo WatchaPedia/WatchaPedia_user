@@ -1,4 +1,4 @@
-<html lang="ko-KR">
+<html lang="ko-KR" xmlns:th="http://www.thymeleaf.org">
 <head>
     <!-- Google Tag Manager -->
     <script
@@ -3888,7 +3888,7 @@
     <style>
         #loading-icon{
             display: block;
-            position: absolute;
+            position: fixed;
             top: 50%;
             z-index: 999;
             left: 50%;
@@ -3914,6 +3914,9 @@
         }
         body{
             margin : 0;
+        }
+        #tv-star, #book-star, #web-star {
+            display: none;
         }
     </style>
     <script src="https://unpkg.com/vue@3"></script>
@@ -4214,7 +4217,10 @@
                         <header class="css-yatoeb-Self e104qqaq0">
                             <div class="css-1gkas1x-Grid e1689zdh0">
                                 <div class="css-1y901al-Row emmoxnt0">
-                                    <h2 class="css-1kqxvpo-CountingHeader e104qqaq1">79</h2>
+                                    <h2 class="css-1kqxvpo-CountingHeader e104qqaq1" id="movie-star" th:text="${movieStar}">79</h2>
+                                    <h2 class="css-1kqxvpo-CountingHeader e104qqaq1" id="tv-star" th:text="${tvStar}">79</h2>
+                                    <h2 class="css-1kqxvpo-CountingHeader e104qqaq1" id="book-star" th:text="${bookStar}">79</h2>
+                                    <h2 class="css-1kqxvpo-CountingHeader e104qqaq1" id="web-star" th:text="${webStar}">79</h2>
                                     <p class="css-j1g7kv-TextForCount e104qqaq2">
                                         이제 웬만한 친구보다 제가 당신을 더 잘 알걸요?
                                     </p>
