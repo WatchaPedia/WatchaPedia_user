@@ -264,14 +264,16 @@ function addList() {
     });
 }
 
-const commentScroll = document.querySelector("[data-rowindex='10']").querySelector('.css-15xcaei')
-commentScroll.addEventListener('scroll',()=>{
-    let comMax = commentScroll.scrollWidth-commentScroll.querySelector('.css-174lxc3').getBoundingClientRect().width-15;
-    if(commentScroll.scrollLeft >= comMax) {
-        if(!loading)    //실행 가능 상태라면?
-        {
-            loading = true; //실행 불가능 상태로 변경
-            addList();
+try {
+    const commentScroll = document.querySelector("[data-rowindex='10']").querySelector('.css-15xcaei')
+    commentScroll.addEventListener('scroll', () => {
+        let comMax = commentScroll.scrollWidth - commentScroll.querySelector('.css-174lxc3').getBoundingClientRect().width - 15;
+        if (commentScroll.scrollLeft >= comMax) {
+            if (!loading)    //실행 가능 상태라면?
+            {
+                loading = true; //실행 불가능 상태로 변경
+                addList();
+            }
         }
-    }
-});
+    });
+}catch (Exception){console.log("코멘트가 없음")}

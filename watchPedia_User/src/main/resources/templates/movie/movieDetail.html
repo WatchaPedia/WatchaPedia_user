@@ -7699,28 +7699,6 @@
 
     </style>
 
-<!--    로그인 안했을 경우 모달창 스크립트 -->
-    <script>
-        function loginModalOn() {
-            const needLoginModal = document.querySelector("#modal-container-oGQFUI4Thzcz0tVvv9kTk");
-            // 모달창 열기
-            main.style.display = 'block';
-            main.classList.add('on');
-            main.classList.remove('off');
-            needLoginModal.style.display = 'block';
-            needLoginModal.classList.add('on');
-            needLoginModal.classList.remove('off');
-        }
-        document.querySelector("#modal-container-oGQFUI4Thzcz0tVvv9kTk").querySelector(".css-1d7tft4-StylelessButton-HeaderCloseButtonSelf").addEventListener("click",()=>{
-            // 모달창 닫기
-            main.style.display = 'none';
-            main.classList.add('off');
-            main.classList.remove('on');
-            needLoginModal.style.display = 'none';
-            needLoginModal.classList.add('off');
-            needLoginModal.classList.remove('on');
-        })
-    </script>
 </head>
 <body>
 <div id="root">
@@ -10319,5 +10297,40 @@
 <script src="https://d2rlq84xifqisi.cloudfront.net/javascripts/web.9c609bdaa8c28f5a06a6.js"
         crossorigin="anonymous"></script>
 
+
+<!--    로그인 안했을 경우 모달창 스크립트 -->
+<script>
+    const needLoginModal = document.querySelector("#modal-container-oGQFUI4Thzcz0tVvv9kTk");
+    function loginModalOn() {
+        // 모달창 열기
+        main.style.display = 'block';
+        main.classList.add('on');
+        main.classList.remove('off');
+        needLoginModal.style.display = 'block';
+        needLoginModal.classList.add('on');
+        needLoginModal.classList.remove('off');
+    }
+    document.querySelector("#modal-container-oGQFUI4Thzcz0tVvv9kTk").querySelector(".css-1d7tft4-StylelessButton-HeaderCloseButtonSelf").addEventListener("click",()=>{
+        // 모달창 닫기
+        main.style.display = 'none';
+        main.classList.add('off');
+        main.classList.remove('on');
+        needLoginModal.style.display = 'none';
+        needLoginModal.classList.add('off');
+        needLoginModal.classList.remove('on');
+    })
+    document.addEventListener('click',(e)=>{
+        if(needLoginModal.style.display=='block'){
+            if(!document.querySelector('.css-ikkedy').contains(e.target)){
+                main.style.display = 'none';
+                main.classList.add('off');
+                main.classList.remove('on');
+                needLoginModal.style.display = 'none';
+                needLoginModal.classList.add('off');
+                needLoginModal.classList.remove('on');
+            }
+        }
+    },true);
+</script>
 </body>
 </html>
