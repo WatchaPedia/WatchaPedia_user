@@ -5,15 +5,16 @@ import com.watchapedia.watchpedia_user.model.entity.User;
 import com.watchapedia.watchpedia_user.model.network.request.UserRequestDto;
 import com.watchapedia.watchpedia_user.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
+import java.io.PrintWriter;
 
 @Controller
 @RequiredArgsConstructor
@@ -42,6 +43,28 @@ public class UserController {
         }else{
             map.addAttribute("loginerrorMessage", "이메일 또는 비밀번호를 확인하세요");
             return "user/login";
+        }
+    }
+
+    @PostMapping("/signup/ajax")
+    public void loginOk(@ModelAttribute UserRequestDto userRequestDto, HttpSession session, HttpServletResponse response) throws IOException {
+        response.setContentType("text/html; charset=UTF-8");
+        PrintWriter out=response.getWriter();
+        userRequestDto = userService.login(userRequestDto);
+        System.out.println("진입완료" + userRequestDto);
+        if(userRequestDto != null){
+            User user = userService.findEmail(userRequestDto.userEmail());
+            UserSessionDto userSessionDto = UserSessionDto.from(user);
+
+            // 세션 유지시간 설정(초단위로)
+            // 60*60 = 1시간
+            int sTime = 60*60;
+            session.setMaxInactiveInterval(sTime);
+            session.setAttribute("userSession", userSessionDto);
+//            out.println("<script>history.back();location.reload();</script>");
+        }else{
+//            out.println("<script>alert('이메일 또는 비밀번호를 확인하세요')</script>");
+//            out.println("<script>history.back()</script>");
         }
     }
 

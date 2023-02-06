@@ -1,5 +1,23 @@
 const main = document.querySelector('.css-14gy7wr');
-const loginIdx = document.querySelector("a#login-idx").title;
+const loginIdx = document.querySelector("a#login-idx");
+
+// 로그인 안했을 경우 모달창
+const needLoginModal = document.querySelector("#modal-container-nGZJ6mVG6nJ8Q5C7ZE4nu");
+function loginModalOn(){
+    main.style.display = 'block';
+    main.classList.add('on');
+    main.classList.remove('off');
+    needLoginModal.style.display = 'block';
+    needLoginModal.classList.add('on');
+    needLoginModal.classList.remove('off');
+}
+// 로그인모달 value 초기화
+needLoginModal.querySelectorAll("span[data-test='clearButton']").item(0).addEventListener('click',()=>{
+    needLoginModal.querySelector("input[name='email']").value = null
+})
+needLoginModal.querySelectorAll("span[data-test='clearButton']").item(1).addEventListener('click',()=>{
+    needLoginModal.querySelector("input[name='password']").value = null
+})
 
 const reportBnt = document.querySelector('div.css-1d7xpnn-CommentContainer .css-1b4hoch-SVG');
 const reportBnt2 = document.querySelector('.e1bglx4g0');
@@ -60,10 +78,16 @@ const spoilerModal = document.querySelector("div#modal-container-1arSh67x8qkwcza
 const miniSpoBtn = reportModal2.querySelectorAll("div.css-7mldxr div.css-bgi4sk").item(0)
 const miniInapBtn = reportModal2.querySelectorAll("div.css-7mldxr div.css-bgi4sk").item(1)
 
+
 try{
 // 스포일러 신고 버튼 클릭 시
-    spoilerBtn.addEventListener('click', spoReport)
-    miniSpoBtn.addEventListener('click', spoReport)
+    if(!document.querySelector("#login-idx")){
+        spoilerBtn.addEventListener("click",loginModalOn)
+        miniSpoBtn.addEventListener("click",loginModalOn)
+    }else {
+        spoilerBtn.addEventListener('click', spoReport)
+        miniSpoBtn.addEventListener('click', spoReport)
+    }
     function spoReport(){
         if (spoilerModal.classList.contains('off')) {
             if(document.querySelector("div.css-ughty8")){
@@ -114,7 +138,7 @@ try{
                 text: document.querySelector("div.css-1g78l7j span").innerText,
                 spoiler: true,
                 inap: false,
-                reporter: loginIdx
+                reporter: loginIdx.title
             }),
             type: 'POST',
             dataType: 'json',
@@ -146,8 +170,13 @@ try{
     const inappModal = document.querySelector("div#modal-container-6TxBWpCAEPqm20UjsJdDQ");
 
 // 부적절표현 신고 버튼 클릭 시
-    miniInapBtn.addEventListener('click', inapReport)
-    inapBtn.addEventListener('click', inapReport)
+    if(!document.querySelector("#login-idx")){
+        miniInapBtn.addEventListener("click",loginModalOn)
+        inapBtn.addEventListener("click",loginModalOn)
+    }else {
+        miniInapBtn.addEventListener('click', inapReport)
+        inapBtn.addEventListener('click', inapReport)
+    }
     function inapReport(){
         if(spoilerModal.classList.contains('off')){
             if(document.querySelector('css-ughty8')){
@@ -200,7 +229,7 @@ try{
                 text: document.querySelector("div.css-1g78l7j span").innerText,
                 spoiler: false,
                 inap: true,
-                reporter: loginIdx
+                reporter: loginIdx.title
             }),
             type:'POST',
             dataType:'json',
@@ -322,7 +351,7 @@ try{
             data: JSON.stringify({           // HTTP 요청과 함께 서버로 보낼 데이터
                 contentType: document.querySelector("#content-info").href.split("/")[document.querySelector("#content-info").href.split("/").length-2],
                 contentIdx: contentIdx,
-                userIdx: loginIdx,
+                userIdx: loginIdx.title,
             }),
             type:'POST',
             dataType:'json',
@@ -353,7 +382,7 @@ try{
             data: JSON.stringify({           // HTTP 요청과 함께 서버로 보낼 데이터
                 contentType: document.querySelector("#content-info").href.split("/")[document.querySelector("#content-info").href.split("/").length-2],
                 contentIdx: contentIdx,
-                userIdx: loginIdx,
+                userIdx: loginIdx.title,
                 text: myCommentModal.querySelector("textarea.css-137vxyg").value,
                 spoiler: spoilerIcon.classList.contains("css-7zhfhb") ? false:true
             }),
@@ -469,22 +498,19 @@ const close2 = document.querySelector('.css-1d7tft4-StylelessButton-HeaderCloseB
 
 // 코멘트 열기, 닫기
 commentBtn.addEventListener('click',() => {
-    if(comment.classList.contains('off')){
-        main.style.display = 'block';
-        main.classList.add('on');
-        main.classList.remove('off');
-        comment.style.display = 'flex';
-        comment.classList.add('on');
-        comment.classList.remove('off');
-        comment.querySelector("div.css-6qnjre button").innerHTML = "저장"
-        comment.querySelectorAll("header.css-166ww79-HeaderBarPrimitive-headerAddStyle div.css-19pxr9t").item(1).querySelectorAll("button").item(1).innerHTML = "저장"
-    }else{
-        main.style.display = 'none';
-        main.classList.add('off');
-        main.classList.remove('on');
-        comment.style.display = 'none';
-        comment.classList.add('off');
-        comment.classList.remove('on');
+    if(!document.querySelector("#login-idx")){
+        loginModalOn()
+    }else {
+        if(comment.classList.contains('off')){
+            main.style.display = 'block';
+            main.classList.add('on');
+            main.classList.remove('off');
+            comment.style.display = 'flex';
+            comment.classList.add('on');
+            comment.classList.remove('off');
+            comment.querySelector("div.css-6qnjre button").innerHTML = "저장"
+            comment.querySelectorAll("header.css-166ww79-HeaderBarPrimitive-headerAddStyle div.css-19pxr9t").item(1).querySelectorAll("button").item(1).innerHTML = "저장"
+        }
     }
 })
 close.addEventListener('click', () =>{
@@ -534,19 +560,22 @@ const recommentReportModal = document.querySelector("div#modal-container-fZgqMYL
 
 function recommentList(){
     let recomment = document.querySelectorAll('section#recomment-list div.css-1m1whp6');
-    console.log(recomment)
     for(let idx of recomment){
         idx.querySelector('.css-1b4hoch-SVG').addEventListener('click', function (e) {
-            if(idx.querySelector('.css-aa3xw')){
-                idx.querySelector('.css-aa3xw').classList.add('css-1pfl1eu');
-                idx.querySelector('.css-aa3xw').classList.remove('css-aa3xw');
-                recommentIdx = idx.id;
-                recommentText = idx.querySelector("div.css-yb0jaq");
-                recommentUserIdx = idx.querySelector("a.css-255jr8").href.split("/user/")[1]
-                recommentBtn = idx.querySelector("div.css-19hkid5");
-            }else {
-                idx.querySelector('.css-1pfl1eu').classList.add('css-aa3xw');
-                idx.querySelector('.css-1pfl1eu').classList.remove('css-1pfl1eu');
+            if(!document.querySelector("#login-idx")){
+                loginModalOn()
+            }else{
+                if(idx.querySelector('.css-aa3xw')){
+                    idx.querySelector('.css-aa3xw').classList.add('css-1pfl1eu');
+                    idx.querySelector('.css-aa3xw').classList.remove('css-aa3xw');
+                    recommentIdx = idx.id;
+                    recommentText = idx.querySelector("div.css-yb0jaq");
+                    recommentUserIdx = idx.querySelector("a.css-255jr8").href.split("/user/")[1]
+                    recommentBtn = idx.querySelector("div.css-19hkid5");
+                }else {
+                    idx.querySelector('.css-1pfl1eu').classList.add('css-aa3xw');
+                    idx.querySelector('.css-1pfl1eu').classList.remove('css-1pfl1eu');
+                }
             }
 
         })
@@ -559,7 +588,7 @@ function recommentList(){
                 headers: {'Content-Type':'application/json;charset=UTF-8'},
                 data: JSON.stringify({
                     recommIdx: idx.id,
-                    userIdx: loginIdx
+                    userIdx: loginIdx.title
                 }),
                 type:'POST',
                 dataType:'json',
@@ -699,7 +728,7 @@ recommentReportModal.querySelector("button.css-sfhtz9-StylelessButton").addEvent
             text: recommentText.innerText,
             spoiler: false,
             inap: true,
-            reporter: loginIdx
+            reporter: loginIdx.title
         }),
         type:'POST',
         dataType:'json',
@@ -855,7 +884,7 @@ likeBtn.addEventListener("click", ()=>{
         url:'/comment/like/save',
         headers: { 'Content-Type': 'application/json;charset=UTF-8' },
         data: JSON.stringify({           // HTTP 요청과 함께 서버로 보낼 데이터
-            userIdx: loginIdx,
+            userIdx: loginIdx.title,
             commentIdx:commentIdx
         }),
         type: 'POST',           // HTTP 요청 방식(GET, POST)
@@ -914,7 +943,7 @@ function recommentSave(){
             url:`/comment/recomment/save`,
             headers: { 'Content-Type': 'application/json;charset=UTF-8' },
             data: JSON.stringify({           // HTTP 요청과 함께 서버로 보낼 데이터
-                userIdx: loginIdx,
+                userIdx: loginIdx.title,
                 commIdx:commentIdx,
                 text:text
             }),
