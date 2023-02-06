@@ -80,7 +80,7 @@ public class CommentController {
             HttpSession session
     ){
         UserSessionDto dto = (UserSessionDto) session.getAttribute("userSession");
-        CommentResponse comment = commentService.findComment(commentIdx, dto.userIdx(), pageable);
+        CommentResponse comment = commentService.findComment(commentIdx, dto!=null?dto.userIdx():null, pageable);
 
         switch (comment.contentType()){
             case "movie" -> {

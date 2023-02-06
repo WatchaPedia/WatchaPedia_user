@@ -65,7 +65,6 @@ public class MovieController {
             HttpSession session
     ){
         UserSessionDto dto = (UserSessionDto) session.getAttribute("userSession");
-        Long userIdx = dto.userIdx();
 
         MovieResponse movie = movieService.movieView(movieIdx);
 
@@ -81,9 +80,11 @@ public class MovieController {
             avgStar = Math.round((sum / movie.starList().size()) * 10.0) / 10.0;
         }
 
+        StarResponse hasStar = null;
+        if(dto!=null) {
 //        해당 유저가 별점을 매겼는지
-        StarResponse hasStar = starService.findStar("movie",movie.idx(), userIdx);
-
+            hasStar = starService.findStar("movie", movie.idx(), dto.userIdx());
+        }
 //        인물 리스트
         List<String> peopleList = new ArrayList<>();
 
@@ -101,18 +102,23 @@ public class MovieController {
             System.out.println("** 인물정보가 없습니다 **");
         }
 
-        Page<CommentResponse> commentList = commentService.commentList("movie",movie.idx(),userIdx,pageable);
-//      해당 유저가 코멘트를 달았는지
+        //      해당 유저가 코멘트를 달았는지
         CommentResponse hasComm = null;
-        for(CommentResponse comm: commentList){
-            if(comm.user().getUserIdx() == userIdx){
-                hasComm = comm;
+        boolean hasWish = false;
+        boolean hasWatch = false;
+        boolean hasHate = false;
+        Page<CommentResponse> commentList = commentService.commentList("movie", movie.idx(), dto!=null?dto.userIdx():null, pageable);
+        if(dto != null) {
+            for (CommentResponse comm : commentList) {
+                if (comm.user().getUserIdx() == dto.userIdx()) {
+                    hasComm = comm;
+                }
             }
-        };
 
-        boolean hasWish = wishService.findWish("movie",movie.idx(),userIdx);
-        boolean hasWatch = watchService.findWatch("movie",movie.idx(),userIdx);
-        boolean hasHate = hateService.findHate(userIdx,"movie",movie.idx());
+             hasWish = wishService.findWish("movie",movie.idx(),dto.userIdx());
+             hasWatch = watchService.findWatch("movie",movie.idx(),dto.userIdx());
+             hasHate = hateService.findHate(dto.userIdx(),"movie",movie.idx());
+        }
 
 //        별점 그래프
         HashMap<Long, Integer> starGraph = new HashMap<Long,Integer>(){{

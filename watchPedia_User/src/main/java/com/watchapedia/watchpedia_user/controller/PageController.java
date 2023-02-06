@@ -92,7 +92,7 @@ public class PageController {
             HttpSession session
     ){
         UserSessionDto dto = (UserSessionDto) session.getAttribute("userSession");
-        Page<CommentResponse> commentList = commentService.commentList(contentType,contentIdx,dto.userIdx(), pageable);
+        Page<CommentResponse> commentList = commentService.commentList(contentType,contentIdx,dto!=null?dto.userIdx():null, pageable);
         String contentTitle = "";
 
         switch (contentType){
