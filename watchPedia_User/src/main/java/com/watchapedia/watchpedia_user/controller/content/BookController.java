@@ -165,6 +165,20 @@ public class BookController {
         return "/book/detailInfoBook";
     }
 
+    @GetMapping("/{bookIdx}/bookStory")
+    public String bookStory(
+            @PathVariable Long bookIdx,
+            ModelMap map,
+            HttpSession session
+    ){
+        UserSessionDto dto = (UserSessionDto) session.getAttribute("userSession");
+        BookResponse book = bookService.bookView(bookIdx);
+
+        map.addAttribute("book", book);
+        map.addAttribute("userSession", dto);
+        return "/book/bookStory";
+    }
+
 
 
 }
