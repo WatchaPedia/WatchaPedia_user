@@ -58,14 +58,7 @@ public record WebtoonResponse(
         );
     }
 
-    public static WebtoonResponse of(
-            Double avgStar
-    ){
-        return new WebtoonResponse(
-                null, null, null, null, null, null, null, null, null,
-                null, null, null, null , null,null,null,avgStar, 0,false,false
-        );
-    }
+
 
     public static WebtoonResponse from(WebtoonDto dto){
         return new WebtoonResponse(
