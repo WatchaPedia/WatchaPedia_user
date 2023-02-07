@@ -135,11 +135,11 @@ if(document.querySelector("a#login-idx")) {
     const hasCommentBtn2 = commentModal2.querySelectorAll("div.css-bgi4sk");
     hasCommentBtn2.item(0).addEventListener('click', commentEdit);
     hasCommentBtn2.item(1).addEventListener('click', commentDelete);
+}
 
-
-    let commentList = document.querySelectorAll("li.css-1fryc54");
-    document.addEventListener('click', (e) => {
-        if (e.target.parentElement.classList.contains("css-hy68ty")) {
+document.addEventListener('click', (e) => {
+    if (e.target.parentElement.classList.contains("css-hy68ty")) {
+        if(document.querySelector("#login-idx")){
             let comm = e.target.parentElement.parentElement;
             // 코멘트 좋아요 클릭
             let commentIdx = comm.querySelector("div.css-ob93md a").href.split("/comment/")[1];
@@ -167,9 +167,9 @@ if(document.querySelector("a#login-idx")) {
                     alert("에러발생!")
                 }
             })
-        }
-    })
-}
+        }else{loginModalOn()}
+    }
+})
 
 let commentList = document.querySelectorAll("li.css-1fryc54");
 document.addEventListener('click', (e) => {
@@ -208,7 +208,7 @@ const movieIdx = window.location.href.split("/book/")[1]
 let page = 1;
 function addList() {
     $.ajax({
-        url: `/book/${webIdx}/new?page=${page}`,
+        url: `/book/${movieIdx}/new?page=${page}`,
         headers: {'Content-Type': 'application/json;charset=UTF-8'},
         type: 'GET',
         dataType: "json",

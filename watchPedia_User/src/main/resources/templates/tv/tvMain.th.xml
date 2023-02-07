@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <thlogic>
     <attr sel="#tv-table" th:remove="all-but-first">
-        <attr sel="#tv-tr" th:each="tv, i : ${tvs}" th:if="${tv.tvCountry == '한국'}" >
+        <attr sel="#tv-tr" th:each="tv, i : ${tvs}" th:if="${tv.tvCountry.toString().equals('한국')}" >
             <attr sel="#tv-title" th:text="${tv.tvTitle}"/>
             <attr sel="#tv-making-date" th:text="${tv.tvMakingDate} + '・'+ ${tv.tvCountry}+ '・'+${tv.tvChannel}"/>
             <attr sel="#tv-tvThumbnail" th:src="${tv.tvThumbnail}" />
