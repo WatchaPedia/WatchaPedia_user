@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<thlogic>
+    <attr sel="#tv-table" th:remove="all-but-first">
+        <attr sel="#tv-tr" th:each="tv, i : ${tvs}" th:if="${tv.tvCountry == '한국'}" >
+            <attr sel="#tv-title" th:text="${tv.tvTitle}"/>
+            <attr sel="#tv-making-date" th:text="${tv.tvMakingDate} + '・'+ ${tv.tvCountry}+ '・'+${tv.tvChannel}"/>
+            <attr sel="#tv-tvThumbnail" th:src="${tv.tvThumbnail}" />
+            <attr sel="#tv-idx" th:text="${i.count}" />
+            <attr sel=".average"
+                  th:if="${tv.avg} != 0.0" th:text="'평균 ★ ' + (${tv.avg} != 0 ? ${tv.avg} : _)"/>
+            <attr sel="div.css-5o7sb2" th:if="${tv.tvWatch} != null and ${#strings.contains(tv.tvWatch,'aHR0cHM6Ly93YXRjaGEuY29tL3dhd')}"/>
+            <!--                왓챠 아이콘 -->
+            <attr sel="div.css-oobk33" th:if="${tv.tvWatch} != null and ${#strings.contains(tv.tvWatch,'aHR0cHM6Ly93d3cubmV0ZmxpeC5jb20vdGl0b')}"/>
+        </attr>
+    </attr>
+
+<!--애니메이션-->
+    <attr sel=".tv-table-any" th:remove="all-but-first">
+        <attr sel=".tv-tr-any" th:each="tv : ${tvs}" th:if="${tv.tvGenre == '애니메이션'}" >
+            <attr sel=".tv-title-any" th:text="${tv.tvTitle}"/>
+                <attr sel=".tv-tvThumbnail-any" th:src="${tv.tvThumbnail}" />
+            <attr sel=".average"
+                  th:if="${tv.avg} != 0.0" th:text="'평균 ★ ' + (${tv.avg} != 0 ? ${tv.avg} : _)"/>
+            <attr sel="div.css-5o7sb2" th:if="${tv.tvWatch} != null and ${#strings.contains(tv.tvWatch,'aHR0cHM6Ly93YXRjaGEuY29tL3dhd')}"/>
+            <!--                왓챠 아이콘 -->
+            <attr sel="div.css-oobk33" th:if="${tv.tvWatch} != null and ${#strings.contains(tv.tvWatch,'aHR0cHM6Ly93d3cubmV0ZmxpeC5jb20vdGl0b')}"/>
+        </attr>
+    </attr>
+</thlogic>
+<!--<th:block th:each ="num : ${number.sequence(1,20)}">-->
+<!-- th:href="@{'/tv/'+${tv.tvIdx}}"-->
+<!--</th:block>-->

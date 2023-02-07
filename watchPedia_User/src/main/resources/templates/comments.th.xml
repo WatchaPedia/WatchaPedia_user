@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<thlogic>
+    <attr sel="div.css-tbg13q-CommentLists">
+        <attr sel="ul.css-10n5vg9-VisualUl" th:remove="all-but-first">
+            <attr sel="div.css-bawlbm" th:each="comment : ${commentList}" th:id="${comment.idx}">
+                <!--                코멘트 헤더부분 -->
+                <attr sel="div.css-4obf01">
+                    <attr sel="a.css-1f9m1s4-StylelessLocalLink" th:title="${comment.name}"
+                          th:href="'/user/'+${comment.user().getUserIdx()}"/>
+                    <attr sel="div.css-1agoci2" th:text="${comment.name}"/>
+                </attr>
+                <!--                코멘트 콘텐츠 부분 -->
+                <attr sel="div.css-4tkoly">
+                    <attr sel="a.css-1f9m1s4-StylelessLocalLink" th:href="'/comment/' + ${comment.idx}"/>
+                    <attr sel="span" th:text="${comment.text}"/>
+                </attr>
+                <!--                댓글, 좋아요 수 -->
+                <attr sel="em.like-sum" th:text="${comment.likeSum}"/>
+                <attr sel="em.recomm-sum" th:text="${comment.recommSum}"/>
+
+                <!--                좋아요 눌렀는지 -->
+                <attr sel="div.css-hy68ty">
+                    <attr sel="button" th:class="${comment.hasLike} == true ? 'css-jj4q3s-StylelessButton-UserActionButton' : _"/>
+                </attr>
+            </attr>
+        </attr>
+    </attr>
+</thlogic>
