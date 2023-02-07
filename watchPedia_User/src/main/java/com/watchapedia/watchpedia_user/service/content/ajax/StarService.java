@@ -4,6 +4,7 @@ import com.watchapedia.watchpedia_user.model.dto.content.MovieDto;
 import com.watchapedia.watchpedia_user.model.dto.content.ajax.StarDto;
 import com.watchapedia.watchpedia_user.model.entity.User;
 import com.watchapedia.watchpedia_user.model.entity.comment.Comment;
+import com.watchapedia.watchpedia_user.model.entity.content.Book;
 import com.watchapedia.watchpedia_user.model.entity.content.Movie;
 import com.watchapedia.watchpedia_user.model.entity.content.Tv;
 import com.watchapedia.watchpedia_user.model.entity.content.Webtoon;
@@ -16,6 +17,7 @@ import com.watchapedia.watchpedia_user.model.network.response.content.MovieRespo
 import com.watchapedia.watchpedia_user.model.network.response.content.StarResponse;
 import com.watchapedia.watchpedia_user.model.repository.comment.CommentRepository;
 import com.watchapedia.watchpedia_user.model.repository.comment.SpoilerRepository;
+import com.watchapedia.watchpedia_user.model.repository.content.BookRepository;
 import com.watchapedia.watchpedia_user.model.repository.content.MovieRepository;
 import com.watchapedia.watchpedia_user.model.repository.content.TvRepository;
 import com.watchapedia.watchpedia_user.model.repository.content.WebtoonRepository;
@@ -88,30 +90,30 @@ public class StarService {
 
         return map;
     }
-//    @Transactional(readOnly = true) //데이터를 불러오기만 할 때(수정X)
-//    public Map<String, Object> bookList(User user, Pageable pageable){
-//        Page<Book> bookPage = bookRepository.findAll(pageable);
-//        Map<String, Object> map = new HashMap<>();
-//            map.put("last",bookPage.isLast());
-//        List<EstimateContent> bookList = bookPage.stream().map(
-//                book -> {
-//                    Long bookIdx = book.getTvIdx();
-//                    return EstimateContent.of(bookIdx,book.getTvTitle(),book.getTvMakingDate(),book.getTvCountry(),book.getTvThumbnail(),
-//                            wishRepository.findByWishContentTypeAndWishContentIdxAndWishUserIdx("book",bookIdx,user.getUserIdx()) != null ? true : false,
-//                            watchRepository.findByWatchContentTypeAndWatchContentIdxAndWatchUserIdx("book",bookIdx,user.getUserIdx()) != null ? true : false,
-//                            commentRepository.findByCommContentTypeAndCommContentIdxAndCommUserIdx("book",bookIdx,user),
-//                            commentRepository.findByCommContentTypeAndCommContentIdxAndCommUserIdx("book",bookIdx,user) != null?
-//                                    (spoilerRepository.findBySpoCommentIdx(commentRepository.findByCommContentTypeAndCommContentIdxAndCommUserIdx("book",bookIdx,user).getCommIdx()) != null ? true :false) :
-//                                    false
-//                    );
-//                }
-//        ).collect(Collectors.toList());
-////        평점을 남겼던 콘텐츠, 관심없어요 한 콘텐츠라면 인덱스 삭제
-//        bookList.removeIf(book-> starRepository.findByStarContentTypeAndStarContentIdxAndStarUserIdx("book",book.idx(),user.getUserIdx())!=null
-//                || hateRepository.findByHateUserIdxAndHateContentTypeAndHateContentIdx(user.getUserIdx(),"book",book.idx())!=null);
-//        map.put("contentList", bookList);
-//        return bookList;
-//    }
+    @Transactional(readOnly = true) //데이터를 불러오기만 할 때(수정X)
+    public Map<String, Object> bookList(User user, Pageable pageable){
+        Page<Book> bookPage = bookRepository.findAll(pageable);
+        Map<String, Object> map = new HashMap<>();
+            map.put("last",bookPage.isLast());
+        List<EstimateContent> bookList = bookPage.stream().map(
+                book -> {
+                    Long bookIdx = book.getBookIdx();
+                    return EstimateContent.of(bookIdx,book.getBookTitle(),book.getBookAtDate(),book.getBookWriter(),book.getBookThumbnail(),
+                            wishRepository.findByWishContentTypeAndWishContentIdxAndWishUserIdx("book",bookIdx,user.getUserIdx()) != null ? true : false,
+                            watchRepository.findByWatchContentTypeAndWatchContentIdxAndWatchUserIdx("book",bookIdx,user.getUserIdx()) != null ? true : false,
+                            commentRepository.findByCommContentTypeAndCommContentIdxAndCommUserIdx("book",bookIdx,user),
+                            commentRepository.findByCommContentTypeAndCommContentIdxAndCommUserIdx("book",bookIdx,user) != null?
+                                    (spoilerRepository.findBySpoCommentIdx(commentRepository.findByCommContentTypeAndCommContentIdxAndCommUserIdx("book",bookIdx,user).getCommIdx()) != null ? true :false) :
+                                    false
+                    );
+                }
+        ).collect(Collectors.toList());
+//        평점을 남겼던 콘텐츠, 관심없어요 한 콘텐츠라면 인덱스 삭제
+        bookList.removeIf(book-> starRepository.findByStarContentTypeAndStarContentIdxAndStarUserIdx("book",book.idx(),user.getUserIdx())!=null
+                || hateRepository.findByHateUserIdxAndHateContentTypeAndHateContentIdx(user.getUserIdx(),"book",book.idx())!=null);
+        map.put("contentList", bookList);
+        return map;
+    }
     @Transactional(readOnly = true) //데이터를 불러오기만 할 때(수정X)
     public Map<String, Object> webList(User user, Pageable pageable){
         Page<Webtoon> webPage = webtoonRepository.findAll(pageable);
@@ -121,7 +123,7 @@ public class StarService {
                 web -> {
                     Long webIdx = web.getWebIdx();
                     Comment comm = commentRepository.findByCommContentTypeAndCommContentIdxAndCommUserIdx("webtoon",webIdx,user);
-                    return EstimateContent.of(webIdx,web.getWebTitle(),null,web.getWebWriter(),web.getWebThumbnail(),
+                    return EstimateContent.of(webIdx,web.getWebTitle(),web.getWebSerDetail(),web.getWebWriter(),web.getWebThumbnail(),
                             wishRepository.findByWishContentTypeAndWishContentIdxAndWishUserIdx("webtoon",web.getWebIdx(),user.getUserIdx())!=null?true:false,
                             watchRepository.findByWatchContentTypeAndWatchContentIdxAndWatchUserIdx("webtoon",web.getWebIdx(),user.getUserIdx())!=null?true:false,
                             comm,
@@ -146,6 +148,7 @@ public class StarService {
     private final SpoilerRepository spoilerRepository;
     private final TvRepository tvRepository;
     private final WebtoonRepository webtoonRepository;
+    private final BookRepository bookRepository;
 
     public StarResponse starSave(StarRequest request){
         Star starEntity = starRepository.findByStarContentTypeAndStarContentIdxAndStarUserIdx(
