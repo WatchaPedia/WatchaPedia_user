@@ -311,7 +311,6 @@ document.addEventListener('click', (e) => {
     // 공유창
     if(shareModal.classList.contains("on")){
         if(!shareModal.querySelector('.css-7uunky').contains(e.target)){
-            console.log(e.target)
             main.style.display = 'none';
             main.classList.add('off');
             main.classList.remove('on');

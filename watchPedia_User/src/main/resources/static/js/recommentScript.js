@@ -36,7 +36,6 @@ needLoginModal.querySelectorAll("span[data-test='clearButton']").item(1).addEven
 // 로그인모달 확인 클릭 시
 const alertModal = document.querySelector("#modal-container-h-XEqOEytZK6ag0LO6V2w")
 document.addEventListener('keydown',(e)=>{
-    console.log(e)
     if(e.key == 'Enter'){
         loginSend()
     }
@@ -250,10 +249,8 @@ try{
             inappModal.classList.add('on');
             inappModal.classList.remove('off');
             if(inapBtn.innerHTML == '부적절한 표현 신고 취소'){
-                console.log("취소")
                 inappModal.querySelector("div.css-148qwic").innerHTML = '부적절 표현 신고를 취소하시겠어요?';
             }else{
-                console.log("신고")
                 inappModal.querySelector("div.css-148qwic").innerHTML = '부적절 표현으로 신고하시겠어요?';
             }
         }
