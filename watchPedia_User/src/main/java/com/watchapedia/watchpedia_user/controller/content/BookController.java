@@ -47,8 +47,10 @@ public class BookController {
 
     @GetMapping(path="/main")
     public String book(
-            ModelMap map
+            ModelMap map, HttpSession session
     ){
+        UserSessionDto userSessionDto = (UserSessionDto) session.getAttribute("userSession");
+        map.addAttribute("userSession", userSessionDto);
         List<BookDto> books = bookService.books();
         map.addAttribute("books", books);
         return "/book/bookMain";

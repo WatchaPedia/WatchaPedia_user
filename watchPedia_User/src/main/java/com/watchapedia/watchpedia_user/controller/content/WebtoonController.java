@@ -48,8 +48,10 @@ public class WebtoonController {
 
     @GetMapping(path="/main")
     public String webtoon(
-            ModelMap map
+            ModelMap map, HttpSession session
     ){
+        UserSessionDto userSessionDto = (UserSessionDto) session.getAttribute("userSession");
+        map.addAttribute("userSession", userSessionDto);
         List<WebtoonDto> webtoons = webtoonService.webtoons();
         map.addAttribute("webtoons", webtoons);
         return "/webtoon/webtoonMain";

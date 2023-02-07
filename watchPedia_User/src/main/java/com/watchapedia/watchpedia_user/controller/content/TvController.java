@@ -51,8 +51,10 @@ public class TvController {
 
     @GetMapping(path="/main")
     public String tv(
-            ModelMap map
+            ModelMap map,HttpSession session
     ){
+        UserSessionDto userSessionDto = (UserSessionDto) session.getAttribute("userSession");
+        map.addAttribute("userSession", userSessionDto);
         List<TvDto> tvs = tvService.tvs();
         map.addAttribute("tvs", tvs);
         return "/tv/tvMain";
