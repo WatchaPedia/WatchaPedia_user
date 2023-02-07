@@ -31,7 +31,7 @@ public class PersonController {
     final WebtoonService webtoonService;
     final BookService bookService;
 
-    @GetMapping("personDetail/{perIdx}")
+    @GetMapping("/personDetail/{perIdx}")
     public String personDetail(@PathVariable Long perIdx, ModelMap map){
         PersonResponse personResponse = null;
         personResponse = personService.personView(perIdx);

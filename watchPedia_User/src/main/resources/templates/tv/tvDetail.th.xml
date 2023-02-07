@@ -150,6 +150,8 @@
             <attr sel="li.css-1xgzykb-VideoListItem" th:each="video : ${#strings.arraySplit(tv.video,'|')}">
                 <attr sel="a.css-18apgv4" th:href="${#strings.arraySplit(video,',')[0]}"/>
                 <attr sel="div.css-1fucs4t-StyledText" th:if="${#lists.size(#strings.arraySplit(video,','))} > 1" th:text="${#strings.arraySplit(video,',')[1]}"/>
+                <attr sel="span.css-bhgne5-StyledBackground" th:style="${#lists.size(#strings.arraySplit(video,','))} > 1? 'background-image: url(https://img.youtube.com/vi/' + ${#strings.arraySplit(#strings.arraySplit(video,',')[0],'v=')[1]} + '/0.jpg)'
+                    :'background-image: url(https://img.youtube.com/vi/' + ${#strings.arraySplit(video,'v=')[1]} + '/0.jpg)'"/>
             </attr>
         </attr>
     </attr>
@@ -161,6 +163,7 @@
                 <attr sel="div.css-1o7yycy-ProfilePhotoImage" th:style="${person.photo} != null ? 'background-image:url('+ ${person.photo} +');' : _"/>
                 <attr sel="div.css-17vuhtq" th:text="${person.name}"/>
                 <attr sel="div.css-1evnpxk-StyledSubtitle" th:text="${person.role}"/>
+                <attr sel=".css-1aaqvgs-InnerPartOfListWithImage" th:href="@{'/personDetail/'+${person.idx}}"/>
             </attr>
         </attr>
     </attr>

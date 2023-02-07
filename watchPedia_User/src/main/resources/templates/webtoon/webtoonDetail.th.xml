@@ -152,6 +152,7 @@
                 <attr sel="div.css-1o7yycy-ProfilePhotoImage" th:style="${person.photo} != null ? 'background-image:url('+ ${person.photo} +');' : _"/>
                 <attr sel="div.css-17vuhtq" th:text="${person.name}"/>
                 <attr sel="div.css-1evnpxk-StyledSubtitle" th:text="${person.role}"/>
+                <attr sel=".css-1aaqvgs-InnerPartOfListWithImage" th:href="@{'/personDetail/'+${person.idx}}"/>
             </attr>
         </attr>
     </attr>

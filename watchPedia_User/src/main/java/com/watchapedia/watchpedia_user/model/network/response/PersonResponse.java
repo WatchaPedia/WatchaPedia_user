@@ -19,7 +19,7 @@ public record PersonResponse(
     }
     public static PersonResponse from(PersonDto dto, String role){
         return new PersonResponse(
-                null,
+                dto.idx(),
                 dto.name(),
                 dto.photo(),
                 role,
