@@ -1,34 +1,23 @@
+// 스크롤 이벤트
 try {
-    const navbar = document.querySelector('.css-5brfx4');
-    const logo = document.querySelector('.css-1l2btz0');
-    const textList = document.querySelectorAll('.css-wb1ml1-StylelessButton');
-    const label = document.querySelector('.css-y4utrt');
-    const evaluation = document.querySelector('.css-f74c5f');
+    const navbar = document.querySelector('.css-6k8tqb');
+    const logo = document.querySelector('.css-12v09xw');
+    const textList = document.querySelectorAll('.css-q65tx9-StylelessButton');
+    const selectText = document.querySelector('button.css-x6oby2-StylelessButton');
+    const label = document.querySelector('.css-kyr608');
+    const evaluation = document.querySelector('.css-1kqg656');
     const navbarHeight = navbar.getBoundingClientRect().height;
+    const loginBtn = document.querySelector("button.css-fn0ezc-StylelessButton")
+    const signup = document.querySelector("button.css-139vxi-StylelessButton")
     document.addEventListener('scroll', () => { // 스크롤시 이벤트 발생
-        if (window.scrollY > (navbarHeight * 2)) { // 스크롤을 navbar 높이의 두배만큼 내렸을때 navbar--bold 클래스 추가
-            navbar.classList.remove('css-5brfx4');
-            navbar.classList.add('css-6k8tqb');
-
-            logo.classList.remove('css-1l2btz0');
-            logo.classList.add('css-12v09xw');
-
-            for (const text of textList) {
-                text.classList.remove('css-wb1ml1-StylelessButton');
-                text.classList.add('css-q65tx9-StylelessButton');
-            }
-
-            label.classList.remove('css-y4utrt');
-            label.classList.add('css-kyr608');
-            evaluation.classList.remove('css-f74c5f');
-            evaluation.classList.add('css-1kqg656');
-        } else {
+        if (window.scrollY < (navbarHeight * 2)) {
             navbar.classList.remove('css-6k8tqb');
             navbar.classList.add('css-5brfx4');
 
             logo.classList.remove('css-12v09xw');
             logo.classList.add('css-1l2btz0');
 
+            selectText.setAttribute("style",'color:rgba(255, 255, 255, 0.7);')
             for (const text of textList) {
                 text.classList.remove('css-q65tx9-StylelessButton');
                 text.classList.add('css-wb1ml1-StylelessButton');
@@ -37,8 +26,38 @@ try {
             label.classList.remove('css-kyr608');
             label.classList.add('css-y4utrt');
 
-            evaluation.classList.remove('css-1kqg656');
-            evaluation.classList.add('css-f74c5f');
+            if(document.querySelector("#login-idx")) {
+                evaluation.classList.remove('css-1kqg656');
+                evaluation.classList.add('css-f74c5f');
+            }else{
+                loginBtn.setAttribute("style",'color:rgba(255, 255, 255, 0.7);')
+                signup.setAttribute('style','border:1px solid rgba(255, 255, 255, 0.25);' +
+                    'color: rgba(255, 255, 255, 0.7);');
+            }
+        } else { // 스크롤을 navbar 높이의 두배만큼 내렸을때 navbar--bold 클래스 추가
+            navbar.classList.remove('css-5brfx4');
+            navbar.classList.add('css-6k8tqb');
+
+            logo.classList.remove('css-1l2btz0');
+            logo.classList.add('css-12v09xw');
+
+            selectText.setAttribute("style",'color:#353535;')
+            for (const text of textList) {
+                text.classList.remove('css-wb1ml1-StylelessButton');
+                text.classList.add('css-q65tx9-StylelessButton');
+            }
+
+            label.classList.remove('css-y4utrt');
+            label.classList.add('css-kyr608');
+
+            if(document.querySelector("#login-idx")){
+                evaluation.classList.remove('css-f74c5f');
+                evaluation.classList.add('css-1kqg656');
+            }else{
+                loginBtn.setAttribute("style",'color:#74747b')
+                signup.setAttribute('style','border:1px solid rgba(116,116,123,0.5);' +
+                    'color: #353535;');
+            }
         }
     })
 }catch(Exception){console.log("로그인안됨")}

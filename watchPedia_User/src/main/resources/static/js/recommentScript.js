@@ -529,7 +529,6 @@ try{
             myCommentModal.querySelectorAll("div.css-19pxr9t").item(1).querySelectorAll("button").item(1).classList.add('css-r2q33l-StylelessButton')
             myCommentModal.querySelectorAll("div.css-19pxr9t").item(1).querySelectorAll("button").item(1).classList.remove('css-1id6jxk-StylelessButton');
         }
-        console.log(myCommentText)
         myCommentModal.querySelector("p.css-ynpx67").innerHTML = myCommentText.length + "/10000";
     })
 }catch(Exception){
@@ -608,26 +607,26 @@ try{
 const recommentReportModal = document.querySelector("div#modal-container-fZgqMYLrh3NKQOcVpt4wk");
 
 document.addEventListener("click",(e)=>{
-    let recomment = document.querySelectorAll('section#recomment-list div.css-1m1whp6');
+    let recomment = document.querySelectorAll('section div.css-1m1whp6');
     for(let idx of recomment){
         if(idx.querySelector('.css-1b4hoch-SVG').contains(e.target)){
             if(idx.querySelector('.css-aa3xw')){
                 idx.querySelector('.css-aa3xw').classList.add('css-1pfl1eu');
                 idx.querySelector('.css-aa3xw').classList.remove('css-aa3xw');
-            }else {
-                idx.querySelector('.css-1pfl1eu').classList.add('css-aa3xw');
-                idx.querySelector('.css-1pfl1eu').classList.remove('css-1pfl1eu');
                 recommentIdx = idx.id;
                 recommentText = idx.querySelector("div.css-yb0jaq");
                 recommentUserIdx = idx.querySelector("a.css-255jr8").href.split("/user/")[1]
                 recommentBtn = idx.querySelector("div.css-19hkid5");
+            }else {
+                idx.querySelector('.css-1pfl1eu').classList.add('css-aa3xw');
+                idx.querySelector('.css-1pfl1eu').classList.remove('css-1pfl1eu');
             }
         }
 
         // 리코멘트 좋아요
-        if(idx.querySelector("div.css-199ku80>div.css-ov1ktg>div").contains(e.target)){
+        if(idx.querySelectorAll("div.css-199ku80 div.css-ov1ktg>div").item(0).contains(e.target)){
             if(document.querySelector("#login-idx")){
-                let btn = idx.querySelector("div.css-199ku80>div.css-ov1ktg>div")
+                let btn = idx.querySelectorAll("div.css-199ku80>div.css-ov1ktg>div").item(0)
                 let likeSum = btn.querySelector("h4.like-sum").innerHTML
                 $.ajax({
                     url: '/comment/recomment/like/save',
@@ -1070,11 +1069,26 @@ if(document.querySelector("div.css-5hpf69")){
                     appendComm.querySelector('div.css-maxfbg').innerHTML = idx.regDate;
                     appendComm.querySelectorAll('a.css-255jr8').item(0).href = `/user/${idx.userIdx}`;
                     appendComm.querySelectorAll('a.css-255jr8').item(1).href = `/user/${idx.userIdx}`;
+                    let btn = appendComm.querySelectorAll("div.css-199ku80>div.css-ov1ktg>div").item(0);
+                    if(idx.like.length > 0){
+                        appendComm.querySelector("h4.like-sum").innerHTML = idx.like.length;
+                        if(idx.hasLike){
+                            btn.querySelector("svg").dataset.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQiIGhlaWdodD0iMTQiIHZpZXdCb3g9IjAgMCAxNCAxNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xLjc1IDEyLjU0MTdINC42NjY2N1Y1LjU0MTc1SDEuNzVWMTIuNTQxN1oiIGZpbGw9IiNGRjJGNkUiLz4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xMi4xOTQ1IDUuMDA1MzZDMTEuOTMxMyA0LjcwMjg0IDExLjU1MiA0LjUyOTA3IDExLjE1MzkgNC41MjkwN0g5LjgxOTQyQzkuOTg4NTcgNC4xMTMzOSAxMC4wNTg2IDMuNjcwNTggMTAuMDU4NiAzLjA4MTEyQzEwLjA1ODYgMS45NjA1MyA5LjI1NDk5IDEuNDU4MjUgOC40NTc2MiAxLjQ1ODI1QzguMjAwMTggMS40NTgyNSA4LjAwNDgyIDEuNTMyNzMgNy44NzY2NyAxLjY3OTk1QzcuNzU1OTMgMS44MTg1MSA3LjcwOTIyIDIuMDAzMjUgNy43MzQ4NSAyLjE5MjA0VjIuODY0MDVDNy43MzQ4NSAyLjkyNTgyIDcuNzEwMzYgMi45ODcwMiA3LjY2NjUxIDMuMDMwOUw2LjA2Mzc4IDQuNjU2MDhDNS43MTc1IDUuMDA2NTIgNS41NDE1IDUuMzc0MjggNS41NDE1IDUuNzQ4OTZWMTEuNjY2NkgxMC4zMTYxQzExLjAxMzIgMTEuNjY2NiAxMS42MDUgMTEuMTM4MyAxMS42ODkzIDEwLjQ1NjVMMTIuNTMwNSA2LjExMjFDMTIuNTgwNiA1LjcxMjAxIDEyLjQ1ODIgNS4zMDg0NiAxMi4xOTQ1IDUuMDA1MzZaIiBmaWxsPSIjRkYyRjZFIi8+Cjwvc3ZnPgo=';
+                            btn.querySelectorAll("svg path").item(0).setAttribute('fill','#FF2F6E');
+                            btn.querySelectorAll("svg path").item(1).setAttribute('fill','#FF2F6E');
+                            btn.querySelectorAll("svg path").item(1).setAttribute('d','M12.1945 5.00536C11.9313 4.70284 11.552 4.52907 11.1539 4.52907H9.81942C9.98857 4.11339 10.0586 3.67058 10.0586 3.08112C10.0586 1.96053 9.25499 1.45825 8.45762 1.45825C8.20018 1.45825 8.00482 1.53273 7.87667 1.67995C7.75593 1.81851 7.70922 2.00325 7.73485 2.19204V2.86405C7.73485 2.92582 7.71036 2.98702 7.66651 3.0309L6.06378 4.65608C5.7175 5.00652 5.5415 5.37428 5.5415 5.74896V11.6666H10.3161C11.0132 11.6666 11.605 11.1383 11.6893 10.4565L12.5305 6.1121C12.5806 5.71201 12.4582 5.30846 12.1945 5.00536Z');
+                            btn.classList.add('css-jpkqok');
+                            btn.classList.remove('css-1d8juai');
+                        }
+                    }
                     if(document.querySelector("#login-idx")){
                         if(idx.userIdx == document.querySelector("#login-idx").title){
                             $(appendComm).find('div.recomment').remove();
                         } else{
                             $(appendComm).find('div.recomment-edit').remove();
+                            if(idx.hasReport){
+                                appendComm.querySelector("div.recomment div.css-19hkid5").innerHTML = '부적절한 표현 신고 취소';
+                            }
                         }
                     }else{
                         $(appendComm).find('div.recomment-edit').remove();
