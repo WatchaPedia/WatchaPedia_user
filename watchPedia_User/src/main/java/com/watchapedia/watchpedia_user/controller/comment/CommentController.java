@@ -84,7 +84,9 @@ public class CommentController {
     ){
         UserSessionDto dto = (UserSessionDto) session.getAttribute("userSession");
         CommentResponse comment = commentService.findComment(commentIdx, dto!=null?dto.userIdx():null, pageable);
-
+        System.out.println("아이디엑스 : "+comment.recomment().getContent().get(0).idx());
+        System.out.println("유저 : "+comment.recomment().getContent().get(0).userIdx());
+        System.out.println("유저 : "+comment.recomment().getContent().get(0).name());
         switch (comment.contentType()){
             case "movie" -> {
                 MovieResponse content =movieService.movieView(comment.contentIdx());
@@ -119,7 +121,7 @@ public class CommentController {
             HttpSession session
     ){
         UserSessionDto dto = (UserSessionDto) session.getAttribute("userSession");
-        CommentResponse comment = commentService.findComment(commentIdx, dto.userIdx(), pageable);
+        CommentResponse comment = commentService.findComment(commentIdx, dto!=null? dto.userIdx():null, pageable);
         Map<String, Object> mv = new HashMap<>();
 
         mv.put("comment", comment.recomment());

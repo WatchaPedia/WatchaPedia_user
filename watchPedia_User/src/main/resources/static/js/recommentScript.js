@@ -28,36 +28,43 @@ document.addEventListener("click",(e)=>{
 },true)
 // 로그인모달 value 초기화
 needLoginModal.querySelectorAll("span[data-test='clearButton']").item(0).addEventListener('click',()=>{
-    needLoginModal.querySelector("input[name='email']").value = null
+    needLoginModal.querySelector("input[name='userEmail']").value = null
 })
 needLoginModal.querySelectorAll("span[data-test='clearButton']").item(1).addEventListener('click',()=>{
-    needLoginModal.querySelector("input[name='password']").value = null
+    needLoginModal.querySelector("input[name='userPw']").value = null
 })
 // 로그인모달 확인 클릭 시
 const alertModal = document.querySelector("#modal-container-h-XEqOEytZK6ag0LO6V2w")
-needLoginModal.querySelector("button.css-qr0uqd-StylelessButton").addEventListener('click',()=>{
+document.addEventListener('keydown',(e)=>{
+    console.log(e)
+    if(e.key == 'Enter'){
+        loginSend()
+    }
+})
+needLoginModal.querySelector("button.css-qr0uqd-StylelessButton").addEventListener('click',loginSend)
+function loginSend() {
     $.ajax({
-        url:"/user/signup/ajax",
+        url: "/user/signup/ajax",
         headers: {'Content-Type': 'application/json;charset=UTF-8'},
         data: JSON.stringify({
-            userEmail:document.querySelector("input[name='userEmail']").value,
-            userPw:document.querySelector("input[name='userPw']").value
+            userEmail: document.querySelector("input[name='userEmail']").value,
+            userPw: document.querySelector("input[name='userPw']").value
         }),
         type: 'POST',
         dataType: 'json',
-        success:function(result){
-            if(result){
+        success: function (result) {
+            if (result) {
                 location.reload();
-            }else{
+            } else {
                 alertModal.style.display = 'block';
                 alertModal.classList.add('on');
                 alertModal.classList.remove('off');
             }
-        },error:function(){
+        }, error: function () {
 
         }
     })
-})
+}
 alertModal.querySelector("button.css-sfhtz9-StylelessButton").addEventListener('click',()=>{
     alertModal.style.display = 'none';
     alertModal.classList.add('off');
@@ -603,25 +610,25 @@ try{
 // recomment 신고버튼
 const recommentReportModal = document.querySelector("div#modal-container-fZgqMYLrh3NKQOcVpt4wk");
 
-function recommentList(){
+document.addEventListener("click",(e)=>{
     let recomment = document.querySelectorAll('section#recomment-list div.css-1m1whp6');
     for(let idx of recomment){
-        idx.querySelector('.css-1b4hoch-SVG').addEventListener('click', function (e) {
+        if(idx.querySelector('.css-1b4hoch-SVG').contains(e.target)){
             if(idx.querySelector('.css-aa3xw')){
                 idx.querySelector('.css-aa3xw').classList.add('css-1pfl1eu');
                 idx.querySelector('.css-aa3xw').classList.remove('css-aa3xw');
+            }else {
+                idx.querySelector('.css-1pfl1eu').classList.add('css-aa3xw');
+                idx.querySelector('.css-1pfl1eu').classList.remove('css-1pfl1eu');
                 recommentIdx = idx.id;
                 recommentText = idx.querySelector("div.css-yb0jaq");
                 recommentUserIdx = idx.querySelector("a.css-255jr8").href.split("/user/")[1]
                 recommentBtn = idx.querySelector("div.css-19hkid5");
-            }else {
-                idx.querySelector('.css-1pfl1eu').classList.add('css-aa3xw');
-                idx.querySelector('.css-1pfl1eu').classList.remove('css-1pfl1eu');
             }
-        })
+        }
 
         // 리코멘트 좋아요
-        idx.querySelector("div.css-199ku80>div.css-ov1ktg>div").addEventListener('click',()=>{
+        if(idx.querySelector("div.css-199ku80>div.css-ov1ktg>div").contains(e.target)){
             if(document.querySelector("#login-idx")){
                 let btn = idx.querySelector("div.css-199ku80>div.css-ov1ktg>div")
                 let likeSum = btn.querySelector("h4.like-sum").innerHTML
@@ -657,10 +664,9 @@ function recommentList(){
                     }
                 });
             }else{loginModalOn()}
-        })
+        }
     }
-}
-window.onload = recommentList();
+})
 
 const recommDelModal = document.querySelector("#modal-container-yjYuIgAkMjkq6O8ZPy5vn");
 document.addEventListener('click',(e)=>{
@@ -1017,6 +1023,7 @@ function recommentSave(){
                     appendComm.querySelector('div.css-maxfbg').innerHTML = data.regDate;
                     appendComm.querySelectorAll('a.css-255jr8').item(0).href = `/user/${data.userIdx.userIdx}`;
                     appendComm.querySelectorAll('a.css-255jr8').item(1).href = `/user/${data.userIdx.userIdx}`;
+                    $(appendComm).find('div.recomment').remove();
                     // document.querySelector("section#recomment-list div.css-0").appendChild(appendComm);
                     document.querySelector("section#recomment-list div.css-0").insertBefore(appendComm,document.querySelector("section#recomment-list div.css-0 div.css-1m1whp6"));
                 }catch{
@@ -1030,13 +1037,11 @@ function recommentSave(){
                     appendComm.querySelector('div.css-maxfbg').innerHTML = data.regDate;
                     appendComm.querySelectorAll('a.css-255jr8').item(0).href = `/user/${data.userIdx.userIdx}`;
                     appendComm.querySelectorAll('a.css-255jr8').item(1).href = `/user/${data.userIdx.userIdx}`;
+                    $(appendComm).find('div.recomment').remove();
                     containerNone.insertBefore(appendComm, document.querySelector("section#recomment-list-none div.css-1m1whp6:first-of-type"));
                 }
             },error: function() {
                 alert("에러발생!")
-            },
-            complete: function(){
-                recommentList();
             }
         })
     }
@@ -1058,7 +1063,6 @@ if(document.querySelector("div.css-5hpf69")){
             },
             complete:function(){
                 loadingIcon.style.display='none'
-                recommentList();
             },
             success: function(data){
                 for(let idx of data.comment.content){
@@ -1067,8 +1071,17 @@ if(document.querySelector("div.css-5hpf69")){
                     appendComm.querySelector('div.css-yb0jaq').innerHTML = idx.text;
                     appendComm.querySelector('div.css-72k174').innerHTML = idx.name;
                     appendComm.querySelector('div.css-maxfbg').innerHTML = idx.regDate;
-                    appendComm.querySelectorAll('a.css-255jr8').item(0).href = `/user/${idx.userIdx.userIdx}`;
-                    appendComm.querySelectorAll('a.css-255jr8').item(1).href = `/user/${idx.userIdx.userIdx}`;
+                    appendComm.querySelectorAll('a.css-255jr8').item(0).href = `/user/${idx.userIdx}`;
+                    appendComm.querySelectorAll('a.css-255jr8').item(1).href = `/user/${idx.userIdx}`;
+                    if(document.querySelector("#login-idx")){
+                        if(idx.userIdx == document.querySelector("#login-idx").title){
+                            $(appendComm).find('div.recomment').remove();
+                        } else{
+                            $(appendComm).find('div.recomment-edit').remove();
+                        }
+                    }else{
+                        $(appendComm).find('div.recomment-edit').remove();
+                    }
                     document.querySelector("section#recomment-list div.css-0").insertBefore(appendComm,document.querySelector("section#recomment-list div.css-0 div.css-1m1whp6"));
                 }
                 if(data.comment.last == true){
