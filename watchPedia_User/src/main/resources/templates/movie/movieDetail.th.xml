@@ -147,6 +147,8 @@
                 <attr sel="a.css-18apgv4" th:href="${#strings.arraySplit(video,',')[0]}"/>
                 <attr sel="div.css-1fucs4t-StyledText" th:if="${#lists.size(#strings.arraySplit(video,','))} > 1"
                       th:text="${#strings.arraySplit(video,',')[1]}" />
+                <attr sel="span.css-bhgne5-StyledBackground" th:style="${#lists.size(#strings.arraySplit(video,','))} > 1? 'background-image: url(https://img.youtube.com/vi/' + ${#strings.arraySplit(#strings.arraySplit(video,',')[0],'v=')[1]} + '/0.jpg)'
+                    :'background-image: url(https://img.youtube.com/vi/' + ${#strings.arraySplit(video,'v=')[1]} + '/0.jpg)'"/>
             </attr>
         </attr>
     </attr>
