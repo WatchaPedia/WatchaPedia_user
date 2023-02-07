@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<thlogic>
+    <attr sel="#titleName" th:text="${person.name} + ' - 왓챠피디아'" />
+    <attr sel="#titleHeader" th:title="${person.name}" />
+    <attr sel="#personPhoto" th:style="'position: relative; z-index: 1; background:url('+${person.photo}+'); background-size: cover; width: 100%; height: 100%;'" />
+    <attr sel="#personName" th:text="${person.name}" />
+    <attr sel="#perRole" th:text="${person.role}" />
+
+    <attr sel="#biographyWrap" th:if="${person.biography}">
+        <attr sel="#biotext" th:text="${person.biography}" />
+    </attr>
+
+    <attr sel="#personIdx" th:value="${person.idx}" />
+
+
+
+    <!--  영화  -->
+    <attr sel="#movframe" th:if="${movShow}">
+        <attr sel="#movieList" th:each="movie : ${movie}">
+            <attr sel="div#movdata" th:text="${movie.makingDate}"/>
+            <attr sel="img#movpos" th:src="${movie.thumbnail}"/>
+            <attr sel="#movieTitle" th:text="${movie.title}" />
+            <attr sel="div#movRole" th:text="${movie.movRole}" />
+            <attr sel="span#moviePoint" th:text="${movie.starAvg}" />
+            <attr sel="div#moWatcha" th:if="${movie.isWatcha}" />
+            <attr sel="div#moNetflix" th:if="${movie.isNetflix}" />
+        </attr>
+
+        <attr sel="div#morebtn" th:if="${movMoreShow}" />
+    </attr>
+
+
+
+    <!--  tv  -->
+    <attr sel="#tvframe" th:if="${tvShow}">
+        <attr sel="#tvList" th:each="tv : ${tv}">
+            <attr sel="div#tvdata" th:text="${tv.makingDate}"/>
+            <attr sel="img#tvpos" th:src="${tv.thumbnail}"/>
+            <attr sel="#tvTitle" th:text="${tv.title}" />
+            <attr sel="div#tvRole" th:text="${tv.tvRole}" />
+            <attr sel="span#tvPoint" th:text="${tv.starAvg}" />
+            <attr sel="div#tvWatcha" th:if="${tv.isWatcha}" />
+            <attr sel="div#tvNetflix" th:if="${tv.isNetflix}" />
+        </attr>
+
+        <attr sel="div#tvmorebtn" th:if="${tvMoreShow}" />
+    </attr>
+
+
+
+
+    <!--  webtoon  -->
+    <attr sel="#webtoonframe" th:if="${webtoonShow}">
+        <attr sel="#webtoonList" th:each="webtoon : ${webtoon}">
+            <attr sel="div#webtoondata" th:text="${webtoon.serDetail}"/>
+            <attr sel="img#webtoonpos" th:src="${webtoon.thumbnail}"/>
+            <attr sel="#webtoonTitle" th:text="${webtoon.title}" />
+            <attr sel="div#webtoonRole" th:text="${webtoon.webtoonRole}" />
+            <attr sel="span#webtoonPoint" th:text="${webtoon.starAvg}" />
+            <attr sel="div#webtoonWatcha" th:if="${webtoon.isWatcha}" />
+            <attr sel="div#webtoonNetflix" th:if="${webtoon.isNetflix}" />
+        </attr>
+        <attr sel="div#webtoonmorebtn" th:if="${webtoonMoreShow}" />
+    </attr>
+
+
+
+    <!--  book  -->
+    <attr sel="#bookframe" th:if="${bookShow}">
+        <attr sel="#bookList" th:each="book : ${book}">
+            <attr sel="div#bookdata" th:text="${book.makingDate}"/>
+            <attr sel="img#bookpos" th:src="${book.thumbnail}"/>
+            <attr sel="#bookTitle" th:text="${book.title}" />
+            <attr sel="div#bookRole" th:text="${book.bookRole}" />
+            <attr sel="span#bookPoint" th:text="${book.starAvg}" />
+        </attr>
+        <attr sel="div#bookmorebtn" th:if="${bookMoreShow}" />
+    </attr>
+
+
+    <!-- side bar   -->
+    <attr sel="#movieSideBar" th:if="${movShow}"/>
+    <attr sel="#tvSideBar" th:if="${tvShow}"/>
+    <attr sel="#webtoonSideBar" th:if="${webtoonShow}"/>
+    <attr sel="#bookSideBar" th:if="${bookShow}"/>
+
+</thlogic>
+
+

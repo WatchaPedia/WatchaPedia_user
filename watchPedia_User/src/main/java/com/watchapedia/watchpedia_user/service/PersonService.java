@@ -25,4 +25,11 @@ public class PersonService {
         return personList;
     }
 
+    //사용자-인물페이지--------------------------------------------------------------------------------------------------------
+    @Transactional(readOnly = true)
+    public PersonResponse personView(Long perIdx){
+        PersonDto per = personRepository.findById(perIdx).map(PersonDto::from).get();
+        return PersonResponse.fromis(per);
+    }
+
 }

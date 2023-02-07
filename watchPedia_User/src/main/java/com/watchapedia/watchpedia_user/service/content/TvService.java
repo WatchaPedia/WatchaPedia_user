@@ -6,6 +6,7 @@ import com.watchapedia.watchpedia_user.model.entity.content.Tv;
 import com.watchapedia.watchpedia_user.model.entity.content.ajax.Star;
 import com.watchapedia.watchpedia_user.model.network.response.content.TvResponse;
 import com.watchapedia.watchpedia_user.model.repository.content.TvRepository;
+import com.watchapedia.watchpedia_user.model.repository.content.ajax.StarRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,7 +16,7 @@ import java.util.*;
 @Service
 @RequiredArgsConstructor
 public class TvService {
-
+    final StarRepository starRepository;
     final TvRepository tvRepository;
     @Transactional(readOnly = true)
     public TvResponse tvView(Long tvIdx){
@@ -86,6 +87,60 @@ public class TvService {
             result.add(TvDto.from(tv, avg));
         }
         return result;
+    }
+    //----------------------------------------------------------------------------------------------------
+
+    @Transactional(readOnly = true)
+    public TvResponse tvWithRole(Long tvIdx, Long perIdx){
+        TvDto tv = tvRepository.findById(tvIdx).map(TvDto::from).get();
+
+        List<Star> starResponseList = starRepository.findByStarContentTypeAndStarContentIdx("Tv", tv.tvIdx());
+        int starCount= starResponseList.size();
+        int starPoint = 0;
+        for(Star star : starResponseList){
+            starPoint = starPoint + (star.getStarPoint()).intValue();
+        }
+        float starAvg = 0;
+        if(starCount != 0){
+            starAvg = (float) Math.round(starPoint / starCount);
+        }
+
+        boolean isWatcha = false;
+        boolean isNetflix = false;
+
+        try{
+            if(!tv.tvWatch().isEmpty()){
+                String[] tvWatch = tv.tvWatch().split(",");
+                for(String tvWatchs : tvWatch){
+                    if(tvWatchs.contains("aHR0cHM6Ly93YXRjaGEuY29tL3dhdGNoL21")){
+                        isWatcha = true;
+                    }
+                    if(tvWatchs.contains("aHR0cHM6Ly93d3cubmV0ZmxpeC5jb20vdGl0bGUvOD")){
+                        isNetflix = true;
+                    }
+                }
+
+            }
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
+
+
+
+        int num = tv.tvPeople().indexOf(String.valueOf(perIdx));  // 특정문자 => 문자열로 변환 => 동일한 부분을 찾기(영화 사람에서) => 결과를 인덱스로 반환 => 다시 숫자형으로 변환
+        String tvPersonRole = tv.tvPeople().substring(num+1);  // 숫자 + ( 이후이므로 +1를 함 => (시작번을 포함해서)부터 자르기 => 00 | 00), 숫자(00 | 00)
+        String role2 = "";
+        String role3 = "";
+        String role = "";
+        if(tvPersonRole.length() > -1){
+            String[] tvRoles = tvPersonRole.split("\\)");     // String 안에 이스케이프 문자인 \를 써 주려면 \\라고 써 줘야 한다. 따라서 \\라고 쓰는 것이다. 그래서 \\)이라고 쓰면 정규식 쪽에서는 \)라고 인식을 하고 실제 )을 찾게 되는 것
+            role2 = tvRoles[0];
+            String[] tvRoles2 = role2.split("\\|");
+            role3 = tvRoles2[0];
+            String[] tvRoles3 = role3.split("\\(");
+            role = tvRoles3[1];
+        }
+        return TvResponse.fromis(tv, role, starAvg, isWatcha, isNetflix);
     }
 
 }

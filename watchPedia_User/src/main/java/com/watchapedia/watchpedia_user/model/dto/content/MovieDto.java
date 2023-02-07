@@ -4,6 +4,7 @@ import com.watchapedia.watchpedia_user.model.entity.content.Movie;
 import com.watchapedia.watchpedia_user.model.entity.content.ajax.Star;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public record MovieDto(
         Long movIdx,
@@ -90,6 +91,36 @@ public record MovieDto(
                 entity.getMovBackImg(),
                 entity.getStar(),
                 avg
+        );
+    }
+    public static MovieDto fromis(Movie entity){
+        return new MovieDto(
+                entity.getMovIdx(),
+                entity.getMovThumbnail(),
+                entity.getMovTitle(),
+                entity.getMovTitleOrg(),
+                entity.getMovMakingDate(),
+                entity.getMovCountry(),
+                entity.getMovGenre(),
+                entity.getMovTime(),
+                entity.getMovAge(),
+                entity.getMovPeople(),
+                entity.getMovSummary(),
+                entity.getMovGallery(),
+                entity.getMovVideo(),
+                entity.getMovWatch(),
+                entity.getMovBackImg(),
+                (List<Star>) entity.getStar().stream().map(star -> {
+                    if(star.getStarContentIdx() == entity.getMovIdx()
+                            && star.getStarContentType().equals("영화")
+                    ){
+                        return star;
+                    }
+                    else{
+                        return null;
+                    }
+                }).collect(Collectors.toList()),
+                0
         );
     }
 }

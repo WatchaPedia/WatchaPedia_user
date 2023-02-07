@@ -14,4 +14,8 @@ public interface StarRepository extends JpaRepository<Star, Long> {
     );
 
     List<Star> findByStarContentTypeAndStarUserIdx(String contentType, Long userIdx);
+
+    List<Star> findByStarContentTypeAndStarContentIdx(
+            String starContentType, Long starContentIdx
+    );
 }
