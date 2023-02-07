@@ -144,11 +144,12 @@ document.addEventListener('click', (e) => {
             // 코멘트 좋아요 클릭
             let commentIdx = comm.querySelector("div.css-ob93md a").href.split("/comment/")[1];
             let likeSum = parseInt(comm.querySelector("em.like-sum").innerHTML);
+
             $.ajax({
                 url: '/comment/like/save',
                 headers: {'Content-Type': 'application/json;charset=UTF-8'},
                 data: JSON.stringify({           // HTTP 요청과 함께 서버로 보낼 데이터
-                    userIdx: loginIdx,
+                    userIdx: document.querySelector("#login-idx").title,
                     commentIdx: commentIdx
                 }),
                 type: 'POST',           // HTTP 요청 방식(GET, POST)
