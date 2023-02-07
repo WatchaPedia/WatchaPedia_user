@@ -7,6 +7,8 @@
             <attr sel=".book-idx" th:text="${book.bookIdx}"/>
             <attr sel=".book-title" th:text="${book.bookTitle}"/>
             <attr sel=".book-img" th:src="${book.bookThumbnail}" />
+            <attr sel=".average"
+                  th:if="${book.avg} != 0.0" th:text="'평균 ★ ' + (${book.avg} != 0 ? ${book.avg} : _)"/>
         </attr>
     </attr>
 
