@@ -220,7 +220,6 @@ function addList() {
             loadingIcon.style.display='none'
         },
         success: function (data) {
-            console.log(data)
             for (let idx of data.commentList.content) {
                 if(idx.spoiler == true){
                     let appendLi = spoilerLi.cloneNode(true)
