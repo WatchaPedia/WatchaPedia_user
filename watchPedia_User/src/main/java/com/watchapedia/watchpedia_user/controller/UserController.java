@@ -50,7 +50,6 @@ public class UserController {
     @ResponseBody
     public boolean loginOk(@RequestBody UserRequestDto userRequestDto, HttpSession session) throws IOException {
         userRequestDto = userService.login(userRequestDto);
-        System.out.println("진입완료" + userRequestDto);
         if(userRequestDto != null){
             User user = userService.findEmail(userRequestDto.userEmail());
             UserSessionDto userSessionDto = UserSessionDto.from(user);
