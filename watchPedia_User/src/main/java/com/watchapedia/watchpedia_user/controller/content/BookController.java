@@ -2,6 +2,7 @@ package com.watchapedia.watchpedia_user.controller.content;
 
 
 import com.watchapedia.watchpedia_user.model.dto.UserSessionDto;
+import com.watchapedia.watchpedia_user.model.dto.comment.CommentDto;
 import com.watchapedia.watchpedia_user.model.dto.content.BookDto;
 import com.watchapedia.watchpedia_user.model.entity.content.ajax.Star;
 import com.watchapedia.watchpedia_user.model.network.response.PersonResponse;
@@ -10,6 +11,7 @@ import com.watchapedia.watchpedia_user.model.network.response.content.BookRespon
 import com.watchapedia.watchpedia_user.model.network.response.content.StarResponse;
 import com.watchapedia.watchpedia_user.model.repository.UserRepository;
 import com.watchapedia.watchpedia_user.model.repository.comment.CommentRepository;
+import com.watchapedia.watchpedia_user.model.repository.comment.SpoilerRepository;
 import com.watchapedia.watchpedia_user.service.PersonService;
 import com.watchapedia.watchpedia_user.service.comment.CommentService;
 import com.watchapedia.watchpedia_user.service.content.BookService;
@@ -44,6 +46,7 @@ public class BookController {
     private final WatchService watchService;
     private final HateService hateService;
     private final CommentService commentService;
+    private final SpoilerRepository spoilerRepository;
 
     @GetMapping(path="/main")
     public String book(
@@ -107,11 +110,11 @@ public class BookController {
         boolean hasHate = false;
         Page<CommentResponse> commentList = commentService.commentList("book", book.idx(), dto != null ? dto.userIdx() : null, pageable);
         if (dto != null) {
-            for (CommentResponse comm : commentList) {
-                if (comm.user().getUserIdx() == dto.userIdx()) {
-                    hasComm = comm;
-                }
-            }
+            CommentDto commDto = CommentDto.from(commentRepository.findByCommContentTypeAndCommContentIdxAndCommUserIdx(
+                    "book", book.idx(), userRepository.getReferenceById(dto.userIdx())
+            ));
+            hasComm = CommentResponse.from(commDto,spoilerRepository.findBySpoCommentIdx(commDto.idx())!=null?true:false,
+                    0,0L,false);
 
             hasWish = wishService.findWish("book", book.idx(), dto.userIdx());
             hasWatch = watchService.findWatch("book", book.idx(), dto.userIdx());
