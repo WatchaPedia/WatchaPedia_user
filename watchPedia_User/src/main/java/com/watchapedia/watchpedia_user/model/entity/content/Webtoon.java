@@ -1,5 +1,6 @@
 package com.watchapedia.watchpedia_user.model.entity.content;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.watchapedia.watchpedia_user.model.entity.content.ajax.Star;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -40,6 +41,7 @@ public class Webtoon {
 //    private String webMakingDate;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "starContentIdx")
+    @JsonIgnore
     private List<Star> star;
 
 }

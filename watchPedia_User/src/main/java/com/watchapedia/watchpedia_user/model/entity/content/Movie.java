@@ -1,5 +1,6 @@
 package com.watchapedia.watchpedia_user.model.entity.content;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.watchapedia.watchpedia_user.model.entity.content.ajax.Star;
 import com.watchapedia.watchpedia_user.model.entity.content.ajax.Watch;
 import com.watchapedia.watchpedia_user.model.entity.content.ajax.Wish;
@@ -36,5 +37,6 @@ public class Movie {
     private String movBackImg;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "starContentIdx")
+    @JsonIgnore
     private List<Star> star;
 }

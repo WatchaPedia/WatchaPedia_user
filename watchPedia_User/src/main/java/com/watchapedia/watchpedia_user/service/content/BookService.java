@@ -6,6 +6,7 @@ import com.watchapedia.watchpedia_user.model.entity.content.Book;
 import com.watchapedia.watchpedia_user.model.entity.content.ajax.Star;
 import com.watchapedia.watchpedia_user.model.network.response.content.BookResponse;
 import com.watchapedia.watchpedia_user.model.repository.content.BookRepository;
+import com.watchapedia.watchpedia_user.model.repository.content.ajax.StarRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,7 +16,7 @@ import java.util.*;
 @Service
 @RequiredArgsConstructor
 public class BookService {
-
+    final StarRepository starRepository;
     final BookRepository bookRepository;
     @Transactional(readOnly = true)
     public BookResponse bookView(Long bookIdx){
@@ -85,5 +86,36 @@ public class BookService {
             result.add(BookDto.from(book, avg));
         }
         return result;
+    }
+
+
+    @Transactional(readOnly = true)
+    public BookResponse bookWithRole(Long bookIdx, Long perIdx){
+        BookDto book = bookRepository.findById(bookIdx).map(BookDto::from).get();
+
+        List<Star> starResponseList = starRepository.findByStarContentTypeAndStarContentIdx("book", book.bookIdx());
+        int starCount= starResponseList.size();
+        int starPoint = 0;
+        for(Star star : starResponseList){
+            starPoint = starPoint + (star.getStarPoint()).intValue();
+        }
+        float starAvg = 0;
+        if(starCount != 0){
+            starAvg = (float) Math.round(starPoint / starCount);
+        }
+
+        int num = book.bookPeople().indexOf(String.valueOf(perIdx));  // 특정문자 => 문자열로 변환 => 동일한 부분을 찾기(영화 사람에서) => 결과를 인덱스로 반환 => 다시 숫자형으로 변환
+        String bookPersonRole = book.bookPeople().substring(num+1);  // 숫자 + ( 이후이므로 +1를 함 => (시작번을 포함해서)부터 자르기 => (00 | 00), 숫자(00 | 00)
+        String role2 = "";
+        String role = "";
+        if(bookPersonRole.length() > -1){
+
+            String[] bookRoles = bookPersonRole.split("\\)");
+            role2 = bookRoles[0];
+            String[] bookRoles2 = role2.split("\\(");
+            role = bookRoles2[1];
+        }
+
+        return BookResponse.fromis(book, role, starAvg);
     }
 }
