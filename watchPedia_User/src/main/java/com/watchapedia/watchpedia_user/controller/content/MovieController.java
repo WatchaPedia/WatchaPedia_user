@@ -50,8 +50,11 @@ public class MovieController {
 
     @GetMapping(path="/main")
     public String movie(
-            ModelMap map
+            ModelMap map,HttpSession session
+
     ){
+        UserSessionDto userSessionDto = (UserSessionDto) session.getAttribute("userSession");
+        map.addAttribute("userSession", userSessionDto);
         List<MovieDto> movies = movieService.movies();
         map.addAttribute("movies", movies);
         return "/movie/movieMain";

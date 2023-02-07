@@ -42,7 +42,6 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class PageController {
     final StarService starService;
-
     final MovieService movieService;
     private final CommentRepository commentRepository;
     private final UserRepository userRepository;
