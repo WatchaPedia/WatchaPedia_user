@@ -2,6 +2,7 @@ package com.watchapedia.watchpedia_user.controller.content;
 
 
 import com.watchapedia.watchpedia_user.model.dto.UserSessionDto;
+import com.watchapedia.watchpedia_user.model.dto.comment.CommentDto;
 import com.watchapedia.watchpedia_user.model.dto.content.WebtoonDto;
 import com.watchapedia.watchpedia_user.model.entity.content.ajax.Star;
 import com.watchapedia.watchpedia_user.model.network.response.PersonResponse;
@@ -11,6 +12,7 @@ import com.watchapedia.watchpedia_user.model.network.response.content.TvResponse
 import com.watchapedia.watchpedia_user.model.network.response.content.WebtoonResponse;
 import com.watchapedia.watchpedia_user.model.repository.UserRepository;
 import com.watchapedia.watchpedia_user.model.repository.comment.CommentRepository;
+import com.watchapedia.watchpedia_user.model.repository.comment.SpoilerRepository;
 import com.watchapedia.watchpedia_user.service.PersonService;
 import com.watchapedia.watchpedia_user.service.comment.CommentService;
 import com.watchapedia.watchpedia_user.service.content.WebtoonService;
@@ -45,6 +47,7 @@ public class WebtoonController {
     private final WatchService watchService;
     private final HateService hateService;
     private final CommentService commentService;
+    private final SpoilerRepository spoilerRepository;
 
     @GetMapping(path="/main")
     public String webtoon(
@@ -108,11 +111,11 @@ public class WebtoonController {
         boolean hasHate = false;
         Page<CommentResponse> commentList = commentService.commentList("webtoon", webtoon.idx(), dto != null ? dto.userIdx() : null, pageable);
         if (dto != null) {
-            for (CommentResponse comm : commentList) {
-                if (comm.user().getUserIdx() == dto.userIdx()) {
-                    hasComm = comm;
-                }
-            }
+            CommentDto commDto = CommentDto.from(commentRepository.findByCommContentTypeAndCommContentIdxAndCommUserIdx(
+                    "webtoon", webtoon.idx(), userRepository.getReferenceById(dto.userIdx())
+            ));
+            hasComm = CommentResponse.from(commDto,spoilerRepository.findBySpoCommentIdx(commDto.idx())!=null?true:false,
+                    0,0L,false);
 
             hasWish = wishService.findWish("webtoon", webtoon.idx(), dto.userIdx());
             hasWatch = watchService.findWatch("webtoon", webtoon.idx(), dto.userIdx());

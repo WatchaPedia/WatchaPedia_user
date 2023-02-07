@@ -148,7 +148,7 @@ document.addEventListener('click', (e) => {
                 url: '/comment/like/save',
                 headers: {'Content-Type': 'application/json;charset=UTF-8'},
                 data: JSON.stringify({           // HTTP 요청과 함께 서버로 보낼 데이터
-                    userIdx: loginIdx,
+                    userIdx: document.querySelector("#login-idx").title,
                     commentIdx: commentIdx
                 }),
                 type: 'POST',           // HTTP 요청 방식(GET, POST)
