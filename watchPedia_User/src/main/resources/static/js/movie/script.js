@@ -228,3 +228,19 @@ try{
         let comWid = comment.querySelector('.emmoxnt0').getBoundingClientRect().width+12;
         commentScroll.scrollBy(-comWid,0)
 })}}catch (Exception){console.log("오류 발생")}
+
+// 클립보드 복사
+const clipBoard = document.querySelector("#clip-board")
+document.querySelector("div[aria-label='share-url']").addEventListener('click', ()=>{
+    clipBoard.style.bottom = '30px';
+    let textarea = document.createElement("textarea");
+    document.body.appendChild(textarea);
+    textarea.value = window.location.href;
+    textarea.select();
+    document.execCommand("copy");
+    document.body.removeChild(textarea);
+
+    setTimeout(function() {
+        clipBoard.style.bottom = '-100px';
+    }, 2000);
+})
