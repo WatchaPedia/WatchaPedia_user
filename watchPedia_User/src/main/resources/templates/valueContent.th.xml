@@ -1,0 +1,13 @@
+<!--<?xml version="1.0"?>-->
+<!--<thlogic>-->
+<!--    <attr sel=".e1omr9iu4" th:remove="all-but-first">-->
+<!--        <attr sel="li.content-li" th:each="con : ${content}" th:id="${con.idx}"-->
+<!--              th:classappend="${con.hasWish} == true ? 'hasWish' : (${con.hasWatch} == true ? 'hasWatch' : _)">-->
+<!--            <attr sel="img.css-qhzw1o-StyledImg" th:src="${con.thumbnail}"/>-->
+<!--            <attr sel="h3.css-1a7e2fr" th:text="${con.title}"/>-->
+<!--            <attr sel="div.css-tr3vhx" th:text="(${con.makingDate}!=null?${con.makingDate}+' ・ ':'')+${con.country}"/>-->
+<!--            <attr sel=".star/input" th:id="${con.idx}"/>-->
+<!--            <attr sel="div.comment-hidden" th:classappend="${con.commSpo} == true? 'hasSpo' : _" th:id="${con.comment} != null ? ${con.comment.getCommIdx()} : _" th:text="${con.comment} != null ? ${con.comment.getCommText()} : _"/>-->
+<!--        </attr>-->
+<!--    </attr>-->
+<!--</thlogic>-->

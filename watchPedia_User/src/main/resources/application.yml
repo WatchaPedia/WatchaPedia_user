@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://59.5.15.166:3306/watcha1234?serverTimezone=Asia/Seoul
+    username: watcha1234
+    password: watcha1234
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  thymeleaf3.decoupled-logic: true
+  data.rest:
+    base-path: /api
+    detection-strategy: annotated
+
+  #  json형식으로 시뮬라이제이션할때 오류를 회피하기 위해서 사용하는 코드
+  # 오류가 왜나냐면 : 리턴 값으로 원투매니 / 매니투원 같은 객체가 존재할때 오류가 발생한다.
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+server:
+  port: 8787
+
+
