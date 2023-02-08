@@ -1,0 +1,231 @@
+<?xml version="1.0"?>
+<thlogic>
+
+
+    <!--        헤더 영화 썸네일, 백미지-->
+    <attr sel="div.css-cshjoi-PosterContainer" th:object="${webtoon}">
+        <attr sel="img.css-qhzw1o-StyledImg" th:src="*{thumbnail}" th:alt="*{title}" th:id="*{idx}"/>
+    </attr>
+    <!--    헤더 영화 정보-->
+    <attr sel="div.css-1p7n6er-Pane" th:object="${webtoon}">
+        <attr sel="h1.css-171k8ad-Title" th:text="*{title}"/>
+        <attr sel="div.css-11h0kfd-Detail"
+              th:text="*{writer} + ' ・ ' + *{genre} "/>
+        <attr sel="div.css-og1gu8-ContentRatings"
+              th:utext="*{starList().size() != 0} ?'평균 ★' + ${avg} + ' (' + *{starList().size()} + '명)' : '<br/>'"/>
+        <!--               준 별점 정보 표시-->
+        <attr sel="div#star-div">
+            <attr sel="span.star/span" th:style="${hasStar} != null ? ('width:'+ (${hasStar.starPoint} * 20) +'%;') : _"/>
+            <attr sel="span.star/input" th:value="${hasStar} != null ? ${hasStar.starPoint} : '0'"/>
+        </attr>
+    </attr>
+    <!-- 별점 준 경우 코멘트 작성하기 버튼 표시, 코멘트 작성한 경우 수정,삭제 버튼 표시 -->
+    <attr sel="div.css-sd2jre-SectionBlock" th:style="'display:' + (${hasStar} != null ? 'block' : (${hasComm} != null ? 'block' : 'none')) + ';'">
+        <attr sel="section.css-1v9og64-LeaveCommentSection" th:style="'display:' + (${hasStar} != null ? (${hasComm} != null ? 'none' : 'block') : 'none') + ';'"/>
+        <!---->
+        <!--        코멘트 -->
+        <attr sel="div.hasComm" th:style="'display:' + (${hasComm} != null ? 'block' : 'none') + ';'">
+            <attr sel="a.css-1bh5fq7-StylelessLocalLink-LinkToMyComment" th:href="${hasComm} != null ? '/comment/' + ${hasComm.idx} : _"/>
+            <attr sel="div.css-1fucs4t-StyledText" th:text="${hasComm} != null ? ${hasComm.text} : _"/>
+        </attr>
+    </attr>
+    <attr sel="textarea.css-137vxyg" th:text="${hasComm} != null ? ${hasComm.text} : _"/>
+    <!--    스포일러 댓글일 경우 체크해서 표시-->
+    <attr sel="div.css-hyoixq">
+        <attr sel="svg" th:class="${hasComm} != null ? (${hasComm.spoiler} == true ? 'css-1ngtlfw' : _) : _"/>
+    </attr>
+    <!--    코멘트 글자 수 출력 -->
+    <attr sel="p.css-ynpx67" th:text="${hasComm} != null ? (${#strings.length(hasComm.text)} + '/10000') : _"/>
+    <attr sel="button#wish-btn" th:class="${hasWish} == true ? 'e1svyhwg23 css-15hndx7-StylelessButton-ContentActionButton': _"/>
+    <attr sel="button#watch-btn" th:class="${hasWatch} == true ? 'e1svyhwg23 css-15hndx7-StylelessButton-ContentActionButton': _"/>
+    <!---->
+    <!--    관심없어요 버튼 -->
+    <attr sel="div#hate" th:class="${hasHate} == true ? 'e1svyhwg29 css-13md5na-StyledDropdownMenuItem' : _"/>
+    <attr sel="div#more-modal">
+        <attr sel="span.css-bhgne5-StyledBackground" th:style="'background-image:url('+${webtoon.thumbnail}+')'"/>
+        <attr sel="div.css-5kofsl" th:text="${webtoon.title}"/>
+        <attr sel="div.css-17s1j6g" th:text="'웹툰 ・ '+${webtoon.genre}"/>
+        <attr sel="div.css-bgi4sk">
+            <attr sel="span" th:class="${hasHate} == true ? 'css-fwllm4' : _"/>
+            <attr sel="img" th:src="${hasHate} == true ? 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPHBhdGggZD0iTTAgMGgyNHYyNEgweiIvPgogICAgICAgIDxwYXRoIGZpbGw9IiNGRjJGNkUiIGQ9Ik0xMS41NjYgMTkuMzEyYy4zNzcuNjc4Ljg2IDEuMjg4IDEuNDI4IDEuODA4QTkuMzMzIDkuMzMzIDAgMSAxIDExIDIuNjY3YTkuMzM3IDkuMzM3IDAgMCAxIDguODIyIDYuMjggNy4xNyA3LjE3IDAgMCAwLTIuMjg1LS4yNzRBNy4zMzMgNy4zMzMgMCAwIDAgMTEgNC42NjdhNy4zMDIgNy4zMDIgMCAwIDAtNC41MjUgMS41NjJsNS40OSA1LjQ5YTcuMTQxIDcuMTQxIDAgMCAwLS45NDUgMS44ODRMNS4wODMgNy42NjZhNy4zMzMgNy4zMzMgMCAwIDAgNi40ODIgMTEuNjQ1eiIvPgogICAgICAgIDxwYXRoIGZpbGw9IiNGRjJGNkUiIGQ9Ik0yMi42MTEgMTIuMTYxTDE4LjE3MyAxNi42bC0xLjgzMy0xLjgzM2EuODQ0Ljg0NCAwIDEgMC0xLjE5MyAxLjE5NGwyLjEyNiAyLjEyNmEuODQ3Ljg0NyAwIDAgMCAuMTQ3LjExNy43ODUuNzg1IDAgMCAwIDEuMjE5LjE0Mmw0LjgyNi00LjgyNmE2IDYgMCAxIDEtLjg1NC0xLjM2eiIvPgogICAgPC9nPgo8L3N2Zz4K' : _"/>
+        </attr>
+    </attr>
+    <!---->
+    <!--        감상가능한 곳 719 이상-->
+    <attr sel="section.css-1impywp" th:if="${webtoon.webWatch} != null">
+        <attr sel="ul.css-1ohwri2-VisualUl-PartnerStackableUl" th:remove="all-but-first">
+            <attr sel="li.css-wj6fn0" th:each="wat : ${#strings.arraySplit(webtoon.webWatch,',')}">
+                <attr sel="a.css-1wacncs-InnerPartOfListWithImage" th:href="${wat}"
+                      th:title=" ${#strings.contains(wat,'aHR0cHM6Ly9jb21pYy5uYXZlci5jb20vaW5kZXg')}?
+                            '네이버' : (${#strings.contains(wat,'aHR0cHM6Ly93d3cubGV6aGluLmNvbS9rby9jb21pYy9')} ?
+                            '레진코믹스' : (${#strings.contains(wat,'aHR0cHM6Ly9yaWRpYm9va3MuY29tL2Jvb2tzLz')} ?
+                            'RIDI' : (${#strings.contains(wat,'aHR0cHM6Ly9saW5rLXBhZ2Uua2FrYW8uY29tL2dvdG9fdmlldz9zZXJpZXNfaWQ9N')} ?
+                         '카카오페이지' : (${#strings.contains(wat,'aHR0cHM6Ly93ZWJ0b29uLmtha2FvLmNvbS9jb250ZW50L')} ?
+                            '카카오웹툰' : (${#strings.contains(wat,'aHR0cHM6Ly93d3cu')} ?
+                              '봄툰' : _
+                            )))))
+
+                        ">
+                    <attr sel="div.css-1njml0y-ProfilePhotoImage"
+                          th:style="'background-image:url(' +
+                          (${#strings.contains(wat,'aHR0cHM6Ly9jb21pYy5uYXZlci5jb20vaW5kZXg')}?
+                            'https://an2-img.amz.wtchn.net/image/v2/af1e72ee3f7e9b98ad5108effc32ddb1.png?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKd1lYUm9Jam9pTDNZeUwzTjBiM0psTDNWcGJXRm5aUzh4TmpJMU1qQXlORFV6TkRRNE1qUXlNalU0SW4wLkVWLTBaRGpuSXl1UUF2dTFTM2VtQXRpR01kT2ZVMEUzOGhsQUlxeDlVSDQ'
+                             : (${#strings.contains(wat,'aHR0cHM6Ly93d3cubGV6aGluLmNvbS9rby9jb21pYy9')} ?
+                            'https://an2-img.amz.wtchn.net/image/v2/b231bef9831202792604d860b33c23ff.png?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKd1lYUm9Jam9pTDNZeUwzTjBiM0psTDNWcGJXRm5aUzh4TmpJMU9ESTVNakkxT0RNd05qVTJORGMySW4wLm5tYTFQVjJzMTdWTVVsd1k4T2xzX3c0VDRZOE1qOVh5STltYzNobGxMWXc'
+                            : (${#strings.contains(wat,'aHR0cHM6Ly9yaWRpYm9va3MuY29tL2Jvb2tzLz')}
+                            ? 'https://an2-img.amz.wtchn.net/image/v2/yPNxIZI5lNSZE7g1Pp4UXg.png?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKd0lqb2lMM1l5TDNOMGIzSmxMM1ZwYldGblpTOHhOalV3TXpRM01UQXhOekF4T0RjNU5EazNJbjAudG5JdXE5U0kwX2JDMnBtcjN6MUVlMFl6ckVqMXVvV2x0cUdUVXJnUnYzUQ' :
+                            (${#strings.contains(wat,'aHR0cHM6Ly9saW5rLXBhZ2Uua2FrYW8uY29tL2dvdG9fdmlldz9zZXJpZXNfaWQ9N')} ?
+                            'https://an2-img.amz.wtchn.net/image/v2/1df129bd0ce377ca9086af5a3b98f211.png?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKd1lYUm9Jam9pTDNZeUwzTjBiM0psTDNWcGJXRm5aUzh4TmpJMU1qQXlORFV6TkRNNE56RTROalF4SW4wLm1lOERRdlpmV2hPNldWa1A3a3FqNkd0MVRVTHMzVnMtMldhbk55dDhMOU0'
+                             : (${#strings.contains(wat,'aHR0cHM6Ly93ZWJ0b29uLmtha2FvLmNvbS9jb250ZW50L')} ?
+                              'https://an2-img.amz.wtchn.net/image/v2/99d4e859369d8e0551e37008821eff3f.png?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKd1lYUm9Jam9pTDNZeUwzTjBiM0psTDNWcGJXRm5aUzh4TmpJMk1qVTJPRFU1T0RJMk5EWTFPVFUzSW4wLkhYXzBzLS1HZXJJRmNPel9xNVU2NHQySFdyLVdhN1QtcDJfWnIwVjRhMkU'
+                               : (${#strings.contains(wat,'aHR0cHM6Ly93d3cu')} ?
+                              'https://an2-img.amz.wtchn.net/image/v2/8c4268486e23642c8b9e7eb9ab2caddd.png?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKd1lYUm9Jam9pTDNZeUwzTjBiM0psTDNWcGJXRm5aUzh4TmpJMk1qVTJPRE14T1RFMU1qRTFPREEzSW4wLkp1SWhkSDVuRVVYVG5aVXJ1NTcyTHZBUUxudFpGa3JyY3otUV9sYlNTQmc' : _
+
+                            )))))) +');'"/>
+                    <!--                    -->
+                    <attr sel="div.css-17vuhtq" th:text="${#strings.contains(wat,'aHR0cHM6Ly9jb21pYy5uYXZlci5jb20vaW5kZXg')}?
+                            '네이버' : (${#strings.contains(wat,'aHR0cHM6Ly93d3cubGV6aGluLmNvbS9rby9jb21pYy9')} ?
+                            '레진코믹스' : (${#strings.contains(wat,'aHR0cHM6Ly9yaWRpYm9va3MuY29tL2Jvb2tzLz')} ?
+                             'RIDI' :  (${#strings.contains(wat,'aHR0cHM6Ly9saW5rLXBhZ2Uua2FrYW8uY29tL2dvdG9fdmlldz9zZXJpZXNfaWQ9N')} ?
+                            '카카오페이지' : (${#strings.contains(wat,'aHR0cHM6Ly93ZWJ0b29uLmtha2FvLmNvbS9jb250ZW50L')} ?
+                            '카카오웹툰' : (${#strings.contains(wat,'aHR0cHM6Ly93d3cu')} ?
+                              '봄툰' : _
+                            )))))
+                        "/>
+                    <!--                    네이버 :  aHR0cHM6Ly9jb21pYy5uYXZlci5jb20vaW5kZXg // https://an2-img.amz.wtchn.net/image/v2/af1e72ee3f7e9b98ad5108effc32ddb1.png?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKd1lYUm9Jam9pTDNZeUwzTjBiM0psTDNWcGJXRm5aUzh4TmpJMU1qQXlORFV6TkRRNE1qUXlNalU0SW4wLkVWLTBaRGpuSXl1UUF2dTFTM2VtQXRpR01kT2ZVMEUzOGhsQUlxeDlVSDQ            -->
+                    <!--                    레진코믹스 ://aHR0cHM6Ly93d3cubGV6aGluLmNvbS9rby9jb21pYy9//https://an2-img.amz.wtchn.net/image/v2/b231bef9831202792604d860b33c23ff.png?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKd1lYUm9Jam9pTDNZeUwzTjBiM0psTDNWcGJXRm5aUzh4TmpJMU9ESTVNakkxT0RNd05qVTJORGMySW4wLm5tYTFQVjJzMTdWTVVsd1k4T2xzX3c0VDRZOE1qOVh5STltYzNobGxMWXc-->
+                    <!--                    RIDI: aHR0cHM6Ly9yaWRpYm9va3MuY29tL2Jvb2tzLz  // https://an2-img.amz.wtchn.net/image/v2/yPNxIZI5lNSZE7g1Pp4UXg.png?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKd0lqb2lMM1l5TDNOMGIzSmxMM1ZwYldGblpTOHhOalV3TXpRM01UQXhOekF4T0RjNU5EazNJbjAudG5JdXE5U0kwX2JDMnBtcjN6MUVlMFl6ckVqMXVvV2x0cUdUVXJnUnYzUQ     -->
+                    <!--                    카카오페이지 : aHR0cHM6Ly9saW5rLXBhZ2Uua2FrYW8uY29tL2dvdG9fdmlldz9zZXJpZXNfaWQ9N
+                                                //  https://an2-img.amz.wtchn.net/image/v2/1df129bd0ce377ca9086af5a3b98f211.png?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKd1lYUm9Jam9pTDNZeUwzTjBiM0psTDNWcGJXRm5aUzh4TmpJMU1qQXlORFV6TkRNNE56RTROalF4SW4wLm1lOERRdlpmV2hPNldWa1A3a3FqNkd0MVRVTHMzVnMtMldhbk55dDhMOU0-->
+                    <!--                    카카오웹툰 :  aHR0cHM6Ly93ZWJ0b29uLmtha2FvLmNvbS9jb250ZW50L   //https://an2-img.amz.wtchn.net/image/v2/99d4e859369d8e0551e37008821eff3f.png?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKd1lYUm9Jam9pTDNZeUwzTjBiM0psTDNWcGJXRm5aUzh4TmpJMk1qVTJPRFU1T0RJMk5EWTFPVFUzSW4wLkhYXzBzLS1HZXJJRmNPel9xNVU2NHQySFdyLVdhN1QtcDJfWnIwVjRhMkU-->
+                    <!--                    봄툰 : aHR0cHM6Ly93d3cu / https://an2-img.amz.wtchn.net/image/v2/8c4268486e23642c8b9e7eb9ab2caddd.png?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKd1lYUm9Jam9pTDNZeUwzTjBiM0psTDNWcGJXRm5aUzh4TmpJMk1qVTJPRE14T1RFMU1qRTFPREEzSW4wLkp1SWhkSDVuRVVYVG5aVXJ1NTcyTHZBUUxudFpGa3JyY3otUV9sYlNTQmc        -->
+                </attr>
+            </attr>
+        </attr>
+    </attr>
+    <!--        감상가능한 곳 719 이하-->
+    <attr sel="section.css-l1ynz5" th:if="${webtoon.webWatch} != null">
+        <attr sel="ul.css-1ohwri2-VisualUl-PartnerStackableUl" th:remove="all-but-first">
+            <attr sel="li.css-wj6fn0" th:each="wat : ${#strings.arraySplit(webtoon.webWatch,',')}">
+                <attr sel="a.css-1wacncs-InnerPartOfListWithImage" th:href="${wat}"
+                      th:title=" ${#strings.contains(wat,'aHR0cHM6Ly9jb21pYy5uYXZlci5jb20vaW5kZXg')}?
+                            '네이버' : (${#strings.contains(wat,'aHR0cHM6Ly93d3cubGV6aGluLmNvbS9rby9jb21pYy9')} ?
+                            '레진코믹스' : (${#strings.contains(wat,'aHR0cHM6Ly9yaWRpYm9va3MuY29tL2Jvb2tzLzE5Nj')} ?
+                            'RIDI' : (${#strings.contains(wat,'aHR0cHM6Ly9saW5rLXBhZ2Uua2FrYW8uY29tL2dvdG9fdmlldz9zZXJpZXNfaWQ9N')} ?
+                            '카카오페이지' : (${#strings.contains(wat,'aHR0cHM6Ly93ZWJ0b29uLmtha2FvLmNvbS9jb250ZW50L')} ?
+                              '카카오웹툰' : _
+                            ))))
+                        ">
+                    <attr sel="div.css-1njml0y-ProfilePhotoImage"
+                          th:style="'background-image:url(' +
+                           (${#strings.contains(wat,'aHR0cHM6Ly9jb21pYy5uYXZlci5jb20vaW5kZXg')}?
+                            'https://an2-img.amz.wtchn.net/image/v2/af1e72ee3f7e9b98ad5108effc32ddb1.png?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKd1lYUm9Jam9pTDNZeUwzTjBiM0psTDNWcGJXRm5aUzh4TmpJMU1qQXlORFV6TkRRNE1qUXlNalU0SW4wLkVWLTBaRGpuSXl1UUF2dTFTM2VtQXRpR01kT2ZVMEUzOGhsQUlxeDlVSDQ'
+                             : (${#strings.contains(wat,'aHR0cHM6Ly93d3cubGV6aGluLmNvbS9rby9jb21pYy9')} ?
+                            'https://an2-img.amz.wtchn.net/image/v2/b231bef9831202792604d860b33c23ff.png?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKd1lYUm9Jam9pTDNZeUwzTjBiM0psTDNWcGJXRm5aUzh4TmpJMU9ESTVNakkxT0RNd05qVTJORGMySW4wLm5tYTFQVjJzMTdWTVVsd1k4T2xzX3c0VDRZOE1qOVh5STltYzNobGxMWXc'
+                            : (${#strings.contains(wat,'aHR0cHM6Ly9yaWRpYm9va3MuY29tL2Jvb2tzLzE5Nj')}
+                            ? 'https://an2-img.amz.wtchn.net/image/v2/yPNxIZI5lNSZE7g1Pp4UXg.png?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKd0lqb2lMM1l5TDNOMGIzSmxMM1ZwYldGblpTOHhOalV3TXpRM01UQXhOekF4T0RjNU5EazNJbjAudG5JdXE5U0kwX2JDMnBtcjN6MUVlMFl6ckVqMXVvV2x0cUdUVXJnUnYzUQ' :
+                            (${#strings.contains(wat,'aHR0cHM6Ly9saW5rLXBhZ2Uua2FrYW8uY29tL2dvdG9fdmlldz9zZXJpZXNfaWQ9N')} ?
+                            'https://an2-img.amz.wtchn.net/image/v2/1df129bd0ce377ca9086af5a3b98f211.png?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKd1lYUm9Jam9pTDNZeUwzTjBiM0psTDNWcGJXRm5aUzh4TmpJMU1qQXlORFV6TkRNNE56RTROalF4SW4wLm1lOERRdlpmV2hPNldWa1A3a3FqNkd0MVRVTHMzVnMtMldhbk55dDhMOU0'
+                             : (${#strings.contains(wat,'aHR0cHM6Ly93ZWJ0b29uLmtha2FvLmNvbS9jb250ZW50L')} ?
+                              'https://an2-img.amz.wtchn.net/image/v2/99d4e859369d8e0551e37008821eff3f.png?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKd1lYUm9Jam9pTDNZeUwzTjBiM0psTDNWcGJXRm5aUzh4TmpJMk1qVTJPRFU1T0RJMk5EWTFPVFUzSW4wLkhYXzBzLS1HZXJJRmNPel9xNVU2NHQySFdyLVdhN1QtcDJfWnIwVjRhMkU' : _
+                            ))))) +');'"/>
+                    <attr sel="div.css-17vuhtq" th:text="${#strings.contains(wat,'aHR0cHM6Ly93d3cubmV0ZmxpeC5jb20vdGl0b')}?
+                           '네이버' : (${#strings.contains(wat,'aHR0cHM6Ly93d3cubGV6aGluLmNvbS9rby9jb21pYy9')} ?
+                            '레진코믹스' : (${#strings.contains(wat,'aHR0cHM6Ly9yaWRpYm9va3MuY29tL2Jvb2tzLzE5Nj')} ?
+                             'RIDI' :  (${#strings.contains(wat,'aHR0cHM6Ly9saW5rLXBhZ2Uua2FrYW8uY29tL2dvdG9fdmlldz9zZXJpZXNfaWQ9N')} ?
+                            '카카오페이지' : (${#strings.contains(wat,'aHR0cHM6Ly93ZWJ0b29uLmtha2FvLmNvbS9jb250ZW50L')} ?
+                              '카카오웹툰' : _
+                            ))))
+                        "/>
+                </attr>
+            </attr>
+
+        </attr>
+    </attr>
+
+
+
+    <!--    출연정보 -->
+    <attr sel="section#content_credits" th:if="${webtoon.people} != null">
+        <attr sel="ul.css-1br354h-VisualUl-PeopleStackableUl" th:remove="all-but-first">
+            <attr sel="li.css-54rr1e" th:each="person, i: ${people}">
+                <attr sel="div.css-1o7yycy-ProfilePhotoImage" th:style="${person.photo} != null ? 'background-image:url('+ ${person.photo} +');' : _"/>
+                <attr sel="div.css-17vuhtq" th:text="${person.name}"/>
+                <attr sel="div.css-1evnpxk-StyledSubtitle" th:text="${person.role}"/>
+                <attr sel=".css-1aaqvgs-InnerPartOfListWithImage" th:href="@{'/personDetail/'+${person.idx}}"/>
+            </attr>
+        </attr>
+    </attr>
+
+    별점 그래프
+    <attr sel="section[data-rowindex='8']" th:if="${webtoon.starList().size()} >= 5">
+        <attr sel="span.css-14yj34l-RatingStatHeaderTopRight/h4" th:text="'평균 ★' + ${avg}"/>
+        <attr sel="span.css-14yj34l-RatingStatHeaderTopRight/strong" th:text="'(' + ${webtoon.starList().size()} + '명)'"/>
+        <!--        그래프 부분-->
+        <attr sel="div.css-g1q7ln" th:object="${graph}">
+            <attr sel="span.css-111q860-Bar" th:style="*{get(1L)} == 0 ? 'height:1px;' : (${bigStar} == 1 ? 'height: 88px; background-color: #ffa136;' : 'height:'+ *{get(1L)} +'px;')"/>
+            <attr sel="span.css-5vyahd-Bar" th:style="*{get(2L)} == 0 ? 'height:1px;' : (${bigStar} == 2 ? 'height: 88px; background-color: #ffa136;' : 'height:'+ *{get(2L)} +'px;')"/>
+            <attr sel="span.css-himw0d-Bar" th:style="*{get(3L)} == 0 ? 'height:1px;' : (${bigStar} == 3 ? 'height: 88px; background-color: #ffa136;' : 'height:'+ *{get(3L)} +'px;')"/>
+            <attr sel="span.css-3zcnds-Bar" th:style="*{get(4L)} == 0 ? 'height:1px;' : (${bigStar} == 4 ? 'height: 88px; background-color: #ffa136;' : 'height:'+ *{get(4L)} +'px;')"/>
+            <attr sel="span.css-mr14ik-Bar" th:style="*{get(5L)} == 0 ? 'height:1px;' : (${bigStar} == 5 ? 'height: 88px; background-color: #ffa136;' : 'height:'+ *{get(5L)} +'px;')"/>
+        </attr>
+    </attr>
+
+    <!--    댓글 -->
+    <attr sel="section[data-rowindex='10']" th:if="${comment.getTotalElements()} > 0">
+        <attr sel="span.css-wzn7fp" th:text="${comment.getTotalElements()} >= 10 ? (${#strings.substring(comment.getTotalElements(),0,#strings.length(comment.getTotalElements()-2))} + '0+') : ${comment.getTotalElements()}"/>
+        <attr sel="ul.css-nh9j5x-VisualUl-CommentHorizontalUl" th:remove="all-but-first">
+            <attr sel="li.css-1fryc54" th:each="comm : ${comment}">
+                <!--                댓글 링크 연결-->
+                <attr sel="div.css-ob93md">
+                    <attr sel="a.css-1f9m1s4-StylelessLocalLink" th:href="'/comment/' + ${comm.idx}"/>
+                </attr>
+                <!--                프로필 연결-->
+                <attr sel="div.css-1cvf9dk">
+                    <attr sel="a.css-1f9m1s4-StylelessLocalLink" th:href="'/user/' + ${comm.user().getUserIdx()}"/>
+                </attr>
+
+                <attr sel="div.css-1agoci2" th:text="${comm.user().getUserName()}"/>
+
+                <!--                스포일러 체크-->
+                <attr sel="span.css-xstsdj" th:if="${comm.spoiler} == true"/>
+                <attr sel="div.css-1yrlzf9-StyledText" th:class="${comm.spoiler} == true ? _ : 'css-qxbzku-StyledText eb5y16b1'" th:text="${comm.text}"/>
+                <!--                스포일러일 경우 좋아요와 대댓글 막힘 -->
+                <attr sel="div.css-1jm9uak" th:class="${comm.spoiler} == true ? _ : 'css-1atijos'">
+                    <!--                댓글 좋아요, 대댓글 수 -->
+                    <attr sel="em.like-sum" th:text="${comm.likeSum}"/>
+                    <attr sel="em.recomm-sum" th:text="${comm.recommSum}"/>
+                </attr>
+
+                <attr sel="span.css-zoh368" th:style="${comm.spoiler} == true ? _ : 'background-image:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGcgZmlsbD0iIzc4Nzg3OCI+CiAgICAgICAgICAgIDxwYXRoIGQ9Ik02Ljc1IDkuNDg1aC0zYTEgMSAwIDAgMC0xIDF2MTBhMSAxIDAgMCAwIDEgMWgzYTEgMSAwIDAgMCAxLTF2LTEwYTEgMSAwIDAgMC0xLTFNMjAuNjU3IDguNTY2YTIuMzYzIDIuMzYzIDAgMCAwLTEuNzc5LS44MTNIMTYuNjJsLjE2NC0uNjI3Yy4xMzctLjUyOC4yMDEtMS4xMi4yMDEtMS44NjMgMC0xLjkxOS0xLjM3NS0yLjc3OC0yLjczOC0yLjc3OC0uNDQ0IDAtLjc2Ni4xMjMtLjk4Ni4zNzYtLjIuMjI3LS4yODIuNTMtLjI0My45MzVsLjAzIDEuMjMtMi45MDMgMi45NGMtLjU5My42LS44OTQgMS4yMy0uODk0IDEuODcydjkuNjQ3YS41LjUgMCAwIDAgLjUuNWg3LjY4N2EyLjM4OCAyLjM4OCAwIDAgMCAyLjM0OC0yLjA3bDEuNDQ1LTcuNDUyYTIuNDQgMi40NCAwIDAgMC0uNTc0LTEuODk3Ii8+CiAgICAgICAgPC9nPgogICAgPC9nPgo8L3N2Zz4K);'"/>
+                <attr sel="span.css-43cye7" th:style="${comm.spoiler} == true ? _ : 'background-image:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxwYXRoIGZpbGw9IiM3ODc4NzgiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTkuODU3IDE3Ljc4Nkw2IDIxdi00LjkxYy0xLjg0MS0xLjM3My0zLTMuMzY5LTMtNS41OUMzIDYuMzU4IDcuMDMgMyAxMiAzczkgMy4zNTggOSA3LjVjMCA0LjE0Mi00LjAzIDcuNS05IDcuNS0uNzM5IDAtMS40NTYtLjA3NC0yLjE0My0uMjE0eiIvPgo8L3N2Zz4K);'"/>
+                <attr sel="div.css-hy68ty">
+                    <attr sel="button" th:class="${comm.hasLike} == true ? 'css-jj4q3s-StylelessButton-UserActionButton' : (${comm.spoiler} == true ? _ : 'css-1h18l7j-StylelessButton')"
+                          th:disabled="${comm.spoiler} == true ? 'disabled' : _"/>
+                </attr>
+            </attr>
+        </attr>
+    </attr>
+
+    <!--    유사한 작품-->
+    <attr sel="section[data-rowindex='13']" th:if="${similarGenre.size()} > 0">
+        <attr sel="ul.css-27z1qm-VisualUl-ContentGrid" th:remove="all-but-first">
+            <attr sel="li.css-1hp6p72" th:each="webtoon : ${similarGenre}">
+                <attr sel="a" th:title="webtoon.title" th:href="'/webtoon/' + ${webtoon.idx}"/>
+                <attr sel="img.css-qhzw1o-StyledImg" th:src="${webtoon.thumbnail}"/>
+
+<!--                <attr sel="div.css-1qmeemv">-->
+<!--                    &lt;!&ndash;                넷플릭스 아이콘&ndash;&gt;-->
+<!--                    <attr sel="div.css-5o7sb2" th:if="${webtoon.webWatch} != null and ${#strings.contains(webtoon.webWatch,'aHR0cHM6Ly93d3cubmV0ZmxpeC5jb20vdGl0b')}"/>-->
+<!--                    &lt;!&ndash;                왓챠 아이콘 &ndash;&gt;-->
+<!--                    <attr sel="div.css-oobk33" th:if="${webtoon.webWatch} != null and ${#strings.contains(webtoon.webWatch,'aHR0cHM6Ly93YXRjaGEuY29tL3dhd')}"/>-->
+<!--                </attr>-->
+                <attr sel="div.css-ixy093">
+                    <attr sel="div.css-niy0za" th:text="${webtoon.title}"/>
+                    <attr sel="div.css-m9i0qw" th:if="${webtoon.avgStar} != 0.0" th:text="'평균 ★ ' + (${webtoon.avgStar} != 0 ? ${webtoon.avgStar} : _)"/>
+                </attr>
+            </attr>
+        </attr>
+    </attr>
+
+</thlogic>

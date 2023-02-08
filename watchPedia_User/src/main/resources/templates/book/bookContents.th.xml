@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<thlogic>
+    <attr sel="#BookCt" th:object="${book}">
+        <attr sel=".book-mockcha" th:text="${book.bookContentIdx}"/>
+    </attr>
+</thlogic>

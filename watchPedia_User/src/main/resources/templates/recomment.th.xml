@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<thlogic>
+    <!--    메인코멘트 -->
+    <attr sel="div.css-1p3jp2v">
+        <attr sel="a#user-info" th:href="'/user/' + ${comment.user().getUserIdx()}"/>
+        <attr sel="div.css-a7gqjg" th:text="${comment.user().getUserName()}"/>
+        <attr sel="div.css-1hy7aba" th:text="${#temporals.format(comment.regDate, 'yyyy-MM-dd')}"/>
+        <attr sel="img.css-qhzw1o-StyledImg" th:src="${content.thumbnail}"/>
+        <attr sel="a.css-1f9m1s4-StylelessLocalLink"
+              th:href="${comment.contentType} == 'movie' ? '/movie/'+${comment.contentIdx} : (
+                    ${comment.contentType} == 'tv' ? '/tv/'+${comment.contentIdx} : (
+                        ${comment.contentType} == 'book' ? '/book/'+${comment.contentIdx} : '/webtoon/'+${comment.contentIdx}
+                    )
+              )">
+            <attr sel="div.css-dbu6le" th:text="${content.title}"/>
+            <attr sel="div.css-1futg35" th:text="(${comment.contentType} == 'movie' ? '영화': (${comment.contentType} == 'tv' ? 'TV 프로그램': (${comment.contentType} == 'webtoon' ? '웹툰' : '책')))  + ' · ' + ${content.makingDate}"/>
+        </attr>
+    </attr>
+    <!--    메인코멘트 내용 -->
+    <attr sel="div.css-1g78l7j">
+        <attr sel="span" th:text="${comment.text}"/>
+    </attr>
+    <!--    메인코멘트 댓글, 좋아요-->
+    <attr sel="div.css-hkgyal">
+        <attr sel="span.css-1n0dvqq" th:text="'좋아요 '+${comment.likeSum}"/>
+        <attr sel="span.css-0" th:text="'댓글 '+${comment.recommSum}"/>
+    </attr>
+
+    <!--    메인코멘트 내 코멘트인지 -->
+    <attr sel="div#my-comment" th:if="${comment.user().getUserIdx()} == ${userIdx}"/>
+    <attr sel="div#not-my-comment" th:if="${comment.user().getUserIdx()} != ${userIdx}"/>
+
+
+    <!--    메인코멘트 메뉴 -->
+    <attr sel="div.css-cxqjs3">
+        <attr sel="button#deckLike" th:class="${comment.hasLike} == true ?
+            'css-3w1nnz-StylelessButton-StyledActionButton e19d4hrp0' : _"/>
+    </attr>
+
+    <!--    스포, 부적절 신고 여부 -->
+    <attr sel="div.css-j985f6">
+        <attr sel="div#spo-report" th:text="${comment.hasSpoiler} == true ? '스포일러 신고 취소' : _ "/>
+        <attr sel="div.inap-report" th:text="${comment.hasInapp} == true ? '부적절한 표현 신고 취소' : _ "/>
+    </attr>
+
+    <!--    스포신고 모달 -->
+    <attr sel="div#modal-container-1arSh67x8qkwczaPieVAx">
+        <attr sel="div.css-148qwic" th:text="${comment.hasSpoiler} == true ? '스포일러 신고를 취소하시겠어요?' : _ "/>
+    </attr>
+
+    <!--    부적절표현 신고 모달 -->
+    <attr sel="div#modal-container-6TxBWpCAEPqm20UjsJdDQ">
+        <attr sel="div.css-148qwic" th:text="${comment.hasInapp} == true ? '부적절 표현 신고를 취소하시겠어요?' : _ "/>
+    </attr>
+
+    <!--    리코멘트-->
+    <attr sel="section#recomment-list" th:if="${comment.recomment().getTotalElements()} != 0">
+        <!--        리코멘트 수가 10개 이상이면 -->
+        <attr sel="div.css-5hpf69" th:if="${comment.recomment().getTotalPages()} > 1">
+            <attr sel="div.css-1f20jes" th:text="${comment.recomment().getTotalElements()} + '개 중 9개'"/>
+        </attr>
+        <attr sel="div.css-0" th:remove="all-but-first">
+            <attr sel="div.css-1m1whp6" th:each="rec : ${comment.recomment}" th:id="${rec.idx}">
+                <attr sel="a.css-255jr8" th:href="'/user/'+${rec.userIdx}"/>
+                <attr sel="div.css-72k174" th:text="${rec.name}"/>
+                <attr sel="div.css-maxfbg" th:text="${#temporals.format(rec.regDate, 'yyyy-MM-dd')}"/>
+                <attr sel="div.css-yb0jaq" th:text="${rec.text}"/>
+                <!--                좋아요  -->
+                <attr sel="h4.like-sum" th:text="${rec.like().size()}"/>
+                <attr sel="div.css-1tuvmpc-SVG">
+                    <attr sel="svg" th:attr="data-src= (${rec.hasLike} == false ? _ : 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQiIGhlaWdodD0iMTQiIHZpZXdCb3g9IjAgMCAxNCAxNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xLjc1IDEyLjU0MTdINC42NjY2N1Y1LjU0MTc1SDEuNzVWMTIuNTQxN1oiIGZpbGw9IiNGRjJGNkUiLz4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xMi4xOTQ1IDUuMDA1MzZDMTEuOTMxMyA0LjcwMjg0IDExLjU1MiA0LjUyOTA3IDExLjE1MzkgNC41MjkwN0g5LjgxOTQyQzkuOTg4NTcgNC4xMTMzOSAxMC4wNTg2IDMuNjcwNTggMTAuMDU4NiAzLjA4MTEyQzEwLjA1ODYgMS45NjA1MyA5LjI1NDk5IDEuNDU4MjUgOC40NTc2MiAxLjQ1ODI1QzguMjAwMTggMS40NTgyNSA4LjAwNDgyIDEuNTMyNzMgNy44NzY2NyAxLjY3OTk1QzcuNzU1OTMgMS44MTg1MSA3LjcwOTIyIDIuMDAzMjUgNy43MzQ4NSAyLjE5MjA0VjIuODY0MDVDNy43MzQ4NSAyLjkyNTgyIDcuNzEwMzYgMi45ODcwMiA3LjY2NjUxIDMuMDMwOUw2LjA2Mzc4IDQuNjU2MDhDNS43MTc1IDUuMDA2NTIgNS41NDE1IDUuMzc0MjggNS41NDE1IDUuNzQ4OTZWMTEuNjY2NkgxMC4zMTYxQzExLjAxMzIgMTEuNjY2NiAxMS42MDUgMTEuMTM4MyAxMS42ODkzIDEwLjQ1NjVMMTIuNTMwNSA2LjExMjFDMTIuNTgwNiA1LjcxMjAxIDEyLjQ1ODIgNS4zMDg0NiAxMi4xOTQ1IDUuMDA1MzZaIiBmaWxsPSIjRkYyRjZFIi8+Cjwvc3ZnPgo=')"/>
+                    <attr sel="path" th:attr="fill= (${rec.hasLike} == true ? '#FF2F6E' : _)"/>
+                    <attr sel="path#last-path" th:class="${rec.hasLike} == true ? 'check': _" />
+                </attr>
+                <attr sel="div.css-6btlr7">
+                    <attr sel="div.recomment" th:if="${rec.userIdx} != ${userIdx}">
+                        <attr sel="div.css-19hkid5" th:text="${rec.hasReport} == true ? '부적절한 표현 신고 취소' : _"/>
+                    </attr>
+                    <attr sel="div.recomment-edit" th:if="${rec.userIdx} == ${userIdx}"/>
+                </attr>
+            </attr>
+        </attr>
+    </attr>
+</thlogic>
