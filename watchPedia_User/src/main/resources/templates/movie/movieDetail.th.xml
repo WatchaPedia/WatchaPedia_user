@@ -133,7 +133,7 @@
     <attr sel="section.gallery" th:if="${movie.gallery} != null">
         <attr sel="ul.css-1cduxg0-VisualUl" th:remove="all-but-first">
             <attr sel="li.css-1cw0vk0" th:each="photo, idx : ${#strings.arraySplit(movie.gallery,'|')}"
-                  th:classappend="${idx.first} ? 'first' : (${idx.last ? 'last' : _})"
+                  th:classappend="${idx.first} ? (${idx.size}>1?'first':'first last') : (${idx.last ? 'last' : _})"
             >
                 <attr sel="img.e1q5rx9q1" th:src="${photo}"/>
             </attr>
