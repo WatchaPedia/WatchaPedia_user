@@ -1,0 +1,209 @@
+<?xml version="1.0"?>
+<thlogic>
+
+
+    <!--        헤더 영화 썸네일, 백미지-->
+    <attr sel="div.css-cshjoi-PosterContainer" th:object="${book}">
+        <attr sel="img.css-qhzw1o-StyledImg " th:src="*{thumbnail}" th:alt="*{title}" th:id="*{idx}"/>
+    </attr>
+    <!--    헤더 영화 정보-->
+    <attr sel="div.css-1p7n6er-Pane" th:object="${book}">
+        <attr sel="h1.css-171k8ad-Title" th:text="*{title}"/>
+        <attr sel="div.css-11h0kfd-Detail"
+              th:text="*{writer} + ' ・ ' + *{category} "/>
+        <attr sel="div.css-og1gu8-ContentRatings"
+              th:utext="*{starList().size() != 0} ?'평균 ★' + ${avg} + ' (' + *{starList().size()} + '명)' : '<br/>'"/>
+        <!--               준 별점 정보 표시-->
+        <attr sel="div#star-div">
+            <attr sel="span.star/span" th:style="${hasStar} != null ? ('width:'+ (${hasStar.starPoint} * 20) +'%;') : _"/>
+            <attr sel="span.star/input" th:value="${hasStar} != null ? ${hasStar.starPoint} : '0'"/>
+        </attr>
+    </attr>
+    <!-- 별점 준 경우 코멘트 작성하기 버튼 표시, 코멘트 작성한 경우 수정,삭제 버튼 표시 -->
+    <attr sel="div.css-sd2jre-SectionBlock" th:style="'display:' + (${hasStar} != null ? 'block' : (${hasComm} != null ? 'block' : 'none')) + ';'">
+        <attr sel="section.css-1v9og64-LeaveCommentSection" th:style="'display:' + (${hasStar} != null ? (${hasComm} != null ? 'none' : 'block') : 'none') + ';'"/>
+        <!---->
+        <!--        코멘트 -->
+        <attr sel="div.hasComm" th:style="'display:' + (${hasComm} != null ? 'block' : 'none') + ';'">
+            <attr sel="a.css-1bh5fq7-StylelessLocalLink-LinkToMyComment" th:href="${hasComm} != null ? '/comment/' + ${hasComm.idx} : _"/>
+            <attr sel="div.css-1fucs4t-StyledText" th:text="${hasComm} != null ? ${hasComm.text} : _"/>
+        </attr>
+    </attr>
+    <attr sel="textarea.css-137vxyg" th:text="${hasComm} != null ? ${hasComm.text} : _"/>
+    <!--    스포일러 댓글일 경우 체크해서 표시-->
+    <attr sel="div.css-hyoixq">
+        <attr sel="svg" th:class="${hasComm} != null ? (${hasComm.spoiler} == true ? 'css-1ngtlfw' : _) : _"/>
+    </attr>
+    <!--    코멘트 글자 수 출력 -->
+    <attr sel="p.css-ynpx67" th:text="${hasComm} != null ? (${#strings.length(hasComm.text)} + '/10000') : _"/>
+    <attr sel="button#wish-btn" th:class="${hasWish} == true ? 'e1svyhwg23 css-15hndx7-StylelessButton-ContentActionButton': _"/>
+    <attr sel="button#watch-btn" th:class="${hasWatch} == true ? 'e1svyhwg23 css-15hndx7-StylelessButton-ContentActionButton': _"/>
+    <!---->
+    <!--    관심없어요 버튼 -->
+    <attr sel="div#hate" th:class="${hasHate} == true ? 'e1svyhwg29 css-13md5na-StyledDropdownMenuItem' : _"/>
+    <attr sel="div#more-modal">
+        <attr sel="span.css-bhgne5-StyledBackground" th:style="'background-image:url('+${book.thumbnail}+')'"/>
+        <attr sel="div.css-5kofsl" th:text="${book.title}"/>
+        <attr sel="div.css-17s1j6g" th:text="'책 ・ '+${book.category}"/>
+        <attr sel="div.css-bgi4sk">
+            <attr sel="span" th:class="${hasHate} == true ? 'css-fwllm4' : _"/>
+            <attr sel="img" th:src="${hasHate} == true ? 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPHBhdGggZD0iTTAgMGgyNHYyNEgweiIvPgogICAgICAgIDxwYXRoIGZpbGw9IiNGRjJGNkUiIGQ9Ik0xMS41NjYgMTkuMzEyYy4zNzcuNjc4Ljg2IDEuMjg4IDEuNDI4IDEuODA4QTkuMzMzIDkuMzMzIDAgMSAxIDExIDIuNjY3YTkuMzM3IDkuMzM3IDAgMCAxIDguODIyIDYuMjggNy4xNyA3LjE3IDAgMCAwLTIuMjg1LS4yNzRBNy4zMzMgNy4zMzMgMCAwIDAgMTEgNC42NjdhNy4zMDIgNy4zMDIgMCAwIDAtNC41MjUgMS41NjJsNS40OSA1LjQ5YTcuMTQxIDcuMTQxIDAgMCAwLS45NDUgMS44ODRMNS4wODMgNy42NjZhNy4zMzMgNy4zMzMgMCAwIDAgNi40ODIgMTEuNjQ1eiIvPgogICAgICAgIDxwYXRoIGZpbGw9IiNGRjJGNkUiIGQ9Ik0yMi42MTEgMTIuMTYxTDE4LjE3MyAxNi42bC0xLjgzMy0xLjgzM2EuODQ0Ljg0NCAwIDEgMC0xLjE5MyAxLjE5NGwyLjEyNiAyLjEyNmEuODQ3Ljg0NyAwIDAgMCAuMTQ3LjExNy43ODUuNzg1IDAgMCAwIDEuMjE5LjE0Mmw0LjgyNi00LjgyNmE2IDYgMCAxIDEtLjg1NC0xLjM2eiIvPgogICAgPC9nPgo8L3N2Zz4K' : _"/>
+        </attr>
+    </attr>
+<!--    &lt;!&ndash;&ndash;&gt;-->
+<!--    &lt;!&ndash;        감상가능한 곳 719 이상&ndash;&gt;-->
+<!--    <attr sel="section.css-1impywp" th:if="${book.bookBuy} != null">-->
+<!--        <attr sel="ul.css-1ohwri2-VisualUl-PartnerStackableUl" th:remove="all-but-first">-->
+<!--            <attr sel="li.css-wj6fn0" th:each="wat : ${#strings.arraySplit(book.bookBuy,',')}">-->
+<!--                <attr sel="a.css-1wacncs-InnerPartOfListWithImage" th:href="${wat}"-->
+<!--                      th:title=" ${#strings.contains(wat,'aHR0cDovL3d3dy5hbGFkaW4uY28ua3Ivc2hvcC93cHJvZHVjdC5hc3B4P0l0ZW1JZD0zMD')}?-->
+<!--                             '알라딘' : (${#strings.contains(wat,'aHR0cHM6Ly93d3cueWVzMjQuY29tL1Byb2R1Y3QvR29vZHMvMTE')} ?-->
+<!--                            'yes24' : (${#strings.contains(wat,'aHR0cDovL3d3dy5reW9ib2Jvb2suY28ua3IvY29vcGVyL3JlZGlyZWN0X292ZXIuanNwP0xJTks9V1BEJm5leHRfdXJsPWh0dHBzOi8vd3d3Lmt5b2JvYm9vay5jby5rci9wcm9kdWN0L2RldGFpbFZpZXdLb3IubGFmP21hbGxHYj1LT1ImZWprR2I9S09SJmJhcmNvZGU9OTc')} ?-->
+<!--                             '교보문고' : - -->
+<!--                            ))-->
+
+<!--                        ">-->
+<!--                    <attr sel="div.css-1njml0y-ProfilePhotoImage"-->
+<!--                          th:style="'background-image:url(' +-->
+<!--                          (${#strings.contains(wat,'aHR0cDovL3d3dy5hbGFkaW4uY28ua3Ivc2hvcC93cHJvZHVjdC5hc3B4P0l0ZW1JZD0zMD')}?-->
+<!--                            'https://an2-glx.amz.wtchn.net/images/ex_aladin_logo_square.png'-->
+<!--                             : (${#strings.contains(wat,'aHR0cHM6Ly93d3cueWVzMjQuY29tL1Byb2R1Y3QvR29vZHMvMTE')} ?-->
+<!--                            'https://an2-glx.amz.wtchn.net/images/ex_yes24_logo_square.png'-->
+<!--                            : (${#strings.contains(wat,'aHR0cDovL3d3dy5reW9ib2Jvb2suY28ua3IvY29vcGVyL3JlZGlyZWN0X292ZXIuanNwP0xJTks9V1BEJm5leHRfdXJsPWh0dHBzOi8vd3d3Lmt5b2JvYm9vay5jby5rci9wcm9kdWN0L2RldGFpbFZpZXdLb3IubGFmP21hbGxHYj1LT1ImZWprR2I9S09SJmJhcmNvZGU9OTc')}-->
+<!--                            ? 'https://an2-glx.amz.wtchn.net/images/ex_kyobo_logo_square.png' : _-->
+<!--                            ))) +');'"/>-->
+<!--                    &lt;!&ndash;                    &ndash;&gt;-->
+<!--                    <attr sel="div.css-17vuhtq" th:text="${#strings.contains(wat,'aHR0cDovL3d3dy5hbGFkaW4uY28ua3Ivc2hvcC93cHJvZHVjdC5hc3B4P0l0ZW1JZD0zMD')}?-->
+<!--                            '알라딘' : (${#strings.contains(wat,'aHR0cHM6Ly93d3cueWVzMjQuY29tL1Byb2R1Y3QvR29vZHMvMTE')} ?-->
+<!--                            'yes24' : (${#strings.contains(wat,'aHR0cDovL3d3dy5reW9ib2Jvb2suY28ua3IvY29vcGVyL3JlZGlyZWN0X292ZXIuanNwP0xJTks9V1BEJm5leHRfdXJsPWh0dHBzOi8vd3d3Lmt5b2JvYm9vay5jby5rci9wcm9kdWN0L2RldGFpbFZpZXdLb3IubGFmP21hbGxHYj1LT1ImZWprR2I9S09SJmJhcmNvZGU9OTc')} ?-->
+<!--                             '교보문고' : - -->
+<!--                            ))-->
+<!--                        "/>-->
+
+<!--                    알라딘 :  aHR0cDovL3d3dy5hbGFkaW4uY28ua3Ivc2hvcC93cHJvZHVjdC5hc3B4P0l0ZW1JZD0zMD // https://an2-glx.amz.wtchn.net/images/ex_aladin_logo_square.png            &ndash;&gt;-->
+                    <!--                    yes24 ://aHR0cHM6Ly93d3cueWVzMjQuY29tL1Byb2R1Y3QvR29vZHMvMTE//https://an2-glx.amz.wtchn.net/images/ex_yes24_logo_square.png-->
+                    <!--                    교보문고: aHR0cDovL3d3dy5reW9ib2Jvb2suY28ua3IvY29vcGVyL3JlZGlyZWN0X292ZXIuanNwP0xJTks9V1BEJm5leHRfdXJsPWh0dHBzOi8vd3d3Lmt5b2JvYm9vay5jby5rci9wcm9kdWN0L2RldGFpbFZpZXdLb3IubGFmP21hbGxHYj1LT1ImZWprR2I9S09SJmJhcmNvZGU9OTc  //
+                                                        // https://an2-glx.amz.wtchn.net/images/ex_kyobo_logo_square.png-->
+
+<!--                </attr>-->
+<!--            </attr>-->
+<!--        </attr>-->
+<!--    </attr>-->
+    <!--        감상가능한 곳 719 이하-->
+<!--    <attr sel="section.css-l1ynz5" th:if="${book.bookBuy} != null">-->
+<!--        <attr sel="ul.css-1ohwri2-VisualUl-PartnerStackableUl" th:remove="all-but-first">-->
+<!--            <attr sel="li.css-wj6fn0" th:each="wat : ${#strings.arraySplit(book.bookBuy,',')}">-->
+<!--                <attr sel="a.css-1wacncs-InnerPartOfListWithImage" th:href="${wat}"-->
+<!--                      th:title=" ${#strings.contains(wat,'aHR0cDovL3d3dy5hbGFkaW4uY28ua3Ivc2hvcC93cHJvZHVjdC5hc3B4P0l0ZW1JZD0zMD')}?-->
+<!--                             '알라딘' : (${#strings.contains(wat,'aHR0cHM6Ly93d3cueWVzMjQuY29tL1Byb2R1Y3QvR29vZHMvMTE')} ?-->
+<!--                            'yes24' : (${#strings.contains(wat,'aHR0cDovL3d3dy5reW9ib2Jvb2suY28ua3IvY29vcGVyL3JlZGlyZWN0X292ZXIuanNwP0xJTks9V1BEJm5leHRfdXJsPWh0dHBzOi8vd3d3Lmt5b2JvYm9vay5jby5rci9wcm9kdWN0L2RldGFpbFZpZXdLb3IubGFmP21hbGxHYj1LT1ImZWprR2I9S09SJmJhcmNvZGU9OTc5MTE')} ?-->
+<!--                             '교보문고' : - -->
+<!--                            ))-->
+<!--                        ">-->
+<!--                    <attr sel="div.css-1njml0y-ProfilePhotoImage"-->
+<!--                          th:style="'background-image:url(' +-->
+<!--                          (${#strings.contains(wat,'aHR0cDovL3d3dy5hbGFkaW4uY28ua3Ivc2hvcC93cHJvZHVjdC5hc3B4P0l0ZW1JZD0zMD')}?-->
+<!--                            'https://an2-glx.amz.wtchn.net/images/ex_aladin_logo_square.png'-->
+<!--                             : (${#strings.contains(wat,'aHR0cHM6Ly93d3cueWVzMjQuY29tL1Byb2R1Y3QvR29vZHMvMTE')} ?-->
+<!--                            'https://an2-glx.amz.wtchn.net/images/ex_yes24_logo_square.png'-->
+<!--                            : (${#strings.contains(wat,'aHR0cDovL3d3dy5reW9ib2Jvb2suY28ua3IvY29vcGVyL3JlZGlyZWN0X292ZXIuanNwP0xJTks9V1BEJm5leHRfdXJsPWh0dHBzOi8vd3d3Lmt5b2JvYm9vay5jby5rci9wcm9kdWN0L2RldGFpbFZpZXdLb3IubGFmP21hbGxHYj1LT1ImZWprR2I9S09SJmJhcmNvZGU9OTc5MTE')}-->
+<!--                            ? 'https://an2-glx.amz.wtchn.net/images/ex_kyobo_logo_square.png' : _-->
+<!--                            ))) +');'"/>-->
+<!--                    &lt;!&ndash;                    &ndash;&gt;-->
+<!--                    <attr sel="div.css-17vuhtq" th:text="${#strings.contains(wat,'aHR0cHM6Ly93d3cubmV0ZmxpeC5jb20vdGl0b')}?-->
+<!--                                 '알라딘' : (${#strings.contains(wat,'aHR0cHM6Ly93d3cueWVzMjQuY29tL1Byb2R1Y3QvR29vZHMvMTE')} ?-->
+<!--                            'yes24' : (${#strings.contains(wat,'aHR0cDovL3d3dy5reW9ib2Jvb2suY28ua3IvY29vcGVyL3JlZGlyZWN0X292ZXIuanNwP0xJTks9V1BEJm5leHRfdXJsPWh0dHBzOi8vd3d3Lmt5b2JvYm9vay5jby5rci9wcm9kdWN0L2RldGFpbFZpZXdLb3IubGFmP21hbGxHYj1LT1ImZWprR2I9S09SJmJhcmNvZGU9OTc5MTE')} ?-->
+<!--                             '교보문고' : - -->
+<!--                            ))-->
+<!--                        "/>-->
+<!--                    &lt;!&ndash;                    알라딘 :  aHR0cDovL3d3dy5hbGFkaW4uY28ua3Ivc2hvcC93cHJvZHVjdC5hc3B4P0l0ZW1JZD0zMD // https://an2-glx.amz.wtchn.net/images/ex_aladin_logo_square.png            &ndash;&gt;-->
+<!--                    &lt;!&ndash;                    yes24 ://aHR0cHM6Ly93d3cueWVzMjQuY29tL1Byb2R1Y3QvR29vZHMvMTE//https://an2-glx.amz.wtchn.net/images/ex_yes24_logo_square.png&ndash;&gt;-->
+<!--                    &lt;!&ndash;                    교보문고: aHR0cDovL3d3dy5reW9ib2Jvb2suY28ua3IvY29vcGVyL3JlZGlyZWN0X292ZXIuanNwP0xJTks9V1BEJm5leHRfdXJsPWh0dHBzOi8vd3d3Lmt5b2JvYm9vay5jby5rci9wcm9kdWN0L2RldGFpbFZpZXdLb3IubGFmP21hbGxHYj1LT1ImZWprR2I9S09SJmJhcmNvZGU9OTc5MTE  //-->
+<!--                                                        // https://an2-glx.amz.wtchn.net/images/ex_kyobo_logo_square.png&ndash;&gt;-->
+<!--                </attr>-->
+<!--            </attr>-->
+
+<!--        </attr>-->
+<!--    </attr>-->
+
+
+
+    <!--    출연정보 -->
+    <attr sel="section#content_credits" th:if="${book.people} != null">
+        <attr sel="ul.css-1br354h-VisualUl-PeopleStackableUl" th:remove="all-but-first">
+            <attr sel="li.css-54rr1e" th:each="person, i: ${people}">
+                <attr sel="div.css-1o7yycy-ProfilePhotoImage" th:style="${person.photo} != null ? 'background-image:url('+ ${person.photo} +');' : _"/>
+                <attr sel="div.css-17vuhtq" th:text="${person.name}"/>
+                <attr sel="div.css-1evnpxk-StyledSubtitle" th:text="${person.role}"/>
+                <attr sel=".css-1aaqvgs-InnerPartOfListWithImage" th:href="@{'/personDetail/'+${person.idx}}"/>
+
+            </attr>
+        </attr>
+    </attr>
+
+    별점 그래프
+    <attr sel="section[data-rowindex='8']" th:if="${book.starList().size()} >= 5">
+        <attr sel="span.css-14yj34l-RatingStatHeaderTopRight/h4" th:text="'평균 ★' + ${avg}"/>
+        <attr sel="span.css-14yj34l-RatingStatHeaderTopRight/strong" th:text="'(' + ${book.starList().size()} + '명)'"/>
+        <!--        그래프 부분-->
+        <attr sel="div.css-g1q7ln" th:object="${graph}">
+            <attr sel="span.css-111q860-Bar" th:style="*{get(1L)} == 0 ? 'height:1px;' : (${bigStar} == 1 ? 'height: 88px; background-color: #ffa136;' : 'height:'+ *{get(1L)} +'px;')"/>
+            <attr sel="span.css-5vyahd-Bar" th:style="*{get(2L)} == 0 ? 'height:1px;' : (${bigStar} == 2 ? 'height: 88px; background-color: #ffa136;' : 'height:'+ *{get(2L)} +'px;')"/>
+            <attr sel="span.css-himw0d-Bar" th:style="*{get(3L)} == 0 ? 'height:1px;' : (${bigStar} == 3 ? 'height: 88px; background-color: #ffa136;' : 'height:'+ *{get(3L)} +'px;')"/>
+            <attr sel="span.css-3zcnds-Bar" th:style="*{get(4L)} == 0 ? 'height:1px;' : (${bigStar} == 4 ? 'height: 88px; background-color: #ffa136;' : 'height:'+ *{get(4L)} +'px;')"/>
+            <attr sel="span.css-mr14ik-Bar" th:style="*{get(5L)} == 0 ? 'height:1px;' : (${bigStar} == 5 ? 'height: 88px; background-color: #ffa136;' : 'height:'+ *{get(5L)} +'px;')"/>
+        </attr>
+    </attr>
+
+    <!--    댓글 -->
+    <attr sel="section[data-rowindex='10']" th:if="${comment.getTotalElements()} > 0">
+        <attr sel="span.css-wzn7fp" th:text="${comment.getTotalElements()} >= 10 ? (${#strings.substring(comment.getTotalElements(),0,#strings.length(comment.getTotalElements()-2))} + '0+') : ${comment.getTotalElements()}"/>
+        <attr sel="ul.css-nh9j5x-VisualUl-CommentHorizontalUl" th:remove="all-but-first">
+            <attr sel="li.css-1fryc54" th:each="comm : ${comment}">
+                <!--                댓글 링크 연결-->
+                <attr sel="div.css-ob93md">
+                    <attr sel="a.css-1f9m1s4-StylelessLocalLink" th:href="'/comment/' + ${comm.idx}"/>
+                </attr>
+                <!--                프로필 연결-->
+                <attr sel="div.css-1cvf9dk">
+                    <attr sel="a.css-1f9m1s4-StylelessLocalLink" th:href="'/user/' + ${comm.user().getUserIdx()}"/>
+                </attr>
+
+                <attr sel="div.css-1agoci2" th:text="${comm.user().getUserName()}"/>
+
+                <!--                스포일러 체크-->
+                <attr sel="span.css-xstsdj" th:if="${comm.spoiler} == true"/>
+                <attr sel="div.css-1yrlzf9-StyledText" th:class="${comm.spoiler} == true ? _ : 'css-qxbzku-StyledText eb5y16b1'" th:text="${comm.text}"/>
+                <!--                스포일러일 경우 좋아요와 대댓글 막힘 -->
+                <attr sel="div.css-1jm9uak" th:class="${comm.spoiler} == true ? _ : 'css-1atijos'">
+                    <!--                댓글 좋아요, 대댓글 수 -->
+                    <attr sel="em.like-sum" th:text="${comm.likeSum}"/>
+                    <attr sel="em.recomm-sum" th:text="${comm.recommSum}"/>
+                </attr>
+
+                <attr sel="span.css-zoh368" th:style="${comm.spoiler} == true ? _ : 'background-image:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGcgZmlsbD0iIzc4Nzg3OCI+CiAgICAgICAgICAgIDxwYXRoIGQ9Ik02Ljc1IDkuNDg1aC0zYTEgMSAwIDAgMC0xIDF2MTBhMSAxIDAgMCAwIDEgMWgzYTEgMSAwIDAgMCAxLTF2LTEwYTEgMSAwIDAgMC0xLTFNMjAuNjU3IDguNTY2YTIuMzYzIDIuMzYzIDAgMCAwLTEuNzc5LS44MTNIMTYuNjJsLjE2NC0uNjI3Yy4xMzctLjUyOC4yMDEtMS4xMi4yMDEtMS44NjMgMC0xLjkxOS0xLjM3NS0yLjc3OC0yLjczOC0yLjc3OC0uNDQ0IDAtLjc2Ni4xMjMtLjk4Ni4zNzYtLjIuMjI3LS4yODIuNTMtLjI0My45MzVsLjAzIDEuMjMtMi45MDMgMi45NGMtLjU5My42LS44OTQgMS4yMy0uODk0IDEuODcydjkuNjQ3YS41LjUgMCAwIDAgLjUuNWg3LjY4N2EyLjM4OCAyLjM4OCAwIDAgMCAyLjM0OC0yLjA3bDEuNDQ1LTcuNDUyYTIuNDQgMi40NCAwIDAgMC0uNTc0LTEuODk3Ii8+CiAgICAgICAgPC9nPgogICAgPC9nPgo8L3N2Zz4K);'"/>
+                <attr sel="span.css-43cye7" th:style="${comm.spoiler} == true ? _ : 'background-image:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxwYXRoIGZpbGw9IiM3ODc4NzgiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTkuODU3IDE3Ljc4Nkw2IDIxdi00LjkxYy0xLjg0MS0xLjM3My0zLTMuMzY5LTMtNS41OUMzIDYuMzU4IDcuMDMgMyAxMiAzczkgMy4zNTggOSA3LjVjMCA0LjE0Mi00LjAzIDcuNS05IDcuNS0uNzM5IDAtMS40NTYtLjA3NC0yLjE0My0uMjE0eiIvPgo8L3N2Zz4K);'"/>
+                <attr sel="div.css-hy68ty">
+                    <attr sel="button" th:class="${comm.hasLike} == true ? 'css-jj4q3s-StylelessButton-UserActionButton' : (${comm.spoiler} == true ? _ : 'css-1h18l7j-StylelessButton')"
+                          th:disabled="${comm.spoiler} == true ? 'disabled' : _"/>
+                </attr>
+            </attr>
+        </attr>
+    </attr>
+
+    <!--    유사한 작품-->
+    <attr sel="section[data-rowindex='13']" th:if="${similarGenre.size()} > 0">
+        <attr sel="ul.css-27z1qm-VisualUl-ContentGrid" th:remove="all-but-first">
+            <attr sel="li.css-1hp6p72" th:each="book : ${similarGenre}">
+                <attr sel="a" th:title="book.title" th:href="'/book/' + ${book.idx}"/>
+                <attr sel="img.css-qhzw1o-StyledImg" th:src="${book.thumbnail}"/>
+
+                <attr sel="div.css-ixy093">
+                    <attr sel="div.css-niy0za" th:text="${book.title}"/>
+                    <attr sel="div.css-m9i0qw" th:if="${book.avgStar} != 0.0" th:text="'평균 ★ ' + (${book.avgStar} != 0 ? ${book.avgStar} : _)"/>
+                </attr>
+            </attr>
+        </attr>
+    </attr>
+
+</thlogic>
