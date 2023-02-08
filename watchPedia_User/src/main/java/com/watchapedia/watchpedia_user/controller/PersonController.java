@@ -1,5 +1,6 @@
 package com.watchapedia.watchpedia_user.controller;
 
+import com.watchapedia.watchpedia_user.model.dto.UserSessionDto;
 import com.watchapedia.watchpedia_user.model.network.response.PersonResponse;
 import com.watchapedia.watchpedia_user.model.network.response.content.BookResponse;
 import com.watchapedia.watchpedia_user.model.network.response.content.MovieResponse;
@@ -10,6 +11,7 @@ import com.watchapedia.watchpedia_user.service.content.BookService;
 import com.watchapedia.watchpedia_user.service.content.MovieService;
 import com.watchapedia.watchpedia_user.service.content.TvService;
 import com.watchapedia.watchpedia_user.service.content.WebtoonService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -32,9 +34,12 @@ public class PersonController {
     final BookService bookService;
 
     @GetMapping("/personDetail/{perIdx}")
-    public String personDetail(@PathVariable Long perIdx, ModelMap map){
+    public String personDetail(@PathVariable Long perIdx, ModelMap map, HttpSession session){
         PersonResponse personResponse = null;
         personResponse = personService.personView(perIdx);
+
+        UserSessionDto dto = (UserSessionDto) session.getAttribute("userSession");
+        map.addAttribute("userSession", dto);
 
         map.addAttribute("person", personResponse);
 //------------------------------------------------------Movie-----------------------------------------------------------

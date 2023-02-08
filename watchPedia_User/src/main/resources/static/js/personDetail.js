@@ -67,7 +67,27 @@ window.addEventListener('scroll', () => {                                       
 //
 // const observer = new IntersectionObserver(observerCallback, observerOptions);
 // sections.forEach((section) => observer.observe(section));
+//---------------------------------------------------------like----------------------------------------------------------
+function likebtn(){
 
+    let param = {
+        "perIdx":$('#personIdx').val()
+    };
+
+    $.ajax({
+        type:"post",
+        url:"/like",
+        data: param,
+        success: function(data){
+            console.log("성공", data);
+        },
+        error: function() {
+            console.log("실패");
+        }
+    })
+}
+
+//---------------------------------------------------------movie----------------------------------------------------------
 
 let count = 0;                              // 더보기를 누른 횟수 초기화값 0
 
@@ -159,12 +179,12 @@ function tvmore(){
             for(let i=0; i<tvdata.length; i++){
                 str = str+`<a class="w_exposed_cell css-11g9kr1" data-rowindex="6" href="/ko-KR/contents/tl9g0BW" id="tvList">
                                                         <div type="tv_seasons" class="css-1726275">
-                                                        <div class="css-1vjd65c" id="tvdata">${tvdata[i].tvMakingDate}</div>
+                                                        <div class="css-1vjd65c" id="tvdata">${tvdata[i].makingDate}</div>
                                                         <div type="tv_seasons" class="css-1fqhpd6">
                                                             <div class=" css-eyiymt-StyledLazyLoadingImage ezcopuc0">
-                                                                <img src="${tvdata[i].tvThumbnail}"class="css-qhzw1o-StyledImg ezcopuc1" id="tvpos"></div>
+                                                                <img src="${tvdata[i].thumbnail}"class="css-qhzw1o-StyledImg ezcopuc1" id="tvpos"></div>
                                                         </div>
-                                                        <div class="css-1huturz" id="tvTitle">${tvdata[i].tvTitle}</div>
+                                                        <div class="css-1huturz" id="tvTitle">${tvdata[i].title}</div>
                                                         <div class="css-uideuz" id="tvRole">${tvdata[i].tvRole}</div>
                                                         <div class="css-1fk9ffn">
                                                             <div class="css-bql08h">평균
@@ -226,12 +246,12 @@ function webtoonmore(){
             for(let i=0; i<webtoondata.length; i++){
                 str = str+`<a class="w_exposed_cell css-11g9kr1" data-rowindex="6" href="/ko-KR/contents/tl9g0BW" id="webtoonList">
                                                         <div type="webtoon_seasons" class="css-1726275">
-                                                        <div class="css-1vjd65c" id="webtoondata"${webtoondata[i].webSerDetail}</div>
+                                                        <div class="css-1vjd65c" id="webtoondata"${webtoondata[i].serDetail}</div>
                                                         <div type="webtoon_seasons" class="css-1fqhpd6">
                                                             <div class=" css-eyiymt-StyledLazyLoadingImage ezcopuc0">
-                                                                <img src="${webtoondata[i].webThumbnail}"class="css-qhzw1o-StyledImg ezcopuc1" id="webtoonpos"></div>
+                                                                <img src="${webtoondata[i].thumbnail}"class="css-qhzw1o-StyledImg ezcopuc1" id="webtoonpos"></div>
                                                         </div>
-                                                        <div class="css-1huturz" id="webtoonTitle">${webtoondata[i].webTitle}</div>
+                                                        <div class="css-1huturz" id="webtoonTitle">${webtoondata[i].title}</div>
                                                         <div class="css-uideuz" id="webtoonRole">${webtoondata[i].webtoonRole}</div>
                                                         <div class="css-1fk9ffn">
                                                             <div class="css-bql08h">평균
@@ -294,12 +314,12 @@ function bookmore(){
             for(let i=0; i<bookdata.length; i++){
                 str = str+`<a class="w_exposed_cell css-11g9kr1" data-rowindex="6" href="/ko-KR/contents/tl9g0BW" id="bookList">
                                                         <div type="book_seasons" class="css-1726275">
-                                                        <div class="css-1vjd65c" id="webtoondata"${bookdata[i].bookAtDate}</div>
+                                                        <div class="css-1vjd65c" id="webtoondata"${bookdata[i].atDate}</div>
                                                         <div type="book_seasons" class="css-1fqhpd6">
                                                             <div class=" css-eyiymt-StyledLazyLoadingImage ezcopuc0">
-                                                                <img src="${bookdata[i].bookThumbnail}"class="css-qhzw1o-StyledImg ezcopuc1" id="bookpos"></div>
+                                                                <img src="${bookdata[i].thumbnail}"class="css-qhzw1o-StyledImg ezcopuc1" id="bookpos"></div>
                                                         </div>
-                                                        <div class="css-1huturz" id="bookTitle">${bookdata[i].bookTitle}</div>
+                                                        <div class="css-1huturz" id="bookTitle">${bookdata[i].title}</div>
                                                         <div class="css-uideuz" id="bookRole">${bookdata[i].bookRole}</div>
                                                         <div class="css-1fk9ffn">
                                                             <div class="css-bql08h">평균
