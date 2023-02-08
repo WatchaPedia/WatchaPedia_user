@@ -4,6 +4,7 @@ import com.watchapedia.watchpedia_user.model.dto.UserSessionDto;
 import com.watchapedia.watchpedia_user.model.dto.comment.CommentDto;
 import com.watchapedia.watchpedia_user.model.dto.content.MovieDto;
 import com.watchapedia.watchpedia_user.model.dto.content.TvDto;
+import com.watchapedia.watchpedia_user.model.entity.comment.Comment;
 import com.watchapedia.watchpedia_user.model.entity.content.ajax.Star;
 import com.watchapedia.watchpedia_user.model.network.response.*;
 import com.watchapedia.watchpedia_user.model.network.response.comment.CommentResponse;
@@ -116,11 +117,13 @@ public class TvController {
         boolean hasHate = false;
         Page<CommentResponse> commentList = commentService.commentList("tv", tv.idx(), dto != null ? dto.userIdx() : null, pageable);
         if (dto != null) {
-            CommentDto commDto = CommentDto.from(commentRepository.findByCommContentTypeAndCommContentIdxAndCommUserIdx(
+            Comment comment = commentRepository.findByCommContentTypeAndCommContentIdxAndCommUserIdx(
                     "tv", tv.idx(), userRepository.getReferenceById(dto.userIdx())
-            ));
-            hasComm = CommentResponse.from(commDto,spoilerRepository.findBySpoCommentIdx(commDto.idx())!=null?true:false,
-                    0,0L,false);
+            );
+            if(comment != null){
+                hasComm = CommentResponse.from(CommentDto.from(comment),spoilerRepository.findBySpoCommentIdx(comment.getCommIdx())!=null?true:false,
+                        0,0L,false);
+            }
 
             hasWish = wishService.findWish("tv", tv.idx(), dto.userIdx());
             hasWatch = watchService.findWatch("tv", tv.idx(), dto.userIdx());

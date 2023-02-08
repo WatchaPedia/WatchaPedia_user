@@ -4,11 +4,11 @@ package com.watchapedia.watchpedia_user.controller.content;
 import com.watchapedia.watchpedia_user.model.dto.UserSessionDto;
 import com.watchapedia.watchpedia_user.model.dto.comment.CommentDto;
 import com.watchapedia.watchpedia_user.model.dto.content.WebtoonDto;
+import com.watchapedia.watchpedia_user.model.entity.comment.Comment;
 import com.watchapedia.watchpedia_user.model.entity.content.ajax.Star;
 import com.watchapedia.watchpedia_user.model.network.response.PersonResponse;
 import com.watchapedia.watchpedia_user.model.network.response.comment.CommentResponse;
 import com.watchapedia.watchpedia_user.model.network.response.content.StarResponse;
-import com.watchapedia.watchpedia_user.model.network.response.content.TvResponse;
 import com.watchapedia.watchpedia_user.model.network.response.content.WebtoonResponse;
 import com.watchapedia.watchpedia_user.model.repository.UserRepository;
 import com.watchapedia.watchpedia_user.model.repository.comment.CommentRepository;
@@ -111,11 +111,13 @@ public class WebtoonController {
         boolean hasHate = false;
         Page<CommentResponse> commentList = commentService.commentList("webtoon", webtoon.idx(), dto != null ? dto.userIdx() : null, pageable);
         if (dto != null) {
-            CommentDto commDto = CommentDto.from(commentRepository.findByCommContentTypeAndCommContentIdxAndCommUserIdx(
+            Comment comment = commentRepository.findByCommContentTypeAndCommContentIdxAndCommUserIdx(
                     "webtoon", webtoon.idx(), userRepository.getReferenceById(dto.userIdx())
-            ));
-            hasComm = CommentResponse.from(commDto,spoilerRepository.findBySpoCommentIdx(commDto.idx())!=null?true:false,
-                    0,0L,false);
+            );
+            if(comment != null){
+                hasComm = CommentResponse.from(CommentDto.from(comment),spoilerRepository.findBySpoCommentIdx(comment.getCommIdx())!=null?true:false,
+                        0,0L,false);
+            }
 
             hasWish = wishService.findWish("webtoon", webtoon.idx(), dto.userIdx());
             hasWatch = watchService.findWatch("webtoon", webtoon.idx(), dto.userIdx());
