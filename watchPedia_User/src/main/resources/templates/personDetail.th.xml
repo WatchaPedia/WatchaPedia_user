@@ -16,7 +16,7 @@
 
     <!--  영화  -->
     <attr sel="#movframe" th:if="${movShow}">
-        <attr sel="#movieList" th:each="movie : ${movie}">
+        <attr sel="#movieList" th:each="movie : ${movie}" th:href="@{'/movie/'+${movie.idx}}">
             <attr sel="div#movdata" th:text="${movie.makingDate}"/>
             <attr sel="img#movpos" th:src="${movie.thumbnail}"/>
             <attr sel="#movieTitle" th:text="${movie.title}" />
@@ -33,7 +33,7 @@
 
     <!--  tv  -->
     <attr sel="#tvframe" th:if="${tvShow}">
-        <attr sel="#tvList" th:each="tv : ${tv}">
+        <attr sel="#tvList" th:each="tv : ${tv}" th:href="@{'/tv/'+${tv.idx}}">
             <attr sel="div#tvdata" th:text="${tv.makingDate}"/>
             <attr sel="img#tvpos" th:src="${tv.thumbnail}"/>
             <attr sel="#tvTitle" th:text="${tv.title}" />
@@ -51,7 +51,7 @@
 
     <!--  webtoon  -->
     <attr sel="#webtoonframe" th:if="${webtoonShow}">
-        <attr sel="#webtoonList" th:each="webtoon : ${webtoon}">
+        <attr sel="#webtoonList" th:each="webtoon : ${webtoon}" th:href="@{'/webtoon/'+${webtoon.idx}}">
             <attr sel="div#webtoondata" th:text="${webtoon.serDetail}"/>
             <attr sel="img#webtoonpos" th:src="${webtoon.thumbnail}"/>
             <attr sel="#webtoonTitle" th:text="${webtoon.title}" />
@@ -67,7 +67,7 @@
 
     <!--  book  -->
     <attr sel="#bookframe" th:if="${bookShow}">
-        <attr sel="#bookList" th:each="book : ${book}">
+        <attr sel="#bookList" th:each="book : ${book}" th:href="@{'/book/'+${book.idx}}">
             <attr sel="div#bookdata" th:text="${book.makingDate}"/>
             <attr sel="img#bookpos" th:src="${book.thumbnail}"/>
             <attr sel="#bookTitle" th:text="${book.title}" />
