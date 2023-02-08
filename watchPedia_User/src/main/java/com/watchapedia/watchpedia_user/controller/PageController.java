@@ -155,15 +155,6 @@ public class PageController {
     }
 
 
-    @GetMapping(path="/mypage/analysis")  // localhost:9090/mypage/analysis
-    public ModelAndView analysis(){
-        return new ModelAndView("/mypage/analysis") ;
-    }
 
-
-    @GetMapping(path="/mypage/myPage")  // localhost:9090/mypage/myPage
-    public ModelAndView myPage(){
-        return new ModelAndView("/mypage/myPage") ;
-    }
 
 }
