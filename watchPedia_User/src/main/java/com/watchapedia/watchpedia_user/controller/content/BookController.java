@@ -4,6 +4,7 @@ package com.watchapedia.watchpedia_user.controller.content;
 import com.watchapedia.watchpedia_user.model.dto.UserSessionDto;
 import com.watchapedia.watchpedia_user.model.dto.comment.CommentDto;
 import com.watchapedia.watchpedia_user.model.dto.content.BookDto;
+import com.watchapedia.watchpedia_user.model.entity.comment.Comment;
 import com.watchapedia.watchpedia_user.model.entity.content.ajax.Star;
 import com.watchapedia.watchpedia_user.model.network.response.PersonResponse;
 import com.watchapedia.watchpedia_user.model.network.response.comment.CommentResponse;
@@ -110,11 +111,13 @@ public class BookController {
         boolean hasHate = false;
         Page<CommentResponse> commentList = commentService.commentList("book", book.idx(), dto != null ? dto.userIdx() : null, pageable);
         if (dto != null) {
-            CommentDto commDto = CommentDto.from(commentRepository.findByCommContentTypeAndCommContentIdxAndCommUserIdx(
+            Comment comment = commentRepository.findByCommContentTypeAndCommContentIdxAndCommUserIdx(
                     "book", book.idx(), userRepository.getReferenceById(dto.userIdx())
-            ));
-            hasComm = CommentResponse.from(commDto,spoilerRepository.findBySpoCommentIdx(commDto.idx())!=null?true:false,
-                    0,0L,false);
+            );
+            if(comment != null){
+                hasComm = CommentResponse.from(CommentDto.from(comment),spoilerRepository.findBySpoCommentIdx(comment.getCommIdx())!=null?true:false,
+                        0,0L,false);
+            }
 
             hasWish = wishService.findWish("book", book.idx(), dto.userIdx());
             hasWatch = watchService.findWatch("book", book.idx(), dto.userIdx());
