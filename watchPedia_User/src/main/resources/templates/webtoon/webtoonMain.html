@@ -1711,7 +1711,7 @@ h1, h3, p, hr {
             background-color: #fff;
             text-align: center;
             width: 100%;
-            height: 71px;
+            height: 60px;
             overflow: scroll;
             -webkit-transition: all 700ms;
             transition: all 700ms;
@@ -1719,11 +1719,12 @@ h1, h3, p, hr {
             -moz-scrollbar-width: none;
             -ms-scrollbar-width: none;
             scrollbar-width: none;
+          box-shadow: rgb(0 0 0 / 8%) 0px 1px 0px 0px;
         }
 
         .css-1xl5dyt>ul>li {
             padding-top: 27px;
-            padding-bottom: 15px;
+            padding-bottom: 22px;
         }
 
         .css-1xl5dyt::-webkit-scrollbar {
@@ -5776,18 +5777,18 @@ h1, h3, p, hr {
               <div th:replace="fragment/header::header"></div>
                 <header class="css-1xl5dyt">
                     <ul class="css-6v7b8v-VisualUl">
-                        <li class="css-ysxfln">
-                          <button class="css-1ezx7y8-StylelessButton">영화</button>
-                        </li>
-                        <li class="css-ysxfln">
-                          <button class="css-1ezx7y8-StylelessButton">TV</button>
-                        </li>
-                        <li class="css-ysxfln">
-                          <button class="css-1ezx7y8-StylelessButton">책</button>
-                        </li>
-                        <li class="css-ysxfln">
-                          <button class="css-q3jh7f-StylelessButton">웹툰</button>
-                        </li>
+                      <li class="css-ysxfln">
+                        <button class="css-1ezx7y8-StylelessButton" onclick="location.href='/movie/main'">영화</button>
+                      </li>
+                      <li class="css-ysxfln">
+                        <button class="css-1ezx7y8-StylelessButton" onclick="location.href='/tv/main'">TV</button>
+                      </li>
+                      <li class="css-ysxfln">
+                        <button class="css-1ezx7y8-StylelessButton" onclick="location.href='/book/main'">책</button>
+                      </li>
+                      <li class="css-ysxfln">
+                        <button class="css-q3jh7f-StylelessButton" onclick="location.href='/webtoon/main'">웹툰</button>
+                      </li>
                     </ul>
                 </header>
                 <section class="css-99klbh">
