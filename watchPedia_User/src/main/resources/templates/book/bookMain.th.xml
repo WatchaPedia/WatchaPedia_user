@@ -35,4 +35,51 @@
         </attr>
     </attr>
 
+
+    <!--    10년전 서적)-->
+    <attr sel=".book-table-10" th:remove="all-but-first" >
+        <attr sel=".book-tr-10" th:if="${book.bookAtDate =='2010' or book.bookAtDate =='2011'
+         or book.bookAtDate =='2012' or book.bookAtDate =='2013'}" th:each="book : ${books}"  >
+            <!--            <attr sel=".book-idx-re" th:text="${book.bookIdx}"/>-->
+            <attr sel=".book-title-10" th:text="${book.bookTitle}"/>
+            <attr sel=".book-img-10" th:src="${book.bookThumbnail}" />
+            <attr sel=".average"
+                  th:if="${book.avg} != 0.0" th:text="'평균 ★ ' + (${book.avg} != 0 ? ${book.avg} : _)"/>
+        </attr>
+    </attr>
+
+    <!--    다양한 장르의 서적)-->
+    <attr sel=".book-table-ma" th:remove="all-but-first" >
+        <attr sel=".book-tr-ma" th:if="${book.bookCategory =='기타'}" th:each="book : ${books}"  >
+            <!--            <attr sel=".book-idx-re" th:text="${book.bookIdx}"/>-->
+            <attr sel=".book-title-ma" th:text="${book.bookTitle}"/>
+            <attr sel=".book-img-ma" th:src="${book.bookThumbnail}" />
+            <attr sel=".average"
+                  th:if="${book.avg} != 0.0" th:text="'평균 ★ ' + (${book.avg} != 0 ? ${book.avg} : _)"/>
+        </attr>
+    </attr>
+
+    <!--    #소설 장르-->
+    <attr sel=".book-table-no" th:remove="all-but-first" >
+        <attr sel=".book-tr-no" th:if="${book.bookCategory =='기타'}" th:each="book : ${books}"  >
+            <!--            <attr sel=".book-idx-re" th:text="${book.bookIdx}"/>-->
+            <attr sel=".book-title-no" th:text="${book.bookTitle}"/>
+            <attr sel=".book-img-no" th:src="${book.bookThumbnail}" />
+            <attr sel=".average"
+                  th:if="${book.avg} != 0.0" th:text="'평균 ★ ' + (${book.avg} != 0 ? ${book.avg} : _)"/>
+        </attr>
+    </attr>
+
+    <!--    #인문학-->
+    <attr sel=".book-table-in" th:remove="all-but-first" >
+        <attr sel=".book-tr-in" th:if="${book.bookCategory =='인문학'}" th:each="book : ${books}"  >
+            <!--            <attr sel=".book-idx-re" th:text="${book.bookIdx}"/>-->
+            <attr sel=".book-title-in" th:text="${book.bookTitle}"/>
+            <attr sel=".book-img-in" th:src="${book.bookThumbnail}" />
+            <attr sel=".average"
+                  th:if="${book.avg} != 0.0" th:text="'평균 ★ ' + (${book.avg} != 0 ? ${book.avg} : _)"/>
+        </attr>
+    </attr>
 </thlogic>
+
+<!--        th:href="@{'/book/'+${book.bookIdx}}"-->
