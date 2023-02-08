@@ -506,10 +506,11 @@
 
 
   </style>
-
+  <script src="https://unpkg.com/vue@3"></script>
 
   <nav>
     <div class="css-1gkas1x-Grid e1689zdh0">
+      <div id="session_idx" hidden></div>
       <div class="css-1djzg97">
         <ul class="css-6v7b8v-VisualUl">
           <li class="css-t686xv"><a href="/">
@@ -552,7 +553,8 @@
           </li>
           <li class="categories css-8az14u">
             <button class="css-q65tx9-StylelessButton" onclick="location.href='/webtoon/main'">웹툰</button>
-          </li><li class="css-1c3wwgb">
+          </li>
+          <li class="css-1c3wwgb">
           <div class="css-1xm32e0">
             <div class="css-1okeg7p">
               <form action="#"><label class="css-kyr608">
@@ -569,8 +571,8 @@
             <div class="css-xi14ay-FullWidthGrid e1u1cfaa0">
               <div class="css-1if4rat-FullWidthRow e16gp4xp0">
                 <div class="css-1yo7t0i">
-                  <div class="css-18ix4ch">
-                    <section class="css-1h6sp57">
+                  <div class="css-18ix4ch" id="latestMount">
+                    <section class="css-1h6sp57"  v-if="latestList != null">
                       <div class="css-1gkas1x-Grid e1689zdh0">
                         <div class="css-gve0r1-PediaRow ei6jegq0">
                           <header class="css-1ue9xs6">
@@ -581,30 +583,19 @@
                         </div>
                       </div>
                       <ul class="css-10n5vg9-VisualUl">
-                        <li class="css-13is4px">
+                        <li class="css-13is4px" v-for="latest in latestList">
                           <div class="css-6r4d6b">
-                            <div class="css-1c4znvk">올빼미</div>
-                            <div class="css-0"></div>
-                          </div>
-                        </li>
-                        <li class="css-13is4px">
-                          <div class="css-6r4d6b">
-                            <div class="css-1c4znvk">나우 이즈 굿</div>
-                            <div class="css-0"></div>
-                          </div>
-                        </li>
-                        <li class="css-13is4px">
-                          <div class="css-6r4d6b">
-                            <div class="css-1c4znvk">박찬욱</div>
+                            <div class="css-1c4znvk">{{latest.searchContent}}</div>
                             <div class="css-0"></div>
                           </div>
                         </li>
                       </ul>
+                      <hr class="css-1qmg4jw">
                     </section>
                   </div>
-                  <hr class="css-1qmg4jw">
+
                 </div>
-                <div class="css-1yo7t0i">
+                <div class="css-1yo7t0i" id="popularMount">
                   <section class="css-9xx3wa">
                     <div class="css-1gkas1x-Grid e1689zdh0">
                       <div class="css-gve0r1-PediaRow ei6jegq0">
@@ -614,33 +605,9 @@
                       </div>
                     </div>
                     <ul class="css-10n5vg9-VisualUl">
-                      <li class="css-13is4px">
+                      <li class="css-13is4px" v-for="result in popularList">
                         <div class="css-6r4d6b">
-                          <div class="css-1c4znvk">더 글로리 파트 1</div>
-                          <div class="css-0"></div>
-                        </div>
-                      </li>
-                      <li class="css-13is4px">
-                        <div class="css-6r4d6b">
-                          <div class="css-1c4znvk">3000년의 기다림</div>
-                          <div class="css-0"></div>
-                        </div>
-                      </li>
-                      <li class="css-13is4px">
-                        <div class="css-6r4d6b">
-                          <div class="css-1c4znvk">데스노트 1기</div>
-                          <div class="css-0"></div>
-                        </div>
-                      </li>
-                      <li class="css-13is4px">
-                        <div class="css-6r4d6b">
-                          <div class="css-1c4znvk">아바타</div>
-                          <div class="css-0"></div>
-                        </div>
-                      </li>
-                      <li class="css-13is4px">
-                        <div class="css-6r4d6b">
-                          <div class="css-1c4znvk">탑건: 매버릭</div>
+                          <div class="css-1c4znvk">{{result.searchContent}}</div>
                           <div class="css-0"></div>
                         </div>
                       </li>
@@ -660,7 +627,7 @@
                 <div class="css-1yo7t0i"></div>
               </div>
             </div>
-            <div class="css-cwsoc3">
+            <div class="css-cwsoc3" id="relativeMount">
               <section class="css-7zhfhb">
                 <div class="css-1gkas1x-Grid e1689zdh0">
                   <div class="css-gve0r1-PediaRow ei6jegq0">
@@ -670,35 +637,11 @@
                   </div>
                 </div>
                 <ul class="css-q1t2hb-VisualUl">
-                  <li class="css-1yarod2">
-                    <div class="css-cdybbf">King of Desert</div>
+                  <li class="css-1yarod2" v-if="relativeList == ''">
+                    <div class="css-cdybbf">연관검색어가 없습니다.</div>
                   </li>
-                  <li class="css-1yarod2">
-                    <div class="css-cdybbf">K-PAX</div>
-                  </li>
-                  <li class="css-1yarod2">
-                    <div class="css-cdybbf">Detective K: Secret of Virtuous Widow</div>
-                  </li>
-                  <li class="css-1yarod2">
-                    <div class="css-cdybbf">Ted K</div>
-                  </li>
-                  <li class="css-1yarod2">
-                    <div class="css-cdybbf">K-19: The Widowmaker</div>
-                  </li>
-                  <li class="css-1yarod2">
-                    <div class="css-cdybbf">Detective K: Secret of the Lost Island</div>
-                  </li>
-                  <li class="css-1yarod2">
-                    <div class="css-cdybbf">Detective K: Secret of the Living Dead</div>
-                  </li>
-                  <li class="css-1yarod2">
-                    <div class="css-cdybbf">K Food Show 국물의 나라</div>
-                  </li>
-                  <li class="css-1yarod2">
-                    <div class="css-cdybbf">Mission Possible: Kidnapping Granny K</div>
-                  </li>
-                  <li class="css-1yarod2">
-                    <div class="css-cdybbf">Money Heist: Korea - Joint Economic Area Part 1</div>
+                  <li class="css-1yarod2" v-for="content in relativeList">
+                    <div class="css-cdybbf">{{content.searchContent}}</div>
                   </li>
                 </ul>
               </section>
@@ -741,6 +684,164 @@
       </div>
     </div>
   </nav>
+  <script>
+    const{createApp}=Vue;
+
+    let latest = createApp({
+      data(){
+        return{
+          latestList:{}
+        }
+      }
+    }).mount("#latestMount")
+
+    let popular = createApp({
+      data(){
+        return{
+          popularList:{}
+        }
+      }
+    }).mount("#popularMount")
+
+    let relative = createApp({
+      data(){
+        return{
+          relativeList:{}
+        }
+      }
+    }).mount("#relativeMount")
+
+    const inputTag = document.getElementById('input_text');
+    console.log(input_text);
+
+    //검색창에 포커스 했을 때,
+    inputTag.addEventListener("focus", focusOn);
+
+    //검색창에서 포커스 뺐을 때,
+    inputTag.addEventListener("blur", focusOut);
+
+    //검색창에서 값 바꿀때 마다,
+    inputTag.addEventListener("keyup", searchChange);
+
+    //검색창에서 enter 눌렀을 때,
+    inputTag.addEventListener("change", searchEnter);
+
+    //session이 있을때만 존재하는 박스 (로그인 구분) null check용
+    const userIdxTag = document.getElementById('session_idx');
+    console.log(userIdxTag)
+
+    //검색창에 커서 활성화될 때,
+    function focusOn(){
+      console.log("focusOn 메소드 실행");
+
+      //로그인상태면, Idx값이 담기고, 비회원상태면 null을 보냄
+      let Idx = ""
+      if(userIdxTag != null){
+        Idx = userIdxTag.innerText
+      }
+
+      //Top5 리턴되는 ajax
+      $.ajax({
+        url: "api/search/focusOn",
+        type: "GET",
+        dataType: "json",
+        processData: true,
+        contentType: "application/json; charset=UTF-8",
+        data: {
+          userIdx : Idx
+        },
+        success: function(list){
+          console.log('ajax 정보교환 성공!')
+          console.log(list);
+
+          latest.latestList = list[0];
+          popular.popularList = list[1];
+        },
+        error: function(){
+          console.log("에러발생")
+        }
+      })
+
+
+    }
+
+    //검색창에서 커서 나갈 때,
+    function focusOut(){
+      console.log("focusOut 메소드 실행");
+    }
+
+    //검색어 엔터치면 발동!
+    function searchEnter(){
+      console.log("searchEnter 메소드 실행!");
+
+      //로그인상태면, Idx값이 담기고, 비회원상태면 null을 보냄
+      let Idx = ""
+      if(userIdxTag != null){
+        Idx = userIdxTag.innerText
+      }
+
+      //검색어 빈칸은 검색어를 쌓지 않기 (방어코드)
+      if(inputTag.value == "") return;
+
+      //tb_search create로직 => 해당하는 검색어 find해서 반복돌리면서 count로 duplicate set해서 업데이트
+      $.ajax({
+        url: "api/search/enter",
+        type: "GET",
+        dataType: "json",
+        processData: true,
+        contentType: "application/json; charset=UTF-8",
+        data: {
+          searchKey : inputTag.value,
+          userIdx : Idx
+        },
+        success: function(result){
+          console.log('ajax 정보교환 성공!')
+
+          console.log(result);
+        },
+        error: function(){
+          console.log("에러발생")
+        }
+      })
+
+    }
+
+
+    //검색어 치는 순간마다 발동!
+    function searchChange(){
+      console.log("searchChange 메소드 실행!");
+
+      //relativeList 비우기
+      relative.relativeList = {}
+
+      //로그인상태면, Idx값이 담기고, 비회원상태면 null을 보냄
+      let Idx = ""
+      if(userIdxTag != null){
+        Idx = userIdxTag.innerText
+      }
+
+      //검색어 빈칸은 연관검색어를 구하지 않기 (방어코드)
+      if(inputTag.value == "") return;
+
+      $.ajax({
+        url: "api/search/change",
+        type: "GET",
+        dataType: "json",
+        processData: true,
+        contentType: "application/json; charset=UTF-8",
+        data: {
+          searchKey : inputTag.value
+        },
+        success: function(list){
+          console.log('ajax 정보교환 성공!')
+          console.log(list)
+          relative.relativeList = list;
+        },
+        error: function(){
+          console.log("에러발생")
+        }
+      })
+    }
+  </script>
 </header>
 </html>
-

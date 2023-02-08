@@ -3,12 +3,11 @@ package com.watchapedia.watchpedia_user.model.entity;
 import com.watchapedia.watchpedia_user.config.PasswordConverter;
 import com.watchapedia.watchpedia_user.model.dto.UserDto;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity(name = "tbUser")
 @Builder
@@ -42,6 +41,11 @@ public class User {
     private String userLikeDirector;
     @Column(length =100)
     private String userLikeGenre;
+
+    @ToString.Exclude
+    @OrderBy("searchIdx ASC")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private final List<Search> searchList = new ArrayList<>();
 
     public static User of(UserDto userDto) {
         return new User(
