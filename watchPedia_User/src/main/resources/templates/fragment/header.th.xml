@@ -1,7 +1,0 @@
-<?xml version="1.0"?>
-<thlogic>
-    <attr sel="div#sign_up" th:if="${userSession} == null"/>
-    <attr sel="div#login_ok" th:if="${userSession} != null">
-        <attr sel="a#login-idx" th:title="${userSession.userIdx()}"/>
-    </attr>
-</thlogic>
