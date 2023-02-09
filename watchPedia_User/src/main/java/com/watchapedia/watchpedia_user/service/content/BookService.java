@@ -95,13 +95,15 @@ public class BookService {
 
         List<Star> starResponseList = starRepository.findByStarContentTypeAndStarContentIdx("book", book.bookIdx());
         int starCount= starResponseList.size();
-        int starPoint = 0;
+        float starPoint = 0;
         for(Star star : starResponseList){
             starPoint = starPoint + (star.getStarPoint()).intValue();
         }
         float starAvg = 0;
         if(starCount != 0){
-            starAvg = (float) Math.round(starPoint / starCount);
+            float avg = (starPoint / starCount);
+            float avg2 = (float) ((avg*100)/100.0);
+            starAvg = (float)(Math.round(avg2*10)/10.0);
         }
 
         int num = book.bookPeople().indexOf(String.valueOf(perIdx));  // 특정문자 => 문자열로 변환 => 동일한 부분을 찾기(영화 사람에서) => 결과를 인덱스로 반환 => 다시 숫자형으로 변환
