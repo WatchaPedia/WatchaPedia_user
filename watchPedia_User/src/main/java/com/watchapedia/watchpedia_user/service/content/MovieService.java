@@ -302,7 +302,7 @@ public class MovieService {
         boolean isNetflix = false;
 
         try{
-            if(!mov.movWatch().isEmpty()){
+            if(mov.movWatch() != null){
                 String[] movieWatch = mov.movWatch().split(",");
                 for(String movWatch : movieWatch){
                     if(movWatch.contains("aHR0cHM6Ly93YXRjaGEuY29tL3dhdGNoL21")){
