@@ -31,10 +31,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 @Controller
 @RequestMapping("/movie")
@@ -64,7 +61,12 @@ public class MovieController {
         List<MovieDto> movies = movieService.movies();
         map.addAttribute("movies", movies);
 
-//        map.addAttribute("movies", movieService.movies());
+        //String[] gerneList = {"액션","모험","예술","코미디","블랙코미디","로멘틱","다큐멘터리","드라마","코미디","시대극","멜로드라마","교육영화","판타지","누아르","공포","뮤지컬","미스터리","성인","멜로","로멘스","재난","좀비","전쟁","애니메이션","독립","스포츠","음악","뮤지컬","틴에이저","시트콤","가족","역사","독립","스포츠","음악","뮤지컬","로맨스"};
+        String[] gerneList = {"액션","액션","액션","코미디","코미디","코미디", "드라마","드라마","범죄"};
+        Random rand = new Random();
+        String randomJerne = gerneList[rand.nextInt(gerneList.length-1)];
+        map.addAttribute("randomJerne",randomJerne);
+
         map.addAttribute("movieDtos", movieService.movieDtos());
         map.addAttribute("movies2", movieService.movies2("나 홀로"));
         map.addAttribute("Irons", movieService.Irons("아이언"));
@@ -72,7 +74,7 @@ public class MovieController {
         map.addAttribute("koreanMovies", movieService.searchCountry("한국"));
         map.addAttribute("americanMovies", movieService.searchCountry("미국"));
         map.addAttribute("dramas", movieService.searchDrama("드라마"));
-        map.addAttribute("cris", movieService.searchCri("범죄","한국"));
+        map.addAttribute("cris", movieService.searchCri(randomJerne,"한국"));
         return "/movie/movieMain";
     }
 
