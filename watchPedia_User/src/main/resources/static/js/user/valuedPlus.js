@@ -25,23 +25,58 @@ document.addEventListener('scroll', () => { // 스크롤시 이벤트 발생
     }
 })
 
-$(function() {
+
+$(document).ready(function () {
     const userIdx = window.location.href.split("/user/")[1].split("/")[0]
     const contentType = window.location.href.split(`/user/${userIdx}/`)[1].split("/ratings")[0]
     const loadingIcon = document.querySelector("#loading-icon");
+
+    const allListBtn = document.querySelector("ul.css-1e0vaz3-VisualUl").querySelectorAll("li").item(0)
+    const starListBtn = document.querySelector("ul.css-1e0vaz3-VisualUl").querySelectorAll("li").item(1)
+
+    let star5=new Array()
+    let star4=new Array()
+    let star3=new Array()
+    let star2=new Array()
+    let star1=new Array()
+    let itemBox = new Array()
 
     let itemList = createApp({
         data() {
             return {
                 itemList: {},
-                contentType: contentType
+                contentType: contentType,
+                userIdx: userIdx,
+                star5: {},
+                star4: {},
+                star3: {},
+                star2: {},
+                star1: {}
             }
         }
     }).mount("#content-list")
 
     let page = 0;
+    let starPage = 0;
 
-    window.onload = itemPlus
+    document.querySelector("ul.css-1e0vaz3-VisualUl").addEventListener("click",(e)=>{
+        if(!e.target.classList.contains("css-1qee6f7")){
+            document.querySelector(".css-1qee6f7").setAttribute("class","css-vko0h7")
+            e.target.setAttribute("class","css-1qee6f7")
+            if(e.target.innerHTML == '전체'){
+                document.querySelector("#content-star-list").style.display = 'none'
+                document.querySelector("#content-all-list").style.display = 'block'
+            }
+            else{
+                if(starPage == 0) starItemPlus();
+                document.querySelector("#content-all-list").style.display = 'none'
+                document.querySelector("#content-star-list").style.display = 'block'
+            }
+        }
+    })
+
+    window.onload = itemPlus()
+
     function itemPlus(){
         $.ajax({
             url:`/user/${userIdx}/${contentType}/ratings/list?page=${page}`,
@@ -55,9 +90,44 @@ $(function() {
                 loadingIcon.style.display = 'none';
             },
             success: function (data) {
-                console.log("실행됨")
-                itemList.itemList = data.content
-                console.log(itemList.itemList)
+
+                itemBox.push(data.content)
+                let str = "";
+                itemBox.forEach(con => str += JSON.stringify(con))
+                str.replaceAll("][",",")
+                itemList.itemList = JSON.parse(str)
+                page++;
+            }
+        })
+    }
+
+    function starItemPlus(){
+        $.ajax({
+            url:`/user/${userIdx}/${contentType}/ratings/list?page=${starPage}`,
+            headers: {'Content-Type': 'application/json;charset=UTF-8'},
+            type: 'GET',
+            dataType: "json",
+            beforeSend: function(){
+                loadingIcon.style.display = 'block';
+            },
+            complete: function(){
+                loadingIcon.style.display = 'none';
+            },
+            success: function (data) {
+                for (let idx of data.content) {
+                    if(idx.starPoint == 5) star5.push(idx)
+                    if(idx.starPoint == 4) star4.push(idx)
+                    if(idx.starPoint == 3) star3.push(idx)
+                    if(idx.starPoint == 2) star2.push(idx)
+                    if(idx.starPoint == 1) star1.push(idx)
+                }
+                itemList.star5 = star5
+                itemList.star4 = star4
+                itemList.star3 = star3
+                itemList.star2 = star2
+                itemList.star1 = star1
+                console.log(star5)
+                starPage++;
             }
         })
     }
