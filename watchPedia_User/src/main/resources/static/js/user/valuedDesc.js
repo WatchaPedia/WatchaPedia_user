@@ -1,7 +1,9 @@
 $(document).ready(function () {
 // 스크롤 액션
     const container = document.querySelectorAll(".css-usdi1z");
-    window.onload = scrollContent();
+    window.addEventListener("click",()=>{
+        if(document.querySelector("#content-star-list").style.display=='block') scrollContent();
+    })
     window.addEventListener('resize', () => {
         scrollContent()
     })
@@ -10,9 +12,9 @@ $(document).ready(function () {
     function scrollContent() {
         for (let idx of container) {
             let scrollBox = idx.querySelector('.css-9dnzub');
-            let scrollMax = scrollBox.scrollWidth - (idx.querySelector('.e1689zdh0').getBoundingClientRect().width + 10);
+            let scrollMax = scrollBox.getBoundingClientRect.scrollWidth - (idx.querySelector('.e1689zdh0').getBoundingClientRect().width + 10);
             // 스크롤 위치에 따라 버튼 유무
-            idx.querySelector('.css-9dnzub').addEventListener('scroll', () => {
+            scrollBox.addEventListener('scroll', () => {
                 if (scrollBox.scrollLeft >= scrollMax) {
                     idx.querySelector('.css-vp7uyl').style.display = "none";
                 } else {

@@ -77,6 +77,25 @@ public class MyPageController {
         return  mv;
     }
 
+    @GetMapping("/user/{userIdx}/{contentType}/ratings/{starPoint}")
+    @ResponseBody
+    public ModelAndView ratingsStarPointPage(
+            HttpSession session
+    ){
+        UserSessionDto dto = (UserSessionDto) session.getAttribute("userSession");
+        return new ModelAndView("/mypage/valuedPlus")
+                .addObject("userSession",dto);
+    }
+    @GetMapping("/user/{userIdx}/{contentType}/ratings/{starPoint}/new")
+    @ResponseBody
+    public Map<String, Object> ratingsStarPoint(
+            @PathVariable Long userIdx, @PathVariable String contentType, @PathVariable Long starPoint,
+            @PageableDefault(size=9, sort="starIdx", direction = Sort.Direction.DESC) Pageable pageable
+    ){
+        Map<String, Object> mv = userService.findRatingsStarPoint(contentType,userIdx,starPoint,pageable);
+        return  mv;
+    }
+
 
 
     @PostMapping("/save")
