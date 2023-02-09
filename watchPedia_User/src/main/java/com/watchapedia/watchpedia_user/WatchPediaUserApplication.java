@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
+// configurationPropertiesScan을 쓰면  thymeleafconfig에 ConfigurationProperties("spring.thymeleaf3")를 스캔함
 @SpringBootApplication
 @ConfigurationPropertiesScan
 @EnableJpaAuditing

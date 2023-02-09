@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.thymeleaf.spring6.templateresolver.SpringResourceTemplateResolver;
 
+//타임리프 th.xml 사용하기위해 타임리프 설정을 함
 @Configuration
 public class ThymeleafConfig {
     @Bean
