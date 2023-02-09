@@ -106,21 +106,21 @@
             <attr sel="div.css-oobk33" th:if="${movie2.movWatch} != null and ${#strings.contains(movie2.movWatch,'aHR0cHM6Ly93d3cubmV0ZmxpeC5jb20vdGl0b')}"/>
         </attr>
     </attr>
-    <!--아이언맨 영화  -->
+    <!--최근 등록된 오늘의 영화  -->
     <attr sel=".movie-table-Iron" th:remove="all-but-first" >
-        <attr sel=".movie-tr-Iron" th:each="Iron, i : ${Irons}" >
-            <attr sel=".movie-title" th:text="${Iron.movTitle}"/>
-            <attr sel=".movie-img" th:src="${Iron.movThumbnail}" />
-            <attr sel=".movie-making" th:text="${Iron.movMakingDate} + ' ・ ' +  ${Iron.movCountry}" />
+        <attr sel=".movie-tr-Iron" th:each="movieDtos, i : ${movieDtos}" >
+            <attr sel=".movie-title" th:text="${movieDtos.movTitle}"/>
+            <attr sel=".movie-img" th:src="${movieDtos.movThumbnail}" />
+            <attr sel=".movie-making" th:text="${movieDtos.movMakingDate} + ' ・ ' +  ${movieDtos.movCountry}" />
             <!--                메인페이지 순서 count이용 증가 -->
             <attr sel=".movie-idx" th:text="${i.count}" />
             <!--                메인페이지 평균별점       -->
             <attr sel=".average"
-                  th:if="${Iron.avg} != 0.0" th:text="'평균 ★ ' + (${Iron.avg} != 0 ? ${Iron.avg} : _)"/>
+                  th:if="${movieDtos.avg} != 0.0" th:text="'평균 ★ ' + (${movieDtos.avg} != 0 ? ${movieDtos.avg} : _)"/>
             <!--                넷플릭스 아이콘        -->
-            <attr sel="div.css-5o7sb2" th:if="${Iron.movWatch} != null and ${#strings.contains(Iron.movWatch,'aHR0cHM6Ly93YXRjaGEuY29tL3dhd')}"/>
+            <attr sel="div.css-5o7sb2" th:if="${movieDtos.movWatch} != null and ${#strings.contains(movieDtos.movWatch,'aHR0cHM6Ly93YXRjaGEuY29tL3dhd')}"/>
             <!--                왓챠 아이콘 -->
-            <attr sel="div.css-oobk33" th:if="${Iron.movWatch} != null and ${#strings.contains(Iron.movWatch,'aHR0cHM6Ly93d3cubmV0ZmxpeC5jb20vdGl0b')}"/>
+            <attr sel="div.css-oobk33" th:if="${movieDtos.movWatch} != null and ${#strings.contains(movieDtos.movWatch,'aHR0cHM6Ly93d3cubmV0ZmxpeC5jb20vdGl0b')}"/>
         </attr>
     </attr>
     <!--범죄 영화  -->

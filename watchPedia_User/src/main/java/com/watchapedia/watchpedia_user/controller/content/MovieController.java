@@ -67,6 +67,7 @@ public class MovieController {
 
 
         map.addAttribute("movies", movieService.movies());
+        map.addAttribute("movieDtos", movieService.movieDtos());
         map.addAttribute("movies2", movieService.movies2("나 홀로"));
         map.addAttribute("Irons", movieService.Irons("아이언"));
         map.addAttribute("movies3", movieService.movies3("2023"));
