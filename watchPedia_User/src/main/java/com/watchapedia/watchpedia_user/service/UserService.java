@@ -114,7 +114,8 @@ public class UserService {
 
     public Map<String, Object> findRatings(String contentType, Long userIdx, Pageable pageable){
         Map<String, Object> mv = new HashMap<>();
-        Page<Star> starList = starRepository.findByStarContentTypeAndStarUserIdx("movie",userIdx,pageable);
+        Page<Star> starList = starRepository.findByStarContentTypeAndStarUserIdx(contentType,userIdx,pageable);
+        mv.put("size",starList.getTotalElements());
         boolean last = starList.isLast();
         List<Ratings> ratingsList = new ArrayList<>();
         switch (contentType){
