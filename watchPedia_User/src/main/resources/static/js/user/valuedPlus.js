@@ -25,6 +25,7 @@ document.addEventListener('scroll', () => { // 스크롤시 이벤트 발생
     }
 })
 
+
 $(document).ready(function () {
     const userIdx = window.location.href.split("/user/")[1].split("/")[0]
     const contentType = window.location.href.split(`/user/${userIdx}/`)[1].split("/ratings")[0]
@@ -75,6 +76,7 @@ $(document).ready(function () {
     })
 
     window.onload = itemPlus()
+
     function itemPlus(){
         $.ajax({
             url:`/user/${userIdx}/${contentType}/ratings/list?page=${page}`,
@@ -88,6 +90,7 @@ $(document).ready(function () {
                 loadingIcon.style.display = 'none';
             },
             success: function (data) {
+
                 itemBox.push(data.content)
                 let str = "";
                 itemBox.forEach(con => str += JSON.stringify(con))
