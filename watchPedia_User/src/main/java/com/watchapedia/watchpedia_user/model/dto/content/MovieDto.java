@@ -5,7 +5,8 @@ import com.watchapedia.watchpedia_user.model.entity.content.ajax.Star;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
+// 담아줄 공간 : 오류가 나지 않고, 동일한 변수명으로 작성해주어
+//
 public record MovieDto(
         Long movIdx,
         String movThumbnail,
@@ -26,6 +27,8 @@ public record MovieDto(
         double avg
 ) {
 
+    // of : builder를 사용하여 내가 넣어줄 데이터
+    // 오버로드 : 매게변수의 수에 따라 호출하는것을 알 수 있다.
     public static MovieDto of(
             Long tvIdx, String tvThumbnail, String tvTitle, String tvTitleOrg,
             String tvMakingDate, String tvChannel, String tvGenre,
@@ -50,6 +53,8 @@ public record MovieDto(
                 null, null, null, null, null, 0.0
         );
     }
+
+    // from : 형식 변경 매개변수를 넣어줘서 새로운 형태로 만들어 준다.
     public static MovieDto from(Movie entity){
         return new MovieDto(
                 entity.getMovIdx(),

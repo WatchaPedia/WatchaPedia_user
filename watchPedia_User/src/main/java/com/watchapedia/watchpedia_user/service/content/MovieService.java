@@ -31,6 +31,7 @@ public class MovieService {
     @Transactional(readOnly = true)
     public MovieResponse movieView(Long movieIdx){
         MovieDto mov = movieRepository.findById(movieIdx).map(MovieDto::from).get();
+//        MovieDto mov = MovieDto.from(movieRepository.findByMovIdx(movieIdx));
         return MovieResponse.from(mov);
     }
 
@@ -101,13 +102,40 @@ public class MovieService {
             Double avg = Math.round((sum / starCount) * 10.0) / 10.0;
             result.add(MovieDto.from(movie, avg));
         }
+
         return result;
     }
 
+    // 별점 높은순 출력
+    @Transactional(readOnly = true)
+    public List<MovieDto> movieStar() {
+        List<MovieDto> result = new ArrayList<>();
+        List<MovieDto> result2 = new ArrayList<>();
+
+        List<Movie> movieStar = movieRepository.findAll();
+
+        for(Movie m : movieStar){
+            double sum = 0;
+            int starCount = 0;
+            for(Star star : m.getStar()){
+                sum += star.getStarPoint();
+                starCount = m.getStar().size();
+            }
+            Double avg = Math.round((sum / starCount) * 10.0) / 10.0;
+            result.add(MovieDto.from(m, avg));
+        }
+        for(MovieDto m : result){
+            if(m.avg() == 5.0){
+                result2.add(m);
+            }
+        }
+        return result2;
+    }
+
+    // 관리자 등록순 리스트 출력
 
     @Transactional(readOnly = true)
     public List<MovieDto> movieDtos() {
-        //빈 웹툰리스폰스 리스트
         List<MovieDto> result = new ArrayList<>();
 
         List<Movie> movieDtos = movieRepository.findAll(Sort.by(Sort.Direction.DESC,"movIdx"));
