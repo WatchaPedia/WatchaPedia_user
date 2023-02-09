@@ -103,6 +103,132 @@ public class MovieService {
         return result;
     }
 
+
+    //영화이름 기준 출력(나홀로 집에)
+    @Transactional(readOnly = true)
+    public List<MovieDto> movies2(String movieTitle) {
+        //빈 웹툰리스폰스 리스트
+        List<MovieDto> result = new ArrayList<>();
+
+        List<Movie> movieList2 = movieRepository.findByMovTitleContaining(movieTitle);
+
+        for(Movie m : movieList2){
+            double sum = 0;
+            int starCount = 0;
+            for(Star star : m.getStar()){
+                sum += star.getStarPoint();
+                starCount = m.getStar().size();
+            }
+            Double avg = Math.round((sum / starCount) * 10.0) / 10.0;
+            result.add(MovieDto.from(m, avg));
+        }
+        return result;
+    }
+    //영화이름 기준 출력(아이언 맨)
+    @Transactional(readOnly = true)
+    public List<MovieDto> Irons(String movieTitle) {
+        //빈 웹툰리스폰스 리스트
+        List<MovieDto> result = new ArrayList<>();
+
+        List<Movie> movieList2 = movieRepository.findByMovTitleContaining(movieTitle);
+
+        for(Movie m : movieList2){
+            double sum = 0;
+            int starCount = 0;
+            for(Star star : m.getStar()){
+                sum += star.getStarPoint();
+                starCount = m.getStar().size();
+            }
+            Double avg = Math.round((sum / starCount) * 10.0) / 10.0;
+            result.add(MovieDto.from(m, avg));
+        }
+        return result;
+    }
+
+    //년도 기준 출력
+    @Transactional(readOnly = true)
+    public List<MovieDto> movies3(String movieMakingDate) {
+        //빈 웹툰리스폰스 리스트
+        List<MovieDto> result = new ArrayList<>();
+
+        List<Movie> movieList2 = movieRepository.findByMovMakingDate(movieMakingDate);
+
+        for(Movie m : movieList2){
+            double sum = 0;
+            int starCount = 0;
+            for(Star star : m.getStar()){
+                sum += star.getStarPoint();
+                starCount = m.getStar().size();
+            }
+            Double avg = Math.round((sum / starCount) * 10.0) / 10.0;
+            result.add(MovieDto.from(m, avg));
+        }
+        return result;
+    }
+    // 나라기준 출력
+    @Transactional(readOnly = true)
+    public List<MovieDto> searchCountry(String country) {
+        //빈 웹툰리스폰스 리스트
+        List<MovieDto> result = new ArrayList<>();
+
+        List<Movie> movieList2 = movieRepository.findByMovCountryContaining(country);
+
+        for(Movie m : movieList2){
+            double sum = 0;
+            int starCount = 0;
+            for(Star star : m.getStar()){
+                sum += star.getStarPoint();
+                starCount = m.getStar().size();
+            }
+            Double avg = Math.round((sum / starCount) * 10.0) / 10.0;
+            result.add(MovieDto.from(m, avg));
+        }
+        return result;
+    }
+    // 컨텐츠 -드라마
+    @Transactional(readOnly = true)
+    public List<MovieDto> searchDrama(String genre) {
+        //빈 웹툰리스폰스 리스트
+        List<MovieDto> result = new ArrayList<>();
+
+        List<Movie> movieList2 = movieRepository.findByMovGenreContaining(genre);
+
+        for(Movie m : movieList2){
+            double sum = 0;
+            int starCount = 0;
+            for(Star star : m.getStar()){
+                sum += star.getStarPoint();
+                starCount = m.getStar().size();
+            }
+            Double avg = Math.round((sum / starCount) * 10.0) / 10.0;
+            result.add(MovieDto.from(m, avg));
+        }
+        return result;
+    }
+
+    //컨텐츠 -범죄
+    @Transactional(readOnly = true)
+    public List<MovieDto> searchCri(String genre) {
+        //빈 웹툰리스폰스 리스트
+        List<MovieDto> result = new ArrayList<>();
+
+        List<Movie> movieList2 = movieRepository.findByMovGenreContaining(genre);
+
+        for(Movie m : movieList2){
+            double sum = 0;
+            int starCount = 0;
+            for(Star star : m.getStar()){
+                sum += star.getStarPoint();
+                starCount = m.getStar().size();
+            }
+            Double avg = Math.round((sum / starCount) * 10.0) / 10.0;
+            result.add(MovieDto.from(m, avg));
+        }
+        return result;
+    }
+
+
+
     //사용자-인물페이지--------------------------------------------------------------------------------------------------------
 
     @Transactional(readOnly = true)
