@@ -160,4 +160,53 @@ public class UserService {
         mv.put("last",last);
         return mv;
     }
+
+    public Map<String, Object> findRatingsStarPoint(String contentType, Long userIdx, Long starPoint, Pageable pageable){
+        Map<String, Object> mv = new HashMap<>();
+        Page<Star> starList = starRepository.findByStarContentTypeAndStarUserIdxAndStarPoint("movie",userIdx, starPoint,pageable);
+        boolean last = starList.isLast();
+        List<Ratings> ratingsList = new ArrayList<>();
+        switch (contentType){
+            case "movie" ->{
+                for(Star star: starList){
+                    Movie movie = movieRepository.getReferenceById(star.getStarContentIdx());
+                    ratingsList.add(Ratings.of(movie.getMovIdx(),movie.getMovThumbnail(),movie.getMovTitle(),
+                            movie.getMovWatch()!=null? (movie.getMovWatch().contains("aHR0cHM6Ly93d3cubmV0ZmxpeC5jb20vdGl0b")||movie.getMovWatch().contains("netflix")?true:false):false,
+                            movie.getMovWatch()!=null? (movie.getMovWatch().contains("aHR0cHM6Ly93YXRjaGEuY29tL3dhd")||movie.getMovWatch().contains("https://watcha.com/watch/")?true:false):false,
+                            star.getStarPoint()
+                    ));
+                }
+            }
+            case "tv" ->{
+                for(Star star: starList){
+                    Tv tv = tvRepository.getReferenceById(star.getStarContentIdx());
+                    ratingsList.add(Ratings.of(tv.getTvIdx(),tv.getTvThumbnail(),tv.getTvTitle(),
+                            tv.getTvWatch()!=null? (tv.getTvWatch().contains("aHR0cHM6Ly93d3cubmV0ZmxpeC5jb20vdGl0b")||tv.getTvWatch().contains("netflix")?true:false):false,
+                            tv.getTvWatch()!=null? (tv.getTvWatch().contains("aHR0cHM6Ly93YXRjaGEuY29tL3dhd")||tv.getTvWatch().contains("https://watcha.com/watch/")?true:false):false,
+                            star.getStarPoint()
+                    ));
+                }
+            }
+            case "book" ->{
+                for(Star star: starList){
+                    Book book = bookRepository.getReferenceById(star.getStarContentIdx());
+                    ratingsList.add(Ratings.of(book.getBookIdx(),book.getBookThumbnail(),book.getBookTitle(),
+                            false,false, star.getStarPoint()
+                    ));
+                }
+            }
+            case "webtoon" ->{
+                for(Star star: starList){
+                    Webtoon web = webtoonRepository.getReferenceById(star.getStarContentIdx());
+                    ratingsList.add(Ratings.of(web.getWebIdx(),web.getWebThumbnail(),web.getWebTitle(),
+                            false,false, star.getStarPoint()
+                    ));
+                }
+            }
+        }
+
+        mv.put("content",ratingsList);
+        mv.put("last",last);
+        return mv;
+    }
 }
