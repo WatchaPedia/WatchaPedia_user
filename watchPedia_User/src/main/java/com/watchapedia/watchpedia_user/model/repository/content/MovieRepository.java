@@ -10,4 +10,7 @@ import java.util.List;
 @Repository
 public interface MovieRepository extends JpaRepository<Movie, Long> {
     List<Movie> findByMovGenreContaining(String genre);
+    List<Movie> findByMovTitleContaining(String movieTitle);
+    List<Movie> findByMovMakingDate(String date);
+    List<Movie> findByMovCountryContaining(String country);
 }
