@@ -25,6 +25,7 @@ document.addEventListener('scroll', () => { // 스크롤시 이벤트 발생
     }
 })
 
+
 $(document).ready(function () {
     const userIdx = window.location.href.split("/user/")[1].split("/")[0]
     const contentType = window.location.href.split(`/user/${userIdx}/`)[1].split("/ratings")[0]
@@ -82,7 +83,9 @@ $(document).ready(function () {
     })
 
     window.onload = itemPlus()
+
     function itemPlus(){
+<<<<<<< HEAD
         if(page != 'last'){
             $.ajax({
                 url:`/user/${userIdx}/${contentType}/ratings/list?page=${page}`,
@@ -107,6 +110,29 @@ $(document).ready(function () {
                 }
             })
         }
+=======
+        $.ajax({
+            url:`/user/${userIdx}/${contentType}/ratings/list?page=${page}`,
+            headers: {'Content-Type': 'application/json;charset=UTF-8'},
+            type: 'GET',
+            dataType: "json",
+            beforeSend: function(){
+                loadingIcon.style.display = 'block';
+            },
+            complete: function(){
+                loadingIcon.style.display = 'none';
+            },
+            success: function (data) {
+
+                itemBox.push(data.content)
+                let str = "";
+                itemBox.forEach(con => str += JSON.stringify(con))
+                str.replaceAll("][",",")
+                itemList.itemList = JSON.parse(str)
+                page++;
+            }
+        })
+>>>>>>> 34ad9eb8585d918937fc8722b180cd64acd74325
     }
 
     function starItemPlus(){
