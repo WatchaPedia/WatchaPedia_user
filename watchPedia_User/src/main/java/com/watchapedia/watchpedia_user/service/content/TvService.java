@@ -94,7 +94,7 @@ public class TvService {
     public TvResponse tvWithRole(Long tvIdx, Long perIdx){
         TvDto tv = tvRepository.findById(tvIdx).map(TvDto::from).get();
 
-        List<Star> starResponseList = starRepository.findByStarContentTypeAndStarContentIdx("Tv", tv.tvIdx());
+        List<Star> starResponseList = starRepository.findByStarContentTypeAndStarContentIdx("tv", tv.tvIdx());
         int starCount= starResponseList.size();
         int starPoint = 0;
         for(Star star : starResponseList){

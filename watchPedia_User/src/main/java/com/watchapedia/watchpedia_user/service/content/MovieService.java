@@ -109,7 +109,7 @@ public class MovieService {
     public MovieResponse movieWithRole(Long movieIdx, Long perIdx){
         MovieDto mov = movieRepository.findById(movieIdx).map(MovieDto::fromis).get();
 
-        List<Star> starResponseList = starRepository.findByStarContentTypeAndStarContentIdx("영화", mov.movIdx());
+        List<Star> starResponseList = starRepository.findByStarContentTypeAndStarContentIdx("movie", mov.movIdx());
         int starCount= starResponseList.size();
         int starPoint = 0;
         for(Star star : starResponseList){

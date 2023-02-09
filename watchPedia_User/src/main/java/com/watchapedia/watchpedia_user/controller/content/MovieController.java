@@ -61,6 +61,7 @@ public class MovieController {
         map.addAttribute("userSession", userSessionDto);
         List<MovieDto> movies = movieService.movies();
         map.addAttribute("movies", movies);
+        System.out.println(movies);
         return "/movie/movieMain";
     }
 
@@ -74,7 +75,6 @@ public class MovieController {
         UserSessionDto dto = (UserSessionDto) session.getAttribute("userSession");
 
         MovieResponse movie = movieService.movieView(movieIdx);
-
 //      평균 별점
         double sum = 0;
         double avgStar = 0;

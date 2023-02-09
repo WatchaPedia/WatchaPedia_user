@@ -42,6 +42,7 @@ public class User {
     @Column(length =100)
     private String userLikeGenre;
 
+
     @ToString.Exclude
     @OrderBy("searchIdx ASC")
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
