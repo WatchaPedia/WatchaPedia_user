@@ -5,6 +5,7 @@ import com.watchapedia.watchpedia_user.model.entity.comment.Comment;
 import com.watchapedia.watchpedia_user.model.entity.content.ajax.Star;
 import com.watchapedia.watchpedia_user.model.network.request.comment.CommentRequest;
 import com.watchapedia.watchpedia_user.model.network.request.comment.LikeRequest;
+import com.watchapedia.watchpedia_user.model.network.response.UserResponse;
 import com.watchapedia.watchpedia_user.model.network.response.comment.CommentResponse;
 import com.watchapedia.watchpedia_user.model.network.response.content.BookResponse;
 import com.watchapedia.watchpedia_user.model.network.response.content.MovieResponse;
@@ -12,6 +13,7 @@ import com.watchapedia.watchpedia_user.model.network.response.content.TvResponse
 import com.watchapedia.watchpedia_user.model.network.response.content.WebtoonResponse;
 import com.watchapedia.watchpedia_user.model.repository.UserRepository;
 import com.watchapedia.watchpedia_user.model.repository.content.ajax.StarRepository;
+import com.watchapedia.watchpedia_user.service.UserService;
 import com.watchapedia.watchpedia_user.service.comment.CommentService;
 import com.watchapedia.watchpedia_user.service.content.BookService;
 import com.watchapedia.watchpedia_user.service.content.MovieService;
@@ -32,7 +34,7 @@ import java.util.Map;
 
 
 @Controller
-@RequestMapping("/mypage")
+@RequestMapping("")
 @RequiredArgsConstructor
 public class MyPageController {
     final CommentService commentService;
@@ -46,24 +48,34 @@ public class MyPageController {
     }
 
 
-    @GetMapping(path="/myPage/{userIdx}")  // localhost:9090/mypage/myPage
+    final UserService userService;
+    @GetMapping(path="/user/{userIdx}")  // localhost:9090/user/1
     public ModelAndView myPage(HttpSession session,@PathVariable Long userIdx){
-
         UserSessionDto userSessionDto = (UserSessionDto)session.getAttribute("userSession");
-        if(userIdx == userSessionDto.userIdx()){
-            return new ModelAndView("/mypage/myPage").addObject("user",userSessionDto);
-        }
-            return new ModelAndView("/user/login");
+        UserResponse user = userService.myPageUser(userIdx);
+
+        return new ModelAndView("/mypage/myPage")
+                .addObject("userSession",userSessionDto)
+                .addObject("user", user);
     }
 
-
-
-
-
-
-
-
-
+    @GetMapping("/user/{userIdx}/{contentType}/ratings")
+    public ModelAndView ratingsAllPage(
+            HttpSession session
+    ){
+        UserSessionDto dto = (UserSessionDto) session.getAttribute("userSession");
+        return new ModelAndView("/mypage/valuedPlus")
+                .addObject("userSession",dto);
+    }
+    @GetMapping("/user/{userIdx}/{contentType}/ratings/list")
+    @ResponseBody
+    public Map<String, Object> ratingsAll(
+            @PathVariable Long userIdx, @PathVariable String contentType,
+            @PageableDefault(size=9, sort="starIdx", direction = Sort.Direction.DESC) Pageable pageable
+    ){
+        Map<String, Object> mv = userService.findRatings(contentType,userIdx,pageable);
+        return  mv;
+    }
 
 
 

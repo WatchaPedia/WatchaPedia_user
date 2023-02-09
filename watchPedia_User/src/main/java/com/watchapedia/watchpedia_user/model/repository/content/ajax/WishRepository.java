@@ -13,4 +13,5 @@ public interface WishRepository extends JpaRepository<Wish, Long> {
             String contentType, Long contentIdx, Long user
     );
 
+    List<Wish> findByWishUserIdx(Long userIdx);
 }
