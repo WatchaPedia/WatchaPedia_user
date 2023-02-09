@@ -3,18 +3,40 @@ package com.watchapedia.watchpedia_user.service;
 import com.watchapedia.watchpedia_user.model.dto.UserDto;
 import com.watchapedia.watchpedia_user.model.dto.content.WebtoonDto;
 import com.watchapedia.watchpedia_user.model.entity.User;
+import com.watchapedia.watchpedia_user.model.entity.content.Book;
+import com.watchapedia.watchpedia_user.model.entity.content.Movie;
+import com.watchapedia.watchpedia_user.model.entity.content.Tv;
+import com.watchapedia.watchpedia_user.model.entity.content.Webtoon;
+import com.watchapedia.watchpedia_user.model.entity.content.ajax.Star;
+import com.watchapedia.watchpedia_user.model.entity.content.ajax.Wish;
 import com.watchapedia.watchpedia_user.model.network.request.UserRequestDto;
+import com.watchapedia.watchpedia_user.model.network.response.Ratings;
+import com.watchapedia.watchpedia_user.model.network.response.UserResponse;
 import com.watchapedia.watchpedia_user.model.repository.UserRepository;
+import com.watchapedia.watchpedia_user.model.repository.content.BookRepository;
+import com.watchapedia.watchpedia_user.model.repository.content.MovieRepository;
+import com.watchapedia.watchpedia_user.model.repository.content.TvRepository;
+import com.watchapedia.watchpedia_user.model.repository.content.WebtoonRepository;
+import com.watchapedia.watchpedia_user.model.repository.content.ajax.StarRepository;
+import com.watchapedia.watchpedia_user.model.repository.content.ajax.WishRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
 
     private final UserRepository userRepository;
+    private final MovieRepository movieRepository;
+    private final StarRepository starRepository;
+    private final WishRepository wishRepository;
+    private final TvRepository tvRepository;
+    private final BookRepository bookRepository;
+    private final WebtoonRepository webtoonRepository;
 
     public User findUser(Long userIdx){
         return userRepository.getReferenceById(userIdx);
@@ -63,4 +85,79 @@ public class UserService {
         }
     }
 
+    public UserResponse myPageUser(Long userIdx){
+        List<Star> starList = starRepository.findByStarUserIdx(userIdx);
+        int mov = 0; int tv = 0; int book = 0; int web = 0;
+        for(Star star : starList){
+            switch (star.getStarContentType()){
+                case "movie" -> mov++;
+                case "tv" -> tv++;
+                case "book" -> book++;
+                case "web" -> web++;
+            }
+        }
+
+        List<Wish> wishList = wishRepository.findByWishUserIdx(userIdx);
+        int wishMov = 0; int wishTv = 0; int wishBook = 0; int wishWeb = 0;
+        for(Wish wish : wishList){
+            switch (wish.getWishContentType()){
+                case "movie" -> wishMov++;
+                case "tv" -> wishTv++;
+                case "book" -> wishBook++;
+                case "web" -> wishWeb++;
+            }
+        }
+
+        return UserResponse.myPageFrom(UserDto.from(userRepository.getReferenceById(userIdx)),
+                mov,tv,book,web,wishMov,wishTv,wishBook,wishWeb);
+    }
+
+    public Map<String, Object> findRatings(String contentType, Long userIdx, Pageable pageable){
+        Map<String, Object> mv = new HashMap<>();
+        Page<Star> starList = starRepository.findByStarContentTypeAndStarUserIdx("movie",userIdx,pageable);
+        boolean last = starList.isLast();
+        List<Ratings> ratingsList = new ArrayList<>();
+        switch (contentType){
+            case "movie" ->{
+                for(Star star: starList){
+                    Movie movie = movieRepository.getReferenceById(star.getStarContentIdx());
+                    ratingsList.add(Ratings.of(movie.getMovIdx(),movie.getMovThumbnail(),movie.getMovTitle(),
+                            movie.getMovWatch()!=null? (movie.getMovWatch().contains("aHR0cHM6Ly93d3cubmV0ZmxpeC5jb20vdGl0b")||movie.getMovWatch().contains("netflix")?true:false):false,
+                            movie.getMovWatch()!=null? (movie.getMovWatch().contains("aHR0cHM6Ly93YXRjaGEuY29tL3dhd")||movie.getMovWatch().contains("https://watcha.com/watch/")?true:false):false,
+                            star.getStarPoint()
+                    ));
+                }
+            }
+            case "tv" ->{
+                for(Star star: starList){
+                    Tv tv = tvRepository.getReferenceById(star.getStarContentIdx());
+                    ratingsList.add(Ratings.of(tv.getTvIdx(),tv.getTvThumbnail(),tv.getTvTitle(),
+                            tv.getTvWatch()!=null? (tv.getTvWatch().contains("aHR0cHM6Ly93d3cubmV0ZmxpeC5jb20vdGl0b")||tv.getTvWatch().contains("netflix")?true:false):false,
+                            tv.getTvWatch()!=null? (tv.getTvWatch().contains("aHR0cHM6Ly93YXRjaGEuY29tL3dhd")||tv.getTvWatch().contains("https://watcha.com/watch/")?true:false):false,
+                            star.getStarPoint()
+                    ));
+                }
+            }
+            case "book" ->{
+                for(Star star: starList){
+                    Book book = bookRepository.getReferenceById(star.getStarContentIdx());
+                    ratingsList.add(Ratings.of(book.getBookIdx(),book.getBookThumbnail(),book.getBookTitle(),
+                            false,false, star.getStarPoint()
+                    ));
+                }
+            }
+            case "webtoon" ->{
+                for(Star star: starList){
+                    Webtoon web = webtoonRepository.getReferenceById(star.getStarContentIdx());
+                    ratingsList.add(Ratings.of(web.getWebIdx(),web.getWebThumbnail(),web.getWebTitle(),
+                            false,false, star.getStarPoint()
+                    ));
+                }
+            }
+        }
+
+        mv.put("content",ratingsList);
+        mv.put("last",last);
+        return mv;
+    }
 }

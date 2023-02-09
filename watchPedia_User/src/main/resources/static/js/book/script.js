@@ -105,12 +105,9 @@ try{
 
 
 // 갤러리, 영상 container
-const containerDiv = document.querySelector(".css-1oj6s32");
-const container = containerDiv.querySelectorAll('.css-usdi1z');
-
 // 갤러리 스크롤
 try{
-    const gallery = container.item(1);
+    const gallery = document.querySelector("section.gallery")
     const gallLeft = gallery.querySelector('.css-1hestod');
     const gallRight = gallery.querySelector(".css-vp7uyl");
     const galleryScroll = gallery.querySelector('.css-15xcaei');
@@ -136,8 +133,8 @@ try{
             }
         })
         if(0>= galMax){
-            gallery.querySelector('.css-vp7uyl').style.display = "none";
-            gallery.querySelector('.css-1hestod').style.display = "none";
+            gallLeft.style.display = "none";
+            gallRight.style.display = "none";
         }
         gallRight.addEventListener('click', function () {
             let gallWid = gallery.querySelector('.css-1cduxg0-VisualUl').getBoundingClientRect().width+8;
@@ -150,7 +147,7 @@ try{
 
 // 영상 스크롤
 try{
-    const video = container.item(2);
+    const video = document.querySelector("section.video")
     const vedLeft = video.querySelector('.css-1hestod');
     const vedRight = video.querySelector(".css-vp7uyl");
     const videoScroll = video.querySelector('.css-15xcaei');
@@ -228,3 +225,19 @@ try{
             let comWid = comment.querySelector('.emmoxnt0').getBoundingClientRect().width+12;
             commentScroll.scrollBy(-comWid,0)
         })}}catch (Exception){console.log("오류 발생")}
+
+// 클립보드 복사
+const clipBoard = document.querySelector("#clip-board")
+document.querySelector("div[aria-label='share-url']").addEventListener('click', ()=>{
+    clipBoard.style.bottom = '30px';
+    let textarea = document.createElement("textarea");
+    document.body.appendChild(textarea);
+    textarea.value = window.location.href;
+    textarea.select();
+    document.execCommand("copy");
+    document.body.removeChild(textarea);
+
+    setTimeout(function() {
+        clipBoard.style.bottom = '-100px';
+    }, 2000);
+})

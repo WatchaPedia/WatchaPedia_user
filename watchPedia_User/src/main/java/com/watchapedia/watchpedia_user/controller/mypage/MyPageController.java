@@ -1,13 +1,11 @@
 package com.watchapedia.watchpedia_user.controller.mypage;
 
-import com.watchapedia.watchpedia_user.model.dto.UserDto;
 import com.watchapedia.watchpedia_user.model.dto.UserSessionDto;
-import com.watchapedia.watchpedia_user.model.entity.User;
 import com.watchapedia.watchpedia_user.model.entity.comment.Comment;
 import com.watchapedia.watchpedia_user.model.entity.content.ajax.Star;
-import com.watchapedia.watchpedia_user.model.entity.content.ajax.Wish;
 import com.watchapedia.watchpedia_user.model.network.request.comment.CommentRequest;
 import com.watchapedia.watchpedia_user.model.network.request.comment.LikeRequest;
+import com.watchapedia.watchpedia_user.model.network.response.UserResponse;
 import com.watchapedia.watchpedia_user.model.network.response.comment.CommentResponse;
 import com.watchapedia.watchpedia_user.model.network.response.content.BookResponse;
 import com.watchapedia.watchpedia_user.model.network.response.content.MovieResponse;
@@ -15,7 +13,7 @@ import com.watchapedia.watchpedia_user.model.network.response.content.TvResponse
 import com.watchapedia.watchpedia_user.model.network.response.content.WebtoonResponse;
 import com.watchapedia.watchpedia_user.model.repository.UserRepository;
 import com.watchapedia.watchpedia_user.model.repository.content.ajax.StarRepository;
-import com.watchapedia.watchpedia_user.model.repository.content.ajax.WishRepository;
+import com.watchapedia.watchpedia_user.service.UserService;
 import com.watchapedia.watchpedia_user.service.comment.CommentService;
 import com.watchapedia.watchpedia_user.service.content.BookService;
 import com.watchapedia.watchpedia_user.service.content.MovieService;
@@ -32,7 +30,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 
@@ -42,7 +39,7 @@ import java.util.Map;
 public class MyPageController {
     final CommentService commentService;
     private final StarRepository starRepository;
-    private final UserRepository userRepository;
+
 
 
     @GetMapping(path="/analysis")  // localhost:9090/mypage/analysis
@@ -51,71 +48,34 @@ public class MyPageController {
     }
 
 
-    @GetMapping(path="/user/{userIdx}")  // localhost:9090/mypage/myPage
+    final UserService userService;
+    @GetMapping(path="/user/{userIdx}")  // localhost:9090/user/1
     public ModelAndView myPage(HttpSession session,@PathVariable Long userIdx){
         UserSessionDto userSessionDto = (UserSessionDto)session.getAttribute("userSession");
-
-        User user = userRepository.findAllByUserIdx(userIdx);
-
-//      컨텐츠별 평가한 갯수
-        List<Star> starList = starRepository.findAllByStarUserIdx(userIdx).stream().toList();
-
-        Long stMovieCnt=0L;
-        Long stBookCnt=0L;
-        Long stTvCnt=0L;
-        Long stWebtoonCnt=0L;
-        for(Star star : starList){
-            if(star.getStarContentType().equals("movie")){
-                stMovieCnt+=1L;
-            }else if(star.getStarContentType().equals("book")){
-                stBookCnt+=1L;
-            }else if(star.getStarContentType().equals("tv")){
-                stTvCnt+=1L;
-            }else {
-                stWebtoonCnt+=1L;
-            }
-        }
-        // 컨텐츠별 보고싶어요 갯수
-        List<Wish> wishList = wishRepository.findAllByWishUserIdx(userIdx).stream().toList();
-        Long movieCnt=0L;
-        Long bookCnt=0L;
-        Long tvCnt=0L;
-        Long webtoonCnt=0L;
-        for(Wish wish : wishList){
-            if(wish.getWishContentType().equals("movie")){
-                movieCnt+=1L;
-            }else if(wish.getWishContentType().equals("book")){
-                bookCnt+=1L;
-            }else if(wish.getWishContentType().equals("tv")){
-                tvCnt+=1L;
-            }else {
-                webtoonCnt+=1L;
-            }
-        }
-
+        UserResponse user = userService.myPageUser(userIdx);
 
         return new ModelAndView("/mypage/myPage")
-                .addObject("user",user)
-                .addObject("stMovieCnt",stMovieCnt)
-                .addObject("stBookCnt",stBookCnt)
-                .addObject("stTvCnt",stTvCnt)
-                .addObject("stWebtoonCnt",stWebtoonCnt)
-                .addObject("movieCnt",movieCnt)
-                .addObject("bookCnt",bookCnt)
-                .addObject("tvCnt",tvCnt)
-                .addObject("webtoonCnt",webtoonCnt)
-                .addObject("userSession",userSessionDto);
+                .addObject("userSession",userSessionDto)
+                .addObject("user", user);
+    }
 
-
-        }
-
-
-
-
-
-
-
-
+    @GetMapping("/user/{userIdx}/{contentType}/ratings")
+    public ModelAndView ratingsAllPage(
+            HttpSession session
+    ){
+        UserSessionDto dto = (UserSessionDto) session.getAttribute("userSession");
+        return new ModelAndView("/mypage/valuedPlus")
+                .addObject("userSession",dto);
+    }
+    @GetMapping("/user/{userIdx}/{contentType}/ratings/list")
+    @ResponseBody
+    public Map<String, Object> ratingsAll(
+            @PathVariable Long userIdx, @PathVariable String contentType,
+            @PageableDefault(size=9, sort="starIdx", direction = Sort.Direction.DESC) Pageable pageable
+    ){
+        Map<String, Object> mv = userService.findRatings(contentType,userIdx,pageable);
+        return  mv;
+    }
 
 
 
@@ -156,8 +116,6 @@ public class MyPageController {
     final WebtoonService webtoonService;
     final MovieService movieService;
     final BookService bookService;
-    private final WishRepository wishRepository;
-
     @GetMapping("/{commentIdx}")
     public String commentView(
             @PathVariable Long commentIdx,
