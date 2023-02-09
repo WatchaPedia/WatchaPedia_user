@@ -24,3 +24,4 @@ container.querySelector('.css-vp7uyl').addEventListener('click', function () {
 container.querySelector('.css-1hestod').addEventListener('click', function () {
     scrollBox.scrollBy(-container.querySelector('.emmoxnt0').getBoundingClientRect().width+7,0)
 })
+

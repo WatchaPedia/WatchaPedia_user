@@ -1000,6 +1000,12 @@ function recommentSave(){
             }),
             type: 'POST',           // HTTP 요청 방식(GET, POST)
             dataType: "json",       // 호출 시 데이터 타입
+            complete:function(){
+              document.querySelector(".css-1k5ei58").value = null;
+              document.querySelector(".css-ynpx67").innerHTML = '0/10000';
+              document.querySelector(".css-3ocf2p-StylelessButton").setAttribute('class','css-1ukikc-StylelessButton');
+              document.querySelector(".css-r2q33l-StylelessButton").setAttribute('class','css-1id6jxk-StylelessButton')
+            },
             success : function(data) {
                 comment.style.display = 'none';
                 comment.classList.add('off');

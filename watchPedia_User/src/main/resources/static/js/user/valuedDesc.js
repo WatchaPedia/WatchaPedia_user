@@ -1,8 +1,7 @@
 $(document).ready(function () {
-// 스크롤 액션
-    const container = document.querySelectorAll(".css-usdi1z");
-    window.addEventListener("click",()=>{
-        if(document.querySelector("#content-star-list").style.display=='block') scrollContent();
+    // 스크롤 액션
+    window.addEventListener("click",(e)=>{
+        if(document.querySelectorAll("ul.css-1e0vaz3-VisualUl li").item(1).contains(e.target)) scrollContent();
     })
     window.addEventListener('resize', () => {
         scrollContent()
@@ -10,6 +9,7 @@ $(document).ready(function () {
 
 // 메인 스크롤
     function scrollContent() {
+        let container = document.querySelectorAll(".css-usdi1z");
         for (let idx of container) {
             let scrollBox = idx.querySelector('.css-9dnzub');
             let scrollMax = scrollBox.getBoundingClientRect.scrollWidth - (idx.querySelector('.e1689zdh0').getBoundingClientRect().width + 10);
@@ -35,23 +35,23 @@ $(document).ready(function () {
             $(idx).find(".css-38kpup").hover(scrollBtn)
 
             function scrollBtn() {
-                for (let i of container) {
-                    i.querySelector(".css-pf83cl").style.opacity = '0'
-                    i.querySelector(".css-38kpup").style.opacity = '0'
+                if(idx.querySelector(".css-vp7uyl")){
+                    idx.querySelector(".css-pf83cl").style.opacity = '1'
+                    idx.querySelector(".css-38kpup").style.opacity = '1'
                 }
-                idx.querySelector(".css-pf83cl").style.opacity = '1'
-                idx.querySelector(".css-38kpup").style.opacity = '1'
             };
         }
 
 // 버튼 클릭 시 이동
         for (let idx of container) {
-            idx.querySelector('.css-vp7uyl').addEventListener('click', function () {
-                idx.querySelector('.css-9dnzub').scrollBy(idx.querySelector('.e1689zdh0').getBoundingClientRect().width - 17, 0)
-            })
-            idx.querySelector('.css-1hestod').addEventListener('click', function () {
-                idx.querySelector('.css-9dnzub').scrollBy(-idx.querySelector('.e1689zdh0').getBoundingClientRect().width - 17, 0)
-            })
+            if(idx.querySelector(".css-1hestod")){
+                idx.querySelector('.css-vp7uyl').addEventListener('click', function () {
+                    idx.querySelector('.css-9dnzub').scrollBy(idx.querySelector('.e1689zdh0').getBoundingClientRect().width - 17, 0)
+                })
+                idx.querySelector('.css-1hestod').addEventListener('click', function () {
+                    idx.querySelector('.css-9dnzub').scrollBy(-idx.querySelector('.e1689zdh0').getBoundingClientRect().width - 17, 0)
+                })
+            }
         }
     }
 })
