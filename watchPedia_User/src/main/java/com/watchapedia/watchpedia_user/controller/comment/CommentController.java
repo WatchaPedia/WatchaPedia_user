@@ -29,7 +29,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.Map;
 
-
+//컨트롤러란 사용자의 요청이 진입하는 지점(entry point)
+//요청에 따라 어떤 처리를 할지 결정해준다
+//단 controller는 단지 결정만 해주고 실질적인 처리는 서비스(Layered Architecture)에서 담당
+//사용자에게 View(또는 서버에서 처리된 데이터를 포함하는 View)를 응답으로 보내준다
 @Controller
 @RequestMapping("/comment")
 @RequiredArgsConstructor
@@ -37,7 +40,7 @@ public class CommentController {
     final CommentService commentService;
     private final StarRepository starRepository;
     private final UserRepository userRepository;
-
+    
     @PostMapping("/save")
     @ResponseBody
     public Long commentSave(

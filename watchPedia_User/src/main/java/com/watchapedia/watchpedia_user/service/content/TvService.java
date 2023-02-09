@@ -96,13 +96,15 @@ public class TvService {
 
         List<Star> starResponseList = starRepository.findByStarContentTypeAndStarContentIdx("tv", tv.tvIdx());
         int starCount= starResponseList.size();
-        int starPoint = 0;
+        float starPoint = 0;
         for(Star star : starResponseList){
             starPoint = starPoint + (star.getStarPoint()).intValue();
         }
         float starAvg = 0;
         if(starCount != 0){
-            starAvg = (float) Math.round(starPoint / starCount);
+            float avg = (starPoint / starCount);
+            float avg2 = (float) ((avg*100)/100.0);
+            starAvg = (float)(Math.round(avg2*10)/10.0);
         }
 
         boolean isWatcha = false;

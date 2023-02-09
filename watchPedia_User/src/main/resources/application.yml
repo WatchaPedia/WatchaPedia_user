@@ -20,6 +20,7 @@ spring:
     serialization:
       fail-on-empty-beans: false
 server:
-  port: 8787
+  port: 9123
+
 
 

@@ -55,21 +55,39 @@
         </attr>
     </attr>
 
-    <!--해외에서 화제가 된 미국 영화 -->
-    <attr sel=".movie-table-foreign" th:remove="all-but-first" >
-        <attr sel=".movie-tr-foreign" th:each="americanMovie, i : ${americanMovies}" >
-            <attr sel=".movie-title" th:text="${americanMovie.movTitle}"/>
-            <attr sel=".movie-img" th:src="${americanMovie.movThumbnail}" />
-            <attr sel=".movie-making" th:text="${americanMovie.movMakingDate} + ' ・ ' +  ${americanMovie.movCountry}" />
+    <!--범죄/한국 -->
+    <attr sel=".movie-table-cri" th:remove="all-but-first" >
+        <attr sel=".movie-tr-cri" th:each="cris, i : ${cris}" >
+            <attr sel=".movie-title" th:text="${cris.movTitle}"/>
+            <attr sel=".movie-img" th:src="${cris.movThumbnail}" />
+            <attr sel=".movie-making" th:text="${cris.movMakingDate} + ' ・ ' +  ${cris.movCountry}" />
             <!--                메인페이지 순서 count이용 증가 -->
             <attr sel=".movie-idx" th:text="${i.count}" />
             <!--                메인페이지 평균별점       -->
             <attr sel=".average"
-                  th:if="${americanMovie.avg} != 0.0" th:text="'평균 ★ ' + (${americanMovie.avg} != 0 ? ${americanMovie.avg} : _)"/>
+                  th:if="${cris.avg} != 0.0" th:text="'평균 ★ ' + (${cris.avg} != 0 ? ${cris.avg} : _)"/>
             <!--                넷플릭스 아이콘        -->
-            <attr sel="div.css-5o7sb2" th:if="${americanMovie.movWatch} != null and ${#strings.contains(americanMovie.movWatch,'aHR0cHM6Ly93YXRjaGEuY29tL3dhd')}"/>
+            <attr sel="div.css-5o7sb2" th:if="${cris.movWatch} != null and ${#strings.contains(cris.movWatch,'aHR0cHM6Ly93YXRjaGEuY29tL3dhd')}"/>
             <!--                왓챠 아이콘 -->
-            <attr sel="div.css-oobk33" th:if="${americanMovie.movWatch} != null and ${#strings.contains(americanMovie.movWatch,'aHR0cHM6Ly93d3cubmV0ZmxpeC5jb20vdGl0b')}"/>
+            <attr sel="div.css-oobk33" th:if="${cris.movWatch} != null and ${#strings.contains(cris.movWatch,'aHR0cHM6Ly93d3cubmV0ZmxpeC5jb20vdGl0b')}"/>
+        </attr>
+    </attr>
+
+    <!--해외 미국  -->
+    <attr sel=".movie-table-foreign" th:remove="all-but-first" >
+        <attr sel=".movie-tr-foreign" th:each="americanMovies, i : ${americanMovies}" >
+            <attr sel=".movie-title" th:text="${americanMovies.movTitle}"/>
+            <attr sel=".movie-img" th:src="${americanMovies.movThumbnail}" />
+            <attr sel=".movie-making" th:text="${americanMovies.movMakingDate} + ' ・ ' +  ${americanMovies.movCountry}" />
+            <!--                메인페이지 순서 count이용 증가 -->
+            <attr sel=".movie-idx" th:text="${i.count}" />
+            <!--                메인페이지 평균별점       -->
+            <attr sel=".average"
+                  th:if="${americanMovies.avg} != 0.0" th:text="'평균 ★ ' + (${americanMovies.avg} != 0 ? ${americanMovies.avg} : _)"/>
+            <!--                넷플릭스 아이콘        -->
+            <attr sel="div.css-5o7sb2" th:if="${americanMovies.movWatch} != null and ${#strings.contains(americanMovies.movWatch,'aHR0cHM6Ly93YXRjaGEuY29tL3dhd')}"/>
+            <!--                왓챠 아이콘 -->
+            <attr sel="div.css-oobk33" th:if="${americanMovies.movWatch} != null and ${#strings.contains(americanMovies.movWatch,'aHR0cHM6Ly93d3cubmV0ZmxpeC5jb20vdGl0b')}"/>
         </attr>
     </attr>
 
@@ -106,40 +124,24 @@
             <attr sel="div.css-oobk33" th:if="${movie2.movWatch} != null and ${#strings.contains(movie2.movWatch,'aHR0cHM6Ly93d3cubmV0ZmxpeC5jb20vdGl0b')}"/>
         </attr>
     </attr>
-    <!--아이언맨 영화  -->
+    <!--최근 등록된 오늘의 영화  -->
     <attr sel=".movie-table-Iron" th:remove="all-but-first" >
-        <attr sel=".movie-tr-Iron" th:each="Iron, i : ${Irons}" >
-            <attr sel=".movie-title" th:text="${Iron.movTitle}"/>
-            <attr sel=".movie-img" th:src="${Iron.movThumbnail}" />
-            <attr sel=".movie-making" th:text="${Iron.movMakingDate} + ' ・ ' +  ${Iron.movCountry}" />
+        <attr sel=".movie-tr-Iron" th:each="movieDtos, i : ${movieDtos}" >
+            <attr sel=".movie-title" th:text="${movieDtos.movTitle}"/>
+            <attr sel=".movie-img" th:src="${movieDtos.movThumbnail}" />
+            <attr sel=".movie-making" th:text="${movieDtos.movMakingDate} + ' ・ ' +  ${movieDtos.movCountry}" />
             <!--                메인페이지 순서 count이용 증가 -->
             <attr sel=".movie-idx" th:text="${i.count}" />
             <!--                메인페이지 평균별점       -->
             <attr sel=".average"
-                  th:if="${Iron.avg} != 0.0" th:text="'평균 ★ ' + (${Iron.avg} != 0 ? ${Iron.avg} : _)"/>
+                  th:if="${movieDtos.avg} != 0.0" th:text="'평균 ★ ' + (${movieDtos.avg} != 0 ? ${movieDtos.avg} : _)"/>
             <!--                넷플릭스 아이콘        -->
-            <attr sel="div.css-5o7sb2" th:if="${Iron.movWatch} != null and ${#strings.contains(Iron.movWatch,'aHR0cHM6Ly93YXRjaGEuY29tL3dhd')}"/>
+            <attr sel="div.css-5o7sb2" th:if="${movieDtos.movWatch} != null and ${#strings.contains(movieDtos.movWatch,'aHR0cHM6Ly93YXRjaGEuY29tL3dhd')}"/>
             <!--                왓챠 아이콘 -->
-            <attr sel="div.css-oobk33" th:if="${Iron.movWatch} != null and ${#strings.contains(Iron.movWatch,'aHR0cHM6Ly93d3cubmV0ZmxpeC5jb20vdGl0b')}"/>
+            <attr sel="div.css-oobk33" th:if="${movieDtos.movWatch} != null and ${#strings.contains(movieDtos.movWatch,'aHR0cHM6Ly93d3cubmV0ZmxpeC5jb20vdGl0b')}"/>
         </attr>
     </attr>
-    <!--범죄 영화  -->
-    <attr sel=".movie-table-cri" th:remove="all-but-first" >
-        <attr sel=".movie-tr-cri" th:each="cri, i : ${cris}" >
-            <attr sel=".movie-title" th:text="${cri.movTitle}"/>
-            <attr sel=".movie-img" th:src="${cri.movThumbnail}" />
-            <attr sel=".movie-making" th:text="${cri.movMakingDate} + ' ・ ' +  ${cri.movCountry}" />
-            <!--                메인페이지 순서 count이용 증가 -->
-            <attr sel=".movie-idx" th:text="${i.count}" />
-            <!--                메인페이지 평균별점       -->
-            <attr sel=".average"
-                  th:if="${cri.avg} != 0.0" th:text="'평균 ★ ' + (${cri.avg} != 0 ? ${cri.avg} : _)"/>
-            <!--                넷플릭스 아이콘        -->
-            <attr sel="div.css-5o7sb2" th:if="${cri.movWatch} != null and ${#strings.contains(cri.movWatch,'aHR0cHM6Ly93YXRjaGEuY29tL3dhd')}"/>
-            <!--                왓챠 아이콘 -->
-            <attr sel="div.css-oobk33" th:if="${cri.movWatch} != null and ${#strings.contains(cri.movWatch,'aHR0cHM6Ly93d3cubmV0ZmxpeC5jb20vdGl0b')}"/>
-        </attr>
-    </attr>
+
 
 
 </thlogic>
