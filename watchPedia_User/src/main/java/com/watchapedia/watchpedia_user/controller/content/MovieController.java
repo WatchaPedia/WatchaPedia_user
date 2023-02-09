@@ -52,6 +52,8 @@ public class MovieController {
     private final CommentService commentService;
     private final SpoilerRepository spoilerRepository;
 
+
+
     @GetMapping(path="/main")
     public String movie(
             ModelMap map,HttpSession session
@@ -61,9 +63,22 @@ public class MovieController {
         map.addAttribute("userSession", userSessionDto);
         List<MovieDto> movies = movieService.movies();
         map.addAttribute("movies", movies);
-        System.out.println(movies);
+
+//        map.addAttribute("movies", movieService.movies());
+        map.addAttribute("movieDtos", movieService.movieDtos());
+        map.addAttribute("movies2", movieService.movies2("나 홀로"));
+        map.addAttribute("Irons", movieService.Irons("아이언"));
+        map.addAttribute("movies3", movieService.movies3("2023"));
+        map.addAttribute("koreanMovies", movieService.searchCountry("한국"));
+        map.addAttribute("americanMovies", movieService.searchCountry("미국"));
+        map.addAttribute("dramas", movieService.searchDrama("드라마"));
+        map.addAttribute("cris", movieService.searchCri("범죄","한국"));
         return "/movie/movieMain";
     }
+
+
+
+
 
     @GetMapping("/{movieIdx}") // http://localhost:8080/movie/1
     public String movieDetail(
