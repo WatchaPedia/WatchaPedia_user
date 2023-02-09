@@ -1,9 +1,7 @@
 $(document).ready(function () {
-
     // 스크롤 액션
     window.addEventListener("click",(e)=>{
         if(document.querySelectorAll("ul.css-1e0vaz3-VisualUl li").item(1).contains(e.target)) scrollContent();
-
     })
     window.addEventListener('resize', () => {
         scrollContent()

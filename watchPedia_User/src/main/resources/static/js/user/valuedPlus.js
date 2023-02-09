@@ -107,29 +107,6 @@ $(document).ready(function () {
                 }
             })
         }
-
-        $.ajax({
-            url:`/user/${userIdx}/${contentType}/ratings/list?page=${page}`,
-            headers: {'Content-Type': 'application/json;charset=UTF-8'},
-            type: 'GET',
-            dataType: "json",
-            beforeSend: function(){
-                loadingIcon.style.display = 'block';
-            },
-            complete: function(){
-                loadingIcon.style.display = 'none';
-            },
-            success: function (data) {
-
-                itemBox.push(data.content)
-                let str = "";
-                itemBox.forEach(con => str += JSON.stringify(con))
-                str.replaceAll("][",",")
-                itemList.itemList = JSON.parse(str)
-                page++;
-            }
-        })
-
     }
 
     function starItemPlus(){
