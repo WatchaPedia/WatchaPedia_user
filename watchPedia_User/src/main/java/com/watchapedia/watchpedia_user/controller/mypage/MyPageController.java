@@ -59,6 +59,16 @@ public class MyPageController {
                 .addObject("user", user);
     }
 
+    @GetMapping("/user/{userIdx}/{contentType}")
+    @ResponseBody
+    public ModelAndView myPageMovieList(
+            HttpSession session
+    ){
+        UserSessionDto dto = (UserSessionDto) session.getAttribute("userSession");
+        return new ModelAndView("/mypage/valuedBoxTest")
+                .addObject("userSession",dto);
+    }
+
     @GetMapping("/user/{userIdx}/{contentType}/ratings")
     public ModelAndView ratingsAllPage(
             HttpSession session
