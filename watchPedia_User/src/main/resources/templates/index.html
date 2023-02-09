@@ -3207,37 +3207,37 @@
             margin: 0px 11px;
         }
     </style>
-    <!--  &lt;!&ndash;jquery + javascript&ndash;&gt;-->
-    <!--  <script type="text/javascript">-->
-    <!--    $(function(){-->
-    <!--      $("#input_text").on('input',function(){-->
-    <!--        if($("#input_text").val()==''){-->
-    <!--          $("#css-fxxino1").attr("style","display:block");-->
-    <!--          $("#css-fxxino2").attr("style","display:none");-->
-    <!--          $("#css-fxxino2").removeAttr("style").hide();-->
-    <!--        }-->
-    <!--        else{-->
-    <!--          $("#css-fxxino1").removeAttr("style").hide();-->
-    <!--          $("#css-fxxino2").show();-->
-    <!--        }-->
-    <!--      });-->
-    <!--      $("#input_text").on('focus',function(){-->
-    <!--        if($("#input_text").val()==''){-->
-    <!--          $("#css-fxxino1").attr("style","display:block");-->
-    <!--          $("#css-fxxino2").attr("style","display:none");-->
-    <!--          $("#css-fxxino2").removeAttr("style").hide();-->
-    <!--        }-->
-    <!--        else{-->
-    <!--          $("#css-fxxino1").removeAttr("style").hide();-->
-    <!--          $("#css-fxxino2").show();-->
-    <!--        }-->
-    <!--      });-->
-    <!--      $("#input_text").on('focusout',function(){-->
-    <!--        $("#css-fxxino1").removeAttr("style").hide();-->
-    <!--        $("#css-fxxino2").removeAttr("style").hide();-->
-    <!--      });-->
-    <!--    })-->
-    <!--  </script>-->
+    <!--jquery + javascript-->
+    <script type="text/javascript">
+        $(function(){
+            $("#input_text").on('input',function(){
+                if($("#input_text").val()==''){
+                    $("#css-fxxino1").attr("style","display:block");
+                    $("#css-fxxino2").attr("style","display:none");
+                    $("#css-fxxino2").removeAttr("style").hide();
+                }
+                else{
+                    $("#css-fxxino1").removeAttr("style").hide();
+                    $("#css-fxxino2").show();
+                }
+            });
+            $("#input_text").on('focus',function(){
+                if($("#input_text").val()==''){
+                    $("#css-fxxino1").attr("style","display:block");
+                    $("#css-fxxino2").attr("style","display:none");
+                    $("#css-fxxino2").removeAttr("style").hide();
+                }
+                else{
+                    $("#css-fxxino1").removeAttr("style").hide();
+                    $("#css-fxxino2").show();
+                }
+            });
+            $("#input_text").on('focusout',function(){
+                $("#css-fxxino1").removeAttr("style").hide();
+                $("#css-fxxino2").removeAttr("style").hide();
+            });
+        })
+    </script>
 
     <script defer src="/js/movie/mainScroll.js"></script>
     <link rel="icon" href="/image/favicon.png">
@@ -3894,14 +3894,14 @@
                             </div>
                         </div>
                         <div class="w_exposed_cell css-lufi3b" data-rowindex="1">
-                            <div class="css-pbseb6-StyledHomeListTitleRow"><p class="css-16qa0p7">마블의 히어로 아이언 맨 시리즈</p></div>
+                            <div class="css-pbseb6-StyledHomeListTitleRow"><p class="css-16qa0p7">최근 등록된 오늘의 영화</p></div>
                             <div class="css-1qq59e8">
                                 <div class="css-1kd6k5d">
                                     <div class="css-awu20a">
                                         <div class="css-174lxc3">
                                             <div class="css-119xxd7">
                                                 <ul class="css-1ya1z7z-VisualUl movie-table-Iron">
-                                                    <li class="css-8y23cj movie-tr-Iron"><a th:title="${Iron.movTitle}" title="헌트" th:href="@{'/movie/'+${Iron.movIdx}}">
+                                                    <li class="css-8y23cj movie-tr-Iron"><a th:title="${movieDtos.movTitle}" title="헌트" th:href="@{'/movie/'+${movieDtos.movIdx}}">
                                                         <div class="css-1qmeemv">
                                                             <div class=" css-unzuzl-StyledLazyLoadingImage ezcopuc0">
                                                                 <img src="https://an2-img.amz.wtchn.net/image/v2/VIhs-V0Y2xudhRxr68wwiw.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpFMk5UazNOemd3TkRRME1EWXlPVGM1T1RnaWZRLlpzQ1AxQy1JZE91blNZTUh6M1JtdXNGa1RrcnJlc2cwN2VkWVAxOG1HdXM"
@@ -4144,15 +4144,15 @@
                             </div>
                         </div>
                         <div class="w_exposed_cell css-lufi3b" data-rowindex="2">
-                            <div class="css-pbseb6-StyledHomeListTitleRow"><p class="css-16qa0p7">해외에서 화제가 된 미국 영화</p></div>
+                            <div class="css-pbseb6-StyledHomeListTitleRow"><p class="css-16qa0p7">#범죄#한국</p></div>
                             <div class="css-1qq59e8">
                                 <div class="css-1kd6k5d">
                                     <div class="css-awu20a">
                                         <div class="css-174lxc3">
                                             <div class="css-119xxd7">
-                                                <ul class="css-1ya1z7z-VisualUl movie-table-foreign">
-                                                    <li class="css-8y23cj movie-tr-foreign"><a th:title="${americanMovie.movTitle}" title="시맨틱 에러: 더 무비"
-                                                                                               th:href="@{'/movie/'+${americanMovie.movIdx}}">
+                                                <ul class="css-1ya1z7z-VisualUl movie-table-cri">
+                                                    <li class="css-8y23cj movie-tr-cri"><a th:title="${cris.movTitle}" title="시맨틱 에러: 더 무비"
+                                                                                           th:href="@{'/movie/'+${cris.movIdx}}">
                                                         <div class="css-1qmeemv">
                                                             <div class=" css-unzuzl-StyledLazyLoadingImage ezcopuc0">
                                                                 <img src="https://an2-img.amz.wtchn.net/image/v2/tkmsakQ3xtdo7JXj6Gogqw.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpFMk5UZzRPREF6TXpjeU5qY3dNREkxTXpraWZRLjU3cGhtemxyblpFdW5jU1BfZy1ycUhNU1VjV19WTDlLSjJITmh3anJPVWM"
@@ -4400,7 +4400,7 @@
                             </div>
                         </div>
                         <div class="w_exposed_cell css-lufi3b" data-rowindex="3">
-                            <div class="css-pbseb6-StyledHomeListTitleRow"><p class="css-16qa0p7">해외에서 화제가 된 한국 영화</p></div>
+                            <div class="css-pbseb6-StyledHomeListTitleRow"><p class="css-16qa0p7">해외에서 화제인 한국 영화</p></div>
                             <div class="css-1qq59e8">
                                 <div class="css-1kd6k5d">
                                     <div class="css-awu20a">
@@ -6068,15 +6068,15 @@
                             </div>
                         </div>
                         <div class="w_exposed_cell css-lufi3b" data-rowindex="8">
-                            <div class="css-pbseb6-StyledHomeListTitleRow"><p class="css-16qa0p7">범죄 관련 인기 영화</p></div>
+                            <div class="css-pbseb6-StyledHomeListTitleRow"><p class="css-16qa0p7">해외에서 화제인 영화</p></div>
                             <div class="css-5rbrg6">
                                 <div class="css-1kd6k5d">
                                     <div class="css-awu20a">
                                         <div class="css-174lxc3">
                                             <div class="css-119xxd7">
-                                                <ul class="css-sthm03-VisualUl movie-table-cri">
-                                                    <li class="css-8y23cj movie-tr-cri"><a th:title="${cri.movTitle}" title="시맨틱 에러: 더 무비"
-                                                                                           th:href="@{'/movie/'+${cri.movIdx}}">
+                                                <ul class="css-sthm03-VisualUl movie-table-foreign">
+                                                    <li class="css-8y23cj movie-tr-foreign"><a th:title="${americanMovies.movTitle}" title="시맨틱 에러: 더 무비"
+                                                                                               th:href="@{'/movie/'+${americanMovies.movIdx}}">
                                                         <div class="css-1qmeemv">
                                                             <div class=" css-unzuzl-StyledLazyLoadingImage ezcopuc0">
                                                                 <img src="https://an2-img.amz.wtchn.net/image/v2/tkmsakQ3xtdo7JXj6Gogqw.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpFMk5UZzRPREF6TXpjeU5qY3dNREkxTXpraWZRLjU3cGhtemxyblpFdW5jU1BfZy1ycUhNU1VjV19WTDlLSjJITmh3anJPVWM"
@@ -6102,16 +6102,17 @@
                                                                      class="css-qhzw1o-StyledImg ezcopuc1"></div>
                                                         </div>
                                                         <div class="css-ixy093">
-                                                            <div class="css-5yuqaa">런던 프라이드</div>
-                                                            <div class="predicted css-xgmur2"><span>예상</span>
-                                                                <svg width="12" height="10" viewBox="0 0 12 10"
-                                                                     xmlns="http://www.w3.org/2000/svg" fill="#ff0558"
-                                                                     class="css-q6vg6q">
-                                                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                          d="M6 8.02L3.14233 9.91131C2.91094 10.0644 2.61352 9.84836 2.68767 9.58097L3.60334 6.27872L0.921531 4.14536C0.704379 3.97262 0.817982 3.62299 1.0952 3.61087L4.51878 3.46128L5.719 0.251483C5.81619 -0.00842059 6.18381 -0.00842094 6.281 0.251483L7.48122 3.46128L10.9048 3.61087C11.182 3.62299 11.2956 3.97262 11.0785 4.14536L8.39666 6.27872L9.31233 9.58097C9.38648 9.84836 9.08906 10.0644 8.85767 9.91131L6 8.02Z"></path>
-                                                                </svg>
-                                                                <span>4.6</span></div>
-                                                        </div>
+                                                            <div class="css-ixy093">
+                                                                <div class="css-5yuqaa">런던 프라이드</div>
+                                                                <div class="predicted css-xgmur2"><span>예상</span>
+                                                                    <svg width="12" height="10" viewBox="0 0 12 10"
+                                                                         xmlns="http://www.w3.org/2000/svg" fill="#ff0558"
+                                                                         class="css-q6vg6q">
+                                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                              d="M6 8.02L3.14233 9.91131C2.91094 10.0644 2.61352 9.84836 2.68767 9.58097L3.60334 6.27872L0.921531 4.14536C0.704379 3.97262 0.817982 3.62299 1.0952 3.61087L4.51878 3.46128L5.719 0.251483C5.81619 -0.00842059 6.18381 -0.00842094 6.281 0.251483L7.48122 3.46128L10.9048 3.61087C11.182 3.62299 11.2956 3.97262 11.0785 4.14536L8.39666 6.27872L9.31233 9.58097C9.38648 9.84836 9.08906 10.0644 8.85767 9.91131L6 8.02Z"></path>
+                                                                    </svg>
+                                                                    <span>4.6</span></div>
+                                                            </div>
                                                     </a></li>
                                                     <li class="css-8y23cj"><a title="봉오동 전투"
                                                                               href="/ko-KR/contents/md7r0l1">

@@ -17,6 +17,7 @@ import com.watchapedia.watchpedia_user.model.repository.comment.*;
 import com.watchapedia.watchpedia_user.model.repository.content.MovieRepository;
 import com.watchapedia.watchpedia_user.model.repository.content.ajax.StarRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -99,6 +100,27 @@ public class MovieService {
             }
             Double avg = Math.round((sum / starCount) * 10.0) / 10.0;
             result.add(MovieDto.from(movie, avg));
+        }
+        return result;
+    }
+
+
+    @Transactional(readOnly = true)
+    public List<MovieDto> movieDtos() {
+        //빈 웹툰리스폰스 리스트
+        List<MovieDto> result = new ArrayList<>();
+
+        List<Movie> movieDtos = movieRepository.findAll(Sort.by(Sort.Direction.DESC,"movIdx"));
+
+        for(Movie m : movieDtos){
+            double sum = 0;
+            int starCount = 0;
+            for(Star star : m.getStar()){
+                sum += star.getStarPoint();
+                starCount = m.getStar().size();
+            }
+            Double avg = Math.round((sum / starCount) * 10.0) / 10.0;
+            result.add(MovieDto.from(m, avg));
         }
         return result;
     }
@@ -187,11 +209,11 @@ public class MovieService {
     }
     // 컨텐츠 -드라마
     @Transactional(readOnly = true)
-    public List<MovieDto> searchDrama(String genre) {
+    public List<MovieDto> searchCri(String genre, String country) {
         //빈 웹툰리스폰스 리스트
         List<MovieDto> result = new ArrayList<>();
 
-        List<Movie> movieList2 = movieRepository.findByMovGenreContaining(genre);
+        List<Movie> movieList2 = movieRepository.findByMovGenreContainingAndMovCountryContaining(genre, country);
 
         for(Movie m : movieList2){
             double sum = 0;
@@ -208,7 +230,7 @@ public class MovieService {
 
     //컨텐츠 -범죄
     @Transactional(readOnly = true)
-    public List<MovieDto> searchCri(String genre) {
+    public List<MovieDto> searchDrama(String genre) {
         //빈 웹툰리스폰스 리스트
         List<MovieDto> result = new ArrayList<>();
 
