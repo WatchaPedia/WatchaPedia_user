@@ -78,6 +78,8 @@ public class MovieController {
         map.addAttribute("americanMovies", movieService.searchCountry("미국"));
         map.addAttribute("dramas", movieService.searchDrama("드라마"));
         map.addAttribute("cris", movieService.searchCri(randomJerne,randomCountry));
+        map.addAttribute("movieStar", movieService.movieStar());
+        System.out.println(movieService.movieStar()+"sdgjsdgskjgnwejfknefkj");
         return "/movie/movieMain";
     }
 
