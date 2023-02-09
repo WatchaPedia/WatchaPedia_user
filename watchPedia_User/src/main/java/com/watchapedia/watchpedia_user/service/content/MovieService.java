@@ -209,11 +209,11 @@ public class MovieService {
     }
     // 컨텐츠 -드라마
     @Transactional(readOnly = true)
-    public List<MovieDto> searchDrama(String genre) {
+    public List<MovieDto> searchCri(String genre, String country) {
         //빈 웹툰리스폰스 리스트
         List<MovieDto> result = new ArrayList<>();
 
-        List<Movie> movieList2 = movieRepository.findByMovGenreContaining(genre);
+        List<Movie> movieList2 = movieRepository.findByMovGenreContainingAndMovCountryContaining(genre, country);
 
         for(Movie m : movieList2){
             double sum = 0;
@@ -230,7 +230,7 @@ public class MovieService {
 
     //컨텐츠 -범죄
     @Transactional(readOnly = true)
-    public List<MovieDto> searchCri(String genre) {
+    public List<MovieDto> searchDrama(String genre) {
         //빈 웹툰리스폰스 리스트
         List<MovieDto> result = new ArrayList<>();
 
