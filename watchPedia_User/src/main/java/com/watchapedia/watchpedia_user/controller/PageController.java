@@ -60,7 +60,7 @@ public class PageController {
         map.addAttribute("koreanMovies", movieService.searchCountry("한국"));
         map.addAttribute("americanMovies", movieService.searchCountry("미국"));
         map.addAttribute("dramas", movieService.searchDrama("드라마"));
-        map.addAttribute("cris", movieService.searchCri("범죄"));
+        map.addAttribute("cris", movieService.searchCri("범죄","한국"));
         return "movie/movieMain";
     }
 
