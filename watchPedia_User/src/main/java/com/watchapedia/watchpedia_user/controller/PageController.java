@@ -4,6 +4,10 @@ import com.watchapedia.watchpedia_user.model.dto.UserSessionDto;
 import com.watchapedia.watchpedia_user.model.dto.comment.CommentDto;
 import com.watchapedia.watchpedia_user.model.dto.content.MovieDto;
 import com.watchapedia.watchpedia_user.model.dto.content.WebtoonDto;
+import com.watchapedia.watchpedia_user.model.entity.content.Book;
+import com.watchapedia.watchpedia_user.model.entity.content.Movie;
+import com.watchapedia.watchpedia_user.model.entity.content.Tv;
+import com.watchapedia.watchpedia_user.model.entity.content.Webtoon;
 import com.watchapedia.watchpedia_user.model.entity.content.ajax.Star;
 import com.watchapedia.watchpedia_user.model.network.request.ajax.StarRequest;
 import com.watchapedia.watchpedia_user.model.network.response.PersonResponse;
@@ -169,7 +173,42 @@ public class PageController {
         return new ModelAndView("/personDetail");
     }
 
+    @GetMapping("/search/contents/{searchKey}")
+    public ModelAndView searchContents(@PathVariable String searchKey, HttpSession session){
+        System.out.println("searchContents 페이지 컨트롤러에 잘 도착함");
+        System.out.println("searchKey 매개변수로 받은 값 : " + searchKey);
 
+        UserSessionDto dto = (UserSessionDto) session.getAttribute("userSession");
 
+        //영화 addObject 만들기
+        List<Movie> movies = movieRepository.findByMovTitleContaining(searchKey);
+        System.out.println(movies);
+
+        //TV addObject 만들기
+        List<Tv> tvs = tvRepository.findByTvTitleContaining(searchKey);
+        System.out.println(tvs);
+
+        //책 addObject 만들기
+        List<Book> books = bookRepository.findByBookTitleContaining(searchKey);
+        System.out.println(books);
+
+        //웹툰 addObject 만들기
+        List<Webtoon> webtoons = webtoonRepository.findByWebTitleContaining(searchKey);
+        System.out.println(webtoons);
+
+        return new ModelAndView("/search/searchContent")
+                .addObject("userSession", dto)
+                .addObject("searchKey", searchKey)
+                .addObject("movies", movies)
+                .addObject("tvs", tvs)
+                .addObject("books",books)
+                .addObject("webtoons", webtoons);
+    }
+    @GetMapping("/search/person/{searchKey}")
+    public ModelAndView searchPerson(@PathVariable String searchKey){
+        System.out.println("searchPerson 페이지 컨트롤러에 잘 도착함");
+        System.out.println("searchKey 매개변수로 받은 값 : " + searchKey);
+        return new ModelAndView("/search/searchPerson");
+    }
 
 }
