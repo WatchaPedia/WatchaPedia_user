@@ -12,4 +12,5 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     List<Book> findByBookCategoryContaining(String bookCategory);
 
+    List<Book> findByBookTitleContaining(String searchKey);
 }

@@ -93,7 +93,9 @@ public class MyPageController {
     @ResponseBody
     public Map<String, Object> ratingsStarPointAll(
             @PathVariable Long userIdx, @PathVariable String contentType,
+
             @PageableDefault(size=10, sort="starIdx", direction = Sort.Direction.DESC) Pageable pageable
+
     ){
         Map<String, Object> mv = userService.findRatingsStarPointAll(contentType,userIdx,pageable);
         return  mv;

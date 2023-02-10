@@ -1,9 +1,11 @@
+
 <html lang="ko-KR" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <link rel="icon" href="/image/favicon.png"/>
     <!-- vue.js 적용 src문 -->
     <script src="https://unpkg.com/vue@3"></script>
+
     <style>
         .css-1n41o32 {
             position: fixed;
@@ -608,7 +610,9 @@
 
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
+
     <title th:text="'왓챠피디아 - '+${userName}+'님의 영화평가'">왓챠피디아 - 송훈섭님의 영화평가</title>
+
     <meta data-rh="true" content="추천, 평가, 영화, 책, 드라마, 애니메이션" name="keywords">
     <meta data-rh="true" content="noindex, noimageindex" name="robots">
     <meta data-rh="true" content="9811060e374931ab817c913e27ba9851e42122b6" name="naver-site-verification">
@@ -1417,6 +1421,7 @@
     <style data-emotion-css="q5h397">
         .css-q5h397 {
             padding: 137px 0 0;
+
         }
     </style>
     <style data-emotion-css="12hxjcc-StyledHideableBlock">
@@ -2389,6 +2394,7 @@
             margin-top: 12px;
         }
     </style>
+
 </head>
 
 <body>
@@ -2407,6 +2413,7 @@
                                 <div class="css-uf1ume">
                                     <div class="css-0"><button
                                             class="e1t9gclr0 css-a6n3jw-StylelessButton-HeaderCloseButtonSelf-TopLeftButton e1k34u8y0" onclick="history.back()"></button>
+
                                     </div>
                                     <div class="css-0"></div>
                                 </div>
@@ -2415,6 +2422,7 @@
                                 </div>
                                 <div class="css-10bjf2k">{{type == 'wish'?'보고싶어요':'보는중'}}</div>
                             </header>
+
                             <div class="e1ok85ex2 css-zfzr88-StyledFilterBar">
                                 <div class="css-1gkas1x-Grid e1689zdh0">
                                     <div class="css-1y901al-Row emmoxnt0"><button
@@ -2434,6 +2442,7 @@
                                 <div class="css-1gkas1x-Grid e1689zdh0">
                                     <div class="css-1y901al-Row emmoxnt0">
                                         <ul class="css-w29x4j-VisualUl-ContentGrid-ContentGridUsedInArchive e14whxmg1">
+
                                             <li class="css-8y23cj" v-for="content in itemList"><a :title="content.title" :href="'/'+contentType+'/'+content.idx">
                                                     <div class="css-1qmeemv">
                                                         <div class=" css-unzuzl-StyledLazyLoadingImage ezcopuc0"><img
@@ -2448,6 +2457,7 @@
                                                     </div>
                                                     <div class="css-ixy093">
                                                         <div class="css-niy0za">{{content.title}}</div>
+
                                                     </div>
                                                 </a></li>
                                         </ul>
@@ -2466,6 +2476,7 @@
                     </section>
                 </section>
                 <div th:replace="fragment/footer::footer"></div>
+
             </div>
             <div disabled="" class="css-pjxj5o"></div>
             <div class="css-vi9yju">
