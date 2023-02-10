@@ -591,7 +591,7 @@
 
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>왓챠피디아 - 송훈섭님의 영화평가</title>
+    <title th:text="'왓챠피디아 - '+${userName}+'님의 영화평가'">왓챠피디아 - 송훈섭님의 영화평가</title>
     <meta data-rh="true" content="추천, 평가, 영화, 책, 드라마, 애니메이션" name="keywords">
     <meta data-rh="true" content="noindex, noimageindex" name="robots">
     <meta data-rh="true" content="9811060e374931ab817c913e27ba9851e42122b6" name="naver-site-verification">
@@ -4471,7 +4471,7 @@
                                     <div class="css-1gkas1x-Grid e1689zdh0">
                                         <div class="css-1y901al-Row emmoxnt0">
                                             <header class="css-1ue9xs6">
-                                                <h2 class="css-1wtjsst">5 평가함</h2><span class="css-wzn7fp" v-if="star5.length != 0">{{star5.length}}</span>
+                                                <h2 class="css-1wtjsst">5 평가함</h2><span class="css-wzn7fp" v-if="star5.length != 0">{{size5}}</span>
                                                 <div class="css-s289sk">
                                                     <div class="css-1ugqy9j"><a :href="'/user/'+userIdx+'/'+contentType+'/ratings/5'">더보기</a>
                                                     </div>
@@ -4524,7 +4524,7 @@
                                     <div class="css-1gkas1x-Grid e1689zdh0">
                                         <div class="css-1y901al-Row emmoxnt0">
                                             <header class="css-1ue9xs6">
-                                                <h2 class="css-1wtjsst">4 평가함</h2><span class="css-wzn7fp" v-if="star4.length != 0">{{star4.length}}</span>
+                                                <h2 class="css-1wtjsst">4 평가함</h2><span class="css-wzn7fp" v-if="star4.length != 0">{{size4}}</span>
                                                 <div class="css-s289sk">
                                                     <div class="css-1ugqy9j"><a :href="'/user/'+userIdx+'/'+contentType+'/ratings/4'">더보기</a>
                                                     </div>
@@ -4576,7 +4576,7 @@
                                     <div class="css-1gkas1x-Grid e1689zdh0">
                                         <div class="css-1y901al-Row emmoxnt0">
                                             <header class="css-1ue9xs6">
-                                                <h2 class="css-1wtjsst">3 평가함</h2><span class="css-wzn7fp" v-if="star3.length != 0">{{star3.length}}</span>
+                                                <h2 class="css-1wtjsst">3 평가함</h2><span class="css-wzn7fp" v-if="star3.length != 0">{{size3}}</span>
                                                 <div class="css-s289sk">
                                                     <div class="css-1ugqy9j"><a :href="'/user/'+userIdx+'/'+contentType+'/ratings/3'">더보기</a>
                                                     </div>
@@ -4628,7 +4628,7 @@
                                     <div class="css-1gkas1x-Grid e1689zdh0">
                                         <div class="css-1y901al-Row emmoxnt0">
                                             <header class="css-1ue9xs6">
-                                                <h2 class="css-1wtjsst">2 평가함</h2><span class="css-wzn7fp" v-if="star2.length != 0">{{star2.length}}</span>
+                                                <h2 class="css-1wtjsst">2 평가함</h2><span class="css-wzn7fp" v-if="star2.length != 0">{{size2}}</span>
                                                 <div class="css-s289sk">
                                                     <div class="css-1ugqy9j"><a :href="'/user/'+userIdx+'/'+contentType+'/ratings/2'">더보기</a>
                                                     </div>
@@ -4680,7 +4680,7 @@
                                     <div class="css-1gkas1x-Grid e1689zdh0">
                                         <div class="css-1y901al-Row emmoxnt0">
                                             <header class="css-1ue9xs6">
-                                                <h2 class="css-1wtjsst">1 평가함</h2><span class="css-wzn7fp" v-if="star1.length != 0">{{star1.length}}</span>
+                                                <h2 class="css-1wtjsst">1 평가함</h2><span class="css-wzn7fp" v-if="star1.length != 0">{{size1}}</span>
                                                 <div class="css-s289sk">
                                                     <div class="css-1ugqy9j"><a :href="'/user/'+userIdx+'/'+contentType+'/ratings/1'">더보기</a>
                                                     </div>

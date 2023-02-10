@@ -56,7 +56,12 @@ $(document).ready(function () {
                 star4: {},
                 star3: {},
                 star2: {},
-                star1: {}
+                star1: {},
+                size5: 0,
+                size4: 0,
+                size3: 0,
+                size2: 0,
+                size1: 0
             }
         }
     }).mount("#content-star-list")
@@ -112,7 +117,7 @@ $(document).ready(function () {
     function starItemPlus(){
         if(starPage != 'last'){
             $.ajax({
-                url:`/user/${userIdx}/${contentType}/ratings/list?page=${starPage}`,
+                url:`/user/${userIdx}/${contentType}/ratings/starpointList?page=${starPage}`,
                 headers: {'Content-Type': 'application/json;charset=UTF-8'},
                 type: 'GET',
                 dataType: "json",
@@ -143,9 +148,12 @@ $(document).ready(function () {
                     starList.star3 = starList3
                     starList.star2 = starList2
                     starList.star1 = starList1
-                    if(data.last ==true) starPage = 'last'
-                    else starPage++;
-                    scrollRec = false;
+                    starList.size5 = data.size5
+                    starList.size4 = data.size4
+                    starList.size3 = data.size3
+                    starList.size2 = data.size2
+                    starList.size1 = data.size1
+                    starPage++;
                 }
             })
         }
