@@ -2323,10 +2323,10 @@
                           <div class="css-1ciqeix">
                             <a
                               class="css-1j6t0vk-StylelessLocalLink-ArchivesActionListLink ei8r22x2"
-                              href="/ko-KR/users/ZBm5Rb8eg95d4/contents/movies/wishes"
+                              :href="'/user/'+userIdx+'/'+contentType+'/wish'"
                               >보고싶어요<span
                                 class="css-1vam9en-ArchivesByActionCount ei8r22x1"
-                                >9</span
+                                >{{wishSize}}</span
                               ></a
                             >
                           </div>
@@ -2338,10 +2338,10 @@
                           <div class="css-1ciqeix">
                             <a
                               class="css-1j6t0vk-StylelessLocalLink-ArchivesActionListLink ei8r22x2"
-                              href="/ko-KR/users/ZBm5Rb8eg95d4/contents/movies/doings"
+                              :href="'/user/'+userIdx+'/'+contentType+'/watch'"
                               >보는중<span
                                 class="css-1vam9en-ArchivesByActionCount ei8r22x1"
-                                >11</span
+                                >{{wishSize}}</span
                               ></a
                             >
                           </div>
