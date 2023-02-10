@@ -57,6 +57,8 @@ import java.util.Map;
 //Map,Model,ModelMap
 //이 클래스들은 요청으로 넘어온 파라미터를 받아 처리하는 것이 아닌, 모델 정보를 담는데 사용한다
 
+//HttpSession 을 통해 세션값을 받아올수있다.
+
 //https://develop-log-sj.tistory.com/29 참고
 
 
