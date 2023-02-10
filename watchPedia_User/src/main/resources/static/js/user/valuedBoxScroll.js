@@ -2,27 +2,25 @@ $(document).ready(function () {
     // 버튼 클릭 시 이동
     function clickBtn(){
         let container = document.querySelector(".css-usdi1z");
-        let scrollBox = document.querySelector(".css-9dnzub");
-        // let scrollMax = scrollBox.scrollWidth - (scrollBox.querySelector('.css-174lxc3').getBoundingClientRect().width+2);
-        //
-        // // 스크롤 위치에 따라 버튼 유무
-        // scrollBox.addEventListener('scroll', () => {
-        //     if (scrollBox.scrollLeft >= scrollMax) {
-        //         container.querySelector('.css-vp7uyl').style.display = "none";
-        //     } else {
-        //         container.querySelector('.css-vp7uyl').style.display = "flex";
-        //     }
-        //     if (scrollBox.scrollLeft == 0) {
-        //         container.querySelector('.css-1hestod').style.display = "none";
-        //     } else {
-        //         container.querySelector('.css-1hestod').style.display = "block";
-        //     }
-        // })
+
+        // 스크롤 위치에 따라 버튼 유무
+        document.querySelector(".css-9dnzub").addEventListener('scroll', () => {
+            if (document.querySelector(".css-9dnzub").scrollLeft >= document.querySelector(".css-9dnzub").scrollWidth - (document.querySelector(".css-9dnzub").querySelector('.css-174lxc3').getBoundingClientRect().width+2)) {
+                container.querySelector('.css-vp7uyl').style.display = "none";
+            } else {
+                container.querySelector('.css-vp7uyl').style.display = "flex";
+            }
+            if (document.querySelector(".css-9dnzub").scrollLeft == 0) {
+                container.querySelector('.css-1hestod').style.display = "none";
+            } else {
+                container.querySelector('.css-1hestod').style.display = "block";
+            }
+        })
         container.querySelector('.css-vp7uyl').addEventListener('click', function () {
-            scrollBox.scrollBy(container.querySelector('.e1689zdh0').getBoundingClientRect().width-12,0)
+            document.querySelector(".css-9dnzub").scrollBy(container.querySelector('.e1689zdh0').getBoundingClientRect().width-12,0)
         })
         container.querySelector('.css-1hestod').addEventListener('click', function () {
-            scrollBox.scrollBy(-container.querySelector('.e1689zdh0').getBoundingClientRect().width-12,0)
+            document.querySelector(".css-9dnzub").scrollBy(-container.querySelector('.e1689zdh0').getBoundingClientRect().width-12,0)
         })
     }
 
@@ -39,7 +37,9 @@ $(document).ready(function () {
                 itemList: {},
                 contentType: contentType,
                 userIdx: userIdx,
-                size: 0
+                size: 0,
+                wishSize:0,
+                watchSize:0
             }
         }
     }).mount("#item-list")
@@ -64,14 +64,18 @@ $(document).ready(function () {
                     clickBtn()
                 },
                 success: function (data) {
-                    itemBox.push(data.content)
-                    let str = "";
-                    itemBox.forEach(con => str += JSON.stringify(con))
-                    str = str.replaceAll("][", ",")
-                    itemList.itemList = JSON.parse(str)
-                    itemList.size = data.size
-                    if (data.last == true) page = 'last'
-                    else page++;
+                    if(data.content.length != 0){
+                        itemBox.push(data.content)
+                        let str = "";
+                        itemBox.forEach(con => str += JSON.stringify(con))
+                        str = str.replaceAll("][", ",")
+                        itemList.itemList = JSON.parse(str)
+                        itemList.size = data.size
+                        if (data.last == true) page = 'last'
+                        else page++;
+                    }else itemList.itemList = false
+                    itemList.wishSize = data.wishSize
+                    itemList.watchSize = data.watchSize
                 }
             })
         }
