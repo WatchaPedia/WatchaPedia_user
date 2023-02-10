@@ -71,9 +71,9 @@ public class MovieController {
         map.addAttribute("randomCountry", randomCountry);
         map.addAttribute("randomJerne",randomJerne);
         map.addAttribute("movieDtos", movieService.movieDtos());
+        map.addAttribute("movieZero", movieService.movieZero());
         map.addAttribute("movies2", movieService.movies2("나 홀로"));
-        map.addAttribute("Irons", movieService.Irons("아이언"));
-        map.addAttribute("movies3", movieService.movies3("2023"));
+        map.addAttribute("movies3", movieService.movies3());
         map.addAttribute("koreanMovies", movieService.searchCountry("한국"));
         map.addAttribute("americanMovies", movieService.searchCountry("미국"));
         map.addAttribute("dramas", movieService.searchDrama("드라마"));
