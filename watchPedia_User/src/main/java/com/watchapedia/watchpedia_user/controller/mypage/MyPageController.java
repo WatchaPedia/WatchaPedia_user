@@ -54,7 +54,6 @@ public class MyPageController {
     public ModelAndView myPage(HttpSession session,@PathVariable Long userIdx){
         UserSessionDto userSessionDto = (UserSessionDto)session.getAttribute("userSession");
         UserResponse user = userService.myPageUser(userIdx);
-
         return new ModelAndView("/mypage/myPage")
                 .addObject("userSession",userSessionDto)
                 .addObject("user", user);
@@ -93,9 +92,7 @@ public class MyPageController {
     @ResponseBody
     public Map<String, Object> ratingsStarPointAll(
             @PathVariable Long userIdx, @PathVariable String contentType,
-
             @PageableDefault(size=10, sort="starIdx", direction = Sort.Direction.DESC) Pageable pageable
-
     ){
         Map<String, Object> mv = userService.findRatingsStarPointAll(contentType,userIdx,pageable);
         return  mv;
@@ -136,7 +133,7 @@ public class MyPageController {
     @ResponseBody
     public Map<String, Object> ratingsStarPoint(
             @PathVariable Long userIdx, @PathVariable String contentType, @PathVariable String type,
-             Pageable pageable
+            Pageable pageable
     ){
         if(type.equals("wish")){
             pageable = PageRequest.of(pageable.getPageNumber(),9,Sort.by("wishIdx").descending());
