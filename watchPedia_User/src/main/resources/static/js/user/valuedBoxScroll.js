@@ -75,6 +75,7 @@ $(document).ready(function () {
                         if (data.last == true) page = 'last'
                         else page++;
                     }else itemList.itemList = false
+                    console.log(data)
                     itemList.wishSize = data.wishSize
                     itemList.watchSize = data.watchSize
                 }

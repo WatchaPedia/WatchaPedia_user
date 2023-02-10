@@ -1239,6 +1239,7 @@
       cursor: pointer;
       -webkit-transition: opacity 300ms;
       transition: opacity 300ms;
+      display: none;
     }
 
     .css-1hestod:hover {
@@ -2967,7 +2968,7 @@
 
 <body>
 <!-- 바로 아래 div가 vue적용되는 app 박스 시작!-->
-<div id="app">
+<div id="modal-app">
   <!-- 설정 톱니바퀴 팝업창 시작! -->
   <div v-if="main_modal" class="css-14gy7wr">
     <div id="modal-container-gaaIcctt8e6Uqo5nHzT52" class="css-rpyl6s">
@@ -4143,38 +4144,40 @@
   <!-- 바로 아래 div까지가 vue.js 적용된 app 박스임 -->
 </div>
 <script>
+  $(function() {
 
-  let modalList = createApp({
-    data() {
-      return {
-        main_modal: false,
-        notice_signal: false,
-      };
-    },
-    methods: {
-      main_modal_change() {
-        this.main_modal = !this.main_modal;
+    let modalList = createApp({
+      data() {
+        return {
+          main_modal: false,
+          notice_signal: false,
+        };
       },
-      notice_change() {
-        this.notice_signal = !this.notice_signal;
-      }
-    },
-  }).mount("#app");
+      methods: {
+        main_modal_change() {
+          this.main_modal = !this.main_modal;
+        },
+        notice_change() {
+          this.notice_signal = !this.notice_signal;
+        }
+      },
+    }).mount("#modal-app");
 
-  document.addEventListener("click",(e)=>{
-    if(document.querySelector("#modal-container-gaaIcctt8e6Uqo5nHzT52") &&
-            modalList.notice_signal == false){
-      if(!document.querySelector("div.css-ikkedy").contains(e.target)){
-        modalList.main_modal = false;
+    document.addEventListener("click", (e) => {
+      if (document.querySelector("#modal-container-gaaIcctt8e6Uqo5nHzT52") &&
+              modalList.notice_signal == false) {
+        if (!document.querySelector("div.css-ikkedy").contains(e.target)) {
+          modalList.main_modal = false;
+        }
       }
-    }
 
-    if(modalList.notice_signal == true) {
-      if(!document.querySelector(".css-8kej5s").contains(e.target)){
-        modalList.notice_signal = false;
+      if (modalList.notice_signal == true) {
+        if (!document.querySelector(".css-8kej5s").contains(e.target)) {
+          modalList.notice_signal = false;
+        }
       }
-    }
-  },true)
+    }, true)
+  })
 </script>
 </body>
 </html>
