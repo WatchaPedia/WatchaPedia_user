@@ -5,6 +5,7 @@ import com.watchapedia.watchpedia_user.model.entity.comment.Comment;
 import com.watchapedia.watchpedia_user.model.entity.content.ajax.Star;
 import com.watchapedia.watchpedia_user.model.network.request.comment.CommentRequest;
 import com.watchapedia.watchpedia_user.model.network.request.comment.LikeRequest;
+import com.watchapedia.watchpedia_user.model.network.response.NoticeResponse;
 import com.watchapedia.watchpedia_user.model.network.response.UserResponse;
 import com.watchapedia.watchpedia_user.model.network.response.comment.CommentResponse;
 import com.watchapedia.watchpedia_user.model.network.response.content.BookResponse;
@@ -31,6 +32,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -54,8 +56,10 @@ public class MyPageController {
     public ModelAndView myPage(HttpSession session,@PathVariable Long userIdx){
         UserSessionDto userSessionDto = (UserSessionDto)session.getAttribute("userSession");
         UserResponse user = userService.myPageUser(userIdx);
+        List<NoticeResponse> notice = userService.noticeAll();
         return new ModelAndView("/mypage/myPage")
                 .addObject("userSession",userSessionDto)
+                .addObject("notice",notice)
                 .addObject("user", user);
     }
 
