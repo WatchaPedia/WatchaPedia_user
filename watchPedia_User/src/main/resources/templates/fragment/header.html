@@ -511,7 +511,7 @@
   <nav>
     <div class="css-1gkas1x-Grid e1689zdh0">
       <div id="session_idx" hidden></div>
-      <div class="css-1djzg97">
+      <div class="css-1djzg97" id="app">
         <ul class="css-6v7b8v-VisualUl">
           <li class="css-t686xv"><a href="/">
             <svg viewBox="0 0 151 29" class="css-12v09xw">
@@ -557,68 +557,16 @@
           <li class="css-1c3wwgb">
           <div class="css-1xm32e0">
             <div class="css-1okeg7p">
-              <form action="#"><label class="css-kyr608">
+
                 <input type="text" autocomplete="off"
-                       placeholder="콘텐츠, 인물, 컬렉션, 유저를 검색해보세요." name="searchKeyword" value="" class="css-13i5xe6" id="input_text">
+                       placeholder="콘텐츠, 인물, 컬렉션, 유저를 검색해보세요." name="searchKeyword" v-model="inputValue" value="" class="css-13i5xe6" id="input_text">
                 <div value="false" class="css-ikj5sk">
                   <span aria-label="clear" role="button" class="css-14vwb0g"></span>
                 </div>
-              </label>
-              </form>
             </div>
           </div>
-          <div class="css-fxxino" id="css-fxxino1">
-            <div class="css-xi14ay-FullWidthGrid e1u1cfaa0">
-              <div class="css-1if4rat-FullWidthRow e16gp4xp0">
-                <div class="css-1yo7t0i">
-                  <div class="css-18ix4ch" id="latestMount">
-                    <section class="css-1h6sp57"  v-if="latestList != null">
-                      <div class="css-1gkas1x-Grid e1689zdh0">
-                        <div class="css-gve0r1-PediaRow ei6jegq0">
-                          <header class="css-1ue9xs6">
-                            <h2 class="css-1c9vu8r">최근 검색어</h2>
-                            <div class="css-s289sk"><button type="button" class="css-haamvo-StylelessButton">모두
-                              삭제</button></div>
-                          </header>
-                        </div>
-                      </div>
-                      <ul class="css-10n5vg9-VisualUl">
-                        <li class="css-13is4px" v-for="latest in latestList">
-                          <div class="css-6r4d6b">
-                            <div class="css-1c4znvk">{{latest.searchContent}}</div>
-                            <div class="css-0"></div>
-                          </div>
-                        </li>
-                      </ul>
-                      <hr class="css-1qmg4jw">
-                    </section>
-                  </div>
-
-                </div>
-                <div class="css-1yo7t0i" id="popularMount">
-                  <section class="css-9xx3wa">
-                    <div class="css-1gkas1x-Grid e1689zdh0">
-                      <div class="css-gve0r1-PediaRow ei6jegq0">
-                        <header class="css-1ue9xs6">
-                          <h2 class="css-1c9vu8r">인기 검색어</h2>
-                        </header>
-                      </div>
-                    </div>
-                    <ul class="css-10n5vg9-VisualUl">
-                      <li class="css-13is4px" v-for="result in popularList">
-                        <div class="css-6r4d6b">
-                          <div class="css-1c4znvk">{{result.searchContent}}</div>
-                          <div class="css-0"></div>
-                        </div>
-                      </li>
-                    </ul>
-                  </section>
-                </div>
-              </div>
-            </div>
-            <div class="css-11a3qtn"></div>
-          </div>
-          <div class="css-fxxino" id="css-fxxino2">
+<!--    요기요1        -->
+          <div class="css-fxxino" id="css-fxxino2" v-if="searchInput && flag">
             <div class="css-xi14ay-FullWidthGrid e1u1cfaa0">
               <div class="css-1if4rat-FullWidthRow e16gp4xp0">
                 <div class="css-1yo7t0i">
@@ -641,13 +589,64 @@
                     <div class="css-cdybbf">연관검색어가 없습니다.</div>
                   </li>
                   <li class="css-1yarod2" v-for="content in relativeList">
-                    <div class="css-cdybbf">{{content.searchContent}}</div>
+                    <div class="css-cdybbf" onclick="pageMove(this)">{{content.searchContent}}</div>
                   </li>
                 </ul>
               </section>
             </div>
           </div>
-        </li>
+            <div class="css-fxxino" id="css-fxxino1"v-if="!searchInput && flag" >
+              <div class="css-xi14ay-FullWidthGrid e1u1cfaa0">
+                <div class="css-1if4rat-FullWidthRow e16gp4xp0">
+                  <div class="css-1yo7t0i">
+                    <div class="css-18ix4ch" id="latestMount">
+                      <section class="css-1h6sp57"  v-if="latestList != null">
+                        <div class="css-1gkas1x-Grid e1689zdh0">
+                          <div class="css-gve0r1-PediaRow ei6jegq0">
+                            <header class="css-1ue9xs6">
+                              <h2 class="css-1c9vu8r">최근 검색어</h2>
+                              <div class="css-s289sk"><button type="button" class="css-haamvo-StylelessButton">모두
+                                삭제</button></div>
+                            </header>
+                          </div>
+                        </div>
+                        <ul class="css-10n5vg9-VisualUl">
+                          <li class="css-13is4px" v-for="latest in latestList">
+                            <div class="css-6r4d6b">
+                              <div class="css-1c4znvk" onclick="pageMove(this)">{{latest.searchContent}}</div>
+                              <div class="css-0"></div>
+                            </div>
+                          </li>
+                        </ul>
+                        <hr class="css-1qmg4jw">
+                      </section>
+                    </div>
+
+                  </div>
+                  <div class="css-1yo7t0i" id="popularMount">
+                    <section class="css-9xx3wa">
+                      <div class="css-1gkas1x-Grid e1689zdh0">
+                        <div class="css-gve0r1-PediaRow ei6jegq0">
+                          <header class="css-1ue9xs6">
+                            <h2 class="css-1c9vu8r">인기 검색어</h2>
+                          </header>
+                        </div>
+                      </div>
+                      <ul class="css-10n5vg9-VisualUl">
+                        <li class="css-13is4px" v-for="result in popularList">
+                          <div class="css-6r4d6b">
+                            <div class="css-1c4znvk" onclick="pageMove(this)">{{result.searchContent}}</div>
+                            <div class="css-0"></div>
+                          </div>
+                        </li>
+                      </ul>
+                    </section>
+                  </div>
+                </div>
+              </div>
+              <div class="css-11a3qtn"></div>
+            </div>
+          </li>
           <div id="sign_up">
             <li class="css-bj71cw" id="loginbtn" style="display: inline-block">
               <a href="/user/login">
@@ -675,7 +674,7 @@
             <li class="css-bj71cw" style="display: inline-block">
               <a title="단비님's page" id="login-idx" style="position: relative; top: 15px;">
                 <div class="css-ipiine">
-                  <div class="css-18d1ipb-ProfilePhotoImage" th:onclick="|location.href='/user/${userSession.userIdx()}'|"></div>
+                  <div class="css-18d1ipb-ProfilePhotoImage" th:onclick="|location.href='/mypage/myPage/${userSession.userIdx()}'|"></div>
                 </div>
               </a>
             </li>
@@ -684,32 +683,22 @@
       </div>
     </div>
   </nav>
+  <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
   <script>
     const{createApp}=Vue;
 
-    let latest = createApp({
+    let vueApp = createApp({
       data(){
         return{
-          latestList:{}
+          latestList:{},
+          popularList:{},
+          relativeList:{},
+          inputValue: "",
+          searchInput: false,
+          flag: false
         }
       }
-    }).mount("#latestMount")
-
-    let popular = createApp({
-      data(){
-        return{
-          popularList:{}
-        }
-      }
-    }).mount("#popularMount")
-
-    let relative = createApp({
-      data(){
-        return{
-          relativeList:{}
-        }
-      }
-    }).mount("#relativeMount")
+    }).mount("#app")
 
     const inputTag = document.getElementById('input_text');
     console.log(input_text);
@@ -717,14 +706,25 @@
     //검색창에 포커스 했을 때,
     inputTag.addEventListener("focus", focusOn);
 
-    //검색창에서 포커스 뺐을 때,
-    inputTag.addEventListener("blur", focusOut);
-
     //검색창에서 값 바꿀때 마다,
     inputTag.addEventListener("keyup", searchChange);
 
     //검색창에서 enter 눌렀을 때,
-    inputTag.addEventListener("change", searchEnter);
+    inputTag.addEventListener("keydown", (e) => {
+      if(e.key == 'Enter'){
+        searchEnter()
+      }
+    });
+
+    //윈도우 클릭으로 모달 끄기
+    document.addEventListener("click", (e) => {
+      const app = document.getElementById("app")
+
+      if(!app.contains(e.target)){
+        vueApp.flag = false;
+      }
+    });
+
 
     //session이 있을때만 존재하는 박스 (로그인 구분) null check용
     const userIdxTag = document.getElementById('session_idx');
@@ -733,6 +733,7 @@
     //검색창에 커서 활성화될 때,
     function focusOn(){
       console.log("focusOn 메소드 실행");
+      vueApp.flag = true;
 
       //로그인상태면, Idx값이 담기고, 비회원상태면 null을 보냄
       let Idx = ""
@@ -742,7 +743,7 @@
 
       //Top5 리턴되는 ajax
       $.ajax({
-        url: "/api/search/focusOn",
+        url: "/focusOn",
         type: "GET",
         dataType: "json",
         processData: true,
@@ -754,20 +755,13 @@
           console.log('ajax 정보교환 성공!')
           console.log(list);
 
-          latest.latestList = list[0];
-          popular.popularList = list[1];
+          vueApp.latestList = list[0];
+          vueApp.popularList = list[1];
         },
         error: function(){
           console.log("에러발생")
         }
       })
-
-
-    }
-
-    //검색창에서 커서 나갈 때,
-    function focusOut(){
-      console.log("focusOut 메소드 실행");
     }
 
     //검색어 엔터치면 발동!
@@ -785,9 +779,10 @@
 
       //tb_search create로직 => 해당하는 검색어 find해서 반복돌리면서 count로 duplicate set해서 업데이트
       $.ajax({
-        url: "api/search/enter",
+        url: "/enter",
         type: "GET",
         dataType: "json",
+        async: false,
         processData: true,
         contentType: "application/json; charset=UTF-8",
         data: {
@@ -796,14 +791,13 @@
         },
         success: function(result){
           console.log('ajax 정보교환 성공!')
-
-          console.log(result);
+          location.href = `/search/contents/${inputTag.value}`;
         },
-        error: function(){
-          console.log("에러발생")
+        error: function(result){
+          console.log("비회원 catch")
+          location.href = `/search/contents/${inputTag.value}`;
         }
       })
-
     }
 
 
@@ -811,21 +805,24 @@
     function searchChange(){
       console.log("searchChange 메소드 실행!");
 
-      //relativeList 비우기
-      relative.relativeList = {}
-
-      //로그인상태면, Idx값이 담기고, 비회원상태면 null을 보냄
-      let Idx = ""
-      if(userIdxTag != null){
-        Idx = userIdxTag.innerText
+      //모달창 변경
+      if(inputTag.value == ""){
+        vueApp.searchInput = false
+      }else{
+        vueApp.searchInput = true
       }
+
+
+      //relativeList 비우기
+      vueApp.relativeList = {}
 
       //검색어 빈칸은 연관검색어를 구하지 않기 (방어코드)
       if(inputTag.value == "") return;
 
       $.ajax({
-        url: "api/search/change",
+        url: "/change",
         type: "GET",
+        async:false,
         dataType: "json",
         processData: true,
         contentType: "application/json; charset=UTF-8",
@@ -835,10 +832,46 @@
         success: function(list){
           console.log('ajax 정보교환 성공!')
           console.log(list)
-          relative.relativeList = list;
+          vueApp.relativeList = list;
         },
         error: function(){
           console.log("에러발생")
+        }
+      })
+    }
+
+    function pageMove(e){
+      console.log("pageMove 메소드 실행!");
+
+      inputTag.value = e.innerText;
+
+      //로그인상태면, Idx값이 담기고, 비회원상태면 null을 보냄
+      let Idx = ""
+      if(userIdxTag != null){
+        Idx = userIdxTag.innerText
+      }
+
+      //검색어 빈칸은 검색어를 쌓지 않기 (방어코드)
+      if(inputTag.value == "") return;
+
+      $.ajax({
+        url: "/enter",
+        type: "GET",
+        dataType: "json",
+        async: false,
+        processData: true,
+        contentType: "application/json; charset=UTF-8",
+        data: {
+          searchKey : inputTag.value,
+          userIdx : Idx
+        },
+        success: function(result){
+          console.log('ajax 정보교환 성공!')
+          location.href = `/search/contents/${inputTag.value}`;
+        },
+        error: function(result){
+          console.log("비회원 catch")
+          location.href = `/search/contents/${inputTag.value}`;
         }
       })
     }

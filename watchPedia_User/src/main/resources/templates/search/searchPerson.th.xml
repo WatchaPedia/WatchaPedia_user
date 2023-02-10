@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<thlogic>
+<!-- th:if문 -->
+    <attr sel="#bookNullText" th:if="${#lists.isEmpty(books)}"></attr>
+    <attr sel="#bookNullText" th:if="${userId} == null"></attr>
+
+
+<!-- th:for문 -->
+    <attr sel="#th_for_book" th:each="book : ${books}">
+        <attr sel="#bookBackground" th:style="'background-image:url(' + ${book.bookThumbnail} + ');'"></attr>
+
+        <attr sel="#th_href_title_bookLink" th:href="@{'/book/'+${book.bookIdx}}" th:title="${book.bookTitle}">
+            <attr sel="#th_text_bookTitle" th:text="${book.bookTitle}"></attr>
+            <attr sel="#th_text_bookYear_bookCountry" th:text="${book.bookAtDate} + '・' + ${book.bookWriter}"></attr>
+        </attr>
+    </attr>
+
+
+<!-- th:href  a태그에 주소값 주기 -->
+    <attr sel="#th_href_title_bookLink" th:href="@{'/book/'+${book.bookIdx}}"></attr>
+
+
+<!-- th:text문 (해당 태그 내부 Text를 바꿔치기 해줌) -->
+    <attr sel="#th_text_bookTitle" th:text="${book.bookTitle}"></attr>
+    <!-- 시간 포멧을 맞춰서 넣기 -->
+    <attr sel=".admin-reg-date" th:text="${#temporals.format(admin.regDate, 'yyyy-MM-dd HH:mm:ss')}"/>
+
+
+<!-- th:class  원하는 조건을 만족할 때만, class 부여 -->
+    <!-- 기본 -->
+    <attr sel="button#deckLike" th:class="${comment.hasLike} == true ? 'css-3w1nnz' : 'none'"/>
+
+    <!-- th:class로 클래스 2개 이상 주는 방법 -->
+    <attr sel="button#deckLike" th:class="'page-link' + (${articles.number} >= ${articles.totalPages - 1} ? ' disabled':'')"/>
+
+    <!-- class 덧붙이기 (기존 클래스를 덮어쓰지 않고 여기서 주는 class가 추가됨)-->
+    <attr sel="li.css-1cw0vk0" th:classappend="${idx.first} ? 'first' : (${idx.last} ? 'last' : _) " />
+
+<!-- input태그에 value 넣기 -->
+    <attr sel="#personIdx" th:value="${person.idx}" />
+
+
+<!-- img태그에 src 넣기 -->
+    <attr sel="img#tvpos" th:src="${tv.thumbnail}"/>
+
+
+<!-- th:style문 Background 사진 주소값, 기본적인 색상, 크기 등, style 태그를 사용하는 방법 -->
+    <!-- 기본 -->
+    <attr sel="#webBackground" th:style="'background-image:url(' + ${webtoon.webThumbnail} + ');'"></attr>
+    <!-- 삼항연산자 활용 -->
+    <attr sel="span.star/span" th:style="${hasStar} != null ? ('width:'+ (${hasStar.starPoint} * 20) +'%;') : _"/>
+</thlogic>
+
+
