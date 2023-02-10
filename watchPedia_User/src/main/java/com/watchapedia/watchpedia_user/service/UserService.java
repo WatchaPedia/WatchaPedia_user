@@ -162,9 +162,177 @@ public class UserService {
         return mv;
     }
 
+    public Map<String, Object> findRatingsStarPointAll(String contentType, Long userIdx, Pageable pageable){
+        Map<String, Object> mv = new HashMap<>();
+        Page<Star> starList5 = starRepository.findByStarContentTypeAndStarUserIdxAndStarPoint(contentType,userIdx, 5L,pageable);
+        Page<Star> starList4 = starRepository.findByStarContentTypeAndStarUserIdxAndStarPoint(contentType,userIdx, 4L,pageable);
+        Page<Star> starList3 = starRepository.findByStarContentTypeAndStarUserIdxAndStarPoint(contentType,userIdx, 3L,pageable);
+        Page<Star> starList2 = starRepository.findByStarContentTypeAndStarUserIdxAndStarPoint(contentType,userIdx, 2L,pageable);
+        Page<Star> starList1 = starRepository.findByStarContentTypeAndStarUserIdxAndStarPoint(contentType,userIdx, 1L,pageable);
+        List<Ratings> ratingsList = new ArrayList<>();
+        switch (contentType){
+            case "movie" ->{
+                for(Star star: starList5){
+                    Movie movie = movieRepository.getReferenceById(star.getStarContentIdx());
+                    ratingsList.add(Ratings.of(movie.getMovIdx(),movie.getMovThumbnail(),movie.getMovTitle(),
+                            movie.getMovWatch()!=null? (movie.getMovWatch().contains("aHR0cHM6Ly93d3cubmV0ZmxpeC5jb20vdGl0b")||movie.getMovWatch().contains("netflix")?true:false):false,
+                            movie.getMovWatch()!=null? (movie.getMovWatch().contains("aHR0cHM6Ly93YXRjaGEuY29tL3dhd")||movie.getMovWatch().contains("https://watcha.com/watch/")?true:false):false,
+                            star.getStarPoint()
+                    ));
+                }
+                for(Star star: starList4){
+                    Movie movie = movieRepository.getReferenceById(star.getStarContentIdx());
+                    ratingsList.add(Ratings.of(movie.getMovIdx(),movie.getMovThumbnail(),movie.getMovTitle(),
+                            movie.getMovWatch()!=null? (movie.getMovWatch().contains("aHR0cHM6Ly93d3cubmV0ZmxpeC5jb20vdGl0b")||movie.getMovWatch().contains("netflix")?true:false):false,
+                            movie.getMovWatch()!=null? (movie.getMovWatch().contains("aHR0cHM6Ly93YXRjaGEuY29tL3dhd")||movie.getMovWatch().contains("https://watcha.com/watch/")?true:false):false,
+                            star.getStarPoint()
+                    ));
+                }
+                for(Star star: starList3){
+                    Movie movie = movieRepository.getReferenceById(star.getStarContentIdx());
+                    ratingsList.add(Ratings.of(movie.getMovIdx(),movie.getMovThumbnail(),movie.getMovTitle(),
+                            movie.getMovWatch()!=null? (movie.getMovWatch().contains("aHR0cHM6Ly93d3cubmV0ZmxpeC5jb20vdGl0b")||movie.getMovWatch().contains("netflix")?true:false):false,
+                            movie.getMovWatch()!=null? (movie.getMovWatch().contains("aHR0cHM6Ly93YXRjaGEuY29tL3dhd")||movie.getMovWatch().contains("https://watcha.com/watch/")?true:false):false,
+                            star.getStarPoint()
+                    ));
+                }
+                for(Star star: starList2){
+                    Movie movie = movieRepository.getReferenceById(star.getStarContentIdx());
+                    ratingsList.add(Ratings.of(movie.getMovIdx(),movie.getMovThumbnail(),movie.getMovTitle(),
+                            movie.getMovWatch()!=null? (movie.getMovWatch().contains("aHR0cHM6Ly93d3cubmV0ZmxpeC5jb20vdGl0b")||movie.getMovWatch().contains("netflix")?true:false):false,
+                            movie.getMovWatch()!=null? (movie.getMovWatch().contains("aHR0cHM6Ly93YXRjaGEuY29tL3dhd")||movie.getMovWatch().contains("https://watcha.com/watch/")?true:false):false,
+                            star.getStarPoint()
+                    ));
+                }
+                for(Star star: starList1){
+                    Movie movie = movieRepository.getReferenceById(star.getStarContentIdx());
+                    ratingsList.add(Ratings.of(movie.getMovIdx(),movie.getMovThumbnail(),movie.getMovTitle(),
+                            movie.getMovWatch()!=null? (movie.getMovWatch().contains("aHR0cHM6Ly93d3cubmV0ZmxpeC5jb20vdGl0b")||movie.getMovWatch().contains("netflix")?true:false):false,
+                            movie.getMovWatch()!=null? (movie.getMovWatch().contains("aHR0cHM6Ly93YXRjaGEuY29tL3dhd")||movie.getMovWatch().contains("https://watcha.com/watch/")?true:false):false,
+                            star.getStarPoint()
+                    ));
+                }
+            }
+            case "tv" ->{
+                for(Star star: starList5){
+                    Tv tv = tvRepository.getReferenceById(star.getStarContentIdx());
+                    ratingsList.add(Ratings.of(tv.getTvIdx(),tv.getTvThumbnail(),tv.getTvTitle(),
+                            tv.getTvWatch()!=null? (tv.getTvWatch().contains("aHR0cHM6Ly93d3cubmV0ZmxpeC5jb20vdGl0b")||tv.getTvWatch().contains("netflix")?true:false):false,
+                            tv.getTvWatch()!=null? (tv.getTvWatch().contains("aHR0cHM6Ly93YXRjaGEuY29tL3dhd")||tv.getTvWatch().contains("https://watcha.com/watch/")?true:false):false,
+                            star.getStarPoint()
+                    ));
+                }
+                for(Star star: starList4){
+                    Tv tv = tvRepository.getReferenceById(star.getStarContentIdx());
+                    ratingsList.add(Ratings.of(tv.getTvIdx(),tv.getTvThumbnail(),tv.getTvTitle(),
+                            tv.getTvWatch()!=null? (tv.getTvWatch().contains("aHR0cHM6Ly93d3cubmV0ZmxpeC5jb20vdGl0b")||tv.getTvWatch().contains("netflix")?true:false):false,
+                            tv.getTvWatch()!=null? (tv.getTvWatch().contains("aHR0cHM6Ly93YXRjaGEuY29tL3dhd")||tv.getTvWatch().contains("https://watcha.com/watch/")?true:false):false,
+                            star.getStarPoint()
+                    ));
+                }
+                for(Star star: starList3){
+                    Tv tv = tvRepository.getReferenceById(star.getStarContentIdx());
+                    ratingsList.add(Ratings.of(tv.getTvIdx(),tv.getTvThumbnail(),tv.getTvTitle(),
+                            tv.getTvWatch()!=null? (tv.getTvWatch().contains("aHR0cHM6Ly93d3cubmV0ZmxpeC5jb20vdGl0b")||tv.getTvWatch().contains("netflix")?true:false):false,
+                            tv.getTvWatch()!=null? (tv.getTvWatch().contains("aHR0cHM6Ly93YXRjaGEuY29tL3dhd")||tv.getTvWatch().contains("https://watcha.com/watch/")?true:false):false,
+                            star.getStarPoint()
+                    ));
+                }
+                for(Star star: starList2){
+                    Tv tv = tvRepository.getReferenceById(star.getStarContentIdx());
+                    ratingsList.add(Ratings.of(tv.getTvIdx(),tv.getTvThumbnail(),tv.getTvTitle(),
+                            tv.getTvWatch()!=null? (tv.getTvWatch().contains("aHR0cHM6Ly93d3cubmV0ZmxpeC5jb20vdGl0b")||tv.getTvWatch().contains("netflix")?true:false):false,
+                            tv.getTvWatch()!=null? (tv.getTvWatch().contains("aHR0cHM6Ly93YXRjaGEuY29tL3dhd")||tv.getTvWatch().contains("https://watcha.com/watch/")?true:false):false,
+                            star.getStarPoint()
+                    ));
+                }
+                for(Star star: starList1){
+                    Tv tv = tvRepository.getReferenceById(star.getStarContentIdx());
+                    ratingsList.add(Ratings.of(tv.getTvIdx(),tv.getTvThumbnail(),tv.getTvTitle(),
+                            tv.getTvWatch()!=null? (tv.getTvWatch().contains("aHR0cHM6Ly93d3cubmV0ZmxpeC5jb20vdGl0b")||tv.getTvWatch().contains("netflix")?true:false):false,
+                            tv.getTvWatch()!=null? (tv.getTvWatch().contains("aHR0cHM6Ly93YXRjaGEuY29tL3dhd")||tv.getTvWatch().contains("https://watcha.com/watch/")?true:false):false,
+                            star.getStarPoint()
+                    ));
+                }
+            }
+            case "book" ->{
+                for(Star star: starList5){
+                    Book book = bookRepository.getReferenceById(star.getStarContentIdx());
+                    ratingsList.add(Ratings.of(book.getBookIdx(),book.getBookThumbnail(),book.getBookTitle(),
+                            false,false, star.getStarPoint()
+                    ));
+                }
+                for(Star star: starList4){
+                    Book book = bookRepository.getReferenceById(star.getStarContentIdx());
+                    ratingsList.add(Ratings.of(book.getBookIdx(),book.getBookThumbnail(),book.getBookTitle(),
+                            false,false, star.getStarPoint()
+                    ));
+                }
+                for(Star star: starList3){
+                    Book book = bookRepository.getReferenceById(star.getStarContentIdx());
+                    ratingsList.add(Ratings.of(book.getBookIdx(),book.getBookThumbnail(),book.getBookTitle(),
+                            false,false, star.getStarPoint()
+                    ));
+                }
+                for(Star star: starList2){
+                    Book book = bookRepository.getReferenceById(star.getStarContentIdx());
+                    ratingsList.add(Ratings.of(book.getBookIdx(),book.getBookThumbnail(),book.getBookTitle(),
+                            false,false, star.getStarPoint()
+                    ));
+                }
+                for(Star star: starList1){
+                    Book book = bookRepository.getReferenceById(star.getStarContentIdx());
+                    ratingsList.add(Ratings.of(book.getBookIdx(),book.getBookThumbnail(),book.getBookTitle(),
+                            false,false, star.getStarPoint()
+                    ));
+                }
+            }
+            case "webtoon" ->{
+                for(Star star: starList5){
+                    Webtoon web = webtoonRepository.getReferenceById(star.getStarContentIdx());
+                    ratingsList.add(Ratings.of(web.getWebIdx(),web.getWebThumbnail(),web.getWebTitle(),
+                            false,false, star.getStarPoint()
+                    ));
+                }
+                for(Star star: starList4){
+                    Webtoon web = webtoonRepository.getReferenceById(star.getStarContentIdx());
+                    ratingsList.add(Ratings.of(web.getWebIdx(),web.getWebThumbnail(),web.getWebTitle(),
+                            false,false, star.getStarPoint()
+                    ));
+                }
+                for(Star star: starList3){
+                    Webtoon web = webtoonRepository.getReferenceById(star.getStarContentIdx());
+                    ratingsList.add(Ratings.of(web.getWebIdx(),web.getWebThumbnail(),web.getWebTitle(),
+                            false,false, star.getStarPoint()
+                    ));
+                }
+                for(Star star: starList2){
+                    Webtoon web = webtoonRepository.getReferenceById(star.getStarContentIdx());
+                    ratingsList.add(Ratings.of(web.getWebIdx(),web.getWebThumbnail(),web.getWebTitle(),
+                            false,false, star.getStarPoint()
+                    ));
+                }
+                for(Star star: starList1){
+                    Webtoon web = webtoonRepository.getReferenceById(star.getStarContentIdx());
+                    ratingsList.add(Ratings.of(web.getWebIdx(),web.getWebThumbnail(),web.getWebTitle(),
+                            false,false, star.getStarPoint()
+                    ));
+                }
+            }
+        }
+
+        mv.put("content",ratingsList);
+        mv.put("size5",starList5.getTotalElements());
+        mv.put("size4",starList4.getTotalElements());
+        mv.put("size3",starList3.getTotalElements());
+        mv.put("size2",starList2.getTotalElements());
+        mv.put("size1",starList1.getTotalElements());
+        return mv;
+    }
+
     public Map<String, Object> findRatingsStarPoint(String contentType, Long userIdx, Long starPoint, Pageable pageable){
         Map<String, Object> mv = new HashMap<>();
-        Page<Star> starList = starRepository.findByStarContentTypeAndStarUserIdxAndStarPoint("movie",userIdx, starPoint,pageable);
+        Page<Star> starList = starRepository.findByStarContentTypeAndStarUserIdxAndStarPoint(contentType,userIdx, starPoint,pageable);
         boolean last = starList.isLast();
         List<Ratings> ratingsList = new ArrayList<>();
         switch (contentType){

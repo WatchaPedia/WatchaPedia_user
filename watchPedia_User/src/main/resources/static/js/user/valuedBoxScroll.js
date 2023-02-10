@@ -1,36 +1,33 @@
-// 메인 스크롤
-window.addEventListener('resize',clickBtn)
-// 버튼 클릭 시 이동
-function clickBtn(){
-    let container = document.querySelector(".css-usdi1z");
-    let scrollBox = document.querySelector(".css-9dnzub");
-    let scrollMax = scrollBox.scrollWidth - (scrollBox.querySelector('.e1689zdh0').getBoundingClientRect().width+2);
-
-    // 스크롤 위치에 따라 버튼 유무
-    scrollBox.addEventListener('scroll', () => {
-        if (scrollBox.scrollLeft >= scrollMax) {
-            container.querySelector('.css-vp7uyl').style.display = "none";
-        } else {
-            container.querySelector('.css-vp7uyl').style.display = "flex";
-        }
-        if (scrollBox.scrollLeft == 0) {
-            container.querySelector('.css-1hestod').style.display = "none";
-        } else {
-            container.querySelector('.css-1hestod').style.display = "block";
-        }
-    })
-    container.querySelector('.css-vp7uyl').addEventListener('click', function () {
-        console.log("실행")
-        scrollBox.scrollBy(container.querySelector('.e1689zdh0').getBoundingClientRect().width-12,0)
-    })
-    container.querySelector('.css-1hestod').addEventListener('click', function () {
-        scrollBox.scrollBy(-container.querySelector('.e1689zdh0').getBoundingClientRect().width-12,0)
-    })
-}
-
-document.querySelector("#more-btn").href = "/user/"+window.location.href.split("/user/")[1]+"/ratings"
-
 $(document).ready(function () {
+    // 버튼 클릭 시 이동
+    function clickBtn(){
+        let container = document.querySelector(".css-usdi1z");
+        let scrollBox = document.querySelector(".css-9dnzub");
+        // let scrollMax = scrollBox.scrollWidth - (scrollBox.querySelector('.css-174lxc3').getBoundingClientRect().width+2);
+        //
+        // // 스크롤 위치에 따라 버튼 유무
+        // scrollBox.addEventListener('scroll', () => {
+        //     if (scrollBox.scrollLeft >= scrollMax) {
+        //         container.querySelector('.css-vp7uyl').style.display = "none";
+        //     } else {
+        //         container.querySelector('.css-vp7uyl').style.display = "flex";
+        //     }
+        //     if (scrollBox.scrollLeft == 0) {
+        //         container.querySelector('.css-1hestod').style.display = "none";
+        //     } else {
+        //         container.querySelector('.css-1hestod').style.display = "block";
+        //     }
+        // })
+        container.querySelector('.css-vp7uyl').addEventListener('click', function () {
+            scrollBox.scrollBy(container.querySelector('.e1689zdh0').getBoundingClientRect().width-12,0)
+        })
+        container.querySelector('.css-1hestod').addEventListener('click', function () {
+            scrollBox.scrollBy(-container.querySelector('.e1689zdh0').getBoundingClientRect().width-12,0)
+        })
+    }
+
+    document.querySelector("#more-btn").href = "/user/"+window.location.href.split("/user/")[1]+"/ratings"
+
     const userIdx = window.location.href.split("/user/")[1].split("/")[0]
     const contentType = window.location.href.split(`/user/${userIdx}/`)[1].split("/ratings")[0]
 
@@ -81,7 +78,6 @@ $(document).ready(function () {
     }
     let scrollBox = document.querySelector(".css-9dnzub")
     scrollBox.addEventListener('scroll',(e)=>{
-        console.log("실행?")
         if(scrollBox.scrollLeft >= scrollBox.scrollWidth-(scrollBox.querySelector('.e1689zdh0').getBoundingClientRect().width+5)) {
             // 스크롤 가능하면 실행
             if(!scrollRec){

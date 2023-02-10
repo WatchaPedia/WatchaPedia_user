@@ -62,20 +62,22 @@ public class MyPageController {
     @GetMapping("/user/{userIdx}/{contentType}")
     @ResponseBody
     public ModelAndView myPageMovieList(
-            HttpSession session
+            HttpSession session, @PathVariable Long userIdx
     ){
         UserSessionDto dto = (UserSessionDto) session.getAttribute("userSession");
         return new ModelAndView("/mypage/valuedBoxTest")
-                .addObject("userSession",dto);
+                .addObject("userSession",dto)
+                .addObject("userName",userRepository.getReferenceById(userIdx).getUserName());
     }
 
     @GetMapping("/user/{userIdx}/{contentType}/ratings")
     public ModelAndView ratingsAllPage(
-            HttpSession session
+            HttpSession session, @PathVariable Long userIdx
     ){
         UserSessionDto dto = (UserSessionDto) session.getAttribute("userSession");
         return new ModelAndView("/mypage/valuedPlus")
-                .addObject("userSession",dto);
+                .addObject("userSession",dto)
+                .addObject("userName",userRepository.getReferenceById(userIdx).getUserName());
     }
     @GetMapping("/user/{userIdx}/{contentType}/ratings/list")
     @ResponseBody
@@ -86,15 +88,25 @@ public class MyPageController {
         Map<String, Object> mv = userService.findRatings(contentType,userIdx,pageable);
         return  mv;
     }
+    @GetMapping("/user/{userIdx}/{contentType}/ratings/starpointList")
+    @ResponseBody
+    public Map<String, Object> ratingsStarPointAll(
+            @PathVariable Long userIdx, @PathVariable String contentType,
+            @PageableDefault(size=9, sort="starIdx", direction = Sort.Direction.DESC) Pageable pageable
+    ){
+        Map<String, Object> mv = userService.findRatingsStarPointAll(contentType,userIdx,pageable);
+        return  mv;
+    }
 
     @GetMapping("/user/{userIdx}/{contentType}/ratings/{starPoint}")
     @ResponseBody
     public ModelAndView ratingsStarPointPage(
-            HttpSession session
+            HttpSession session, @PathVariable Long userIdx
     ){
         UserSessionDto dto = (UserSessionDto) session.getAttribute("userSession");
-        return new ModelAndView("/mypage/valuedPlus")
-                .addObject("userSession",dto);
+        return new ModelAndView("/mypage/selectStarList")
+                .addObject("userSession",dto)
+                .addObject("userName",userRepository.getReferenceById(userIdx).getUserName());
     }
     @GetMapping("/user/{userIdx}/{contentType}/ratings/{starPoint}/new")
     @ResponseBody
@@ -145,6 +157,8 @@ public class MyPageController {
     final WebtoonService webtoonService;
     final MovieService movieService;
     final BookService bookService;
+    private final UserRepository userRepository;
+
     @GetMapping("/{commentIdx}")
     public String commentView(
             @PathVariable Long commentIdx,
