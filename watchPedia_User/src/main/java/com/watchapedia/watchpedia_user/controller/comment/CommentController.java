@@ -34,9 +34,30 @@ import java.util.Map;
 //단 controller는 단지 결정만 해주고 실질적인 처리는 서비스(Layered Architecture)에서 담당
 //사용자에게 View(또는 서버에서 처리된 데이터를 포함하는 View)를 응답으로 보내준다
 
-//RequiredArgsConstructor어노테이션은 초기화 되지않은 final 필드나, @NonNull 이 붙은 필드에 대해 생성자를 생성해준다.
+//@Controller이 적용된 클래스는 "Controller"임을 나타나고,
+//bean으로 등록되며 해당 클래스가 Controller로 사용됨을 Spring Framework에 알립
+
+//@RequestMapping이 선언된 클래스의 모든 메소드가 하나의 요청에 대한 처리를 할경우 사용
+
+//@RequiredArgsConstructor은 초기화 되지않은 final 필드나, @NonNull 이 붙은 필드에 대해 생성자를 생성해준다.
 //주로 의존성 주입(Dependency Injection) 편의성을 위해서 사용한다
 //어떠한 빈(Bean)에 생성자가 오직 하나만 있고, 생성자의 파라미터 타입이 빈으로 등록 가능한 존재라면 이 빈은 @Autowired 어노테이션 없이도 의존성 주입이 가능하다.
+
+//추가로 이곳에선 사용되진 않지만 @RestController에 대해 설명하자면
+//@RestController은 @Controller + @ResponseBody 이며, 메소드의 return(반환 결과값)을 문자열(JSON) 형태로 반환
+//view가 필요없는 API만 지원하는 클래스에 사용되며, json 이나 xml 과 같은 문자열의 return이 주목적
+
+//메소드에 @ResponseBody 로 어노테이션이 되어 있다면 메소드에서 리턴되는 값은 View 를 통해서 출력되지 않고 HTTP Response Body 에 직접 쓰여지게 된다
+//이때 쓰여지기 전에 리턴되는 데이터 타입에 따라 MessageConverter 에서 변환이 이뤄진 후 쓰여지게 된다
+
+//메소드의 메개변수앞에 @RequestBody가 붙을경우
+//HTTP POST 요청에 대해 request body에 있는 request message에서 값을 얻어와 매칭하며,
+//RequestData를 바로 Model이나 클래스로 매핑한다
+
+//Map,Model,ModelMap
+//이 클래스들은 요청으로 넘어온 파라미터를 받아 처리하는 것이 아닌, 모델 정보를 담는데 사용한다
+
+
 
 @Controller
 @RequestMapping("/comment")
