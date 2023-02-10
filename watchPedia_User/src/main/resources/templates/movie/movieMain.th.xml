@@ -75,19 +75,19 @@
 
     <!--해외 미국  -->
     <attr sel=".movie-table-foreign" th:remove="all-but-first" >
-        <attr sel=".movie-tr-foreign" th:each="americanMovies, i : ${americanMovies}" >
-            <attr sel=".movie-title" th:text="${americanMovies.movTitle}"/>
-            <attr sel=".movie-img" th:src="${americanMovies.movThumbnail}" />
-            <attr sel=".movie-making" th:text="${americanMovies.movMakingDate} + ' ・ ' +  ${americanMovies.movCountry}" />
+        <attr sel=".movie-tr-foreign" th:each="movieZero, i : ${movieZero}" >
+            <attr sel=".movie-title" th:text="${movieZero.movTitle}"/>
+            <attr sel=".movie-img" th:src="${movieZero.movThumbnail}" />
+            <attr sel=".movie-making" th:text="${movieZero.movMakingDate} + ' ・ ' +  ${movieZero.movCountry}" />
             <!--                메인페이지 순서 count이용 증가 -->
             <attr sel=".movie-idx" th:text="${i.count}" />
             <!--                메인페이지 평균별점       -->
             <attr sel=".average"
-                  th:if="${americanMovies.avg} != 0.0" th:text="'평균 ★ ' + (${americanMovies.avg} != 0 ? ${americanMovies.avg} : _)"/>
+                  th:if="${movieZero.avg} != 0.0" th:text="'평균 ★ ' + (${movieZero.avg} != 0 ? ${movieZero.avg} : _)"/>
             <!--                넷플릭스 아이콘        -->
-            <attr sel="div.css-5o7sb2" th:if="${americanMovies.movWatch} != null and ${#strings.contains(americanMovies.movWatch,'aHR0cHM6Ly93YXRjaGEuY29tL3dhd')}"/>
+            <attr sel="div.css-5o7sb2" th:if="${movieZero.movWatch} != null and ${#strings.contains(movieZero.movWatch,'aHR0cHM6Ly93YXRjaGEuY29tL3dhd')}"/>
             <!--                왓챠 아이콘 -->
-            <attr sel="div.css-oobk33" th:if="${americanMovies.movWatch} != null and ${#strings.contains(americanMovies.movWatch,'aHR0cHM6Ly93d3cubmV0ZmxpeC5jb20vdGl0b')}"/>
+            <attr sel="div.css-oobk33" th:if="${movieZero.movWatch} != null and ${#strings.contains(movieZero.movWatch,'aHR0cHM6Ly93d3cubmV0ZmxpeC5jb20vdGl0b')}"/>
         </attr>
     </attr>
 
