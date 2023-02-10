@@ -57,6 +57,8 @@ document.querySelector(".css-lshjof-VisualUl").addEventListener("click",(e)=>{
 
     e.target.innerHTML == '영화' ? document.querySelector("#movie-star").style.display='flex' : (e.target.innerHTML == 'TV 프로그램' ? document.querySelector("#tv-star").style.display='flex'
         : (e.target.innerHTML == '책' ? document.querySelector("#book-star").style.display='flex' : document.querySelector("#web-star").style.display='flex'))
+    e.target.innerHTML == '영화' ? document.querySelector(".css-q9kfw1").innerHTML ='랜덤 영화' : (e.target.innerHTML == 'TV 프로그램' ? document.querySelector(".css-q9kfw1").innerHTML ='랜덤 TV 프로그램'
+        : (e.target.innerHTML == '책' ? document.querySelector(".css-q9kfw1").innerHTML ='랜덤 책' : document.querySelector(".css-q9kfw1").innerHTML ='랜덤 웹툰'))
 
     let contentType = e.target.innerHTML == '영화' ? 'movie' : (e.target.innerHTML == 'TV 프로그램' ? 'tv'
         : (e.target.innerHTML == '책' ? 'book' : 'webtoon'))
