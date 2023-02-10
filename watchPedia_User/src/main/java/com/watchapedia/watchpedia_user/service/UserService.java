@@ -11,8 +11,10 @@ import com.watchapedia.watchpedia_user.model.entity.content.ajax.Star;
 import com.watchapedia.watchpedia_user.model.entity.content.ajax.Watch;
 import com.watchapedia.watchpedia_user.model.entity.content.ajax.Wish;
 import com.watchapedia.watchpedia_user.model.network.request.UserRequestDto;
+import com.watchapedia.watchpedia_user.model.network.response.NoticeResponse;
 import com.watchapedia.watchpedia_user.model.network.response.Ratings;
 import com.watchapedia.watchpedia_user.model.network.response.UserResponse;
+import com.watchapedia.watchpedia_user.model.repository.NoticeRepository;
 import com.watchapedia.watchpedia_user.model.repository.UserRepository;
 import com.watchapedia.watchpedia_user.model.repository.content.BookRepository;
 import com.watchapedia.watchpedia_user.model.repository.content.MovieRepository;
@@ -29,6 +31,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -42,6 +45,7 @@ public class UserService {
     private final BookRepository bookRepository;
     private final WebtoonRepository webtoonRepository;
     private final WatchRepository watchRepository;
+    private final NoticeRepository noticeRepository;
 
     public User findUser(Long userIdx){
         return userRepository.getReferenceById(userIdx);
@@ -88,6 +92,16 @@ public class UserService {
                 return "SUCCESS";
             }
         }
+    }
+
+    public List<NoticeResponse> noticeAll(){
+        List<NoticeResponse> noticeList = noticeRepository.findByNtcStatus("등록").stream().map(
+                notice ->{
+                    return NoticeResponse.of(notice.getNtcTitle(),notice.getNtcText(),notice.getNtcImagepath(),
+                            notice.getNtcBtnColor(),notice.getNtcBtnText(),notice.getNtcBtnLink(),notice.getRegDate());
+                }
+        ).collect(Collectors.toList());
+        return noticeList;
     }
 
     public UserResponse myPageUser(Long userIdx){
