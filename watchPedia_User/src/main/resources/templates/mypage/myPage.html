@@ -3019,42 +3019,6 @@
         <div class="css-1yiw2hp">
           <div class="css-1gkas1x-Grid e1689zdh0">
             <div class="css-1y901al-Row emmoxnt0">
-              <div class="css-1y6tmwg">정보제공동의</div>
-              <ul class="css-1ys57hl-VisualUl">
-                <li @click="marketing_change" class="css-md4jey">
-                  <div class="css-11axhrb">
-                    <div class="css-1ciqeix">마케팅 정보</div>
-                    <div class="css-0"></div>
-                  </div>
-                </li>
-              </ul>
-              <section class="css-15wbb47">
-                <div class="css-1y6tmwg">SNS 연동 설정</div>
-                <ul class="css-10n5vg9-VisualUl ep5cwgq0">
-                  <li class="css-17543n0">
-                    <div class="css-11axhrb">
-                      <div class="css-1ciqeix">카카오</div>
-                      <div class="css-0">
-                        <button
-                                @click="kakao_signal = !kakao_signal"
-                                aria-label="toggle"
-                                class="css-y8ftbe-StylelessButton"
-                        >
-                              <span
-                                      class="css-1aitlqa"
-                                      :class="{toggle_color:kakao_signal}"
-                              ></span
-                              ><span
-                                class="css-q39b7m"
-                                :class="{toggle_move:kakao_signal}"
-                        ></span>
-                        </button>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-              </section>
-
               <section class="css-15wbb47">
                 <div class="css-1y6tmwg">고객센터</div>
                 <ul class="css-10n5vg9-VisualUl ep5cwgq0">
@@ -3100,82 +3064,6 @@
               </section>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-    <!-- 마케팅 클릭 팝업 시작! -->
-    <div
-            v-if="marketing"
-            id="modal-container-hVybEodj-5YbMTxjXhJNr"
-            class="css-rpyl6s"
-    >
-      <div class="css-ikkedy">
-        <header title="마케팅 정보" class="css-ho1v2y-HeaderBarPrimitive">
-          <div class="css-19pxr9t">
-            <button
-                    @click="marketing_change"
-                    aria-label="close"
-                    class="css-1d7tft4-StylelessButton-HeaderCloseButtonSelf e1k34u8y0"
-            ></button>
-          </div>
-          <em class="css-5pjt39">마케팅 정보</em>
-          <div class="css-19pxr9t"></div>
-        </header>
-        <div class="css-1s8we4x">
-          <ul class="css-10n5vg9-VisualUl ep5cwgq0">
-            <div class="css-1gkas1x-Grid e1689zdh0">
-              <div class="css-1y901al-Row emmoxnt0">
-                <li class="css-17543n0">
-                  <div class="css-18qnd5s">
-                    <div class="css-1ciqeix">E-Mail</div>
-                    <div class="css-0">
-                      <div class="css-142s3mc">
-                        <button
-                                aria-label="toggle"
-                                class="css-y8ftbe-StylelessButton"
-                        >
-                              <span class="css-1aitlqa"></span
-                              ><span class="css-q39b7m"></span>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li class="css-17543n0">
-                  <div class="css-18qnd5s">
-                    <div class="css-1ciqeix">SMS</div>
-                    <div class="css-0">
-                      <div class="css-142s3mc">
-                        <button
-                                aria-label="toggle"
-                                class="css-y8ftbe-StylelessButton"
-                        >
-                              <span class="css-1aitlqa"></span
-                              ><span class="css-q39b7m"></span>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li class="css-17543n0">
-                  <div class="css-18qnd5s">
-                    <div class="css-1ciqeix">앱 Push</div>
-                    <div class="css-0">
-                      <div class="css-142s3mc">
-                        <button
-                                aria-label="toggle"
-                                class="css-y8ftbe-StylelessButton"
-                        >
-                              <span class="css-1aitlqa"></span
-                              ><span class="css-q39b7m"></span>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-              </div>
-            </div>
-          </ul>
         </div>
       </div>
     </div>
@@ -3784,7 +3672,6 @@
     </div>
     <!-- 공지사항 팝업 닫힘! -->
   </div>
-  <!-- 마케팅 클릭 팝업 닫힘! -->
 
   <!-- 설정 톱니바퀴 팝업창 끝! -->
   <!-- Google Tag Manager (noscript) -->
@@ -3816,9 +3703,6 @@
                               class="css-vmz9k0-StylelessButton-WallPaperTopRightButton e19zkogf20"
                               th:if="${userSession} != null ? ${userSession.userIdx() == user.userIdx()} : false"
                       ></button>
-                      <button class="css-12en3he-StylelessButton">
-                        한국어
-                      </button>
                     </div>
                     <div class="css-1gkas1x-Grid e1689zdh0">
                       <div class="css-1y901al-Row emmoxnt0">
@@ -3875,7 +3759,7 @@
                                     <a
                                             background="[object Object]"
                                             class="css-h3f67w-CategoryArchivesLink e19zkogf14"
-                                            href="/ko-KR/users/dP8v6l2b6YxWe/contents/movies"
+                                            th:href="'/user/'+${user.userIdx()}+'/movie'"
                                     >
                                       <ul
                                               class="css-reeb92-VisualUl-CategoryArchives e19zkogf15"
@@ -3905,7 +3789,7 @@
                                     <a
                                             background="[object Object]"
                                             class="css-1gw6y00-CategoryArchivesLink e19zkogf14"
-                                            href="/ko-KR/users/dP8v6l2b6YxWe/contents/tv_seasons"
+                                            th:href="'/user/'+${user.userIdx()}+'/tv'"
                                     >
                                       <ul
                                               class="css-1x0nmo-VisualUl-CategoryArchives e19zkogf15"
@@ -3935,7 +3819,7 @@
                                     <a
                                             background="[object Object]"
                                             class="css-1e839ay-CategoryArchivesLink e19zkogf14"
-                                            href="/ko-KR/users/dP8v6l2b6YxWe/contents/books"
+                                            th:href="'/user/'+${user.userIdx()}+'/book'"
                                     >
                                       <ul
                                               class="css-1qiuf48-VisualUl-CategoryArchives e19zkogf15"
@@ -3965,7 +3849,7 @@
                                     <a
                                             background="[object Object]"
                                             class="css-1yztsut-CategoryArchivesLink e19zkogf14"
-                                            href="/ko-KR/users/dP8v6l2b6YxWe/contents/webtoons"
+                                            th:href="'/user/'+${user.userIdx()}+'/webtoon'"
                                     >
                                       <ul
                                               class="css-1m4aa69-VisualUl-CategoryArchives e19zkogf15"
@@ -4261,77 +4145,7 @@
             </footer>
           </div>
         </section>
-        <footer class="css-1jjny0x">
-          <nav class="css-1wz2pp">
-            <ul class="css-vsvx7g-VisualUl">
-              <li class="css-1hz4g3g">
-                <a href="/ko-KR"
-                ><svg
-                        fill="#292a32"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        class="css-1u7hvrn"
-                >
-                  <g fill="none">
-                    <path
-                            class="fillTarget"
-                            fill="#292A32"
-                            fill-rule="evenodd"
-                            d="M22.818 11.45l-.078-.076-10.26-8.698c-.14-.117-.31-.176-.48-.176-.17 0-.34.059-.479.176l-10.26 8.698-.078.076c-.238.27-.247.68-.006.963l.076.077c.14.123.317.181.495.18l-.001.001h1.848l.704 8.63.015.097c.074.348.384.602.746.602h4.187l.104-.007c.373-.051.469-.371.469-.754v-4.16h4.36v4.16c0 .383.095.703.469.754l.105.007h4.186c.362 0 .672-.254.747-.602l.014-.098.705-8.63h1.847c.177.001.354-.057.494-.18l.077-.077c.24-.282.232-.692-.006-.963"
-                    ></path>
-                  </g>
-                </svg>
-                  <div class="css-vuw3o9">홈</div>
-                </a>
-              </li>
-              <li class="css-1hz4g3g">
-                <a href="/ko-KR/search"
-                ><svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="#babac3"
-                        width="24"
-                        height="24"
-                        class="css-wax28p"
-                >
-                  <g fill="none">
-                    <path
-                            class="fillTarget"
-                            fill="#BABAC3"
-                            fill-rule="evenodd"
-                            d="M10.707 17.165c-3.499 0-6.346-2.868-6.346-6.393 0-3.527 2.847-6.395 6.346-6.395 3.498 0 6.346 2.868 6.346 6.395 0 3.525-2.848 6.393-6.346 6.393m10.735 2.77l-3.994-4.04c1.07-1.429 1.715-3.2 1.715-5.123 0-4.7-3.794-8.522-8.456-8.522-4.663 0-8.457 3.822-8.457 8.522 0 4.698 3.794 8.52 8.457 8.52 1.994 0 3.825-.703 5.272-1.87l3.968 4.015c.199.202.465.313.748.313.28 0 .544-.11.745-.31.198-.2.309-.467.31-.751.001-.284-.109-.552-.308-.753"
-                    ></path>
-                  </g>
-                </svg>
-                  <div class="css-1yjwko3">검색</div>
-                </a>
-              </li>
-              <li class="css-1hz4g3g">
-                <a
-                        href="/ko-KR/sign_in?referer_url=/ko-KR/users/dP8v6l2b6YxWe"
-                ><svg
-                        fill="#babac3"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        class="css-1yilc26"
-                >
-                  <g fill="none">
-                    <path
-                            class="fillTarget"
-                            fill="#BABAC3"
-                            fill-rule="evenodd"
-                            d="M14.782 14.236c4.124 0 7.468 3.252 7.468 7.264H1.75c0-4.012 3.344-7.264 7.468-7.264h5.564zM12 2.5c2.695 0 4.881 2.177 4.881 4.861 0 2.685-2.186 4.861-4.881 4.861-2.695 0-4.881-2.176-4.881-4.86C7.119 4.676 9.305 2.5 12 2.5z"
-                    ></path>
-                  </g>
-                </svg>
-                  <div class="css-1yjwko3">로그인</div>
-                </a>
-              </li>
-            </ul>
-          </nav>
-        </footer>
+        <div th:replace="fragment/footer::footer"></div>
       </div>
       <div disabled="" class="css-pjxj5o"></div>
       <div class="css-vi9yju">
@@ -4364,8 +4178,6 @@
     data() {
       return {
         main_modal: false,
-        marketing: false,
-        kakao_signal: false,
         notice_signal: false,
       };
     },
@@ -4375,31 +4187,21 @@
       },
       notice_change() {
         this.notice_signal = !this.notice_signal;
-      },
-      marketing_change() {
-        this.marketing = !this.marketing;
-      },
+      }
     },
   }).mount("#app");
 
   document.addEventListener("click",(e)=>{
     if(document.querySelector("#modal-container-gaaIcctt8e6Uqo5nHzT52") &&
-            modalList.notice_signal == false && modalList.marketing == false){
+            modalList.notice_signal == false){
       if(!document.querySelector("div.css-ikkedy").contains(e.target)){
         modalList.main_modal = false;
       }
     }
-    console.log(modalList.notice_signal)
 
     if(modalList.notice_signal == true) {
-      console.log("진입")
       if(!document.querySelector(".css-8kej5s").contains(e.target)){
         modalList.notice_signal = false;
-      }
-    }
-    if(modalList.marketing == true) {
-      if(!document.querySelector("#modal-container-hVybEodj-5YbMTxjXhJNr .css-ikkedy").contains(e.target)){
-        modalList.marketing = false;
       }
     }
   },true)
