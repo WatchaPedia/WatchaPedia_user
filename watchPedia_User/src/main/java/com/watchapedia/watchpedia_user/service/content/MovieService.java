@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -125,10 +126,12 @@ public class MovieService {
             result.add(MovieDto.from(m, avg));
         }
         for(MovieDto m : result){
-            if(m.avg() == 5.0){
+            if(m.avg() >= 4.5){
                 result2.add(m);
             }
         }
+        result2 = result2.stream().sorted(Comparator.comparing(MovieDto::avg)
+                .reversed()).collect(Collectors.toList());
         return result2;
     }
 
@@ -153,6 +156,31 @@ public class MovieService {
         return result;
     }
 
+    // 별점 매기지 않은 경우 : 내가 아직 보지 않은 영화 또는 평가하지 않은 영화
+    @Transactional(readOnly = true)
+    public List<MovieDto> movieZero() {
+        List<MovieDto> result = new ArrayList<>();
+        List<MovieDto> result2 = new ArrayList<>();
+
+        List<Movie> movieStar = movieRepository.findAll();
+
+        for(Movie m : movieStar){
+            double sum = 0;
+            int starCount = 0;
+            for(Star star : m.getStar()){
+                sum += star.getStarPoint();
+                starCount = m.getStar().size();
+            }
+            Double avg = Math.round((sum / starCount) * 10.0) / 10.0;
+            result.add(MovieDto.from(m, avg));
+        }
+        for(MovieDto m : result){
+            if(m.avg() == 0.0){
+                result2.add(m);
+            }
+        }
+        return result2;
+    }
 
     //영화이름 기준 출력(나홀로 집에)
     @Transactional(readOnly = true)
@@ -195,13 +223,13 @@ public class MovieService {
         return result;
     }
 
-    //년도 기준 출력
+    //최근개봉영화
     @Transactional(readOnly = true)
-    public List<MovieDto> movies3(String movieMakingDate) {
+    public List<MovieDto> movies3() {
         //빈 웹툰리스폰스 리스트
         List<MovieDto> result = new ArrayList<>();
 
-        List<Movie> movieList2 = movieRepository.findByMovMakingDate(movieMakingDate);
+        List<Movie> movieList2 = movieRepository.findAll(Sort.by(Sort.Direction.DESC,"movMakingDate"));
 
         for(Movie m : movieList2){
             double sum = 0;
@@ -235,7 +263,7 @@ public class MovieService {
         }
         return result;
     }
-    // 컨텐츠 -드라마
+    // 나라&장르 랜덤출력 하기위한 부분
     @Transactional(readOnly = true)
     public List<MovieDto> searchCri(String genre, String country) {
         //빈 웹툰리스폰스 리스트
@@ -256,7 +284,7 @@ public class MovieService {
         return result;
     }
 
-    //컨텐츠 -범죄
+    //장르기준 출력
     @Transactional(readOnly = true)
     public List<MovieDto> searchDrama(String genre) {
         //빈 웹툰리스폰스 리스트
