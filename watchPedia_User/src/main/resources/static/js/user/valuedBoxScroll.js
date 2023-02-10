@@ -21,6 +21,7 @@ $(document).ready(function () {
         })
         container.querySelector('.css-1hestod').addEventListener('click', function () {
             document.querySelector(".css-9dnzub").scrollBy(-container.querySelector('.e1689zdh0').getBoundingClientRect().width-12,0)
+
         })
     }
 

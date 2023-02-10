@@ -46,6 +46,7 @@ $(document).ready(function () {
                         if(data.last ==true) page = 'last'
                         else page++;
                     }else itemList.itemList = false;
+
                 }
             })
         }
