@@ -87,8 +87,6 @@ public class WebtoonService {
         }
         return result;
     }
-
-
     @Transactional(readOnly = true)
     public WebtoonResponse webtoonWithRole(Long webIdx, Long perIdx){
 
