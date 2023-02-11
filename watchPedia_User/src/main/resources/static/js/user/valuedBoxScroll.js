@@ -30,6 +30,15 @@ $(document).ready(function () {
     const userIdx = window.location.href.split("/user/")[1].split("/")[0]
     const contentType = window.location.href.split(`/user/${userIdx}/`)[1].split("/ratings")[0]
 
+    contentType == 'movie' ? document.querySelector(".css-1bvesam").innerHTML = '영화' :
+        contentType == 'tv' ? document.querySelector(".css-1bvesam").innerHTML = 'TV 프로그램' :
+            contentType == 'book' ? document.querySelector(".css-1bvesam").innerHTML = '책' :
+                document.querySelector(".css-1bvesam").innerHTML = '웹툰'
+    contentType == 'movie' ? document.querySelector(".css-10bjf2k").innerHTML = '영화' :
+        contentType == 'tv' ? document.querySelector(".css-10bjf2k").innerHTML = 'TV 프로그램' :
+            contentType == 'book' ? document.querySelector(".css-10bjf2k").innerHTML = '책' :
+                document.querySelector(".css-10bjf2k").innerHTML = '웹툰'
+
     let itemBox = new Array()
 
     let itemList = createApp({
