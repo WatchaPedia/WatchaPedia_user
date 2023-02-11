@@ -177,8 +177,8 @@ public class CommentService {
         ).map(CommentDto::from).map(dto -> {
             return CommentResponse.from(dto,
                     spoilerRepository.findBySpoCommentIdx(dto.idx()) != null ? true : false,
-                    likeRepository.findByLikeCommentIdx(dto.idx()).size(),
-                    (long) recommentRepository.findByRecommCommIdx(dto.idx()).size(),
+                    likeRepository.findByCommCount(dto.idx()),
+                    (long) recommentRepository.findByRecommCount(dto.idx()),
                     userIdx!=null?(likeRepository.findByLikeCommentIdxAndLikeUserIdx(dto.idx(),userIdx) != null ? true : false):false
                     );
         });
