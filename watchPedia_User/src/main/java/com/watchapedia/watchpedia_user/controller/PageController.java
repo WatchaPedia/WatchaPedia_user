@@ -185,7 +185,7 @@ public class PageController {
         System.out.println(movies);
 
         //TV addObject 만들기
-        List<Tv> tvs = tvRepository.findByTvTitleContaining(searchKey);
+            List<Tv> tvs = tvRepository.findByTvTitleContaining(searchKey);
         System.out.println(tvs);
 
         //책 addObject 만들기
