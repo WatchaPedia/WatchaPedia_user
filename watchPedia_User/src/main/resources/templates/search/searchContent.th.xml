@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<thlogic>
+    <attr sel="#th_searchKey" th:text="${searchKey} + '의 검색결과'"/>
+    <attr sel="#contentsHref" th:href="@{'/search/contents/'+${searchKey}}"></attr>
+    <attr sel="#personHref" th:href="@{'/search/person/'+${searchKey}}"></attr>
+    <attr sel="#allNull" th:if="${#lists.isEmpty(movies)} and ${#lists.isEmpty(tvs)} and ${#lists.isEmpty(books)} and ${#lists.isEmpty(webtoons)}"></attr>
+
+
+    <attr sel="#movieNullText" th:if="${!#lists.isEmpty(movies)}"></attr>
+    <attr sel="#th_for_movie" th:each="movie : ${movies}">
+        <attr sel="#movieBackground" th:style="'background-image:url(' + ${movie.movThumbnail} + ');'"></attr>
+        <attr sel="#th_movieIdx" th:text="${movie.movIdx}"></attr>
+        <attr sel="#th_href_title_movieLink" th:href="@{'/movie/'+${movie.movIdx}}" th:title="${movie.movTitle}">
+            <attr sel="#th_text_movTitle" th:text="${movie.movTitle}"></attr>
+            <attr sel="#th_text_movYear_movCountry" th:text="${movie.movMakingDate} + '・' + ${movie.movCountry}"></attr>
+        </attr>
+    </attr>
+
+    <attr sel="#tvNullText" th:if="${!#lists.isEmpty(tvs)}"></attr>
+    <attr sel="#th_for_tv" th:each="tv : ${tvs}">
+        <attr sel="#tvBackground" th:style="'background-image:url(' + ${tv.tvThumbnail} + ');'"></attr>
+        <attr sel="#th_href_title_tvLink" th:href="@{'/tv/'+${tv.tvIdx}}" th:title="${tv.tvTitle}">
+            <attr sel="#th_text_tvTitle" th:text="${tv.tvTitle}"></attr>
+            <attr sel="#th_text_tvYear_movCountry" th:text="${tv.tvMakingDate} + '・' + ${tv.tvCountry}"></attr>
+        </attr>
+    </attr>
+
+    <attr sel="#bookNullText" th:if="${!#lists.isEmpty(books)}"></attr>
+    <attr sel="#th_for_book" th:each="book : ${books}">
+        <attr sel="#bookBackground" th:style="'background-image:url(' + ${book.bookThumbnail} + ');'"></attr>
+        <attr sel="#th_href_title_bookLink" th:href="@{'/book/'+${book.bookIdx}}" th:title="${book.bookTitle}">
+            <attr sel="#th_text_bookTitle" th:text="${book.bookTitle}"></attr>
+            <attr sel="#th_text_bookYear_bookCountry" th:text="${book.bookAtDate} + '・' + ${book.bookWriter}"></attr>
+        </attr>
+    </attr>
+
+    <attr sel="#webNullText" th:if="${!#lists.isEmpty(webtoons)}"></attr>
+    <attr sel="#th_for_web" th:each="webtoon : ${webtoons}">
+        <attr sel="#webBackground" th:style="'background-image:url(' + ${webtoon.webThumbnail} + ');'"></attr>
+        <attr sel="#th_href_title_webLink" th:href="@{'/webtoon/'+${webtoon.webIdx}}" th:title="${webtoon.webTitle}">
+            <attr sel="#th_text_webTitle" th:text="${webtoon.webTitle}"></attr>
+            <attr sel="#th_text_webYear_webCountry" th:text="${webtoon.webSerDay} + '・' + ${webtoon.webPeople}"></attr>
+        </attr>
+    </attr>
+</thlogic>

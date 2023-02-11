@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<thlogic>
+    <attr sel="#searchKeyView"  th:text="${searchKey} + '의 검색결과'"></attr>
+    <attr sel="#contentsHref" th:href="@{'/search/contents/'+${searchKey}}"></attr>
+    <attr sel="#personHref" th:href="@{'/search/person/'+${searchKey}}"></attr>
+    <attr sel="#personNullText" th:if="${#lists.isEmpty(persons)}"></attr>
+    <attr sel="#person_for" th:each="person : ${persons}">
+        <attr sel="#person_title_href" th:title="${person.perName}" th:href="@{'/personDetail/'+${person.perIdx}}"></attr>
+        <attr sel="#personImg" th:src="${person.perPhoto}"></attr>
+        <attr sel="#th_person_name" th:text="${person.perName}" ></attr>
+        <attr sel="#th_person_role" th:text="${person.perRole}"></attr>
+    </attr>
+</thlogic>

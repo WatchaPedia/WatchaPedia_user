@@ -1239,6 +1239,7 @@
       cursor: pointer;
       -webkit-transition: opacity 300ms;
       transition: opacity 300ms;
+      display: none;
     }
 
     .css-1hestod:hover {
@@ -2470,7 +2471,7 @@
       box-sizing: border-box;
       width: 100%;
       padding: 10px 0px;
-      border-bottom: 1px solid rgb(240, 240, 240);
+      border-bottom: 0.5px solid rgb(240, 240, 240);
     }
     .css-17yc0sg {
       margin: 0px 0px 2px;
@@ -2934,12 +2935,6 @@
     .css-cwsoc3 {
       padding: 5px 0px;
     }
-    #css-fxxino2{
-      display: none;
-    }
-    #css-fxxino1{
-      display: none;
-    }
     .css-1qmg4jw {
       display: block;
       border-right: none;
@@ -2960,44 +2955,119 @@
       letter-spacing: -0.3px;
     }
   </style>
-  <!--jquery + javascript-->
-  <script type="text/javascript">
-    $(function(){
-      $("#input_text").on('input',function(){
-        if($("#input_text").val()==''){
-          $("#css-fxxino1").attr("style","display:block");
-          $("#css-fxxino2").attr("style","display:none");
-          $("#css-fxxino2").removeAttr("style").hide();
-        }
-        else{
-          $("#css-fxxino1").removeAttr("style").hide();
-          $("#css-fxxino2").show();
-        }
-      });
-      $("#input_text").on('focus',function(){
-        if($("#input_text").val()==''){
-          $("#css-fxxino1").attr("style","display:block");
-          $("#css-fxxino2").attr("style","display:none");
-          $("#css-fxxino2").removeAttr("style").hide();
-        }
-        else{
-          $("#css-fxxino1").removeAttr("style").hide();
-          $("#css-fxxino2").show();
-        }
-      });
-      $("#input_text").on('focusout',function(){
-        $("#css-fxxino1").removeAttr("style").hide();
-        $("#css-fxxino2").removeAttr("style").hide();
-      });
-    })
-  </script>
-
+  <!-- vue.js 적용 src문 -->
+  <script src="https://unpkg.com/vue@3"></script>
   <script defer src="/js/myPageScroll.js"></script>
+
+<!--  공지사항 스타일 -->
+  <style>
+    .on { display: block}
+    .off { display: none}
+  </style>
+
+<!--  로그아웃 모달 -->
+  <style>
+    .css-1yszxv0 {
+      display: flex;
+      position: absolute;
+      inset: 0px;
+      z-index: 102;
+      -webkit-box-pack: center;
+      justify-content: center;
+      -webkit-box-align: center;
+      align-items: center;
+    }
+    .css-f35o9y {
+      background: rgb(255, 255, 255);
+      text-align: center;
+      width: 280px;
+      padding: 20px 0px 0px;
+      border-radius: 8px;
+    }
+    .css-2djw8f {
+      display: inline-block;
+      color: rgb(0, 0, 0);
+      white-space: pre-wrap;
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      line-height: 22px;
+    }
+    .css-148qwic {
+      color: rgb(0, 0, 0);
+      font-size: 15px;
+      font-weight: 400;
+      letter-spacing: -0.5px;
+      line-height: 20px;
+      white-space: pre-wrap;
+      padding: 0px 0px 24px;
+      border-bottom: 1px solid rgb(210, 210, 210);
+      margin: 8px 0px 0px;
+      word-break: break-all;
+    }
+    .css-gy4ioq {
+      display: flex;
+    }
+    .css-gy4ioq > button {
+      margin: 11px 0px;
+    }
+     .css-1gdw77k-StylelessButton {
+       background: none;
+       padding: 0px;
+       border-top-width: initial;
+       border-bottom-width: initial;
+       border-left-width: initial;
+       border-style: none solid none none;
+       border-image: initial;
+       margin: 0px;
+       cursor: pointer;
+       flex: 1 1 0%;
+       color: rgb(255, 47, 110);
+       font-size: 17px;
+       font-weight: 400;
+       letter-spacing: -0.7px;
+       line-height: 22px;
+       border-right-width: 1px;
+       border-color: rgb(210, 210, 210) !important;
+     }
+    .css-sfhtz9-StylelessButton {
+      background: none;
+      padding: 0px;
+      border-width: initial;
+      border-style: none;
+      border-image: initial;
+      margin: 0px;
+      cursor: pointer;
+      flex: 1 1 0%;
+      color: rgb(255, 47, 110);
+      font-size: 17px;
+      font-weight: 400;
+      letter-spacing: -0.7px;
+      line-height: 22px;
+      border-color: rgb(210, 210, 210) !important;
+    }
+    #modal-container-2MqRbL8xxO18KTEfli12Q{
+      background: rgba(0, 0, 0, 0.56);
+      z-index: 999;
+    }
+  </style>
+
+<!--  탈퇴 모달-->
+  <style>
+    #modal-container-VXJN2mvzmswazH_jNUVpe{
+      background: rgba(0, 0, 0, 0.56);
+      z-index: 999;
+    }
+  </style>
 </head>
 
 <body>
+
+<!-- Vue .mount 범위가 중첩되서 맨 위로 뺐음 -->
+<div th:replace="fragment/header::header"></div>
+
 <!-- 바로 아래 div가 vue적용되는 app 박스 시작!-->
-<div id="app">
+<div id="modal-app">
   <!-- 설정 톱니바퀴 팝업창 시작! -->
   <div v-if="main_modal" class="css-14gy7wr">
     <div id="modal-container-gaaIcctt8e6Uqo5nHzT52" class="css-rpyl6s">
@@ -3047,15 +3117,15 @@
               </section>
               <section class="css-15wbb47">
                 <div class="css-1y6tmwg">계정관리</div>
-                <li class="css-md4jey">
+                <li class="css-md4jey" @click="logout_change">
                   <div class="css-11axhrb" >
                     <div class="css-1ciqeix">
-                      <span><a href="/user/logout" style="text-decoration-line: none; color: black;">로그아웃</a></span>
+                      <span>로그아웃</span>
                     </div>
                     <div class="css-0"></div>
                   </div>
                 </li>
-                <li class="css-md4jey">
+                <li class="css-md4jey" @click="delete_change">
                   <div class="css-11axhrb">
                     <div class="css-1ciqeix">탈퇴하기</div>
                     <div class="css-0"></div>
@@ -3067,6 +3137,10 @@
         </div>
       </div>
     </div>
+<!--    회원탈퇴 모달 -->
+    <div v-if="delete_modal" id="modal-container-VXJN2mvzmswazH_jNUVpe" class="css-rpyl6s"><div class="css-1yszxv0"><div class="css-f35o9y"><div class="css-1gkas1x-Grid e1689zdh0"><div class="css-1y901al-Row emmoxnt0"><div class="css-2djw8f">알림</div><div class="css-148qwic">회원탈퇴 하시겠어요?</div><div size="2" class="css-gy4ioq"><button class="css-1gdw77k-StylelessButton" @click="delete_change">취소</button><button class="css-sfhtz9-StylelessButton" onclick="location.href='/user/delete'">확인</button></div></div></div></div></div></div>
+<!--로그아웃 모달-->
+    <div v-if="logout_modal" id="modal-container-2MqRbL8xxO18KTEfli12Q" class="css-rpyl6s"><div class="css-1yszxv0"><div class="css-f35o9y"><div class="css-1gkas1x-Grid e1689zdh0"><div class="css-1y901al-Row emmoxnt0"><div class="css-2djw8f">알림</div><div class="css-148qwic">로그아웃 하시겠어요?</div><div size="2" class="css-gy4ioq"><button class="css-1gdw77k-StylelessButton" @click="logout_change">취소</button><button class="css-sfhtz9-StylelessButton" onclick="location.href='/user/logout'">확인</button></div></div></div></div></div></div>
     <!-- 공지사항 팝업 열림! -->
     <div v-if="notice_signal">
       <div id="modal-container-thg3K61bbP9KCrJxZTi2q" class="css-rpyl6s">
@@ -3084,30 +3158,31 @@
           <div class="css-1s8we4x">
             <ul class="css-10n5vg9-VisualUl ep5cwgq0">
               <div class="css-1gkas1x-Grid e1689zdh0">
-                <div class="css-1y901al-Row emmoxnt0">
-                  <li class="css-15gurup-StyledCollapseListItem">
+                <div class="css-1y901al-Row emmoxnt0" th:remove="all-but-first">
+                  <li class="css-15gurup-StyledCollapseListItem" th:each="ntc,idx : ${notice}">
                     <button class="css-10c763p-StylelessButton">
                       <div class="css-16n7opc">
-                        <div class="css-17yc0sg">
+                        <div class="css-17yc0sg" th:text="${ntc.title}">
                           🎥 왓챠 개봉관 론칭 기념 20% 할인🎉
                         </div>
-                        <div class="css-189e8d8">2022.12.14</div>
+                        <div class="css-189e8d8" th:text="${#temporals.format(ntc.regDate, 'yyyy.MM.dd')}">2022.12.14</div>
                       </div>
                       <div class="css-0">
                             <span
+                                    th:style="${idx.first ? _:'transform:rotate3d(1, 0, 0, 0deg);'}"
                                     src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxwYXRoIGZpbGw9IiNBMEEwQTAiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTEyLjAxIDE0LjE5Mkw3LjQxNCA5LjU5NiA2IDExLjAxbDUuMzAzIDUuMzA0LjcwNy43MDcgNi4wMS02LjAxLTEuNDEzLTEuNDE1LTQuNTk3IDQuNTk2eiIvPgo8L3N2Zz4K"
                                     class="css-1m6rvy8"
                             ></span>
                       </div>
                     </button>
-                    <div class="css-u2gm33">
+                    <div class="css-u2gm33" th:classappend="${idx.first ? 'on' : 'off'}">
                       <article class="css-1u4x0ui">
                         <a
-                        ><img
-                                src="https://an2-img.amz.wtchn.net/image/v2/G3D-wj9-2lauDCyrSAwn2w.png?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKd0lqb2lMM1l5TDNOMGIzSmxMM1ZwYldGblpTOHhOamN3T1RneU5EUXpOVGMyTVRrME56STFJbjAuTzRFVUE5UXZBemxEN3lUSVA3SzBQT3BLaE5xaGdQb294Q0RzUEpwUXJjYw"
+                        ><img th:if="${ntc.image} != null or ${ntc.image} != ''"
+                                th:src="${ntc.image}"
                                 style="max-width: 600px"
                         /></a>
-
+                        <h4 style="font-weight: normal" th:text="${ntc.text}">
                         🎥 왓챠 개봉관은 극장에서 놓친 최신 영화들을 볼 수
                         있는 서비스에요. 왓챠를 구독하지 않아도 원하는
                         콘텐츠를 개별 구매하여 볼 수 있어요! 🍿 결제 및
@@ -3121,7 +3196,7 @@
                         기간: 2022. 12. 15 ~ 2023. 1. 31 영화관 갈 필요 없이
                         편안하게 최신 개봉작을 고화질로 즐기고 싶다면, 지금
                         왓챠!
-
+                        </h4>
                         <a
                                 style="
                                 box-sizing: border-box;
@@ -3140,7 +3215,9 @@
                                 letter-spacing: -0.4px;
                                 max-width: 600px;
                               "
-                                href="https://watcha.com/browse/theater"
+                                th:styleappend="'background-color:'+${ntc.btnColor}"
+                                th:href="${ntc.btnLink}"
+                                th:text="${ntc.btnText}"
                                 target="_blank"
                         >왓챠 개봉관 보러가기</a
                         >
@@ -3687,7 +3764,6 @@
   <div id="root">
     <div class="css-5jq76">
       <div class="css-1xm32e0">
-        <div th:replace="fragment/header::header"></div>
         <section class="css-18gwkcr">
           <div class="css-egiga7-Self e19zkogf0">
             <div class="css-19rw4yc-Container e19zkogf1">
@@ -3730,7 +3806,7 @@
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     title="취향분석"
-                                    href="/mypage/analysis"
+                                    id="analysis-link"
                             ><span
                                     src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPHBhdGggZD0iTTAgMGgyNHYyNEgweiIvPgogICAgICAgIDxwYXRoIGZpbGw9IiNFRjY5MkUiIGZpbGwtcnVsZT0ibm9uemVybyIgZD0iTTEuMTggMTEuOTZoMy43NHY4LjM2SDEuMTh6TTE1Ljc1IDE2LjgzaDMuNzR2My40OWgtMy43NHpNNi4wNCA5LjEyaDMuNzR2MTEuMkg2LjA0ek0xMC45IDEzLjg0aDMuNzR2Ni40OEgxMC45eiIvPgogICAgICAgIDxwYXRoIGZpbGw9IiNGRkNBMjIiIGQ9Ik0xNy40NCAxLjM3bDEuNjYgNCA0LjMxLjM0LTMuMjggMi44MSAxIDQuMjEtMy42OS0yLjI2LTMuNjkgMi4yNiAxLjAxLTQuMjEtMy4yOS0yLjgxIDQuMzItLjM0eiIvPgogICAgPC9nPgo8L3N2Zz4K"
                                     height="24px"
@@ -3771,7 +3847,7 @@
                                         </li>
                                         <li
                                                 class="css-7xoi89-CategoryArchivesRatedCount e19zkogf17"
-                                                th:text="${user.starMov}"
+                                                th:text="'★'+${user.starMov}"
                                         >
                                           ★<!-- -->37
                                         </li>
@@ -3801,7 +3877,7 @@
                                         </li>
                                         <li
                                                 class="css-7xoi89-CategoryArchivesRatedCount e19zkogf17"
-                                                th:text="${user.starTv}"
+                                                th:text="'★'+${user.starTv}"
                                         >
                                           ★<!-- -->21
                                         </li>
@@ -3831,7 +3907,7 @@
                                         </li>
                                         <li
                                                 class="css-7xoi89-CategoryArchivesRatedCount e19zkogf17"
-                                                th:text="${user.starBook}"
+                                                th:text="'★'+${user.starBook}"
                                         >
                                           ★<!-- -->11
                                         </li>
@@ -3861,7 +3937,7 @@
                                         </li>
                                         <li
                                                 class="css-7xoi89-CategoryArchivesRatedCount e19zkogf17"
-                                                th:text="${user.starWeb}"
+                                                th:text="'★'+${user.starWeb}"
                                         >
                                           ★<!-- -->20
                                         </li>
@@ -4173,38 +4249,83 @@
   <!-- 바로 아래 div까지가 vue.js 적용된 app 박스임 -->
 </div>
 <script>
+  $(function() {
 
-  let modalList = createApp({
-    data() {
-      return {
-        main_modal: false,
-        notice_signal: false,
-      };
-    },
-    methods: {
-      main_modal_change() {
-        this.main_modal = !this.main_modal;
+    let modalList = createApp({
+      data() {
+        return {
+          main_modal: false,
+          notice_signal: false,
+          logout_modal: false,
+          delete_modal: false
+        };
       },
-      notice_change() {
-        this.notice_signal = !this.notice_signal;
-      }
-    },
-  }).mount("#app");
+      methods: {
+        main_modal_change() {
+          this.main_modal = !this.main_modal;
+        },
+        notice_change() {
+          this.notice_signal = !this.notice_signal;
+        },
+        logout_change() {
+          this.logout_modal = !this.logout_modal;
+        },
+        delete_change() {
+          this.delete_modal = !this.delete_modal;
+        }
+      },
+    }).mount("#modal-app");
 
-  document.addEventListener("click",(e)=>{
-    if(document.querySelector("#modal-container-gaaIcctt8e6Uqo5nHzT52") &&
-            modalList.notice_signal == false){
-      if(!document.querySelector("div.css-ikkedy").contains(e.target)){
-        modalList.main_modal = false;
+    document.addEventListener("click", (e) => {
+      if (document.querySelector("#modal-container-gaaIcctt8e6Uqo5nHzT52") &&
+              modalList.notice_signal == false && modalList.logout_modal == false
+            && modalList.delete_modal == false) {
+        if (!document.querySelector("div.css-ikkedy").contains(e.target)) {
+          modalList.main_modal = false;
+        }
       }
-    }
 
-    if(modalList.notice_signal == true) {
-      if(!document.querySelector(".css-8kej5s").contains(e.target)){
-        modalList.notice_signal = false;
+      if (modalList.notice_signal == true) {
+        if (!document.querySelector(".css-8kej5s").contains(e.target)) {
+          modalList.notice_signal = false;
+        }
       }
-    }
-  },true)
+
+      if(modalList.logout_modal == true){
+        if(!document.querySelector(".css-f35o9y").contains(e.target)){
+          modalList.logout_modal = false;
+        }
+      }
+
+      if(modalList.delete_modal == true){
+        if(!document.querySelector(".css-f35o9y").contains(e.target)){
+          modalList.delete_modal = false;
+        }
+      }
+    }, true)
+
+    document.addEventListener('click',(e)=>{
+      if(modalList.notice_signal == true){
+        //  공지사항 리스트 클릭시 펼쳐짐
+        let noticeModal = document.querySelector("#modal-container-thg3K61bbP9KCrJxZTi2q")
+        let noticeList = noticeModal.querySelectorAll(".css-15gurup-StyledCollapseListItem")
+        for(let idx of noticeList){
+          if(idx.querySelector(".css-10c763p-StylelessButton").contains(e.target)){
+            if(idx.querySelector(".css-u2gm33").classList.contains("off")){
+              idx.querySelector(".css-u2gm33").classList.add("on")
+              idx.querySelector(".css-u2gm33").classList.remove("off")
+              idx.querySelector(".css-1m6rvy8").style.transform = 'rotate3d(1, 0, 0, 180deg)'
+            }else{
+              idx.querySelector(".css-u2gm33").classList.add("off")
+              idx.querySelector(".css-u2gm33").classList.remove("on")
+              idx.querySelector(".css-1m6rvy8").style.transform = 'rotate3d(1, 0, 0, 0deg)'
+            }
+          }
+        }
+      }
+    },true)
+
+  })
 </script>
 </body>
 </html>

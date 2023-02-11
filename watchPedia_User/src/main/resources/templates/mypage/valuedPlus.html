@@ -591,7 +591,7 @@
 
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>왓챠피디아 - 송훈섭님의 영화평가</title>
+    <title th:text="'왓챠피디아 - '+${userName}+'님의 영화평가'">왓챠피디아 - 송훈섭님의 영화평가</title>
     <meta data-rh="true" content="추천, 평가, 영화, 책, 드라마, 애니메이션" name="keywords">
     <meta data-rh="true" content="noindex, noimageindex" name="robots">
     <meta data-rh="true" content="9811060e374931ab817c913e27ba9851e42122b6" name="naver-site-verification">
@@ -2287,12 +2287,7 @@
         .css-cwsoc3 {
             padding: 5px 0px;
         }
-        #css-fxxino2{
-            display: none;
-        }
-        #css-fxxino1{
-            display: none;
-        }
+
         .css-1qmg4jw {
             display: block;
             border-right: none;
@@ -2304,36 +2299,7 @@
         }
     </style>
     <!--jquery + javascript-->
-    <script type="text/javascript">
-        $(function(){
-            $("#input_text").on('input',function(){
-                if($("#input_text").val()==''){
-                    $("#css-fxxino1").attr("style","display:block");
-                    $("#css-fxxino2").attr("style","display:none");
-                    $("#css-fxxino2").removeAttr("style").hide();
-                }
-                else{
-                    $("#css-fxxino1").removeAttr("style").hide();
-                    $("#css-fxxino2").show();
-                }
-            });
-            $("#input_text").on('focus',function(){
-                if($("#input_text").val()==''){
-                    $("#css-fxxino1").attr("style","display:block");
-                    $("#css-fxxino2").attr("style","display:none");
-                    $("#css-fxxino2").removeAttr("style").hide();
-                }
-                else{
-                    $("#css-fxxino1").removeAttr("style").hide();
-                    $("#css-fxxino2").show();
-                }
-            });
-            $("#input_text").on('focusout',function(){
-                $("#css-fxxino1").removeAttr("style").hide();
-                $("#css-fxxino2").removeAttr("style").hide();
-            });
-        })
-    </script>
+
     <style>
 
 
@@ -4404,7 +4370,42 @@
     }
 </style>
     <script defer src="/js/user/valuedDesc.js"></script>
+    <!-- vue.js 적용 src문 -->
+    <script src="https://unpkg.com/vue@3"></script>
 
+<!--    아무값도 없을때-->
+    <style>
+        .css-gtvt2o-EmptySection {
+            display: flex;
+            position: fixed;
+            inset: 0px;
+            -webkit-box-pack: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            align-items: center;
+            padding-top: 0px;
+        }.css-1wq3gbk-Self {
+             text-align: center;
+             padding: 16px 0px 32px;
+         }
+        .css-1qrj66x-ErrorImage {
+            background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDQ4IDQ4Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGcgZmlsbD0iI0Q0RDRENCI+CiAgICAgICAgICAgIDxwYXRoIGQ9Ik00MS44MzMgNDMuOTg0bC02Ljg2LTYuOTFhLjY2OC42NjggMCAwIDAtLjQ3My0uMTk3aC0yN2ExLjMzNSAxLjMzNSAwIDAgMS0xLjMzMy0xLjMzNHYtMjdjMC0uNzM2LjU5OC0xLjMzNCAxLjMzMy0xLjMzNGgzM2MuNzM1IDAgMS4zMzMuNTk4IDEuMzMzIDEuMzM0djM1LjQ0MXpNNDAuNSA1Ljg3NmgtMzNhMi42NyAyLjY3IDAgMCAwLTIuNjY3IDIuNjY3djI3QTIuNjcgMi42NyAwIDAgMCA3LjUgMzguMjFoMjYuNzIzbDcuODA0IDcuODYxYS42NjYuNjY2IDAgMCAwIDEuMTQtLjQ2OVY4LjU0MkEyLjY3IDIuNjcgMCAwIDAgNDAuNSA1Ljg3N3oiLz4KICAgICAgICAgICAgPHBhdGggZD0iTTE0LjIzNiAyOC4zMjZ2LTMuMzU0aDMuMzUydjMuMzU0aC0zLjM1MnptMS42NzYtMTIuODU0YTEuODE3IDEuODE3IDAgMSAxIDAgMy42MzQgMS44MTcgMS44MTcgMCAwIDEgMC0zLjYzNHptNC4zMzEgNy44MjR2LTIuMjM1aDUuNTg5djIuMjM1aC01LjU4OXptOC41MTctOC43MmMzLjc2IDAgNi44MSAyLjIyIDYuODEgNy42MDJzLTMuMDUgNy42MDItNi44MSA3LjYwMlYxNC41Nzd6Ii8+CiAgICAgICAgPC9nPgogICAgPC9nPgo8L3N2Zz4K) center center / contain no-repeat;
+            display: block;
+            width: 72px;
+            height: 72px;
+            margin: 0px auto;
+            opacity: 0.4;
+        }
+        .css-1qytvfb-Message {
+            color: rgb(160, 160, 160);
+            font-size: 15px;
+            font-weight: 400;
+            letter-spacing: -0.5px;
+            line-height: 20px;
+            white-space: pre-wrap;
+            margin-top: 12px;
+        }
+    </style>
 </head>
 
 <body>
@@ -4440,7 +4441,8 @@
                     </div>
                     <section class="css-q5h397" id="content-list">
                         <div class="css-12hxjcc-StyledHideableBlock e1pww8ij0" id="content-all-list">
-                            <section class="css-wv7rn-AllSection e1ok85ex0">
+                            <section class="css-gtvt2o-EmptySection ejz2s531" v-if="itemList == false"><div class="css-1wq3gbk-Self eblbipc0"><span src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDQ4IDQ4Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGcgZmlsbD0iI0Q0RDRENCI+CiAgICAgICAgICAgIDxwYXRoIGQ9Ik00MS44MzMgNDMuOTg0bC02Ljg2LTYuOTFhLjY2OC42NjggMCAwIDAtLjQ3My0uMTk3aC0yN2ExLjMzNSAxLjMzNSAwIDAgMS0xLjMzMy0xLjMzNHYtMjdjMC0uNzM2LjU5OC0xLjMzNCAxLjMzMy0xLjMzNGgzM2MuNzM1IDAgMS4zMzMuNTk4IDEuMzMzIDEuMzM0djM1LjQ0MXpNNDAuNSA1Ljg3NmgtMzNhMi42NyAyLjY3IDAgMCAwLTIuNjY3IDIuNjY3djI3QTIuNjcgMi42NyAwIDAgMCA3LjUgMzguMjFoMjYuNzIzbDcuODA0IDcuODYxYS42NjYuNjY2IDAgMCAwIDEuMTQtLjQ2OVY4LjU0MkEyLjY3IDIuNjcgMCAwIDAgNDAuNSA1Ljg3N3oiLz4KICAgICAgICAgICAgPHBhdGggZD0iTTE0LjIzNiAyOC4zMjZ2LTMuMzU0aDMuMzUydjMuMzU0aC0zLjM1MnptMS42NzYtMTIuODU0YTEuODE3IDEuODE3IDAgMSAxIDAgMy42MzQgMS44MTcgMS44MTcgMCAwIDEgMC0zLjYzNHptNC4zMzEgNy44MjR2LTIuMjM1aDUuNTg5djIuMjM1aC01LjU4OXptOC41MTctOC43MmMzLjc2IDAgNi44MSAyLjIyIDYuODEgNy42MDJzLTMuMDUgNy42MDItNi44MSA3LjYwMlYxNC41Nzd6Ii8+CiAgICAgICAgPC9nPgogICAgPC9nPgo8L3N2Zz4K" class="css-1qrj66x-ErrorImage eblbipc1"></span><div class="css-1qytvfb-Message eblbipc2">평가한 작품이 없어요.</div></div></section>
+                            <section class="css-wv7rn-AllSection e1ok85ex0" v-if="itemList != false">
                                 <div class="css-1gkas1x-Grid e1689zdh0">
                                     <div class="css-1y901al-Row emmoxnt0">
                                         <ul class="css-w29x4j-VisualUl-ContentGrid-ContentGridUsedInArchive e14whxmg1">
@@ -4471,7 +4473,7 @@
                                     <div class="css-1gkas1x-Grid e1689zdh0">
                                         <div class="css-1y901al-Row emmoxnt0">
                                             <header class="css-1ue9xs6">
-                                                <h2 class="css-1wtjsst">5 평가함</h2><span class="css-wzn7fp" v-if="star5.length != 0">{{star5.length}}</span>
+                                                <h2 class="css-1wtjsst">5 평가함</h2><span class="css-wzn7fp" v-if="star5.length != 0">{{size5}}</span>
                                                 <div class="css-s289sk">
                                                     <div class="css-1ugqy9j"><a :href="'/user/'+userIdx+'/'+contentType+'/ratings/5'">더보기</a>
                                                     </div>
@@ -4524,7 +4526,7 @@
                                     <div class="css-1gkas1x-Grid e1689zdh0">
                                         <div class="css-1y901al-Row emmoxnt0">
                                             <header class="css-1ue9xs6">
-                                                <h2 class="css-1wtjsst">4 평가함</h2><span class="css-wzn7fp" v-if="star4.length != 0">{{star4.length}}</span>
+                                                <h2 class="css-1wtjsst">4 평가함</h2><span class="css-wzn7fp" v-if="star4.length != 0">{{size4}}</span>
                                                 <div class="css-s289sk">
                                                     <div class="css-1ugqy9j"><a :href="'/user/'+userIdx+'/'+contentType+'/ratings/4'">더보기</a>
                                                     </div>
@@ -4576,7 +4578,7 @@
                                     <div class="css-1gkas1x-Grid e1689zdh0">
                                         <div class="css-1y901al-Row emmoxnt0">
                                             <header class="css-1ue9xs6">
-                                                <h2 class="css-1wtjsst">3 평가함</h2><span class="css-wzn7fp" v-if="star3.length != 0">{{star3.length}}</span>
+                                                <h2 class="css-1wtjsst">3 평가함</h2><span class="css-wzn7fp" v-if="star3.length != 0">{{size3}}</span>
                                                 <div class="css-s289sk">
                                                     <div class="css-1ugqy9j"><a :href="'/user/'+userIdx+'/'+contentType+'/ratings/3'">더보기</a>
                                                     </div>
@@ -4628,7 +4630,7 @@
                                     <div class="css-1gkas1x-Grid e1689zdh0">
                                         <div class="css-1y901al-Row emmoxnt0">
                                             <header class="css-1ue9xs6">
-                                                <h2 class="css-1wtjsst">2 평가함</h2><span class="css-wzn7fp" v-if="star2.length != 0">{{star2.length}}</span>
+                                                <h2 class="css-1wtjsst">2 평가함</h2><span class="css-wzn7fp" v-if="star2.length != 0">{{size2}}</span>
                                                 <div class="css-s289sk">
                                                     <div class="css-1ugqy9j"><a :href="'/user/'+userIdx+'/'+contentType+'/ratings/2'">더보기</a>
                                                     </div>
@@ -4680,7 +4682,7 @@
                                     <div class="css-1gkas1x-Grid e1689zdh0">
                                         <div class="css-1y901al-Row emmoxnt0">
                                             <header class="css-1ue9xs6">
-                                                <h2 class="css-1wtjsst">1 평가함</h2><span class="css-wzn7fp" v-if="star1.length != 0">{{star1.length}}</span>
+                                                <h2 class="css-1wtjsst">1 평가함</h2><span class="css-wzn7fp" v-if="star1.length != 0">{{size1}}</span>
                                                 <div class="css-s289sk">
                                                     <div class="css-1ugqy9j"><a :href="'/user/'+userIdx+'/'+contentType+'/ratings/1'">더보기</a>
                                                     </div>

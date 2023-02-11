@@ -62,7 +62,7 @@
 
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>왓챠피디아 - 양소현님의 영화 보관함</title>
+    <title th:text="'왓챠피디아 - '+${userName}+'의 영화 보관함'">왓챠피디아 - 양소현님의 영화 보관함</title>
     <meta
       data-rh="true"
       content="추천, 평가, 영화, 책, 드라마, 애니메이션"
@@ -1869,12 +1869,6 @@
        line-height: normal;
        margin: 5px 0px 7px;
      }
-     #css-fxxino1 {
-       display: none;
-     }
-     #css-fxxino2 {
-       display: none;
-     }
      </style>
 
 
@@ -2175,12 +2169,6 @@
      .css-cwsoc3 {
        padding: 5px 0px;
      }
-     #css-fxxino2{
-       display: none;
-     }
-     #css-fxxino1{
-       display: none;
-     }
      .css-1qmg4jw {
        display: block;
        border-right: none;
@@ -2209,6 +2197,30 @@
     <link rel="icon" href="/image/favicon.png" />
     <!-- vue.js 적용 src문 -->
     <script src="https://unpkg.com/vue@3"></script>
+
+    <style>
+      .css-1wq3gbk-Self {
+        text-align: center;
+        padding: 16px 0px 32px;
+      }
+      .css-1qrj66x-ErrorImage {
+        background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDQ4IDQ4Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGcgZmlsbD0iI0Q0RDRENCI+CiAgICAgICAgICAgIDxwYXRoIGQ9Ik00MS44MzMgNDMuOTg0bC02Ljg2LTYuOTFhLjY2OC42NjggMCAwIDAtLjQ3My0uMTk3aC0yN2ExLjMzNSAxLjMzNSAwIDAgMS0xLjMzMy0xLjMzNHYtMjdjMC0uNzM2LjU5OC0xLjMzNCAxLjMzMy0xLjMzNGgzM2MuNzM1IDAgMS4zMzMuNTk4IDEuMzMzIDEuMzM0djM1LjQ0MXpNNDAuNSA1Ljg3NmgtMzNhMi42NyAyLjY3IDAgMCAwLTIuNjY3IDIuNjY3djI3QTIuNjcgMi42NyAwIDAgMCA3LjUgMzguMjFoMjYuNzIzbDcuODA0IDcuODYxYS42NjYuNjY2IDAgMCAwIDEuMTQtLjQ2OVY4LjU0MkEyLjY3IDIuNjcgMCAwIDAgNDAuNSA1Ljg3N3oiLz4KICAgICAgICAgICAgPHBhdGggZD0iTTE0LjIzNiAyOC4zMjZ2LTMuMzU0aDMuMzUydjMuMzU0aC0zLjM1MnptMS42NzYtMTIuODU0YTEuODE3IDEuODE3IDAgMSAxIDAgMy42MzQgMS44MTcgMS44MTcgMCAwIDEgMC0zLjYzNHptNC4zMzEgNy44MjR2LTIuMjM1aDUuNTg5djIuMjM1aC01LjU4OXptOC41MTctOC43MmMzLjc2IDAgNi44MSAyLjIyIDYuODEgNy42MDJzLTMuMDUgNy42MDItNi44MSA3LjYwMlYxNC41Nzd6Ii8+CiAgICAgICAgPC9nPgogICAgPC9nPgo8L3N2Zz4K) center center / contain no-repeat;
+        display: block;
+        width: 72px;
+        height: 72px;
+        margin: 0px auto;
+        opacity: 0.4;
+      }
+      .css-1qytvfb-Message {
+        color: rgb(160, 160, 160);
+        font-size: 15px;
+        font-weight: 400;
+        letter-spacing: -0.5px;
+        line-height: 20px;
+        white-space: pre-wrap;
+        margin-top: 12px;
+      }
+    </style>
   </head>
 
   <body>
@@ -2262,7 +2274,8 @@
                   </div>
                 </div>
                 <div class="css-1gkas1x-Grid e1689zdh0">
-                  <div class="css-usdi1z">
+                  <div class="css-1wq3gbk-Self eblbipc0" v-if="itemList == false"><span src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDQ4IDQ4Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGcgZmlsbD0iI0Q0RDRENCI+CiAgICAgICAgICAgIDxwYXRoIGQ9Ik00MS44MzMgNDMuOTg0bC02Ljg2LTYuOTFhLjY2OC42NjggMCAwIDAtLjQ3My0uMTk3aC0yN2ExLjMzNSAxLjMzNSAwIDAgMS0xLjMzMy0xLjMzNHYtMjdjMC0uNzM2LjU5OC0xLjMzNCAxLjMzMy0xLjMzNGgzM2MuNzM1IDAgMS4zMzMuNTk4IDEuMzMzIDEuMzM0djM1LjQ0MXpNNDAuNSA1Ljg3NmgtMzNhMi42NyAyLjY3IDAgMCAwLTIuNjY3IDIuNjY3djI3QTIuNjcgMi42NyAwIDAgMCA3LjUgMzguMjFoMjYuNzIzbDcuODA0IDcuODYxYS42NjYuNjY2IDAgMCAwIDEuMTQtLjQ2OVY4LjU0MkEyLjY3IDIuNjcgMCAwIDAgNDAuNSA1Ljg3N3oiLz4KICAgICAgICAgICAgPHBhdGggZD0iTTE0LjIzNiAyOC4zMjZ2LTMuMzU0aDMuMzUydjMuMzU0aC0zLjM1MnptMS42NzYtMTIuODU0YTEuODE3IDEuODE3IDAgMSAxIDAgMy42MzQgMS44MTcgMS44MTcgMCAwIDEgMC0zLjYzNHptNC4zMzEgNy44MjR2LTIuMjM1aDUuNTg5djIuMjM1aC01LjU4OXptOC41MTctOC43MmMzLjc2IDAgNi44MSAyLjIyIDYuODEgNy42MDJzLTMuMDUgNy42MDItNi44MSA3LjYwMlYxNC41Nzd6Ii8+CiAgICAgICAgPC9nPgogICAgPC9nPgo8L3N2Zz4K" class="css-1qrj66x-ErrorImage eblbipc1"></span><div class="css-1qytvfb-Message eblbipc2">결과가 없어요</div></div>
+                  <div class="css-usdi1z" v-if="itemList != false">
                     <div class="css-9dnzub">
                       <div class="css-174lxc3">
                         <div class="css-1gkas1x-Grid e1689zdh0">
@@ -2323,10 +2336,10 @@
                           <div class="css-1ciqeix">
                             <a
                               class="css-1j6t0vk-StylelessLocalLink-ArchivesActionListLink ei8r22x2"
-                              href="/ko-KR/users/ZBm5Rb8eg95d4/contents/movies/wishes"
-                              >보고싶어요<span
+                              :href="'/user/'+userIdx+'/'+contentType+'/wish'"
+                              >{{contentType == 'book'? '읽고싶어요':'보고싶어요'}}<span
                                 class="css-1vam9en-ArchivesByActionCount ei8r22x1"
-                                >9</span
+                                >{{wishSize}}</span
                               ></a
                             >
                           </div>
@@ -2338,10 +2351,10 @@
                           <div class="css-1ciqeix">
                             <a
                               class="css-1j6t0vk-StylelessLocalLink-ArchivesActionListLink ei8r22x2"
-                              href="/ko-KR/users/ZBm5Rb8eg95d4/contents/movies/doings"
-                              >보는중<span
+                              :href="'/user/'+userIdx+'/'+contentType+'/watch'"
+                              >{{contentType == 'book'? '읽는중':'보는중'}}<span
                                 class="css-1vam9en-ArchivesByActionCount ei8r22x1"
-                                >11</span
+                                >{{watchSize}}</span
                               ></a
                             >
                           </div>
