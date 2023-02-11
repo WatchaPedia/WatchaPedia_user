@@ -14,8 +14,6 @@ public interface TvRepository extends JpaRepository<Tv, Long> {
     List<Tv> findByTvMakingDate(String tvMakingDate);
     List<Tv> findByTvChannel(String tvChannel);
     List<Tv> findByTvTitleContaining(String tvTitle);
-
     List<Tv> findByTvCountryContaining(String country);
 
-    List<Tv> findByTvTitleContaining(String tvTitle);
 }
