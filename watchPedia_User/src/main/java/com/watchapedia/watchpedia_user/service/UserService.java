@@ -509,24 +509,25 @@ public class UserService {
     }
 
     public void deleteUser(Long userIdx){
-//        List<Comment> commentList = commentRepository.findByCommUserIdx(userIdx);
-//        for(Comment comm : commentList){
-//            likeRepository.deleteAll(likeRepository.findByLikeCommentIdx(comm.getCommIdx()));
-//            spoilerRepository.delete(spoilerRepository.findBySpoCommentIdx(comm.getCommIdx()));
-//            List<Recomment> recomments = recommentRepository.findByRecommCommIdx(comm.getCommIdx());
-//            for(Recomment recomment : recomments){
-//                relikeRepository.deleteAll(relikeRepository.findByRelikeRecommIdx(recomment.getRecommIdx()));
-//            }
-//            recommentRepository.deleteAll(recomments);
-//        }
-//        commentRepository.deleteAll(commentRepository.findByCommUserIdx(userIdx));
-//
-//        starRepository.deleteAll(starRepository.findByStarUserIdx(userIdx));
-//        watchRepository.deleteAll(watchRepository.findByWatchUserIdx(userIdx));
-//        wishRepository.deleteAll(wishRepository.findByWishUserIdx(userIdx));
-//        hateRepository.deleteAll(hateRepository.findByHateUserIdx(userIdx));
-//        searchRepository.deleteAll(searchRepository.findBySearchUser(userIdx));
-//
-//        userRepository.delete(userRepository.getReferenceById(userIdx));
+        List<Comment> commentList = commentRepository.findByCommUserIdx(userIdx);
+        for(Comment comm : commentList){
+            likeRepository.deleteAll(likeRepository.findByLikeCommentIdx(comm.getCommIdx()));
+            spoilerRepository.delete(spoilerRepository.findBySpoCommentIdx(comm.getCommIdx()));
+            List<Recomment> recomments = recommentRepository.findByRecommCommIdx(comm.getCommIdx());
+            for(Recomment recomment : recomments){
+                relikeRepository.deleteAll(relikeRepository.findByRelikeRecommIdx(recomment.getRecommIdx()));
+            }
+            recommentRepository.deleteAll(recomments);
+        }
+        commentRepository.deleteAll(commentRepository.findByCommUserIdx(userIdx));
+
+        starRepository.deleteAll(starRepository.findByStarUserIdx(userIdx));
+        watchRepository.deleteAll(watchRepository.findByWatchUserIdx(userIdx));
+        wishRepository.deleteAll(wishRepository.findByWishUserIdx(userIdx));
+        hateRepository.deleteAll(hateRepository.findByHateUserIdx(userIdx));
+        searchRepository.deleteAll(searchRepository.findBySearchUser(userIdx));
+
+        userRepository.delete(userRepository.getReferenceById(userIdx));
+
     }
 }
