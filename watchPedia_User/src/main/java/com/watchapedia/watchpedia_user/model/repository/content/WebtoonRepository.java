@@ -11,4 +11,5 @@ import java.util.List;
 public interface WebtoonRepository extends JpaRepository<Webtoon, Long> {
 
     List<Webtoon> findByWebGenreContaining(String webGenre);
+    List<Webtoon> findByWebTitleContaining(String searchKey);
 }

@@ -1,36 +1,32 @@
-// 메인 스크롤
-window.addEventListener('resize',clickBtn)
-// 버튼 클릭 시 이동
-function clickBtn(){
-    let container = document.querySelector(".css-usdi1z");
-    let scrollBox = document.querySelector(".css-9dnzub");
-    let scrollMax = scrollBox.scrollWidth - (scrollBox.querySelector('.e1689zdh0').getBoundingClientRect().width+2);
-
-    // 스크롤 위치에 따라 버튼 유무
-    scrollBox.addEventListener('scroll', () => {
-        if (scrollBox.scrollLeft >= scrollMax) {
-            container.querySelector('.css-vp7uyl').style.display = "none";
-        } else {
-            container.querySelector('.css-vp7uyl').style.display = "flex";
-        }
-        if (scrollBox.scrollLeft == 0) {
-            container.querySelector('.css-1hestod').style.display = "none";
-        } else {
-            container.querySelector('.css-1hestod').style.display = "block";
-        }
-    })
-    container.querySelector('.css-vp7uyl').addEventListener('click', function () {
-        console.log("실행")
-        scrollBox.scrollBy(container.querySelector('.e1689zdh0').getBoundingClientRect().width-12,0)
-    })
-    container.querySelector('.css-1hestod').addEventListener('click', function () {
-        scrollBox.scrollBy(-container.querySelector('.e1689zdh0').getBoundingClientRect().width-12,0)
-    })
-}
-
-document.querySelector("#more-btn").href = "/user/"+window.location.href.split("/user/")[1]+"/ratings"
-
 $(document).ready(function () {
+    // 버튼 클릭 시 이동
+    function clickBtn(){
+        let container = document.querySelector(".css-usdi1z");
+
+        // 스크롤 위치에 따라 버튼 유무
+        document.querySelector(".css-9dnzub").addEventListener('scroll', () => {
+            if (document.querySelector(".css-9dnzub").scrollLeft >= document.querySelector(".css-9dnzub").scrollWidth - (document.querySelector(".css-9dnzub").querySelector('.css-174lxc3').getBoundingClientRect().width+2)) {
+                container.querySelector('.css-vp7uyl').style.display = "none";
+            } else {
+                container.querySelector('.css-vp7uyl').style.display = "flex";
+            }
+            if (document.querySelector(".css-9dnzub").scrollLeft == 0) {
+                container.querySelector('.css-1hestod').style.display = "none";
+            } else {
+                container.querySelector('.css-1hestod').style.display = "block";
+            }
+        })
+        container.querySelector('.css-vp7uyl').addEventListener('click', function () {
+            document.querySelector(".css-9dnzub").scrollBy(container.querySelector('.e1689zdh0').getBoundingClientRect().width-12,0)
+        })
+        container.querySelector('.css-1hestod').addEventListener('click', function () {
+            document.querySelector(".css-9dnzub").scrollBy(-container.querySelector('.e1689zdh0').getBoundingClientRect().width-12,0)
+
+        })
+    }
+
+    document.querySelector("#more-btn").href = "/user/"+window.location.href.split("/user/")[1]+"/ratings"
+
     const userIdx = window.location.href.split("/user/")[1].split("/")[0]
     const contentType = window.location.href.split(`/user/${userIdx}/`)[1].split("/ratings")[0]
 
@@ -42,7 +38,9 @@ $(document).ready(function () {
                 itemList: {},
                 contentType: contentType,
                 userIdx: userIdx,
-                size: 0
+                size: 0,
+                wishSize:0,
+                watchSize:0
             }
         }
     }).mount("#item-list")
@@ -67,21 +65,25 @@ $(document).ready(function () {
                     clickBtn()
                 },
                 success: function (data) {
-                    itemBox.push(data.content)
-                    let str = "";
-                    itemBox.forEach(con => str += JSON.stringify(con))
-                    str = str.replaceAll("][", ",")
-                    itemList.itemList = JSON.parse(str)
-                    itemList.size = data.size
-                    if (data.last == true) page = 'last'
-                    else page++;
+                    if(data.content.length != 0){
+                        itemBox.push(data.content)
+                        let str = "";
+                        itemBox.forEach(con => str += JSON.stringify(con))
+                        str = str.replaceAll("][", ",")
+                        itemList.itemList = JSON.parse(str)
+                        itemList.size = data.size
+                        if (data.last == true) page = 'last'
+                        else page++;
+                    }else itemList.itemList = false
+                    console.log(data)
+                    itemList.wishSize = data.wishSize
+                    itemList.watchSize = data.watchSize
                 }
             })
         }
     }
     let scrollBox = document.querySelector(".css-9dnzub")
     scrollBox.addEventListener('scroll',(e)=>{
-        console.log("실행?")
         if(scrollBox.scrollLeft >= scrollBox.scrollWidth-(scrollBox.querySelector('.e1689zdh0').getBoundingClientRect().width+5)) {
             // 스크롤 가능하면 실행
             if(!scrollRec){
