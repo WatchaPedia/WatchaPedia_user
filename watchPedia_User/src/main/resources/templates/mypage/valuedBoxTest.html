@@ -2312,7 +2312,7 @@
                             <a
                               class="css-1j6t0vk-StylelessLocalLink-ArchivesActionListLink ei8r22x2"
                               :href="'/user/'+userIdx+'/'+contentType+'/wish'"
-                              >보고싶어요<span
+                              >{{contentType == 'book'? '읽고싶어요':'보고싶어요'}}<span
                                 class="css-1vam9en-ArchivesByActionCount ei8r22x1"
                                 >{{wishSize}}</span
                               ></a
@@ -2327,7 +2327,7 @@
                             <a
                               class="css-1j6t0vk-StylelessLocalLink-ArchivesActionListLink ei8r22x2"
                               :href="'/user/'+userIdx+'/'+contentType+'/watch'"
-                              >보는중<span
+                              >{{contentType == 'book'? '읽는중':'보는중'}}<span
                                 class="css-1vam9en-ArchivesByActionCount ei8r22x1"
                                 >{{watchSize}}</span
                               ></a
