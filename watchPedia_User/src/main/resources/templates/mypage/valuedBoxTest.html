@@ -1869,12 +1869,6 @@
        line-height: normal;
        margin: 5px 0px 7px;
      }
-     #css-fxxino1 {
-       display: none;
-     }
-     #css-fxxino2 {
-       display: none;
-     }
      </style>
 
 
@@ -2175,12 +2169,6 @@
      .css-cwsoc3 {
        padding: 5px 0px;
      }
-     #css-fxxino2{
-       display: none;
-     }
-     #css-fxxino1{
-       display: none;
-     }
      .css-1qmg4jw {
        display: block;
        border-right: none;
@@ -2323,10 +2311,10 @@
                           <div class="css-1ciqeix">
                             <a
                               class="css-1j6t0vk-StylelessLocalLink-ArchivesActionListLink ei8r22x2"
-                              href="/ko-KR/users/ZBm5Rb8eg95d4/contents/movies/wishes"
+                              :href="'/user/'+userIdx+'/'+contentType+'/wish'"
                               >보고싶어요<span
                                 class="css-1vam9en-ArchivesByActionCount ei8r22x1"
-                                >9</span
+                                >{{wishSize}}</span
                               ></a
                             >
                           </div>
@@ -2338,10 +2326,10 @@
                           <div class="css-1ciqeix">
                             <a
                               class="css-1j6t0vk-StylelessLocalLink-ArchivesActionListLink ei8r22x2"
-                              href="/ko-KR/users/ZBm5Rb8eg95d4/contents/movies/doings"
+                              :href="'/user/'+userIdx+'/'+contentType+'/watch'"
                               >보는중<span
                                 class="css-1vam9en-ArchivesByActionCount ei8r22x1"
-                                >11</span
+                                >{{watchSize}}</span
                               ></a
                             >
                           </div>

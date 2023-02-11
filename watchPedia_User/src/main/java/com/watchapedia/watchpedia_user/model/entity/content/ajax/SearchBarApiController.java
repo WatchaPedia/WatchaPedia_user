@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/search")
+@RequestMapping("")
 @RequiredArgsConstructor
 public class SearchBarApiController {
 
@@ -91,6 +91,13 @@ public class SearchBarApiController {
         catch (NumberFormatException e){
             System.out.println("idx가 안넘어온 비로그인 상태로 보여짐!");
             System.out.println("apiController에 전달된 검색어 : " + searchKey);
+
+            //검색어, 사용자명 "비회원"으로 담아서 tb_search에 등록
+            // 1. 임시 비회원 User를 만들어냄
+            User noneUser = userRepository.getReferenceById(999L);
+            SearchDto searchDto = SearchDto.create(noneUser, searchKey);
+            Search search = searchDto.toEntity(searchDto);
+            searchRepository.save(search);
         }
         return null;
     }
@@ -114,7 +121,4 @@ public class SearchBarApiController {
         }
         return result;
     }
-
-
-
 }

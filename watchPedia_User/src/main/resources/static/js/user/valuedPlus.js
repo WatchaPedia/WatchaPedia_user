@@ -26,6 +26,63 @@ document.addEventListener('scroll', () => { // 스크롤시 이벤트 발생
 })
 
 $(document).ready(function () {
+    window.addEventListener('resize', () => {
+        scrollContent()
+    })
+
+    // 메인 스크롤
+    function scrollContent(e) {
+        let container = document.querySelectorAll(".css-usdi1z");
+        for (let idx of container) {
+            // 스크롤 위치에 따라 버튼 유무
+            idx.querySelector('.css-9dnzub').addEventListener('scroll', () => {
+                if (idx.querySelector('.css-9dnzub').scrollLeft >= idx.querySelector('.css-9dnzub').scrollWidth - (idx.querySelector('.css-174lxc3').getBoundingClientRect().width + 10)) {
+                    idx.querySelector('.css-vp7uyl').style.display = "none";
+                } else {
+                    idx.querySelector('.css-vp7uyl').style.display = "flex";
+                }
+                if (idx.querySelector('.css-9dnzub').scrollLeft == 0) {
+                    idx.querySelector('.css-1hestod').style.display = "none";
+                } else {
+                    idx.querySelector('.css-1hestod').style.display = "block";
+                }
+            })
+            $(idx).hover(scrollBtn,scrollBtnHidden)
+            $(idx).find(".css-pf83cl").hover(scrollBtn,scrollBtnHidden)
+            $(idx).find(".css-38kpup").hover(scrollBtn,scrollBtnHidden)
+
+            function scrollBtn() {
+                if(idx.querySelector(".css-vp7uyl")){
+                    idx.querySelector(".css-pf83cl").style.opacity = '1'
+                    idx.querySelector(".css-38kpup").style.opacity = '1'
+                }
+            };
+            function scrollBtnHidden() {
+                if(idx.querySelector(".css-vp7uyl")){
+                    idx.querySelector(".css-pf83cl").style.opacity = '0'
+                    idx.querySelector(".css-38kpup").style.opacity = '0'
+                }
+            };
+        }
+
+    }
+    document.addEventListener('click',(e)=>{
+        let container = document.querySelectorAll(".css-usdi1z");
+        // 버튼 클릭 시 이동
+        for (let idx of container) {
+            if(idx.querySelector(".css-1hestod")){
+                if(idx.querySelector(".css-vp7uyl").contains(e.target)){
+                    idx.querySelector('.css-9dnzub').scrollBy(idx.querySelector('.e1689zdh0').getBoundingClientRect().width - 17, 0)
+
+                }
+                if(idx.querySelector(".css-1hestod").contains(e.target)){
+                    idx.querySelector('.css-9dnzub').scrollBy(-idx.querySelector('.e1689zdh0').getBoundingClientRect().width - 17, 0)
+
+                }
+            }
+        }
+    })
+
     const userIdx = window.location.href.split("/user/")[1].split("/")[0]
     const contentType = window.location.href.split(`/user/${userIdx}/`)[1].split("/ratings")[0]
     const loadingIcon = document.querySelector("#loading-icon");
@@ -77,11 +134,17 @@ $(document).ready(function () {
             if(e.target.innerHTML == '전체'){
                 document.querySelector("#content-star-list").style.display = 'none'
                 document.querySelector("#content-all-list").style.display = 'block'
+                if(document.querySelector(".css-gtvt2o-EmptySection")){
+                    document.querySelector(".css-gtvt2o-EmptySection").style.display = 'flex'
+                }
             }
             else{
                 if(starPage == 0) starItemPlus();
                 document.querySelector("#content-all-list").style.display = 'none'
                 document.querySelector("#content-star-list").style.display = 'block'
+                if(document.querySelector(".css-gtvt2o-EmptySection")){
+                    document.querySelector(".css-gtvt2o-EmptySection").style.display = 'none'
+                }
             }
         }
     })
@@ -102,13 +165,15 @@ $(document).ready(function () {
                     scrollRec = false;
                 },
                 success: function (data) {
-                    itemBox.push(data.content)
-                    let str = "";
-                    itemBox.forEach(con => str += JSON.stringify(con))
-                    str = str.replaceAll("][",",")
-                    allList.itemList = JSON.parse(str)
-                    if(data.last ==true) page = 'last'
-                    else page++;
+                    if(data.content.length != 0){
+                        itemBox.push(data.content)
+                        let str = "";
+                        itemBox.forEach(con => str += JSON.stringify(con))
+                        str = str.replaceAll("][",",")
+                        allList.itemList = JSON.parse(str)
+                        if(data.last ==true) page = 'last'
+                        else page++;
+                    }else allList.itemList = false;
                 }
             })
         }
@@ -128,6 +193,7 @@ $(document).ready(function () {
                 complete: function(){
                     loadingIcon.style.display = 'none';
                     scrollRec = false;
+                    scrollContent()
                     starListScroll();
                 },
                 success: function (data) {
@@ -182,4 +248,6 @@ $(document).ready(function () {
             })
         }
     }
+
+
 })

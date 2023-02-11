@@ -1239,6 +1239,7 @@
       cursor: pointer;
       -webkit-transition: opacity 300ms;
       transition: opacity 300ms;
+      display: none;
     }
 
     .css-1hestod:hover {
@@ -2470,7 +2471,7 @@
       box-sizing: border-box;
       width: 100%;
       padding: 10px 0px;
-      border-bottom: 1px solid rgb(240, 240, 240);
+      border-bottom: 0.5px solid rgb(240, 240, 240);
     }
     .css-17yc0sg {
       margin: 0px 0px 2px;
@@ -2934,12 +2935,6 @@
     .css-cwsoc3 {
       padding: 5px 0px;
     }
-    #css-fxxino2{
-      display: none;
-    }
-    #css-fxxino1{
-      display: none;
-    }
     .css-1qmg4jw {
       display: block;
       border-right: none;
@@ -2960,44 +2955,24 @@
       letter-spacing: -0.3px;
     }
   </style>
-  <!--jquery + javascript-->
-  <script type="text/javascript">
-    $(function(){
-      $("#input_text").on('input',function(){
-        if($("#input_text").val()==''){
-          $("#css-fxxino1").attr("style","display:block");
-          $("#css-fxxino2").attr("style","display:none");
-          $("#css-fxxino2").removeAttr("style").hide();
-        }
-        else{
-          $("#css-fxxino1").removeAttr("style").hide();
-          $("#css-fxxino2").show();
-        }
-      });
-      $("#input_text").on('focus',function(){
-        if($("#input_text").val()==''){
-          $("#css-fxxino1").attr("style","display:block");
-          $("#css-fxxino2").attr("style","display:none");
-          $("#css-fxxino2").removeAttr("style").hide();
-        }
-        else{
-          $("#css-fxxino1").removeAttr("style").hide();
-          $("#css-fxxino2").show();
-        }
-      });
-      $("#input_text").on('focusout',function(){
-        $("#css-fxxino1").removeAttr("style").hide();
-        $("#css-fxxino2").removeAttr("style").hide();
-      });
-    })
-  </script>
-
+  <!-- vue.js 적용 src문 -->
+  <script src="https://unpkg.com/vue@3"></script>
   <script defer src="/js/myPageScroll.js"></script>
+
+<!--  공지사항 스타일 -->
+  <style>
+    .on { display: block}
+    .off { display: none}
+  </style>
 </head>
 
 <body>
+
+<!-- Vue .mount 범위가 중첩되서 맨 위로 뺐음 -->
+<div th:replace="fragment/header::header"></div>
+
 <!-- 바로 아래 div가 vue적용되는 app 박스 시작!-->
-<div id="app">
+<div id="modal-app">
   <!-- 설정 톱니바퀴 팝업창 시작! -->
   <div v-if="main_modal" class="css-14gy7wr">
     <div id="modal-container-gaaIcctt8e6Uqo5nHzT52" class="css-rpyl6s">
@@ -3084,30 +3059,31 @@
           <div class="css-1s8we4x">
             <ul class="css-10n5vg9-VisualUl ep5cwgq0">
               <div class="css-1gkas1x-Grid e1689zdh0">
-                <div class="css-1y901al-Row emmoxnt0">
-                  <li class="css-15gurup-StyledCollapseListItem">
+                <div class="css-1y901al-Row emmoxnt0" th:remove="all-but-first">
+                  <li class="css-15gurup-StyledCollapseListItem" th:each="ntc,idx : ${notice}">
                     <button class="css-10c763p-StylelessButton">
                       <div class="css-16n7opc">
-                        <div class="css-17yc0sg">
+                        <div class="css-17yc0sg" th:text="${ntc.title}">
                           🎥 왓챠 개봉관 론칭 기념 20% 할인🎉
                         </div>
-                        <div class="css-189e8d8">2022.12.14</div>
+                        <div class="css-189e8d8" th:text="${#temporals.format(ntc.regDate, 'yyyy.MM.dd')}">2022.12.14</div>
                       </div>
                       <div class="css-0">
                             <span
+                                    th:style="${idx.first ? _:'transform:rotate3d(1, 0, 0, 0deg);'}"
                                     src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxwYXRoIGZpbGw9IiNBMEEwQTAiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTEyLjAxIDE0LjE5Mkw3LjQxNCA5LjU5NiA2IDExLjAxbDUuMzAzIDUuMzA0LjcwNy43MDcgNi4wMS02LjAxLTEuNDEzLTEuNDE1LTQuNTk3IDQuNTk2eiIvPgo8L3N2Zz4K"
                                     class="css-1m6rvy8"
                             ></span>
                       </div>
                     </button>
-                    <div class="css-u2gm33">
+                    <div class="css-u2gm33" th:classappend="${idx.first ? 'on' : 'off'}">
                       <article class="css-1u4x0ui">
                         <a
-                        ><img
-                                src="https://an2-img.amz.wtchn.net/image/v2/G3D-wj9-2lauDCyrSAwn2w.png?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKd0lqb2lMM1l5TDNOMGIzSmxMM1ZwYldGblpTOHhOamN3T1RneU5EUXpOVGMyTVRrME56STFJbjAuTzRFVUE5UXZBemxEN3lUSVA3SzBQT3BLaE5xaGdQb294Q0RzUEpwUXJjYw"
+                        ><img th:if="${ntc.image} != null or ${ntc.image} != ''"
+                                th:src="${ntc.image}"
                                 style="max-width: 600px"
                         /></a>
-
+                        <h4 style="font-weight: normal" th:text="${ntc.text}">
                         🎥 왓챠 개봉관은 극장에서 놓친 최신 영화들을 볼 수
                         있는 서비스에요. 왓챠를 구독하지 않아도 원하는
                         콘텐츠를 개별 구매하여 볼 수 있어요! 🍿 결제 및
@@ -3121,7 +3097,7 @@
                         기간: 2022. 12. 15 ~ 2023. 1. 31 영화관 갈 필요 없이
                         편안하게 최신 개봉작을 고화질로 즐기고 싶다면, 지금
                         왓챠!
-
+                        </h4>
                         <a
                                 style="
                                 box-sizing: border-box;
@@ -3140,7 +3116,9 @@
                                 letter-spacing: -0.4px;
                                 max-width: 600px;
                               "
-                                href="https://watcha.com/browse/theater"
+                                th:styleappend="'background-color:'+${ntc.btnColor}"
+                                th:href="${ntc.btnLink}"
+                                th:text="${ntc.btnText}"
                                 target="_blank"
                         >왓챠 개봉관 보러가기</a
                         >
@@ -3687,7 +3665,6 @@
   <div id="root">
     <div class="css-5jq76">
       <div class="css-1xm32e0">
-        <div th:replace="fragment/header::header"></div>
         <section class="css-18gwkcr">
           <div class="css-egiga7-Self e19zkogf0">
             <div class="css-19rw4yc-Container e19zkogf1">
@@ -4173,38 +4150,62 @@
   <!-- 바로 아래 div까지가 vue.js 적용된 app 박스임 -->
 </div>
 <script>
+  $(function() {
 
-  let modalList = createApp({
-    data() {
-      return {
-        main_modal: false,
-        notice_signal: false,
-      };
-    },
-    methods: {
-      main_modal_change() {
-        this.main_modal = !this.main_modal;
+    let modalList = createApp({
+      data() {
+        return {
+          main_modal: false,
+          notice_signal: false,
+        };
       },
-      notice_change() {
-        this.notice_signal = !this.notice_signal;
-      }
-    },
-  }).mount("#app");
+      methods: {
+        main_modal_change() {
+          this.main_modal = !this.main_modal;
+        },
+        notice_change() {
+          this.notice_signal = !this.notice_signal;
+        }
+      },
+    }).mount("#modal-app");
 
-  document.addEventListener("click",(e)=>{
-    if(document.querySelector("#modal-container-gaaIcctt8e6Uqo5nHzT52") &&
-            modalList.notice_signal == false){
-      if(!document.querySelector("div.css-ikkedy").contains(e.target)){
-        modalList.main_modal = false;
+    document.addEventListener("click", (e) => {
+      if (document.querySelector("#modal-container-gaaIcctt8e6Uqo5nHzT52") &&
+              modalList.notice_signal == false) {
+        if (!document.querySelector("div.css-ikkedy").contains(e.target)) {
+          modalList.main_modal = false;
+        }
       }
-    }
 
-    if(modalList.notice_signal == true) {
-      if(!document.querySelector(".css-8kej5s").contains(e.target)){
-        modalList.notice_signal = false;
+      if (modalList.notice_signal == true) {
+        if (!document.querySelector(".css-8kej5s").contains(e.target)) {
+          modalList.notice_signal = false;
+        }
       }
-    }
-  },true)
+    }, true)
+
+    document.addEventListener('click',(e)=>{
+      if(modalList.notice_signal == true){
+        //  공지사항 리스트 클릭시 펼쳐짐
+        let noticeModal = document.querySelector("#modal-container-thg3K61bbP9KCrJxZTi2q")
+        let noticeList = noticeModal.querySelectorAll(".css-15gurup-StyledCollapseListItem")
+        for(let idx of noticeList){
+          if(idx.querySelector(".css-10c763p-StylelessButton").contains(e.target)){
+            if(idx.querySelector(".css-u2gm33").classList.contains("off")){
+              idx.querySelector(".css-u2gm33").classList.add("on")
+              idx.querySelector(".css-u2gm33").classList.remove("off")
+              idx.querySelector(".css-1m6rvy8").style.transform = 'rotate3d(1, 0, 0, 180deg)'
+            }else{
+              idx.querySelector(".css-u2gm33").classList.add("off")
+              idx.querySelector(".css-u2gm33").classList.remove("on")
+              idx.querySelector(".css-1m6rvy8").style.transform = 'rotate3d(1, 0, 0, 0deg)'
+            }
+          }
+        }
+      }
+    },true)
+
+  })
 </script>
 </body>
 </html>
