@@ -1,12 +1,11 @@
-$(function() {
-    const container = document.querySelector(".css-usdi1z")
+window.onload = function(){
+const container = document.querySelector(".css-usdi1z")
 
 // 메인 스크롤
     const scrollBox = container.querySelector(".css-9dnzub");
     let scrollMax = scrollBox.scrollWidth - (container.querySelector('.e1689zdh0').getBoundingClientRect().width + 2);
 // 스크롤 위치에 따라 버튼 유무
     scrollBox.addEventListener('scroll', () => {
-        console.log("출력")
         if (scrollBox.scrollLeft >= scrollMax) {
             container.querySelector('.css-vp7uyl').style.display = "none";
         } else {
@@ -26,5 +25,4 @@ $(function() {
     container.querySelector('.css-1hestod').addEventListener('click', function () {
         scrollBox.scrollBy(-container.querySelector('.emmoxnt0').getBoundingClientRect().width + 7, 0)
     })
-
-})
+}

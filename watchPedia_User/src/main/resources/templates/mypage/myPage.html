@@ -2958,6 +2958,12 @@
   <!-- vue.js 적용 src문 -->
   <script src="https://unpkg.com/vue@3"></script>
   <script defer src="/js/myPageScroll.js"></script>
+
+<!--  공지사항 스타일 -->
+  <style>
+    .on { display: block}
+    .off { display: none}
+  </style>
 </head>
 
 <body>
@@ -3054,7 +3060,7 @@
             <ul class="css-10n5vg9-VisualUl ep5cwgq0">
               <div class="css-1gkas1x-Grid e1689zdh0">
                 <div class="css-1y901al-Row emmoxnt0" th:remove="all-but-first">
-                  <li class="css-15gurup-StyledCollapseListItem" th:each="ntc : ${notice}">
+                  <li class="css-15gurup-StyledCollapseListItem" th:each="ntc,idx : ${notice}">
                     <button class="css-10c763p-StylelessButton">
                       <div class="css-16n7opc">
                         <div class="css-17yc0sg" th:text="${ntc.title}">
@@ -3069,7 +3075,7 @@
                             ></span>
                       </div>
                     </button>
-                    <div class="css-u2gm33">
+                    <div class="css-u2gm33" th:classappend="${idx.first ? 'on' : 'off'}">
                       <article class="css-1u4x0ui">
                         <a
                         ><img th:if="${ntc.image} != null or ${ntc.image} != ''"
@@ -4176,6 +4182,26 @@
         }
       }
     }, true)
+
+    document.addEventListener('click',(e)=>{
+      if(modalList.notice_signal == true){
+        //  공지사항 리스트 클릭시 펼쳐짐
+        let noticeModal = document.querySelector("#modal-container-thg3K61bbP9KCrJxZTi2q")
+        let noticeList = noticeModal.querySelectorAll(".css-15gurup-StyledCollapseListItem")
+        for(let idx of noticeList){
+          if(idx.querySelector(".css-10c763p-StylelessButton").contains(e.target)){
+            if(idx.querySelector(".css-u2gm33").classList.contains("off")){
+              idx.querySelector(".css-u2gm33").classList.add("on")
+              idx.querySelector(".css-u2gm33").classList.remove("off")
+            }else{
+              idx.querySelector(".css-u2gm33").classList.add("off")
+              idx.querySelector(".css-u2gm33").classList.remove("on")
+            }
+          }
+        }
+      }
+    },true)
+
   })
 </script>
 </body>
