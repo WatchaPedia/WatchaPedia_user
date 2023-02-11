@@ -509,27 +509,85 @@ public class UserService {
     }
 
     public void deleteUser(Long userIdx){
-        List<Comment> commentList = commentRepository.findByCommUserIdx(userIdx);
-        for(Comment comm : commentList){
-            likeRepository.deleteAll(likeRepository.findByLikeCommentIdx(comm.getCommIdx()));
-            spoilerRepository.delete(spoilerRepository.findBySpoCommentIdx(comm.getCommIdx()));
-            List<Recomment> recomments = recommentRepository.findByRecommCommIdx(comm.getCommIdx());
-            for(Recomment recomment : recomments){
-                relikeRepository.deleteAll(relikeRepository.findByRelikeRecommIdx(recomment.getRecommIdx()));
-            }
-            recommentRepository.deleteAll(recomments);
+        List<Comment> commentList = new ArrayList<>();
+        try{
+            commentList = commentRepository.findByCommUserIdx(userIdx);
+        }catch (Exception e){
+            System.out.println("코멘트가 없음");
         }
-        commentRepository.deleteAll(commentRepository.findByCommUserIdx(userIdx));
+        for(Comment comm : commentList){
+                try{
+                    likeRepository.deleteAll(likeRepository.findByLikeCommentIdx(comm.getCommIdx()));
+                }catch(Exception e){
+                    System.out.println("코멘트에 좋아요가 없음");
+                }
+                try{
+                    spoilerRepository.delete(spoilerRepository.findBySpoCommentIdx(comm.getCommIdx()));
+                }catch (Exception e){
+                    System.out.println("스포 댓글이 아님");
+                }
+                List<Recomment> recomments = new ArrayList<>();
+                try{
+                    recomments = recommentRepository.findByRecommCommIdx(comm.getCommIdx());
+                }catch(Exception e){
+                    System.out.println("리코멘트가 없음");
+                }
+                for(Recomment recomment : recomments){
+                    try{
+                        relikeRepository.deleteAll(relikeRepository.findByRelikeRecommIdx(recomment.getRecommIdx()));
+                    }catch(Exception e){
+                        System.out.println("코멘트에 라이크가 없음");
+                    }
+                }
+                try{
+                    recommentRepository.deleteAll(recomments);
+                }catch(Exception e){
+                    System.out.println("리코멘트가 없음");
+                }
+            }
+        try{
+            commentRepository.deleteAll(commentRepository.findByCommUserIdx(userIdx));
+        }catch (Exception e){
+            System.out.println("코멘트가 없음");
+        }
 
-        likeRepository.deleteAll(likeRepository.findByLikeUserIdx(userIdx));
-        relikeRepository.deleteAll(relikeRepository.findByRelikeUserIdx(userIdx));
-        starRepository.deleteAll(starRepository.findByStarUserIdx(userIdx));
-        watchRepository.deleteAll(watchRepository.findByWatchUserIdx(userIdx));
-        wishRepository.deleteAll(wishRepository.findByWishUserIdx(userIdx));
-        hateRepository.deleteAll(hateRepository.findByHateUserIdx(userIdx));
-        searchRepository.deleteAll(searchRepository.findByUser(userIdx));
+        try{
+            likeRepository.deleteAll(likeRepository.findByLikeUserIdx(userIdx));
+        }catch(Exception e){
+            System.out.println("좋아요 단 적 없음");
+        }
+        try{
+            relikeRepository.deleteAll(relikeRepository.findByRelikeUserIdx(userIdx));
+        }catch(Exception e){
+            System.out.println("좋아요 단 적 없음");
+        }
+        try{
+            starRepository.deleteAll(starRepository.findByStarUserIdx(userIdx));
+        }catch(Exception e){
+            System.out.println("별점 준 적 없음");
+        }
+        try{
+            watchRepository.deleteAll(watchRepository.findByWatchUserIdx(userIdx));
+        }catch(Exception e){
+            System.out.println("보는 중 콘텐츠 없음");
+        }
+        try{
+            wishRepository.deleteAll(wishRepository.findByWishUserIdx(userIdx));
+        }catch(Exception e){
+            System.out.println("보고싶어요 콘텐츠 없음");
+        }
+        try{
+            hateRepository.deleteAll(hateRepository.findByHateUserIdx(userIdx));
+        }catch(Exception e){
+            System.out.println("관심없어요 콘텐츠 없음");
+        }
+        try{
+            searchRepository.deleteAll(searchRepository.findByUser(userIdx));
+        }catch(Exception e){
+            System.out.println("검색 기록 없음");
+        }
 
-        userRepository.delete(userRepository.getReferenceById(userIdx));
+        userRepository.delete(userRepository.findById(userIdx).get());
 
     }
 }
