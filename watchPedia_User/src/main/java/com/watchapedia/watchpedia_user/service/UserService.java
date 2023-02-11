@@ -521,11 +521,13 @@ public class UserService {
         }
         commentRepository.deleteAll(commentRepository.findByCommUserIdx(userIdx));
 
+        likeRepository.deleteAll(likeRepository.findByLikeUserIdx(userIdx));
+        relikeRepository.deleteAll(relikeRepository.findByRelikeUserIdx(userIdx));
         starRepository.deleteAll(starRepository.findByStarUserIdx(userIdx));
         watchRepository.deleteAll(watchRepository.findByWatchUserIdx(userIdx));
         wishRepository.deleteAll(wishRepository.findByWishUserIdx(userIdx));
         hateRepository.deleteAll(hateRepository.findByHateUserIdx(userIdx));
-        searchRepository.deleteAll(searchRepository.findBySearchUser(userIdx));
+        searchRepository.deleteAll(searchRepository.findByUser(userIdx));
 
         userRepository.delete(userRepository.getReferenceById(userIdx));
     }
