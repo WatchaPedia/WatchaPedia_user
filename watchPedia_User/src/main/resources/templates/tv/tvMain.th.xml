@@ -1,29 +1,131 @@
 <?xml version="1.0"?>
 <thlogic>
+    <!-- 한국 순위  -->
     <attr sel="#tv-table" th:remove="all-but-first">
-        <attr sel="#tv-tr" th:each="tv, i : ${tvs}" th:if="${tv.tvCountry.toString().equals('한국')}" >
-            <attr sel="#tv-title" th:text="${tv.tvTitle}"/>
-            <attr sel="#tv-making-date" th:text="${tv.tvMakingDate} + '・'+ ${tv.tvCountry}+ '・'+${tv.tvChannel}"/>
-            <attr sel="#tv-tvThumbnail" th:src="${tv.tvThumbnail}" />
+        <attr sel="#tv-tr" th:each="tv1, i : ${tvs1}" >
+            <attr sel="#tv-title" th:text="${tv1.tvTitle}"/>
+            <attr sel="#tv-making-date" th:text="${tv1.tvMakingDate} + '・'+ ${tv1.tvCountry}+ '・'+${tv1.tvChannel}"/>
+            <attr sel="#tv-tvThumbnail" th:src="${tv1.tvThumbnail}" />
             <attr sel="#tv-idx" th:text="${i.count}" />
             <attr sel=".average"
-                  th:if="${tv.avg} != 0.0" th:text="'평균 ★ ' + (${tv.avg} != 0 ? ${tv.avg} : _)"/>
-            <attr sel="div.css-5o7sb2" th:if="${tv.tvWatch} != null and ${#strings.contains(tv.tvWatch,'aHR0cHM6Ly93YXRjaGEuY29tL3dhd')}"/>
+                  th:if="${tv1.avg} != 0.0" th:text="'평균 ★ ' + (${tv1.avg} != 0 ? ${tv1.avg} : _)"/>
+            <attr sel="div.css-5o7sb2" th:if="${tv1.tvWatch} != null and ${#strings.contains(tv1.tvWatch,'aHR0cHM6Ly93YXRjaGEuY29tL3dhd')}"/>
             <!--                왓챠 아이콘 -->
-            <attr sel="div.css-oobk33" th:if="${tv.tvWatch} != null and ${#strings.contains(tv.tvWatch,'aHR0cHM6Ly93d3cubmV0ZmxpeC5jb20vdGl0b')}"/>
+            <attr sel="div.css-oobk33" th:if="${tv1.tvWatch} != null and ${#strings.contains(tv1.tvWatch,'aHR0cHM6Ly93d3cubmV0ZmxpeC5jb20vdGl0b')}"/>
         </attr>
     </attr>
 
-<!--애니메이션-->
-    <attr sel=".tv-table-any" th:remove="all-but-first">
-        <attr sel=".tv-tr-any" th:each="tv : ${tvs}" th:if="${tv.tvGenre == '애니메이션'}" >
-            <attr sel=".tv-title-any" th:text="${tv.tvTitle}"/>
-                <attr sel=".tv-tvThumbnail-any" th:src="${tv.tvThumbnail}" />
+    <!-- 미국 순위 -->
+    <attr sel="#america-table" th:remove="all-but-first">
+        <attr sel="#america-table-li" th:each="tv2, i: ${tvs2}" >
+            <attr sel="#title-america" th:text="${tv2.tvTitle}"/>
+            <attr sel="#america-making-date" th:text="${tv2.tvMakingDate} + '・'+ ${tv2.tvCountry}+ '・'+${tv2.tvChannel}"/>
+            <attr sel="#america-tvThumbnail" th:src="${tv2.tvThumbnail}" />
+            <attr sel="#america-idx" th:text="${i.count}" />
             <attr sel=".average"
-                  th:if="${tv.avg} != 0.0" th:text="'평균 ★ ' + (${tv.avg} != 0 ? ${tv.avg} : _)"/>
-            <attr sel="div.css-5o7sb2" th:if="${tv.tvWatch} != null and ${#strings.contains(tv.tvWatch,'aHR0cHM6Ly93YXRjaGEuY29tL3dhd')}"/>
+                  th:if="${tv2.avg} != 0.0" th:text="'평균 ★ ' + (${tv2.avg} != 0 ? ${tv2.avg} : _)"/>
+            <attr sel="div.css-5o7sb2" th:if="${tv2.tvWatch} != null and ${#strings.contains(tv2.tvWatch,'aHR0cHM6Ly93YXRjaGEuY29tL3dhd')}"/>
             <!--                왓챠 아이콘 -->
-            <attr sel="div.css-oobk33" th:if="${tv.tvWatch} != null and ${#strings.contains(tv.tvWatch,'aHR0cHM6Ly93d3cubmV0ZmxpeC5jb20vdGl0b')}"/>
+            <attr sel="div.css-oobk33" th:if="${tv2.tvWatch} != null and ${#strings.contains(tv2.tvWatch,'aHR0cHM6Ly93d3cubmV0ZmxpeC5jb20vdGl0b')}"/>
+        </attr>
+    </attr>
+
+    <!-- 최신 방영작 -->
+    <attr sel="#tv-latest" th:remove="all-but-first">
+        <attr sel="#tv-latest-li" th:each="tv3, i: ${tvs3}" >
+            <attr sel="#title-latest" th:text="${tv3.tvTitle}"/>
+            <attr sel="#latest-making-date" th:text="${tv3.tvMakingDate} + '・'+ ${tv3.tvCountry}+ '・'+${tv3.tvChannel}"/>
+            <attr sel="#latest-tvThumbnail" th:src="${tv3.tvThumbnail}" />
+            <attr sel="#latest-idx" th:text="${i.count}" />
+            <attr sel=".average"
+                  th:if="${tv3.avg} != 0.0" th:text="'평균 ★ ' + (${tv3.avg} != 0 ? ${tv3.avg} : _)"/>
+            <attr sel="div.css-5o7sb2" th:if="${tv3.tvWatch} != null and ${#strings.contains(tv3.tvWatch,'aHR0cHM6Ly93YXRjaGEuY29tL3dhd')}"/>
+            <!--                왓챠 아이콘 -->
+            <attr sel="div.css-oobk33" th:if="${tv3.tvWatch} != null and ${#strings.contains(tv3.tvWatch,'aHR0cHM6Ly93d3cubmV0ZmxpeC5jb20vdGl0b')}"/>
+        </attr>
+    </attr>
+
+    <!-- 넷플릭스 오리지널 -->
+    <attr sel="#tv-netflix" th:remove="all-but-first">
+        <attr sel="#tv-netflix-li" th:each="tv4, i: ${tvs4}">
+            <attr sel="#title-netflix" th:text="${tv4.tvTitle}"/>
+            <attr sel="#netflix-making-date" th:text="${tv4.tvMakingDate} + '・'+ ${tv4.tvCountry}+ '・'+${tv4.tvChannel}"/>
+            <attr sel="#netflix-tvThumbnail" th:src="${tv4.tvThumbnail}" />
+            <attr sel="#netflix-idx" th:text="${i.count}" />
+            <attr sel=".average"
+                  th:if="${tv4.avg} != 0.0" th:text="'평균 ★ ' + (${tv4.avg} != 0 ? ${tv4.avg} : _)"/>
+            <attr sel="div.css-5o7sb2" th:if="${tv4.tvWatch} != null and ${#strings.contains(tv4.tvWatch,'aHR0cHM6Ly93YXRjaGEuY29tL3dhd')}"/>
+            <!--                왓챠 아이콘 -->
+            <attr sel="div.css-oobk33" th:if="${tv4.tvWatch} != null and ${#strings.contains(tv4.tvWatch,'aHR0cHM6Ly93d3cubmV0ZmxpeC5jb20vdGl0b')}"/>
+        </attr>
+    </attr>
+
+
+    <!-- 스릴러 -->
+
+    <attr sel="#tv-thriller" th:remove="all-but-first">
+        <attr sel="#tv-thriller-li" th:each="tv5 : ${tvs5}" >
+            <attr sel="#title-thriller" th:text="${tv5.tvTitle}"/>
+            <!--                    <attr sel="#thriller-making-date" th:text="${tv5.tvMakingDate} + '・'+ ${tv5.tvCountry}+ '・'+${tv5.tvChannel}"/>-->
+            <attr sel="#thriller-tvThumbnail" th:src="${tv5.tvThumbnail}" />
+            <!--                    <attr sel="#thriller-idx" th:text="${i.count}" />-->
+            <attr sel=".average"
+                  th:if="${tv5.avg} != 0.0" th:text="'평균 ★ ' + (${tv5.avg} != 0 ? ${tv5.avg} : _)"/>
+            <attr sel="div.css-5o7sb2" th:if="${tv5.tvWatch} != null and ${#strings.contains(tv5.tvWatch,'aHR0cHM6Ly93YXRjaGEuY29tL3dhd')}"/>
+            <!--                왓챠 아이콘 -->
+            <attr sel="div.css-oobk33" th:if="${tv5.tvWatch} != null and ${#strings.contains(tv5.tvWatch,'aHR0cHM6Ly93d3cubmV0ZmxpeC5jb20vdGl0b')}"/>
+        </attr>
+    </attr>
+
+
+    <!--애니메이션-->
+    <attr sel="#tv-table-ani" th:remove="all-but-first">
+        <attr sel="#tv-tr-ani" th:each="tv6 : ${tvs6}"  >
+            <attr sel="#tv-title-ani" th:text="${tv6.tvTitle}"/>
+            <attr sel="#tv-tvThumbnail-ani" th:src="${tv6.tvThumbnail}" />
+            <attr sel=".average"
+                  th:if="${tv6.avg} != 0.0" th:text="'평균 ★ ' + (${tv6.avg} != 0 ? ${tv6.avg} : _)"/>
+            <attr sel="div.css-5o7sb2" th:if="${tv6.tvWatch} != null and ${#strings.contains(tv6.tvWatch,'aHR0cHM6Ly93YXRjaGEuY29tL3dhd')}"/>
+            <!--                왓챠 아이콘 -->
+            <attr sel="div.css-oobk33" th:if="${tv6.tvWatch} != null and ${#strings.contains(tv6.tvWatch,'aHR0cHM6Ly93d3cubmV0ZmxpeC5jb20vdGl0b')}"/>
+        </attr>
+    </attr>
+
+    <!--<th:block th:each ="num : ${number.sequence(1,20)}">-->
+    <!-- th:href="@{'/tv/'+${tv.tvIdx}}"-->
+    <!--</th:block>-->
+
+
+
+    <!-- 시즌제 드라마 -->
+
+    <attr sel="#tv-random" th:remove="all-but-first">
+        <attr sel="#tv-random-li" th:each="tv7 : ${tvs7}" >
+            <attr sel="#title-random" th:text="${tv7.tvTitle}"/>
+            <!--    <attr sel="#random-making-date" th:text="${tv7.tvMakingDate} + '・'+ ${tv7.tvCountry}+ '・'+${tv7.tvChannel}"/>-->
+            <attr sel="#random-tvThumbnail" th:src="${tv7.tvThumbnail}" />
+            <!--                <attr sel="#random-idx" th:text="${i.count}" />-->
+            <attr sel=".average"
+                  th:if="${tv7.avg} != 0.0" th:text="'평균 ★ ' + (${tv7.avg} != 0 ? ${tv7.avg} : _)"/>
+            <attr sel="div.css-5o7sb2" th:if="${tv7.tvWatch} != null and ${#strings.contains(tv7.tvWatch,'aHR0cHM6Ly93YXRjaGEuY29tL3dhd')}"/>
+            <!--                왓챠 아이콘 -->
+            <attr sel="div.css-oobk33" th:if="${tv7.tvWatch} != null and ${#strings.contains(tv7.tvWatch,'aHR0cHM6Ly93d3cubmV0ZmxpeC5jb20vdGl0b')}"/>
+        </attr>
+    </attr>
+
+
+
+    <!-- 일본 -->
+    <attr sel="#tv-japan" th:remove="all-but-first">
+        <attr sel="#tv-japan-li" th:each="tv8 : ${tvs8}"  >
+            <attr sel="#title-japan" th:text="${tv8.tvTitle}"/>
+            <attr sel="#japan-tvThumbnail" th:src="${tv8.tvThumbnail}" />
+            <!--    <attr sel="#japan-idx" th:text="${i.count}" />-->
+            <attr sel=".average"
+                  th:if="${tv8.avg} != 0.0" th:text="'평균 ★ ' + (${tv8.avg} != 0 ? ${tv8.avg} : _)"/>
+            <attr sel="div.css-5o7sb2" th:if="${tv8.tvWatch} != null and ${#strings.contains(tv8.tvWatch,'aHR0cHM6Ly93YXRjaGEuY29tL3dhd')}"/>
+            <!--                왓챠 아이콘 -->
+            <attr sel="div.css-oobk33" th:if="${tv8.tvWatch} != null and ${#strings.contains(tv8.tvWatch,'aHR0cHM6Ly93d3cubmV0ZmxpeC5jb20vdGl0b')}"/>
         </attr>
     </attr>
 </thlogic>

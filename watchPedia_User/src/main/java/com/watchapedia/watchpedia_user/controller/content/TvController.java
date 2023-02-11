@@ -61,6 +61,17 @@ public class TvController {
         map.addAttribute("userSession", userSessionDto);
         List<TvDto> tvs = tvService.tvs();
         map.addAttribute("tvs", tvs);
+        map.addAttribute("tvs1", tvService.searchCountry("한국"));
+        map.addAttribute("tvs2", tvService.searchCountry("미국"));
+        map.addAttribute("tvs3", tvService.searchTvDate("2022"));
+        map.addAttribute("tvs4", tvService.searchChannel("Netflix"));
+        map.addAttribute("tvs5", tvService.searchGenre("스릴러"));
+        map.addAttribute("tvs6", tvService.searchGenre("애니메이션"));
+        map.addAttribute("tvs7", tvService.searchTitle("시즌"));
+        map.addAttribute("tvs8", tvService.searchCountry("일본"));
+
+
+
         return "/tv/tvMain";
     }
 
