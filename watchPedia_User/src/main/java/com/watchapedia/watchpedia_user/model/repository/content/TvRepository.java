@@ -11,6 +11,9 @@ import java.util.List;
 @Repository
 public interface TvRepository extends JpaRepository<Tv, Long> {
     List<Tv> findByTvGenreContaining(String tvGenre);
-
+    List<Tv> findByTvMakingDate(String tvMakingDate);
+    List<Tv> findByTvChannel(String tvChannel);
     List<Tv> findByTvTitleContaining(String tvTitle);
+    List<Tv> findByTvCountryContaining(String country);
+
 }

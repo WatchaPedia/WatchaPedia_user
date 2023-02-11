@@ -2471,7 +2471,7 @@
       box-sizing: border-box;
       width: 100%;
       padding: 10px 0px;
-      border-bottom: 1px solid rgb(240, 240, 240);
+      border-bottom: 0.5px solid rgb(240, 240, 240);
     }
     .css-17yc0sg {
       margin: 0px 0px 2px;
@@ -3070,6 +3070,7 @@
                       </div>
                       <div class="css-0">
                             <span
+                                    th:style="${idx.first ? _:'transform:rotate3d(1, 0, 0, 0deg);'}"
                                     src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxwYXRoIGZpbGw9IiNBMEEwQTAiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTEyLjAxIDE0LjE5Mkw3LjQxNCA5LjU5NiA2IDExLjAxbDUuMzAzIDUuMzA0LjcwNy43MDcgNi4wMS02LjAxLTEuNDEzLTEuNDE1LTQuNTk3IDQuNTk2eiIvPgo8L3N2Zz4K"
                                     class="css-1m6rvy8"
                             ></span>
@@ -4193,9 +4194,11 @@
             if(idx.querySelector(".css-u2gm33").classList.contains("off")){
               idx.querySelector(".css-u2gm33").classList.add("on")
               idx.querySelector(".css-u2gm33").classList.remove("off")
+              idx.querySelector(".css-1m6rvy8").style.transform = 'rotate3d(1, 0, 0, 180deg)'
             }else{
               idx.querySelector(".css-u2gm33").classList.add("off")
               idx.querySelector(".css-u2gm33").classList.remove("on")
+              idx.querySelector(".css-1m6rvy8").style.transform = 'rotate3d(1, 0, 0, 0deg)'
             }
           }
         }
