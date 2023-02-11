@@ -2961,6 +2961,10 @@
 </head>
 
 <body>
+
+<!-- Vue .mount 범위가 중첩되서 맨 위로 뺐음 -->
+<div th:replace="fragment/header::header"></div>
+
 <!-- 바로 아래 div가 vue적용되는 app 박스 시작!-->
 <div id="modal-app">
   <!-- 설정 톱니바퀴 팝업창 시작! -->
@@ -3654,7 +3658,6 @@
   <div id="root">
     <div class="css-5jq76">
       <div class="css-1xm32e0">
-        <div th:replace="fragment/header::header"></div>
         <section class="css-18gwkcr">
           <div class="css-egiga7-Self e19zkogf0">
             <div class="css-19rw4yc-Container e19zkogf1">
