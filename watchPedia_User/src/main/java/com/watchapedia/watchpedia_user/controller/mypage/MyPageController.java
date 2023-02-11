@@ -21,6 +21,7 @@ import com.watchapedia.watchpedia_user.service.content.BookService;
 import com.watchapedia.watchpedia_user.service.content.MovieService;
 import com.watchapedia.watchpedia_user.service.content.TvService;
 import com.watchapedia.watchpedia_user.service.content.WebtoonService;
+import com.watchapedia.watchpedia_user.service.content.ajax.StarService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -44,6 +45,7 @@ public class MyPageController {
     final CommentService commentService;
     private final StarRepository starRepository;
     final AnalysisService analysisService;
+    final StarService starService;
 
     @GetMapping(path="/user/{userIdx}/analysis")  // localhost:9090/mypage/analysis
     public ModelAndView analysis(
@@ -77,10 +79,13 @@ public class MyPageController {
         UserSessionDto userSessionDto = (UserSessionDto)session.getAttribute("userSession");
         UserResponse user = userService.myPageUser(userIdx);
         List<NoticeResponse> notice = userService.noticeAll();
+
+        Long totalCnt = starService.getTotalCnt();
         return new ModelAndView("/mypage/myPage")
                 .addObject("userSession",userSessionDto)
                 .addObject("notice",notice)
-                .addObject("user", user);
+                .addObject("user", user)
+                .addObject("totalCnt",totalCnt);
     }
 
     @GetMapping("/user/{userIdx}/{contentType}")
