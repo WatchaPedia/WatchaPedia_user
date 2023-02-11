@@ -530,5 +530,6 @@ public class UserService {
         searchRepository.deleteAll(searchRepository.findByUser(userIdx));
 
         userRepository.delete(userRepository.getReferenceById(userIdx));
+
     }
 }
