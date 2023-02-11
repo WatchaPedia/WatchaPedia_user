@@ -1,0 +1,12 @@
+<?xmlversion="1.0"?>
+<thlogic>
+    <attr sel="#th_userName" th:text="${userName}"></attr>
+    <attr sel="#th_listNull" th:if="${#lists.isEmpty(qnaResponseDtoList)}"></attr>
+    <attr sel="#th_table" th:if="${!#lists.isEmpty(qnaResponseDtoList)}"></attr>
+
+    <attr sel=".th_forEach" th:each="qna : ${qnaResponseDtoList}">
+        <attr sel=".th_qnaText" th:text="${qna.qnaText}"></attr>
+        <attr sel=".th_dayAgo" th:text="${qna.qnaRegDateAgo}"></attr>
+        <attr sel=".th_status_btn" th:text="${qna.qnaStatus}"></attr>
+    </attr>
+</thlogic>

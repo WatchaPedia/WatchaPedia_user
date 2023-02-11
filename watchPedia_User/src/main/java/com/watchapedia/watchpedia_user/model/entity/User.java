@@ -48,6 +48,11 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private final List<Search> searchList = new ArrayList<>();
 
+    @ToString.Exclude
+    @OrderBy("qnaRegDate DESC")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private final List<Qna> qnas = new ArrayList<>();
+
     public static User of(UserDto userDto) {
         return new User(
                 userDto.userIdx(),
