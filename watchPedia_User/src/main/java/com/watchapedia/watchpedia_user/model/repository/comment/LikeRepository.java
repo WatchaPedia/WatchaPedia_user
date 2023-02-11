@@ -12,4 +12,5 @@ import java.util.List;
 public interface LikeRepository extends JpaRepository<Like, Long> {
     List<Like> findByLikeCommentIdx(Long comment);
     Like findByLikeCommentIdxAndLikeUserIdx(Long comment, Long user);
+    List<Like> findByLikeUserIdx(Long userIdx);
 }

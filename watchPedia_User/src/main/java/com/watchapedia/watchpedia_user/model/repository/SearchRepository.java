@@ -13,6 +13,7 @@ public interface SearchRepository extends JpaRepository<Search, Long> {
     //본인 계정의 최근 검색어 3개를 가져오는 find문
     List<Search> findTop3ByUser_UserIdxOrderBySearchRegDateDesc(Long idx);
 
+    List<Search> findBySearchUser(Long userIdx);
 
     //검색어 별로 그룹을 하고 count를 내는 find문
     @Query(value = "select search_idx, search_user, search_content, search_reg_date,count(search_content) as search_duplicate from tb_search group by search_content order by search_duplicate DESC", nativeQuery = true)

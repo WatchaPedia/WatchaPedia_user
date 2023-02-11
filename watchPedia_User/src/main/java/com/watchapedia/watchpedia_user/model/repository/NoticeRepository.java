@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface NoticeRepository extends JpaRepository<Notice,Long> {
-    List<Notice> findByNtcStatus(String status);
+    List<Notice> findByNtcStatusOrderByNtcIdxDesc(String status);
 }
