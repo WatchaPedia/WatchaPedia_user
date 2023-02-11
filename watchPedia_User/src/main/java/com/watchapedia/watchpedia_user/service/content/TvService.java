@@ -88,6 +88,107 @@ public class TvService {
         }
         return result;
     }
+
+    //
+    @Transactional(readOnly = true)
+    public List<TvDto> searchCountry(String country) {
+
+        List<TvDto> result = new ArrayList<>();
+
+        List<Tv> tvList2 = tvRepository.findByTvCountryContaining(country);
+
+        for(Tv t : tvList2){
+            double sum = 0;
+            int starCount = 0;
+            for(Star star : t.getStar()){
+                sum += star.getStarPoint();
+                starCount = t.getStar().size();
+            }
+            Double avg = Math.round((sum / starCount) * 10.0) / 10.0;
+            result.add(TvDto.from(t, avg));
+        }
+        return result;
+    }
+
+    @Transactional(readOnly = true)
+    public List<TvDto> searchTvDate(String tvMakingDate) {
+
+        List<TvDto> result = new ArrayList<>();
+
+        List<Tv> tvList2 = tvRepository.findByTvMakingDate(tvMakingDate);
+
+        for(Tv t : tvList2){
+            double sum = 0;
+            int starCount = 0;
+            for(Star star : t.getStar()){
+                sum += star.getStarPoint();
+                starCount = t.getStar().size();
+            }
+            Double avg = Math.round((sum / starCount) * 10.0) / 10.0;
+            result.add(TvDto.from(t, avg));
+        }
+        return result;
+    }
+
+    @Transactional(readOnly = true)
+    public List<TvDto> searchChannel(String tvChannel) {
+
+        List<TvDto> result = new ArrayList<>();
+
+        List<Tv> tvList2 = tvRepository.findByTvChannel(tvChannel);
+
+        for(Tv t : tvList2){
+            double sum = 0;
+            int starCount = 0;
+            for(Star star : t.getStar()){
+                sum += star.getStarPoint();
+                starCount = t.getStar().size();
+            }
+            Double avg = Math.round((sum / starCount) * 10.0) / 10.0;
+            result.add(TvDto.from(t, avg));
+        }
+        return result;
+    }
+
+    @Transactional(readOnly = true)
+    public List<TvDto> searchGenre(String tvGenre) {
+
+        List<TvDto> result = new ArrayList<>();
+
+        List<Tv> tvList2 = tvRepository.findByTvGenreContaining(tvGenre);
+
+        for(Tv t : tvList2){
+            double sum = 0;
+            int starCount = 0;
+            for(Star star : t.getStar()){
+                sum += star.getStarPoint();
+                starCount = t.getStar().size();
+            }
+            Double avg = Math.round((sum / starCount) * 10.0) / 10.0;
+            result.add(TvDto.from(t, avg));
+        }
+        return result;
+    }
+
+    @Transactional(readOnly = true)
+    public List<TvDto> searchTitle(String tvTitle) {
+
+        List<TvDto> result = new ArrayList<>();
+
+        List<Tv> tvList2 = tvRepository.findByTvTitleContaining(tvTitle);
+
+        for(Tv t : tvList2){
+            double sum = 0;
+            int starCount = 0;
+            for(Star star : t.getStar()){
+                sum += star.getStarPoint();
+                starCount = t.getStar().size();
+            }
+            Double avg = Math.round((sum / starCount) * 10.0) / 10.0;
+            result.add(TvDto.from(t, avg));
+        }
+        return result;
+    }
     //----------------------------------------------------------------------------------------------------
 
     @Transactional(readOnly = true)
