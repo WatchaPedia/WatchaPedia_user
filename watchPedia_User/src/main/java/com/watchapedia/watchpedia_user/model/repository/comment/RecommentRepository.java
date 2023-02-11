@@ -14,4 +14,5 @@ import java.util.List;
 public interface RecommentRepository extends JpaRepository<Recomment,Long> {
     Page<Recomment> findByRecommCommIdx(Long comment, Pageable pageable);
     List<Recomment> findByRecommCommIdx(Long comment);
+    List<Recomment> findByRecommUserIdx(Long userIdx);
 }

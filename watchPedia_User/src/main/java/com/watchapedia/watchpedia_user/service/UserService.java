@@ -3,6 +3,8 @@ package com.watchapedia.watchpedia_user.service;
 import com.watchapedia.watchpedia_user.model.dto.UserDto;
 import com.watchapedia.watchpedia_user.model.dto.content.WebtoonDto;
 import com.watchapedia.watchpedia_user.model.entity.User;
+import com.watchapedia.watchpedia_user.model.entity.comment.Comment;
+import com.watchapedia.watchpedia_user.model.entity.comment.Recomment;
 import com.watchapedia.watchpedia_user.model.entity.content.Book;
 import com.watchapedia.watchpedia_user.model.entity.content.Movie;
 import com.watchapedia.watchpedia_user.model.entity.content.Tv;
@@ -15,11 +17,14 @@ import com.watchapedia.watchpedia_user.model.network.response.NoticeResponse;
 import com.watchapedia.watchpedia_user.model.network.response.Ratings;
 import com.watchapedia.watchpedia_user.model.network.response.UserResponse;
 import com.watchapedia.watchpedia_user.model.repository.NoticeRepository;
+import com.watchapedia.watchpedia_user.model.repository.SearchRepository;
 import com.watchapedia.watchpedia_user.model.repository.UserRepository;
+import com.watchapedia.watchpedia_user.model.repository.comment.*;
 import com.watchapedia.watchpedia_user.model.repository.content.BookRepository;
 import com.watchapedia.watchpedia_user.model.repository.content.MovieRepository;
 import com.watchapedia.watchpedia_user.model.repository.content.TvRepository;
 import com.watchapedia.watchpedia_user.model.repository.content.WebtoonRepository;
+import com.watchapedia.watchpedia_user.model.repository.content.ajax.HateRepository;
 import com.watchapedia.watchpedia_user.model.repository.content.ajax.StarRepository;
 import com.watchapedia.watchpedia_user.model.repository.content.ajax.WatchRepository;
 import com.watchapedia.watchpedia_user.model.repository.content.ajax.WishRepository;
@@ -46,6 +51,14 @@ public class UserService {
     private final WebtoonRepository webtoonRepository;
     private final WatchRepository watchRepository;
     private final NoticeRepository noticeRepository;
+    private final CommentRepository commentRepository;
+    private final HateRepository hateRepository;
+    private final LikeRepository likeRepository;
+    private final RecommentRepository recommentRepository;
+    private final RelikeRepository relikeRepository;
+    private final ReportRepository reportRepository;
+    private final SearchRepository searchRepository;
+    private final SpoilerRepository spoilerRepository;
 
     public User findUser(Long userIdx){
         return userRepository.getReferenceById(userIdx);
@@ -493,5 +506,27 @@ public class UserService {
 
         mv.put("last",last);
         return mv;
+    }
+
+    public void deleteUser(Long userIdx){
+//        List<Comment> commentList = commentRepository.findByCommUserIdx(userIdx);
+//        for(Comment comm : commentList){
+//            likeRepository.deleteAll(likeRepository.findByLikeCommentIdx(comm.getCommIdx()));
+//            spoilerRepository.delete(spoilerRepository.findBySpoCommentIdx(comm.getCommIdx()));
+//            List<Recomment> recomments = recommentRepository.findByRecommCommIdx(comm.getCommIdx());
+//            for(Recomment recomment : recomments){
+//                relikeRepository.deleteAll(relikeRepository.findByRelikeRecommIdx(recomment.getRecommIdx()));
+//            }
+//            recommentRepository.deleteAll(recomments);
+//        }
+//        commentRepository.deleteAll(commentRepository.findByCommUserIdx(userIdx));
+//
+//        starRepository.deleteAll(starRepository.findByStarUserIdx(userIdx));
+//        watchRepository.deleteAll(watchRepository.findByWatchUserIdx(userIdx));
+//        wishRepository.deleteAll(wishRepository.findByWishUserIdx(userIdx));
+//        hateRepository.deleteAll(hateRepository.findByHateUserIdx(userIdx));
+//        searchRepository.deleteAll(searchRepository.findBySearchUser(userIdx));
+//
+//        userRepository.delete(userRepository.getReferenceById(userIdx));
     }
 }
