@@ -22,4 +22,6 @@ public interface WatchRepository extends JpaRepository<Watch, Long> {
     List<Watch> findByWatchContentTypeAndWatchUserIdx(
             String contentType, Long userIdx
     );
+
+    List<Watch> findByWatchUserIdx(Long userIdx);
 }

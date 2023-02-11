@@ -2964,6 +2964,93 @@
     .on { display: block}
     .off { display: none}
   </style>
+
+<!--  로그아웃 모달 -->
+  <style>
+    .css-1yszxv0 {
+      display: flex;
+      position: absolute;
+      inset: 0px;
+      z-index: 102;
+      -webkit-box-pack: center;
+      justify-content: center;
+      -webkit-box-align: center;
+      align-items: center;
+    }
+    .css-f35o9y {
+      background: rgb(255, 255, 255);
+      text-align: center;
+      width: 280px;
+      padding: 20px 0px 0px;
+      border-radius: 8px;
+    }
+    .css-2djw8f {
+      display: inline-block;
+      color: rgb(0, 0, 0);
+      white-space: pre-wrap;
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      line-height: 22px;
+    }
+    .css-148qwic {
+      color: rgb(0, 0, 0);
+      font-size: 15px;
+      font-weight: 400;
+      letter-spacing: -0.5px;
+      line-height: 20px;
+      white-space: pre-wrap;
+      padding: 0px 0px 24px;
+      border-bottom: 1px solid rgb(210, 210, 210);
+      margin: 8px 0px 0px;
+      word-break: break-all;
+    }
+    .css-gy4ioq {
+      display: flex;
+    }
+    .css-gy4ioq > button {
+      margin: 11px 0px;
+    }
+     .css-1gdw77k-StylelessButton {
+       background: none;
+       padding: 0px;
+       border-top-width: initial;
+       border-bottom-width: initial;
+       border-left-width: initial;
+       border-style: none solid none none;
+       border-image: initial;
+       margin: 0px;
+       cursor: pointer;
+       flex: 1 1 0%;
+       color: rgb(255, 47, 110);
+       font-size: 17px;
+       font-weight: 400;
+       letter-spacing: -0.7px;
+       line-height: 22px;
+       border-right-width: 1px;
+       border-color: rgb(210, 210, 210) !important;
+     }
+    .css-sfhtz9-StylelessButton {
+      background: none;
+      padding: 0px;
+      border-width: initial;
+      border-style: none;
+      border-image: initial;
+      margin: 0px;
+      cursor: pointer;
+      flex: 1 1 0%;
+      color: rgb(255, 47, 110);
+      font-size: 17px;
+      font-weight: 400;
+      letter-spacing: -0.7px;
+      line-height: 22px;
+      border-color: rgb(210, 210, 210) !important;
+    }
+    #modal-container-2MqRbL8xxO18KTEfli12Q{
+      background: rgba(0, 0, 0, 0.56);
+      z-index: 999;
+    }
+  </style>
 </head>
 
 <body>
@@ -3022,10 +3109,10 @@
               </section>
               <section class="css-15wbb47">
                 <div class="css-1y6tmwg">계정관리</div>
-                <li class="css-md4jey">
+                <li class="css-md4jey" @click="logout_change">
                   <div class="css-11axhrb" >
                     <div class="css-1ciqeix">
-                      <span><a href="/user/logout" style="text-decoration-line: none; color: black;">로그아웃</a></span>
+                      <span>로그아웃</span>
                     </div>
                     <div class="css-0"></div>
                   </div>
@@ -3042,6 +3129,10 @@
         </div>
       </div>
     </div>
+<!--    회원탈퇴 모달 -->
+    <div v-if="delete_modal" id="modal-container-VXJN2mvzmswazH_jNUVpe" class="css-rpyl6s"><div class="css-1yszxv0"><div class="css-f35o9y"><div class="css-1gkas1x-Grid e1689zdh0"><div class="css-1y901al-Row emmoxnt0"><div class="css-2djw8f">알림</div><div class="css-148qwic">회원탈퇴 하시겠어요?</div><div size="2" class="css-gy4ioq"><button class="css-1gdw77k-StylelessButton" @click="delete_change">취소</button><button class="css-sfhtz9-StylelessButton" th:onclick="'location.href=\'/user/'+${user.userIdx}+'/delete\''">확인</button></div></div></div></div></div></div>
+<!--로그아웃 모달-->
+    <div v-if="logout_modal" id="modal-container-2MqRbL8xxO18KTEfli12Q" class="css-rpyl6s"><div class="css-1yszxv0"><div class="css-f35o9y"><div class="css-1gkas1x-Grid e1689zdh0"><div class="css-1y901al-Row emmoxnt0"><div class="css-2djw8f">알림</div><div class="css-148qwic">로그아웃 하시겠어요?</div><div size="2" class="css-gy4ioq"><button class="css-1gdw77k-StylelessButton" @click="logout_change">취소</button><button class="css-sfhtz9-StylelessButton" onclick="location.href='/user/logout'">확인</button></div></div></div></div></div></div>
     <!-- 공지사항 팝업 열림! -->
     <div v-if="notice_signal">
       <div id="modal-container-thg3K61bbP9KCrJxZTi2q" class="css-rpyl6s">
@@ -4157,6 +4248,8 @@
         return {
           main_modal: false,
           notice_signal: false,
+          logout_modal: false,
+          delete_modal: false
         };
       },
       methods: {
@@ -4165,13 +4258,20 @@
         },
         notice_change() {
           this.notice_signal = !this.notice_signal;
+        },
+        logout_change() {
+          this.logout_modal = !this.logout_modal;
+        },
+        delete_change() {
+          this.delete_modal = !this.delete_modal;
         }
       },
     }).mount("#modal-app");
 
     document.addEventListener("click", (e) => {
       if (document.querySelector("#modal-container-gaaIcctt8e6Uqo5nHzT52") &&
-              modalList.notice_signal == false) {
+              modalList.notice_signal == false && modalList.logout_modal == false
+            && modalList.delete_modal == false) {
         if (!document.querySelector("div.css-ikkedy").contains(e.target)) {
           modalList.main_modal = false;
         }
@@ -4180,6 +4280,18 @@
       if (modalList.notice_signal == true) {
         if (!document.querySelector(".css-8kej5s").contains(e.target)) {
           modalList.notice_signal = false;
+        }
+      }
+
+      if(modalList.logout_modal == true){
+        if(!document.querySelector(".css-f35o9y").contains(e.target)){
+          modalList.logout_modal = false;
+        }
+      }
+
+      if(modalList.delete_modal == true){
+        if(!document.querySelector(".css-f35o9y").contains(e.target)){
+          modalList.delete_modal = false;
         }
       }
     }, true)

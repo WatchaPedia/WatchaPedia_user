@@ -12,4 +12,5 @@ import java.util.List;
 public interface RelikeRepository extends JpaRepository<Relike, Long> {
     Relike findByRelikeRecommIdxAndRelikeUserIdx(Long recomment, Long user);
     List<Relike> findByRelikeRecommIdx(Long recomment);
+    List<Relike> findByRelikeUserIdx(Long userIdx);
 }
