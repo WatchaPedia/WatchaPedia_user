@@ -95,7 +95,7 @@ public class UserService {
     }
 
     public List<NoticeResponse> noticeAll(){
-        List<NoticeResponse> noticeList = noticeRepository.findByNtcStatus("등록").stream().map(
+        List<NoticeResponse> noticeList = noticeRepository.findByNtcStatusOrderByNtcIdxDesc("등록").stream().map(
                 notice ->{
                     return NoticeResponse.of(notice.getNtcTitle(),notice.getNtcText(),notice.getNtcImagepath(),
                             notice.getNtcBtnColor(),notice.getNtcBtnText(),notice.getNtcBtnLink(),notice.getRegDate());
