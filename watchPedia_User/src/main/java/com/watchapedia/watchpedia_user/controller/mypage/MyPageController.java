@@ -14,6 +14,7 @@ import com.watchapedia.watchpedia_user.model.network.response.content.TvResponse
 import com.watchapedia.watchpedia_user.model.network.response.content.WebtoonResponse;
 import com.watchapedia.watchpedia_user.model.repository.UserRepository;
 import com.watchapedia.watchpedia_user.model.repository.content.ajax.StarRepository;
+import com.watchapedia.watchpedia_user.service.AnalysisService;
 import com.watchapedia.watchpedia_user.service.UserService;
 import com.watchapedia.watchpedia_user.service.comment.CommentService;
 import com.watchapedia.watchpedia_user.service.content.BookService;
@@ -42,12 +43,31 @@ import java.util.Map;
 public class MyPageController {
     final CommentService commentService;
     private final StarRepository starRepository;
+    final AnalysisService analysisService;
 
+    @GetMapping(path="/user/{userIdx}/analysis")  // localhost:9090/mypage/analysis
+    public ModelAndView analysis(
+            @PathVariable Long userIdx
+    ){
+        Map<String, Integer> starSum = analysisService.starSum(userIdx);
+        Double starAvg = starRepository.findByStarAvg(userIdx);
+        //        별점 그래프
+        double graphPx = 88.0 / starRepository.findByStarCount(userIdx);
+        HashMap<Integer, Double> starGraph = new HashMap<Integer,Double>(){{
+            put(1,starRepository.findByStarPointCount(userIdx,1L)!=0.0?starRepository.findByStarPointCount(userIdx,1L)*graphPx:1.0);
+            put(2,starRepository.findByStarPointCount(userIdx,2L)!=0.0?starRepository.findByStarPointCount(userIdx,2L)*graphPx:1.0);
+            put(3,starRepository.findByStarPointCount(userIdx,3L)!=0.0?starRepository.findByStarPointCount(userIdx,3L)*graphPx:1.0);
+            put(4,starRepository.findByStarPointCount(userIdx,4L)!=0.0?starRepository.findByStarPointCount(userIdx,4L)*graphPx:1.0);
+            put(5,starRepository.findByStarPointCount(userIdx,5L)!=0.0?starRepository.findByStarPointCount(userIdx,5L)*graphPx:1.0);
+        }};
 
-
-    @GetMapping(path="/analysis")  // localhost:9090/mypage/analysis
-    public ModelAndView analysis(){
-        return new ModelAndView("/mypage/analysis") ;
+        return new ModelAndView("/mypage/analysis")
+                .addObject("userName",userRepository.getReferenceById(userIdx).getUserName())
+                .addObject("starSum",starSum)
+                .addObject("starCnt",starRepository.findByStarCount(userIdx))
+                .addObject("starMax",starRepository.findByStarMax(userIdx))
+                .addObject("starGraph",starGraph)
+                .addObject("starAvg",Math.round(starAvg * 10) / 10.0);
     }
 
 

@@ -95,11 +95,13 @@ public class UserController {
         }
     }
 
-    @GetMapping("/{userIdx}/delete")
+    @GetMapping("/delete")
     public String delete(
-            @PathVariable Long userIdx
+            HttpSession session
     ){
-        userService.deleteUser(userIdx);
+        UserSessionDto dto = (UserSessionDto) session.getAttribute("userSession");
+        userService.deleteUser(dto.userIdx());
+        session.invalidate();
         return "redirect:/";
     }
 

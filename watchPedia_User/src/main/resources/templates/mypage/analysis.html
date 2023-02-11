@@ -1,5 +1,4 @@
-<html lang="ko-KR">
-
+<html lang="ko-KR" xmlns:th="http://www.thymeleaf.org">
 <head>
   <link rel="icon" href="/image/favicon.png">
 
@@ -47,7 +46,7 @@
 
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>왓챠가 분석한 송훈섭님의 취향보고서</title>
+  <title th:text="'왓챠가 분석한 '+${userName}+'님의 취향보고서'">왓챠가 분석한 송훈섭님의 취향보고서</title>
   <meta data-rh="true" content="추천, 평가, 영화, 책, 드라마, 애니메이션" name="keywords">
   <meta data-rh="true" content="9811060e374931ab817c913e27ba9851e42122b6" name="naver-site-verification">
   <meta data-rh="true" content="website" property="og:type">
@@ -56,9 +55,6 @@
   <meta data-rh="true" content="ko-KR" property="og:locale">
   <meta data-rh="true" content="126765124079533" property="fb:app_id">
   <meta data-rh="true" content="app-id=644185507" name="apple-itunes-app">
-  <meta data-rh="true" name="description" content="89편의 작품을 평가한 송훈섭님의 취향은 '인생은 역시 한 편의 드라마!'">
-  <meta data-rh="true" property="og:title" content="왓챠가 분석한 송훈섭님의 취향보고서">
-  <meta data-rh="true" property="og:description" content="89편의 작품을 평가한 송훈섭님의 취향은 '인생은 역시 한 편의 드라마!'">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <link data-rh="true" href="/opensearch.xml" rel="search" title="왓챠피디아" type="application/opensearchdescription+xml">
   <link data-rh="true"
@@ -1415,7 +1411,7 @@
                           <div class="css-170kft5">
                             <div class="css-fom973-ProfilePhotoImage"></div>
                           </div>
-                          <div class="css-mp2a8y">송훈섭</div>
+                          <div class="css-mp2a8y" th:text="${userName}">송훈섭</div>
                         </div>
                       </h1>
                     </div>
@@ -1436,19 +1432,19 @@
                       <div class="css-17y9cpn">
                         <ul class="css-1ai3iwk-VisualUl">
                           <li class="css-1666h6g">
-                            <div class="css-1caz78i">37</div>
+                            <div class="css-1caz78i" th:text="${starSum.get('movie')}">37</div>
                             <div class="css-1fak39c">영화</div>
                           </li>
                           <li class="css-1666h6g">
-                            <div class="css-1caz78i">21</div>
+                            <div class="css-1caz78i" th:text="${starSum.get('tv')}">21</div>
                             <div class="css-1fak39c">TV 프로그램</div>
                           </li>
                           <li class="css-1666h6g">
-                            <div class="css-1caz78i">11</div>
+                            <div class="css-1caz78i" th:text="${starSum.get('book')}">11</div>
                             <div class="css-1fak39c">책</div>
                           </li>
                           <li class="css-1666h6g">
-                            <div class="css-1caz78i">20</div>
+                            <div class="css-1caz78i" th:text="${starSum.get('webtoon')}">20</div>
                             <div class="css-1fak39c">웹툰</div>
                           </li>
                         </ul>
@@ -1470,30 +1466,30 @@
                       <h3 class="css-d98475">대중의 평가에 잘 휘둘리지 않는 '지조파'</h3>
                       <div class="css-baz663">
                         <div class="css-g1q7ln">
-                          <div class="css-hugi8h"><span class="css-1n3dn6t"></span></div>
-                          <div class="css-hugi8h"><span prefix="1" class="css-111q860-Bar"></span></div>
-                          <div class="css-hugi8h"><span class="css-1n3dn6t"></span></div>
-                          <div class="css-hugi8h"><span prefix="2" class="css-r41bl-Bar"></span></div>
-                          <div class="css-hugi8h"><span class="css-r1x3ay"></span></div>
-                          <div class="css-hugi8h"><span prefix="3" class="css-z5uyqq-Bar"></span></div>
-                          <div class="css-hugi8h"><span class="css-10zyi34"></span></div>
-                          <div class="css-hugi8h"><span prefix="4" class="css-1hp04q9-Bar"></span></div>
-                          <div class="css-hugi8h"><span class="css-15egokh"></span></div>
-                          <div class="css-hugi8h"><span prefix="5" class="css-fa6pmb-Bar"></span></div>
+                          <div class="css-hugi8h"><span prefix="1" th:class="${starMax} ==1?'css-z5uyqq-Bar':'css-r41bl-Bar'"
+                            th:styleappend="'height:' + (${starMax} == 1?'88':${starGraph.get(1)})+'px;'"></span></div>
+                          <div class="css-hugi8h"><span prefix="2" th:class="${starMax} ==2?'css-z5uyqq-Bar':'css-r41bl-Bar'"
+                            th:styleappend="'height:' + (${starMax} == 2?'88':${starGraph.get(2)})+'px;'"></span></div>
+                          <div class="css-hugi8h"><span prefix="3" th:class="${starMax} ==3?'css-z5uyqq-Bar':'css-r41bl-Bar'"
+                            th:styleappend="'height:' + (${starMax} == 3?'88':${starGraph.get(3)})+'px;'"></span></div>
+                          <div class="css-hugi8h"><span prefix="4" th:class="${starMax} ==4?'css-z5uyqq-Bar':'css-r41bl-Bar'"
+                            th:styleappend="'height:' + (${starMax} == 4?'88':${starGraph.get(4)})+'px;'"></span></div>
+                          <div class="css-hugi8h"><span prefix="5" th:class="${starMax} ==5?'css-z5uyqq-Bar':'css-r41bl-Bar'"
+                            th:styleappend="'height:' + (${starMax} == 5?'88':${starGraph.get(5)})+'px;'"></span></div>
                         </div>
                       </div>
                       <div class="css-1s4ow07">
                         <ul class="css-1ai3iwk-VisualUl">
                           <li class="css-poewkh">
-                            <div class="css-1caz78i">3.6</div>
+                            <div class="css-1caz78i" th:text="${starAvg}">3.6</div>
                             <div class="css-1fak39c">별점 평균</div>
                           </li>
                           <li class="css-poewkh">
-                            <div class="css-1caz78i">89</div>
+                            <div class="css-1caz78i" th:text="${starCnt}">89</div>
                             <div class="css-1fak39c">별점 개수</div>
                           </li>
                           <li class="css-poewkh">
-                            <div class="css-1caz78i">3.0</div>
+                            <div class="css-1caz78i" th:text="${starMax}">3.0</div>
                             <div class="css-1fak39c">많이 준 별점</div>
                           </li>
                         </ul>

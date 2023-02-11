@@ -1,5 +1,6 @@
 window.onload = function(){
-const container = document.querySelector(".css-usdi1z")
+const container = document.querySelector(".css-usdi1z");
+document.querySelector("#analysis-link").href='/user/'+window.location.href.split('/user/')[1]+'/analysis'
 
 // 메인 스크롤
     const scrollBox = container.querySelector(".css-9dnzub");
