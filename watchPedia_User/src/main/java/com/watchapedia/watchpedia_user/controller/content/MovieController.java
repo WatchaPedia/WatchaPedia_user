@@ -81,6 +81,9 @@ public class MovieController {
         map.addAttribute("dramas", movieService.searchDrama("드라마"));
         map.addAttribute("cris", movieService.searchCri(randomJerne,randomCountry));
         System.out.println(movieService.movieStar()+"sdgjsdgskjgnwejfknefkj");
+
+        Long totalCnt = starService.getTotalCnt();
+        map.addAttribute("totalCnt",totalCnt);
         return "/movie/movieMain";
     }
 
@@ -176,6 +179,9 @@ public class MovieController {
         map.addAttribute("bigStar", bigStar);
         map.addAttribute("userSession", dto);
         map.addAttribute("similarGenre", similarGenre);
+
+        Long totalCnt = starService.getTotalCnt();
+        map.addAttribute("totalCnt",totalCnt);
         return "/movie/movieDetail";
     }
 

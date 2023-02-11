@@ -11,6 +11,7 @@ import com.watchapedia.watchpedia_user.service.content.BookService;
 import com.watchapedia.watchpedia_user.service.content.MovieService;
 import com.watchapedia.watchpedia_user.service.content.TvService;
 import com.watchapedia.watchpedia_user.service.content.WebtoonService;
+import com.watchapedia.watchpedia_user.service.content.ajax.StarService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -32,6 +33,7 @@ public class PersonController {
     final TvService tvService;
     final WebtoonService webtoonService;
     final BookService bookService;
+    final StarService starService;
 
     @GetMapping("/personDetail/{perIdx}")
     public String personDetail(@PathVariable Long perIdx, ModelMap map, HttpSession session){
@@ -152,6 +154,9 @@ public class PersonController {
             map.addAttribute("bookShow", bookShow);
             map.addAttribute("book", bookResponseList);
         }
+
+        Long totalCnt = starService.getTotalCnt();
+        map.addAttribute("totalCnt",totalCnt);
             return "/personDetail";
     }
 

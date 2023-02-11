@@ -187,4 +187,10 @@ public class StarService {
             return null;
         }
     }
+
+    public Long getTotalCnt(){
+        Long totalCnt = Long.valueOf(starRepository.findAll().size());
+        return totalCnt;
+
+    }
 }
