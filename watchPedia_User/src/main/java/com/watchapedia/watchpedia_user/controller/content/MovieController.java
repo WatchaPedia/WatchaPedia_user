@@ -53,8 +53,8 @@ public class MovieController {
 
     @GetMapping(path="/main")
     public String movie(
-            ModelMap map,HttpSession session
-
+            ModelMap map,HttpSession session,
+            @PageableDefault(page=0, size=10, sort="id", direction=Sort.Direction.DESC) Pageable pageable
     ){
         UserSessionDto userSessionDto = (UserSessionDto) session.getAttribute("userSession");
         map.addAttribute("userSession", userSessionDto);
