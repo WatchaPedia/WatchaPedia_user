@@ -21,7 +21,7 @@
 
     <!--2023년작 영화  -->
     <attr sel=".movie-table-2023" th:remove="all-but-first" >
-        <attr sel=".movie-tr-2023" th:each="movie3, i : ${movies3}" >
+        <attr sel=".movie-tr-2023" th:each="movie3, i : ${movies3}"  >
             <attr sel=".movie-title" th:text="${movie3.movTitle}"/>
             <attr sel=".movie-img" th:src="${movie3.movThumbnail}" />
             <attr sel=".movie-making" th:text="${movie3.movMakingDate} + ' ・ ' +  ${movie3.movCountry}" />
