@@ -3094,7 +3094,7 @@
                 <ul class="css-10n5vg9-VisualUl ep5cwgq0">
                   <li class="css-17543n0">
                     <a
-                            href="/mypage/faq"
+                            href="/mypage/faqList"
                             target="_blank"
                             rel="noopener noreferrer"
                             class="css-1rwabqo-StylelessHref"
@@ -3178,7 +3178,7 @@
                     <div class="css-u2gm33" th:classappend="${idx.first ? 'on' : 'off'}">
                       <article class="css-1u4x0ui">
                         <a
-                        ><img th:if="${ntc.image} != null or ${ntc.image} != ''"
+                        ><img th:if="${ntc.image} != null"
                                 th:src="${ntc.image}"
                                 style="max-width: 600px"
                         /></a>
@@ -3215,6 +3215,7 @@
                                 letter-spacing: -0.4px;
                                 max-width: 600px;
                               "
+                                th:if="${ntc.btnText} != null"
                                 th:styleappend="'background-color:'+${ntc.btnColor}"
                                 th:href="${ntc.btnLink}"
                                 th:text="${ntc.btnText}"
@@ -3984,7 +3985,7 @@
               <section class="css-1iuqns0-StyledFooterTopSection e19unuxw1">
                     <span class="css-z9tuc7-StyledRatingSummary e19unuxw2"
                     >지금까지
-                      <em>★ 677,829,483 개의 평가가 </em>쌓였어요.</span
+                      <em th:text="|★ ${totalCnt} 개의 평가가 |">★ 677,829,483 개의 평가가 </em>쌓였어요.</span
                     >
               </section>
               <section class="css-1k1hgyy-FooterSection e19unuxw3">

@@ -13,6 +13,7 @@ import com.watchapedia.watchpedia_user.model.network.response.content.StarRespon
 import com.watchapedia.watchpedia_user.model.repository.UserRepository;
 import com.watchapedia.watchpedia_user.model.repository.comment.CommentRepository;
 import com.watchapedia.watchpedia_user.model.repository.comment.SpoilerRepository;
+import com.watchapedia.watchpedia_user.model.repository.content.ajax.StarRepository;
 import com.watchapedia.watchpedia_user.service.PersonService;
 import com.watchapedia.watchpedia_user.service.comment.CommentService;
 import com.watchapedia.watchpedia_user.service.content.BookService;
@@ -57,6 +58,9 @@ public class BookController {
         map.addAttribute("userSession", userSessionDto);
         List<BookDto> books = bookService.books();
         map.addAttribute("books", books);
+
+        Long totalCnt = starService.getTotalCnt();
+        map.addAttribute("totalCnt",totalCnt);
         return "/book/bookMain";
     }
 
@@ -68,7 +72,6 @@ public class BookController {
             HttpSession session
     ){
         UserSessionDto dto = (UserSessionDto) session.getAttribute("userSession");
-
         BookResponse book = bookService.bookView(bookIdx);
 
 //      평균 별점
@@ -155,6 +158,9 @@ public class BookController {
         map.addAttribute("bigStar", bigStar);
         map.addAttribute("userSession", dto);
         map.addAttribute("similarGenre", similarGenre);
+
+        Long totalCnt = starService.getTotalCnt();
+        map.addAttribute("totalCnt",totalCnt);
         return "/book/bookDetail";
     }
 
