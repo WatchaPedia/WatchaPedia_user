@@ -1,11 +1,16 @@
 package com.watchapedia.watchpedia_user.controller;
 
+import com.watchapedia.watchpedia_user.model.dto.PersonDto;
+import com.watchapedia.watchpedia_user.model.dto.PersonLikeDto;
 import com.watchapedia.watchpedia_user.model.dto.UserSessionDto;
+import com.watchapedia.watchpedia_user.model.entity.Person;
+import com.watchapedia.watchpedia_user.model.entity.PersonLike;
 import com.watchapedia.watchpedia_user.model.network.response.PersonResponse;
 import com.watchapedia.watchpedia_user.model.network.response.content.BookResponse;
 import com.watchapedia.watchpedia_user.model.network.response.content.MovieResponse;
 import com.watchapedia.watchpedia_user.model.network.response.content.TvResponse;
 import com.watchapedia.watchpedia_user.model.network.response.content.WebtoonResponse;
+import com.watchapedia.watchpedia_user.model.repository.PersonLikeRepository;
 import com.watchapedia.watchpedia_user.service.PersonService;
 import com.watchapedia.watchpedia_user.service.content.BookService;
 import com.watchapedia.watchpedia_user.service.content.MovieService;
@@ -154,13 +159,36 @@ public class PersonController {
             map.addAttribute("bookShow", bookShow);
             map.addAttribute("book", bookResponseList);
         }
+        //인물좋아요 갯수
+        Long perlikeCnt = personService.likePersonCnt(perIdx);
+        map.addAttribute("perlikeCnt",perlikeCnt);
+//---------------------------------------------------------------------------------------------
 
         Long totalCnt = starService.getTotalCnt();
         map.addAttribute("totalCnt",totalCnt);
             return "/personDetail";
     }
 
-
+    //---------------------------------------------------------------------------------------------
+   //인물좋아요
+    @PostMapping("personLike/{perIdx}")
+    @ResponseBody
+    public void likePerson(@RequestParam("perIdx") Long perIdx,
+                           HttpSession session){
+        UserSessionDto userSessionDto = (UserSessionDto)session.getAttribute("userSession");
+        Long userIdx = userSessionDto.userIdx();
+        personService.likePerson(userIdx,perIdx);
+    }
+    //---------------------------------------------------------------------------------------------
+    //인물좋아요취소
+    @PostMapping("personDelLike/{perIdx}")
+    @ResponseBody
+    public void delLikePerson(@RequestParam("perIdx") Long perIdx,
+                           HttpSession session){
+        UserSessionDto userSessionDto = (UserSessionDto)session.getAttribute("userSession");
+        Long userIdx = userSessionDto.userIdx();
+        personService.delLikePerson(userIdx,perIdx);
+    }
 
 //------------------------------------------------------Movie-----------------------------------------------------------
     @PostMapping("movieMore")

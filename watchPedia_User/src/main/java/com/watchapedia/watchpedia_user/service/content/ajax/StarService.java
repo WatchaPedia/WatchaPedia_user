@@ -39,6 +39,12 @@ import java.util.stream.Collectors;
 public class StarService {
     final MovieRepository movieRepository;
     final StarRepository starRepository;
+
+    //@Transactional은 클래스나 메서드에 붙여줄 경우, 해당 범위 내 메서드가 트랜잭션이 되도록 보장해준다.
+    //일련의 작업들을 묶어서 하나의 단위로 처리하고 싶다면 @Transactional을 활용하자
+    //트랜잭션의 4가지 특성
+    //원자성,독립성,영속성,일관성
+    //원자성->전부 다 성공하거나 아님 아예 안하거나
     @Transactional(readOnly = true) //데이터를 불러오기만 할 때(수정X)
     public Map<String, Object> movieList(User user, Pageable pageable){
         Page<Movie> moviePage = movieRepository.findAll(pageable);
