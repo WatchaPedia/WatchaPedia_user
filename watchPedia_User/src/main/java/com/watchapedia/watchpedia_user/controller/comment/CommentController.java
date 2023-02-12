@@ -17,6 +17,7 @@ import com.watchapedia.watchpedia_user.service.content.BookService;
 import com.watchapedia.watchpedia_user.service.content.MovieService;
 import com.watchapedia.watchpedia_user.service.content.TvService;
 import com.watchapedia.watchpedia_user.service.content.WebtoonService;
+import com.watchapedia.watchpedia_user.service.content.ajax.StarService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -69,6 +70,7 @@ public class CommentController {
     final CommentService commentService;
     private final StarRepository starRepository;
     private final UserRepository userRepository;
+    private final StarService starService;
 
     @PostMapping("/save")
     @ResponseBody
@@ -139,6 +141,8 @@ public class CommentController {
         map.addAttribute("userSession", dto);
         map.addAttribute("userIdx", dto!=null?dto.userIdx():null);
 
+        Long totalCnt = starService.getTotalCnt();
+        map.addAttribute("totalCnt",totalCnt);
         return "/recomment";
     }
 

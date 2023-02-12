@@ -1,11 +1,15 @@
 package com.watchapedia.watchpedia_user.controller.mypage;
 
+import com.watchapedia.watchpedia_user.model.dto.QnaDto;
 import com.watchapedia.watchpedia_user.model.dto.UserSessionDto;
+import com.watchapedia.watchpedia_user.model.entity.Qna;
+import com.watchapedia.watchpedia_user.model.entity.User;
 import com.watchapedia.watchpedia_user.model.entity.comment.Comment;
 import com.watchapedia.watchpedia_user.model.entity.content.ajax.Star;
 import com.watchapedia.watchpedia_user.model.network.request.comment.CommentRequest;
 import com.watchapedia.watchpedia_user.model.network.request.comment.LikeRequest;
 import com.watchapedia.watchpedia_user.model.network.response.NoticeResponse;
+import com.watchapedia.watchpedia_user.model.network.response.QnaResponseDto;
 import com.watchapedia.watchpedia_user.model.network.response.UserResponse;
 import com.watchapedia.watchpedia_user.model.network.response.comment.CommentResponse;
 import com.watchapedia.watchpedia_user.model.network.response.content.BookResponse;
@@ -21,6 +25,8 @@ import com.watchapedia.watchpedia_user.service.content.BookService;
 import com.watchapedia.watchpedia_user.service.content.MovieService;
 import com.watchapedia.watchpedia_user.service.content.TvService;
 import com.watchapedia.watchpedia_user.service.content.WebtoonService;
+import com.watchapedia.watchpedia_user.service.content.ajax.StarService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -44,6 +50,7 @@ public class MyPageController {
     final CommentService commentService;
     private final StarRepository starRepository;
     final AnalysisService analysisService;
+    final StarService starService;
 
     @GetMapping(path="/user/{userIdx}/analysis")  // localhost:9090/mypage/analysis
     public ModelAndView analysis(
@@ -77,10 +84,13 @@ public class MyPageController {
         UserSessionDto userSessionDto = (UserSessionDto)session.getAttribute("userSession");
         UserResponse user = userService.myPageUser(userIdx);
         List<NoticeResponse> notice = userService.noticeAll();
+
+        Long totalCnt = starService.getTotalCnt();
         return new ModelAndView("/mypage/myPage")
                 .addObject("userSession",userSessionDto)
                 .addObject("notice",notice)
-                .addObject("user", user);
+                .addObject("user", user)
+                .addObject("totalCnt",totalCnt);
     }
 
     @GetMapping("/user/{userIdx}/{contentType}")
@@ -256,5 +266,41 @@ public class MyPageController {
 
         mv.put("comment", comment.recomment());
         return mv;
+    }
+
+    @GetMapping("/mypage/faqList")
+    public String faqList(HttpServletRequest request, ModelMap map){
+        HttpSession session = request.getSession(false);
+        if(session != null){
+            UserSessionDto dto = (UserSessionDto) session.getAttribute("userSession");
+            User user = userRepository.getReferenceById(dto.userIdx());
+            List<Qna> qnas = user.getQnas();
+            List<QnaResponseDto> qnaResponseDtoList = qnas.stream().map(QnaDto::from).toList().stream().map(QnaResponseDto::from).toList();
+            map.addAttribute("qnaResponseDtoList", qnaResponseDtoList);
+            map.addAttribute("userName", dto.userName());
+
+            return "qnaList";
+
+        }else{
+            return "user/login";
+        }
+
+    }
+    @GetMapping("/mypage/faqRegist")
+    public String faqRegist(HttpServletRequest request, ModelMap map){
+        HttpSession session = request.getSession(false);
+        if(session != null){
+            UserSessionDto dto = (UserSessionDto) session.getAttribute("userSession");
+            User user = userRepository.getReferenceById(dto.userIdx());
+            List<Qna> qnas = user.getQnas();
+            List<QnaResponseDto> qnaResponseDtoList = qnas.stream().map(QnaDto::from).toList().stream().map(QnaResponseDto::from).toList();
+            map.addAttribute("qnaResponseDtoList", qnaResponseDtoList);
+            map.addAttribute("userName", dto.userName());
+
+            return null;
+
+        }else{
+            return "user/login";
+        }
     }
 }

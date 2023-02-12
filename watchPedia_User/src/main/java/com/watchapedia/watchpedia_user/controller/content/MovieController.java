@@ -68,6 +68,7 @@ public class MovieController {
         String randomJerne = gerneList[rand.nextInt(gerneList.length)];
         String randomCountry = countryList[rand.nextInt(countryList.length)];
 
+        map.addAttribute("movieStar", movieService.movieStar());
         map.addAttribute("randomCountry", randomCountry);
         map.addAttribute("randomJerne",randomJerne);
         map.addAttribute("movieDtos", movieService.movieDtos());
@@ -78,8 +79,10 @@ public class MovieController {
         map.addAttribute("americanMovies", movieService.searchCountry("미국"));
         map.addAttribute("dramas", movieService.searchDrama("드라마"));
         map.addAttribute("cris", movieService.searchCri(randomJerne,randomCountry));
-        map.addAttribute("movieStar", movieService.movieStar());
         System.out.println(movieService.movieStar()+"sdgjsdgskjgnwejfknefkj");
+
+        Long totalCnt = starService.getTotalCnt();
+        map.addAttribute("totalCnt",totalCnt);
         return "/movie/movieMain";
     }
 
@@ -183,6 +186,9 @@ public class MovieController {
         map.addAttribute("bigStar", bigStar);
         map.addAttribute("userSession", dto);
         map.addAttribute("similarGenre", similarGenre);
+
+        Long totalCnt = starService.getTotalCnt();
+        map.addAttribute("totalCnt",totalCnt);
         return "/movie/movieDetail";
     }
 

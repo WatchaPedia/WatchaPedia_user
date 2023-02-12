@@ -27,6 +27,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class MovieService {
+
     final StarRepository starRepository;
     final MovieRepository movieRepository;
     @Transactional(readOnly = true)
@@ -80,15 +81,10 @@ public class MovieService {
         return result;
     }
 
-//    @Transactional(readOnly = true) //index 페이지 출력
-//    public List<Movie> searchMovies() {
-//        return movieRepository.findAll();
-//    }
 
     // 무비 메인페이지 별점 등록 및 출력
     @Transactional(readOnly = true)
     public List<MovieDto> movies() {
-        //빈 웹툰리스폰스 리스트
         List<MovieDto> result = new ArrayList<>();
 
         List<Movie> movieList = movieRepository.findAll();
@@ -107,15 +103,18 @@ public class MovieService {
         return result;
     }
 
-    // 별점 높은순 출력
+    /* 별점 높은순 출력, 어느정도 인원이 평가해야(타임리프 적용) 0명이 평가한 경우 한명이 바로 5점을 주면
+        1등이 나오기 때문*/
     @Transactional(readOnly = true)
     public List<MovieDto> movieStar() {
+        //평균 구하기
         List<MovieDto> result = new ArrayList<>();
+        // 평균점수가 최소 4.2 이상인 : 설정을 안할 경우 데이터가 없을경우 1점도 들어갈 수 있음
         List<MovieDto> result2 = new ArrayList<>();
-
+        // 평가한 인원이 최소 5명인 : 평가자가 0명인 경우 처음 평가한 이가 5점을 주면 바로 최고 점수
+        List<MovieDto> result3 = new ArrayList<>();
         List<Movie> movieStar = movieRepository.findAll();
-
-        for(Movie m : movieStar){
+        for(Movie m : movieStar){//평균
             double sum = 0;
             int starCount = 0;
             for(Star star : m.getStar()){
@@ -124,15 +123,20 @@ public class MovieService {
             }
             Double avg = Math.round((sum / starCount) * 10.0) / 10.0;
             result.add(MovieDto.from(m, avg));
-        }
+        }// 최소 점수
         for(MovieDto m : result){
-            if(m.avg() >= 4.5){
+            if(m.avg() >= 4.2){
                 result2.add(m);
             }
-        }
-        result2 = result2.stream().sorted(Comparator.comparing(MovieDto::avg)
+        }// 최소 인원
+        for(MovieDto m : result2){
+            if(m.starList().size()>=3){
+                result3.add(m);
+            }
+        }// 평균 순으로 1위부터 뽑기
+        result3 = result3.stream().sorted(Comparator.comparing(MovieDto::avg)
                 .reversed()).collect(Collectors.toList());
-        return result2;
+        return result3;
     }
 
     // 관리자 등록순 리스트 출력
