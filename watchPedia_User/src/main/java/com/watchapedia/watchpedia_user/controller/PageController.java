@@ -23,6 +23,7 @@ import com.watchapedia.watchpedia_user.model.repository.content.BookRepository;
 import com.watchapedia.watchpedia_user.model.repository.content.MovieRepository;
 import com.watchapedia.watchpedia_user.model.repository.content.TvRepository;
 import com.watchapedia.watchpedia_user.model.repository.content.WebtoonRepository;
+import com.watchapedia.watchpedia_user.service.SearchService;
 import com.watchapedia.watchpedia_user.service.comment.CommentService;
 import com.watchapedia.watchpedia_user.service.content.MovieService;
 import com.watchapedia.watchpedia_user.service.content.ajax.StarService;
@@ -48,6 +49,7 @@ public class PageController {
     final MovieService movieService;
     private final CommentRepository commentRepository;
     private final UserRepository userRepository;
+    private final SearchService searchService;
 
     @GetMapping(path="/")
     public String movie(ModelMap map, HttpSession session, HttpServletRequest request){
@@ -55,6 +57,7 @@ public class PageController {
         map.addAttribute("userSession", userSessionDto);
         List<MovieDto> movies = movieService.movies();
         map.addAttribute("movies", movies);
+        searchService.searchTop10Movie(map);    //modelMap.addAttribute("searchTop10", searchTop10);
 
         //String[] gerneList = {"액션","모험","예술","코미디","블랙코미디","로멘틱","다큐멘터리","드라마","코미디","시대극","멜로드라마","교육영화","판타지","누아르","공포","뮤지컬","미스터리","성인","멜로","로멘스","재난","좀비","전쟁","애니메이션","독립","스포츠","음악","뮤지컬","틴에이저","시트콤","가족","역사","독립","스포츠","음악","뮤지컬","로맨스"};
         String[] gerneList = {"액션","액션","액션","코미디","코미디","코미디", "드라마","드라마"};

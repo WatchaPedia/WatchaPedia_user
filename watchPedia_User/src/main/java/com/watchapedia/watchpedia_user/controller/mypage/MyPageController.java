@@ -19,6 +19,7 @@ import com.watchapedia.watchpedia_user.model.network.response.content.WebtoonRes
 import com.watchapedia.watchpedia_user.model.repository.UserRepository;
 import com.watchapedia.watchpedia_user.model.repository.content.ajax.StarRepository;
 import com.watchapedia.watchpedia_user.service.AnalysisService;
+import com.watchapedia.watchpedia_user.service.QnaService;
 import com.watchapedia.watchpedia_user.service.UserService;
 import com.watchapedia.watchpedia_user.service.comment.CommentService;
 import com.watchapedia.watchpedia_user.service.content.BookService;
@@ -52,6 +53,7 @@ public class MyPageController {
     private final StarRepository starRepository;
     final AnalysisService analysisService;
     final StarService starService;
+    final QnaService qnaService;
 
     @GetMapping(path="/user/{userIdx}/analysis")  // localhost:9090/mypage/analysis
     public ModelAndView analysis(
@@ -304,9 +306,9 @@ public class MyPageController {
 
     }
     @GetMapping("/mypage/faqRegist")
-    public String faqRegist(HttpServletRequest request, ModelMap map){
+    public String faqRegist(HttpServletRequest request, ModelMap map) {
         HttpSession session = request.getSession(false);
-        if(session != null){
+        if (session != null) {
             UserSessionDto dto = (UserSessionDto) session.getAttribute("userSession");
             User user = userRepository.getReferenceById(dto.userIdx());
             List<Qna> qnas = user.getQnas();
@@ -316,8 +318,42 @@ public class MyPageController {
 
             return null;
 
-        }else{
+        } else {
             return "user/login";
         }
     }
-}
+        @GetMapping("/mypage/qnaRegist")
+        public String qnaRegist(HttpServletRequest request, ModelMap map) {
+            HttpSession session = request.getSession(false);
+            if (session != null) {
+
+
+                return "qnaRegist";
+
+            } else {
+                return "user/login";
+            }
+        }
+
+
+
+        @PostMapping(path ="/mypage/qnaRegister")
+        public String qnaRegister (HttpServletRequest request, String qnaText, String qnaName){
+
+
+            HttpSession session = request.getSession(false);
+            if (session != null) {
+                UserSessionDto userDto = (UserSessionDto) session.getAttribute("userSession");
+                qnaService.qnaSave(qnaText,qnaName,userDto);
+
+            } else {
+                return "user/login";
+            }
+
+            return "redirect:/mypage/faqList";
+        }
+
+
+
+    }
+
