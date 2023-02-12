@@ -3894,7 +3894,24 @@
 
 
                                     <hr class="css-god8tc">
-                                    <button
+                                    <button th:if="${chklike}"
+                                            class="css-1ski1qz-StylelessButton-StyledActionButton e150ls9t0">
+                                        <div class="css-1umclh2-StyledIconContainer e150ls9t1">
+                                            <svg
+                                                    viewBox="0 0 20 20" class="css-vkoibk">
+                                                <path class="fillTarget" fill-rule="evenodd" clip-rule="evenodd"
+                                                      d="M5.6252 7.90479H3.1252C2.6652 7.90479 2.29187 8.27812 2.29187 8.73812V17.0715C2.29187 17.5315 2.6652 17.9048 3.1252 17.9048H5.6252C6.08604 17.9048 6.45854 17.5315 6.45854 17.0715V8.73812C6.45854 8.27812 6.08604 7.90479 5.6252 7.90479Z"
+                                                      fill="#FF2F6E"></path>
+                                                <path class="fillTarget" fill-rule="evenodd" clip-rule="evenodd"
+                                                      d="M17.2146 7.13879C16.8388 6.70796 16.2979 6.46129 15.7321 6.46129H13.8504L13.9871 5.93879C14.1013 5.49879 14.1546 5.00546 14.1546 4.38629C14.1546 2.78712 13.0088 2.07129 11.8729 2.07129C11.5029 2.07129 11.2346 2.17379 11.0513 2.38462C10.8846 2.57379 10.8163 2.82546 10.8488 3.16379L10.8738 4.18879L8.45459 6.63796C7.96043 7.13879 7.70959 7.66379 7.70959 8.19879V16.238C7.70959 16.4671 7.89626 16.6546 8.12626 16.6546H14.5321C15.5088 16.6546 16.3663 15.908 16.4888 14.9288L17.6929 8.71962C17.7646 8.14712 17.5888 7.57129 17.2146 7.13879Z"
+                                                      fill="#FF2F6E"></path>
+                                            </svg>
+                                        </div>
+                                            <span type="mobile"
+                                                  class="css-1uf9j27-StyledButtonText e150ls9t2" th:text="|좋아요 ${perlikeCnt}|" style="color:#FF2F6E" th:onclick="|delperlike(${person.idx})|">좋아요 262</span>
+                                            <span type="desktop" class="css-mr5mym-StyledButtonText e150ls9t2" style="color:#FF2F6E"th:text="|좋아요 ${perlikeCnt}명이 이 인물을 좋아합니다|" th:onclick="|delperlike(${person.idx})|">좋아요 222명이 이 인물을 좋아합니다</span>
+                                    </button>
+                                    <button th:unless="${chklike}"
                                             class="css-1ski1qz-StylelessButton-StyledActionButton e150ls9t0">
                                         <div class="css-1umclh2-StyledIconContainer e150ls9t1">
                                             <svg
@@ -3908,7 +3925,8 @@
                                             </svg>
                                         </div>
                                         <span type="mobile"
-                                              class="css-1uf9j27-StyledButtonText e150ls9t2">좋아요 262</span><span type="desktop" class="css-mr5mym-StyledButtonText e150ls9t2">좋아요 262명이 이인물을 좋아합니다</span>
+                                              class="css-1uf9j27-StyledButtonText e150ls9t2" th:text="|좋아요 ${perlikeCnt}|" th:onclick="|perlike(${person.idx})|">좋아요 262</span>
+                                        <span type="desktop" class="css-mr5mym-StyledButtonText e150ls9t2" th:text="|좋아요 ${perlikeCnt}명이 이 인물을 좋아합니다|" th:onclick="|perlike(${person.idx})|">좋아요 222명이 이 인물을 좋아합니다</span>
                                     </button>
                                 </div>
                             </section>
@@ -3916,7 +3934,7 @@
                             <div class="css-1bm6399">
                                 <div class="css-358g0x">
                                     <div class="css-1e9niz8">
-
+행
                                         <!--                     영화                   -->
                                         <div class="css-6fdzfq" id="mov">
                                             <h2 id="Movie" class="css-1w4x7z">영화</h2>
@@ -4327,7 +4345,7 @@
                     </section>
                     <footer class="css-wfb65d-Self e19unuxw0">
                         <section class="css-1iuqns0-StyledFooterTopSection e19unuxw1"><span
-                                class="css-z9tuc7-StyledRatingSummary e19unuxw2">지금까지 <em>★ 678,146,740 개의 평가가
+                                class="css-z9tuc7-StyledRatingSummary e19unuxw2">지금까지 <em th:text="|★ ${totalCnt} 개의 평가가 |">★ 678,146,740 개의 평가가
                                     </em>쌓였어요.</span></section>
                         <section class="css-1k1hgyy-FooterSection e19unuxw3">
                             <div class="css-1djzg97">

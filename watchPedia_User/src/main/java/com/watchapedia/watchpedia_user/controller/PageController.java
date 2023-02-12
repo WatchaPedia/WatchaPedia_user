@@ -74,6 +74,9 @@ public class PageController {
         map.addAttribute("dramas", movieService.searchDrama("드라마"));
         map.addAttribute("cris", movieService.searchCri(randomJerne,randomCountry));
         map.addAttribute("movieStar", movieService.movieStar());
+
+        Long totalCnt = starService.getTotalCnt();
+        map.addAttribute("totalCnt",totalCnt);
         return "/movie/movieMain";
     }
 
@@ -173,7 +176,9 @@ public class PageController {
 
     @GetMapping(path="/personDetail")  // localhost:9090/personDetail
     public ModelAndView personDetail(){
-        return new ModelAndView("/personDetail");
+        Long totalCnt = starService.getTotalCnt();
+
+        return new ModelAndView("/personDetail").addObject("totalCnt",totalCnt);
     }
 
     @GetMapping("/search/contents/{searchKey}")

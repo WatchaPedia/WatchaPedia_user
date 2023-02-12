@@ -70,7 +70,8 @@ public class TvController {
         map.addAttribute("tvs7", tvService.searchTitle("시즌"));
         map.addAttribute("tvs8", tvService.searchCountry("일본"));
 
-
+        Long totalCnt = starService.getTotalCnt();
+        map.addAttribute("totalCnt",totalCnt);
 
         return "/tv/tvMain";
     }
@@ -176,6 +177,9 @@ public class TvController {
         map.addAttribute("bigStar", bigStar);
         map.addAttribute("userSession", dto);
         map.addAttribute("similarGenre", similarGenre);
+
+        Long totalCnt = starService.getTotalCnt();
+        map.addAttribute("totalCnt",totalCnt);
         return "/tv/tvDetail";
     }
     @GetMapping("/{tvIdx}/info")

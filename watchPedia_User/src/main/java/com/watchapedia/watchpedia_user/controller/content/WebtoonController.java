@@ -57,6 +57,9 @@ public class WebtoonController {
         map.addAttribute("userSession", userSessionDto);
         List<WebtoonDto> webtoons = webtoonService.webtoons();
         map.addAttribute("webtoons", webtoons);
+
+        Long totalCnt = starService.getTotalCnt();
+        map.addAttribute("totalCnt",totalCnt);
         return "/webtoon/webtoonMain";
     }
 
@@ -155,6 +158,9 @@ public class WebtoonController {
         map.addAttribute("bigStar", bigStar);
         map.addAttribute("userSession", dto);
         map.addAttribute("similarGenre", similarGenre);
+
+        Long totalCnt = starService.getTotalCnt();
+        map.addAttribute("totalCnt",totalCnt);
         return "/webtoon/webtoonDetail";
     }
 

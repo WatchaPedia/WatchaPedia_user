@@ -358,3 +358,45 @@ function bookmore(){
         }
     })
 }
+
+
+//---------------------------------------------------------인물좋아요----------------------------------------------------------
+function perlike(perIdx){
+    console.log("js실행")
+    $.ajax({
+        type: "post",
+        url: "/personLike/" + perIdx,
+        data:{
+            "perIdx":perIdx
+        },
+        success: function (data) {
+            if(data==1){
+                location.reload();
+            }else{
+                alert('좋아요를 하려면 로그인이 필요합니다!');
+
+            }
+        }
+    }
+    )
+}
+
+function delperlike(perIdx){
+    console.log("js실행")
+    $.ajax({
+            type: "post",
+            url: "/personDelLike/" + perIdx,
+            data:{
+                "perIdx":perIdx
+            },
+            success: function (data) {
+                if(data==1){
+                    location.reload();
+                }else{
+                    alert("error!")
+
+                }
+            }
+        }
+    )
+}
