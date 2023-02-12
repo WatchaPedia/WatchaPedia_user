@@ -362,27 +362,37 @@ function bookmore(){
 
 //---------------------------------------------------------인물좋아요----------------------------------------------------------
 function perlike(perIdx){
-    console.log("js실행")
-    $.ajax({
-        type: "post",
-        url: "/personLike/" + perIdx,
-        data:{
-            "perIdx":perIdx
-        },
-        success: function (data) {
-            if(data==1){
-                location.reload();
-            }else{
-                alert('좋아요를 하려면 로그인이 필요합니다!');
-
+    if(document.querySelector("#login-idx")){
+        console.log("js실행")
+        $.ajax({
+            type: "post",
+            url: "/personLike/" + perIdx,
+            data:{
+                "perIdx":perIdx
+            },
+            success: function (data) {
+                if(data==1){
+                    let likeBtn = document.querySelector("section.css-1jbeghx").querySelector(".off");
+                    let noLikeBtn = document.querySelector("section.css-1jbeghx").querySelector(".on");
+                    likeBtn.classList.add('on')
+                    likeBtn.classList.remove('off')
+                    noLikeBtn.classList.add('off')
+                    noLikeBtn.classList.remove('on')
+                    let mobileSum = likeBtn.querySelectorAll("span.e150ls9t2").item(0).innerHTML.split("좋아요 ")[1]
+                    let pcSum = likeBtn.querySelectorAll("span.e150ls9t2").item(1).innerHTML.split("좋아요 ")[1].split("명이 이 인물을 좋아합니다")[0]
+                    likeBtn.querySelectorAll("span.e150ls9t2").item(0).innerHTML = "좋아요 "+(parseInt(mobileSum) + 1)
+                    likeBtn.querySelectorAll("span.e150ls9t2").item(1).innerHTML = "좋아요 "+(parseInt(pcSum) + 1)+'명이 이 인물을 좋아합니다'
+                    noLikeBtn.querySelectorAll("span.e150ls9t2").item(0).innerHTML = "좋아요 "+(parseInt(mobileSum)  + 1)
+                    noLikeBtn.querySelectorAll("span.e150ls9t2").item(1).innerHTML = "좋아요 "+(parseInt(pcSum) + 1)+'명이 이 인물을 좋아합니다'
+                }
             }
-        }
+        })
+    }else{
+        loginModalOn()
     }
-    )
 }
 
 function delperlike(perIdx){
-    console.log("js실행")
     $.ajax({
             type: "post",
             url: "/personDelLike/" + perIdx,
@@ -391,12 +401,88 @@ function delperlike(perIdx){
             },
             success: function (data) {
                 if(data==1){
-                    location.reload();
+                    let noLikeBtn = document.querySelector("section.css-1jbeghx").querySelector(".off");
+                    let likeBtn = document.querySelector("section.css-1jbeghx").querySelector(".on");
+                    noLikeBtn.classList.add('on')
+                    noLikeBtn.classList.remove('off')
+                    likeBtn.classList.add('off')
+                    likeBtn.classList.remove('on')
+                    let mobileSum = noLikeBtn.querySelectorAll("span.e150ls9t2").item(0).innerHTML.split("좋아요 ")[1]
+                    let pcSum = noLikeBtn.querySelectorAll("span.e150ls9t2").item(1).innerHTML.split("좋아요 ")[1].split("명이 이 인물을 좋아합니다")[0]
+                    noLikeBtn.querySelectorAll("span.e150ls9t2").item(0).innerHTML = "좋아요 "+(parseInt(mobileSum)  - 1)
+                    noLikeBtn.querySelectorAll("span.e150ls9t2").item(1).innerHTML = "좋아요 "+(parseInt(pcSum) - 1)+'명이 이 인물을 좋아합니다'
+                    likeBtn.querySelectorAll("span.e150ls9t2").item(0).innerHTML = "좋아요 "+(parseInt(mobileSum)  - 1)
+                    likeBtn.querySelectorAll("span.e150ls9t2").item(1).innerHTML = "좋아요 "+(parseInt(pcSum) - 1)+'명이 이 인물을 좋아합니다'
                 }else{
                     alert("error!")
-
                 }
             }
         }
     )
+}
+const main = document.querySelector('.css-14gy7wr');
+// 로그인 안했을 경우 모달창
+function loginModalOn(){
+    main.style.display = 'block';
+    main.classList.add('on');
+    main.classList.remove('off');
+}
+// 로그인모달 바깥 클릭 시
+document.addEventListener("click",(e)=>{
+    if(main.style.display == 'block'){
+        if(!main.querySelector("div.css-ikkedy").contains(e.target)){
+            if(alertModal.classList.contains("off")){
+                main.style.display = 'none';
+                main.classList.add('off');
+                main.classList.remove('on');
+            }
+        }
+        if(!alertModal.querySelector("div.css-f35o9y").contains(e.target)){
+            alertClose()
+        }
+    }
+},true)
+// 로그인모달 value 초기화
+main.querySelectorAll("span[data-test='clearButton']").item(0).addEventListener('click',()=>{
+    main.querySelector("input[name='userEmail']").value = null
+})
+main.querySelectorAll("span[data-test='clearButton']").item(1).addEventListener('click',()=>{
+    main.querySelector("input[name='userPw']").value = null
+})
+// 로그인모달 확인 클릭 시
+const alertModal = document.querySelector("#modal-container-h-XEqOEytZK6ag0LO6V2w");
+alertModal.querySelector(".css-sfhtz9-StylelessButton").addEventListener("click",alertClose);
+function alertClose(){
+    alertModal.style.display = 'none';
+    alertModal.classList.add('off');
+    alertModal.classList.remove('on');
+}
+document.addEventListener('keydown',(e)=>{
+    if(e.key == 'Enter'){
+        loginSend()
+    }
+})
+main.querySelector("button.css-qr0uqd-StylelessButton").addEventListener('click',loginSend)
+function loginSend() {
+    $.ajax({
+        url: "/user/signup/ajax",
+        headers: {'Content-Type': 'application/json;charset=UTF-8'},
+        data: JSON.stringify({
+            userEmail: document.querySelector("input[name='userEmail']").value,
+            userPw: document.querySelector("input[name='userPw']").value
+        }),
+        type: 'POST',
+        dataType: 'json',
+        success: function (result) {
+            if (result) {
+                location.reload();
+            } else {
+                alertModal.style.display = 'block';
+                alertModal.classList.add('on');
+                alertModal.classList.remove('off');
+            }
+        }, error: function () {
+
+        }
+    })
 }
