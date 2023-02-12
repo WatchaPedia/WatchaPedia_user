@@ -3178,7 +3178,7 @@
                     <div class="css-u2gm33" th:classappend="${idx.first ? 'on' : 'off'}">
                       <article class="css-1u4x0ui">
                         <a
-                        ><img th:if="${ntc.image} != null or ${ntc.image} != ''"
+                        ><img th:if="${ntc.image} != null"
                                 th:src="${ntc.image}"
                                 style="max-width: 600px"
                         /></a>
@@ -3215,6 +3215,7 @@
                                 letter-spacing: -0.4px;
                                 max-width: 600px;
                               "
+                                th:if="${ntc.btnText} != null"
                                 th:styleappend="'background-color:'+${ntc.btnColor}"
                                 th:href="${ntc.btnLink}"
                                 th:text="${ntc.btnText}"
