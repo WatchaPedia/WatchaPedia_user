@@ -29,6 +29,7 @@ import com.watchapedia.watchpedia_user.service.content.ajax.StarService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.aop.AopInvocationException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -56,25 +57,41 @@ public class MyPageController {
     public ModelAndView analysis(
             @PathVariable Long userIdx
     ){
-        Map<String, Integer> starSum = analysisService.starSum(userIdx);
-        Double starAvg = starRepository.findByStarAvg(userIdx);
-        //        별점 그래프
-        double graphPx = 88.0 / starRepository.findByStarCount(userIdx);
-        HashMap<Integer, Double> starGraph = new HashMap<Integer,Double>(){{
-            put(1,starRepository.findByStarPointCount(userIdx,1L)!=0.0?starRepository.findByStarPointCount(userIdx,1L)*graphPx:1.0);
-            put(2,starRepository.findByStarPointCount(userIdx,2L)!=0.0?starRepository.findByStarPointCount(userIdx,2L)*graphPx:1.0);
-            put(3,starRepository.findByStarPointCount(userIdx,3L)!=0.0?starRepository.findByStarPointCount(userIdx,3L)*graphPx:1.0);
-            put(4,starRepository.findByStarPointCount(userIdx,4L)!=0.0?starRepository.findByStarPointCount(userIdx,4L)*graphPx:1.0);
-            put(5,starRepository.findByStarPointCount(userIdx,5L)!=0.0?starRepository.findByStarPointCount(userIdx,5L)*graphPx:1.0);
-        }};
+        try{
+            Map<String, Integer> starSum = analysisService.starSum(userIdx);
+            Double starAvg = starRepository.findByStarAvg(userIdx);
+            //        별점 그래프
+            double graphPx = 88.0 / starRepository.findByStarCount(userIdx);
+            HashMap<Integer, Double> starGraph = new HashMap<Integer,Double>(){{
+                put(1,starRepository.findByStarPointCount(userIdx,1L)!=0.0?starRepository.findByStarPointCount(userIdx,1L)*graphPx:1.0);
+                put(2,starRepository.findByStarPointCount(userIdx,2L)!=0.0?starRepository.findByStarPointCount(userIdx,2L)*graphPx:1.0);
+                put(3,starRepository.findByStarPointCount(userIdx,3L)!=0.0?starRepository.findByStarPointCount(userIdx,3L)*graphPx:1.0);
+                put(4,starRepository.findByStarPointCount(userIdx,4L)!=0.0?starRepository.findByStarPointCount(userIdx,4L)*graphPx:1.0);
+                put(5,starRepository.findByStarPointCount(userIdx,5L)!=0.0?starRepository.findByStarPointCount(userIdx,5L)*graphPx:1.0);
+            }};
+            List<Map.Entry<String, Integer>> countryMap = analysisService.countryCnt(userIdx);
+            List<Map.Entry<String, Integer>> genreMap = analysisService.genreCnt(userIdx);
+            List<Map.Entry<String, String>> actorMap = analysisService.peopleCnt(userIdx);
+            int timeSum = analysisService.watchTime(userIdx) / 60;
 
-        return new ModelAndView("/mypage/analysis")
-                .addObject("userName",userRepository.getReferenceById(userIdx).getUserName())
-                .addObject("starSum",starSum)
-                .addObject("starCnt",starRepository.findByStarCount(userIdx))
-                .addObject("starMax",starRepository.findByStarMax(userIdx))
-                .addObject("starGraph",starGraph)
-                .addObject("starAvg",Math.round(starAvg * 10) / 10.0);
+            return new ModelAndView("/mypage/analysis")
+                    .addObject("starTrue", true)
+                    .addObject("userName",userRepository.getReferenceById(userIdx).getUserName())
+                    .addObject("starSum",starSum)
+                    .addObject("starCnt",starRepository.findByStarCount(userIdx))
+                    .addObject("starMax",starRepository.findByStarMax(userIdx))
+                    .addObject("starGraph",starGraph)
+                    .addObject("countryMap",countryMap)
+                    .addObject("genreMap",genreMap)
+                    .addObject("actorMap",actorMap)
+                    .addObject("timeSum",timeSum)
+                    .addObject("starAvg",Math.round(starAvg * 10) / 10.0);
+        }catch (AopInvocationException e){
+            System.out.println("별점을 준 적이 없음");
+            return new ModelAndView("/mypage/analysis")
+                    .addObject("starTrue", false)
+                    .addObject("userName",userRepository.getReferenceById(userIdx).getUserName());
+        }
     }
 
 

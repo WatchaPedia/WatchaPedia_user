@@ -33,6 +33,8 @@ public interface StarRepository extends JpaRepository<Star, Long> {
     double findByStarAvg(@Param("idx") Long idx);
     @Query(value = "select count(starPoint) from tb_star where starUserIdx=:idx")
     int findByStarCount(@Param("idx") Long idx);
+    @Query(value = "select starContentIdx from tb_star where starUserIdx=:idx and starContentType='movie'")
+    List<Long> findStarMovie(@Param("idx") Long idx);
     @Query(value = "select count(starPoint) from tb_star where starUserIdx=:idx and starPoint=:point")
     double findByStarPointCount(@Param("idx") Long idx, @Param("point") Long point);
     @Query(value = "select max(starPoint) from tb_star where starUserIdx=:idx")
