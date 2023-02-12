@@ -33,7 +33,8 @@ const photoL = document.querySelector(".css-ojnnlc-StylelessButton");
 for(let photo of photos){
     photo.addEventListener('click', () => {
         if(main.classList.contains('off')){
-            let photoSrc = photo.querySelector(".img").getAttribute("src");
+            let photoSrc = photo.querySelector(".img").style
+                .backgroundImage.split('url("')[1].split('")')[0];
             document.querySelector("#img-view").src = photoSrc;
             photo.classList.add('on');
             main.style.display = 'block';
@@ -62,14 +63,16 @@ document.addEventListener('click',(e) => {
 });
 photoL.addEventListener('click', (e) => {
     let onPhoto = document.querySelector("li.on");
-    let photoSrc = onPhoto.previousElementSibling.querySelector("img.img").getAttribute("src");
+    let photoSrc = onPhoto.previousElementSibling.querySelector("div.img").style
+        .backgroundImage.split('url("')[1].split('")')[0];
     document.querySelector("#img-view").src = photoSrc;
     onPhoto.previousElementSibling.classList.add("on");
     onPhoto.classList.remove("on");
 });
 photoR.addEventListener('click', (e) => {
     let onPhoto = document.querySelector("li.on");
-    let photoSrc = onPhoto.nextElementSibling.querySelector("img.img").getAttribute("src");
+    let photoSrc = onPhoto.nextElementSibling.querySelector("div.img").style
+        .backgroundImage.split('url("')[1].split('")')[0];
     document.querySelector("#img-view").src = photoSrc;
     onPhoto.nextElementSibling.classList.add("on");
     onPhoto.classList.remove("on");
