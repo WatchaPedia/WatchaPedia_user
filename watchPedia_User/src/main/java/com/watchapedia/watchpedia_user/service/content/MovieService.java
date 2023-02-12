@@ -149,7 +149,7 @@ public class MovieService {
     @Transactional(readOnly = true)
     public List<MovieDto> movieDtos() {
         List<MovieDto> result = new ArrayList<>();
-        List<MovieDto> result2 = new ArrayList<>();
+        List<MovieDto> result2 = new ArrayList<>(10);
         List<Movie> movieDtos = movieRepository.findAll(Sort.by(Sort.Direction.DESC,"movIdx"));
 
         for(Movie m : movieDtos){
@@ -173,7 +173,7 @@ public class MovieService {
     public List<MovieDto> movieZero() {
         List<MovieDto> result = new ArrayList<>();
         List<MovieDto> result2 = new ArrayList<>();
-        List<MovieDto> result3 = new ArrayList<>();
+        List<MovieDto> result3 = new ArrayList<>(10);
 
         List<Movie> movieStar = movieRepository.findAll();
 
@@ -245,7 +245,7 @@ public class MovieService {
         //빈 웹툰리스폰스 리스트
         List<MovieDto> result = new ArrayList<>();
         List<MovieDto> result2 = new ArrayList<>();
-        List<MovieDto> result3 = new ArrayList<>();
+        List<MovieDto> result3 = new ArrayList<>(10);
         List<Movie> movieList2 = movieRepository.findAll(Sort.by(Sort.Direction.DESC,"movMakingDate"));
 
         for(Movie m : movieList2){
@@ -273,7 +273,7 @@ public class MovieService {
     public List<MovieDto> searchCountry(String country) {
         //빈 웹툰리스폰스 리스트
         List<MovieDto> result = new ArrayList<>();
-        List<MovieDto> result2 = new ArrayList<>();
+        List<MovieDto> result2 = new ArrayList<>(10);
         List<Movie> movieList2 = movieRepository.findByMovCountryContaining(country);
 
         for(Movie m : movieList2){
@@ -296,7 +296,7 @@ public class MovieService {
     public List<MovieDto> searchCri(String genre, String country) {
         //빈 웹툰리스폰스 리스트
         List<MovieDto> result = new ArrayList<>();
-        List<MovieDto> result2 = new ArrayList<>();
+        List<MovieDto> result2 = new ArrayList<>(10);
 
         List<Movie> movieList2 = movieRepository.findByMovGenreContainingAndMovCountryContaining(genre, country);
 
@@ -311,10 +311,7 @@ public class MovieService {
             result.add(MovieDto.from(m, avg));
         }
 
-        for(int i = 0; i < 10; i++){
-            result2.add(result.get(i));
-        }
-        return result2;
+        return result;
     }
 
     //장르기준 출력
@@ -322,7 +319,7 @@ public class MovieService {
     public List<MovieDto> searchDrama(String genre) {
         //빈 웹툰리스폰스 리스트
         List<MovieDto> result = new ArrayList<>();
-        List<MovieDto> result2 = new ArrayList<>();
+        List<MovieDto> result2 = new ArrayList<>(10);
         List<Movie> movieList2 = movieRepository.findByMovGenreContaining(genre);
 
         for(Movie m : movieList2){

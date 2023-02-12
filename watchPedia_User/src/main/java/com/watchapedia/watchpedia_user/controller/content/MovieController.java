@@ -79,7 +79,6 @@ public class MovieController {
         map.addAttribute("americanMovies", movieService.searchCountry("미국"));
         map.addAttribute("dramas", movieService.searchDrama("드라마"));
         map.addAttribute("cris", movieService.searchCri(randomJerne,randomCountry));
-        System.out.println(movieService.movieStar()+"sdgjsdgskjgnwejfknefkj");
 
         Long totalCnt = starService.getTotalCnt();
         map.addAttribute("totalCnt",totalCnt);
