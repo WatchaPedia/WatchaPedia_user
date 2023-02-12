@@ -28,6 +28,7 @@ public class PersonLike {
     this.perIdx=perIdx;
     }
     public PersonLike(PersonLikeDto dto){
+        this.plikeIdx = dto.plikeIdx();
         this.userIdx = dto.userIdx();
         this.perIdx = dto.perIdx();
     }
@@ -38,6 +39,8 @@ public class PersonLike {
     public static PersonLike of(PersonLikeDto personLikeDto){
         return new PersonLike(personLikeDto);
     }
-
+    public static PersonLike of(Long plikeIdx,Long userIdx,Long perIdx){
+        return new PersonLike(plikeIdx, userIdx,perIdx);
+    }
 }
 

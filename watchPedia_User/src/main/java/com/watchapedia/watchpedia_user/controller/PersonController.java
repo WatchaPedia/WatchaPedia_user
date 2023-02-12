@@ -40,6 +40,7 @@ public class PersonController {
     final BookService bookService;
     final StarService starService;
 
+
     @GetMapping("/personDetail/{perIdx}")
     public String personDetail(@PathVariable Long perIdx, ModelMap map, HttpSession session){
         PersonResponse personResponse = null;
@@ -166,6 +167,25 @@ public class PersonController {
 
         Long totalCnt = starService.getTotalCnt();
         map.addAttribute("totalCnt",totalCnt);
+//---------------------------------------------------------------------------------------------
+
+        Long useridx;
+        boolean chklike;
+        try{
+            useridx = dto.userIdx();
+            System.out.println("useridx"+ useridx);
+            System.out.println("perIdx"+ perIdx);
+
+            chklike=personService.isLikePerson(useridx,perIdx);
+            System.out.println("chklike"+chklike);
+            map.addAttribute("chklike",chklike);
+
+        }catch (Exception e){
+            useridx = null;
+            chklike =false;
+            map.addAttribute("chklike",chklike);
+        }
+
             return "/personDetail";
     }
 
@@ -173,21 +193,44 @@ public class PersonController {
    //인물좋아요
     @PostMapping("personLike/{perIdx}")
     @ResponseBody
-    public void likePerson(@RequestParam("perIdx") Long perIdx,
+    public int likePerson(@RequestParam("perIdx") int perIdx,
                            HttpSession session){
-        UserSessionDto userSessionDto = (UserSessionDto)session.getAttribute("userSession");
-        Long userIdx = userSessionDto.userIdx();
-        personService.likePerson(userIdx,perIdx);
+        UserSessionDto userSessionDto;
+        try{
+            System.out.println("실행");
+            userSessionDto = (UserSessionDto)session.getAttribute("userSession");
+            Long userIdx = userSessionDto.userIdx();
+            personService.likePerson(userIdx,Long.valueOf(perIdx));
+
+            return 1;
+        }catch (Exception e){
+            System.out.println("에러");
+            return 0;
+        }
+
+
+
+
     }
     //---------------------------------------------------------------------------------------------
     //인물좋아요취소
     @PostMapping("personDelLike/{perIdx}")
     @ResponseBody
-    public void delLikePerson(@RequestParam("perIdx") Long perIdx,
+    public int delLikePerson(@RequestParam("perIdx") Long perIdx,
                            HttpSession session){
-        UserSessionDto userSessionDto = (UserSessionDto)session.getAttribute("userSession");
-        Long userIdx = userSessionDto.userIdx();
-        personService.delLikePerson(userIdx,perIdx);
+        UserSessionDto userSessionDto;
+        Long userIdx;
+        try {
+            userSessionDto = (UserSessionDto) session.getAttribute("userSession");
+            userIdx = userSessionDto.userIdx();
+            personService.delLikePerson(userIdx,perIdx);
+            return 1;
+        }catch(Exception e){
+            userSessionDto=null;
+            userIdx=null;
+            return 0;
+        }
+
     }
 
 //------------------------------------------------------Movie-----------------------------------------------------------
