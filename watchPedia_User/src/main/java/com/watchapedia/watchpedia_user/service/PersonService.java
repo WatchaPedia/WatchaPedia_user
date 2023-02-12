@@ -52,7 +52,26 @@ public class PersonService {
 
     //인물좋아요취소
     public void delLikePerson(Long userIdx,Long perIdx){
-        PersonLikeDto personLikeDto = personLikeRepository.findByPerIdxAndUserIdx(userIdx, perIdx);
+        System.out.println("del 서비스 진입 - useridx : "+ userIdx + " perIdx:"+ perIdx );
+        PersonLikeDto personLikeDto = personLikeRepository.findByUserIdxAndPerIdx(userIdx, perIdx);
+        System.out.println("personLikeDto" + personLikeDto);
         personLikeRepository.delete(PersonLikeDto.toEntity(personLikeDto));
+    }
+
+    //인물좋아요여부
+    public boolean isLikePerson(Long userIdx,Long perIdx){
+
+        System.out.println("personservice진입");
+        System.out.println("서비스 단 userIdx" + userIdx);
+        System.out.println("서비스 단 perIdx" + perIdx);
+
+        PersonLikeDto personLikeDto = personLikeRepository.findByUserIdxAndPerIdx(userIdx, perIdx);
+        System.out.println("personLikeDto는 " + personLikeDto);
+
+        if(personLikeDto == null){
+            return false;
+        }else{
+            return true;
+        }
     }
 }
