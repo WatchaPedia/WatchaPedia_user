@@ -1,5 +1,6 @@
 package com.watchapedia.watchpedia_user.service.content;
 
+import com.jayway.jsonpath.internal.function.numeric.Max;
 import com.watchapedia.watchpedia_user.model.dto.comment.CommentDto;
 import com.watchapedia.watchpedia_user.model.dto.content.MovieDto;
 import com.watchapedia.watchpedia_user.model.dto.comment.RecommentDto;
@@ -23,6 +24,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.stream.Collectors;
+
+
 
 @Service
 @RequiredArgsConstructor
@@ -132,8 +135,10 @@ public class MovieService {
         for(MovieDto m : result2){
             if(m.starList().size()>=3){
                 result3.add(m);
+
             }
         }// 평균 순으로 1위부터 뽑기
+
         result3 = result3.stream().sorted(Comparator.comparing(MovieDto::avg)
                 .reversed()).collect(Collectors.toList());
         return result3;
@@ -144,7 +149,7 @@ public class MovieService {
     @Transactional(readOnly = true)
     public List<MovieDto> movieDtos() {
         List<MovieDto> result = new ArrayList<>();
-
+        List<MovieDto> result2 = new ArrayList<>();
         List<Movie> movieDtos = movieRepository.findAll(Sort.by(Sort.Direction.DESC,"movIdx"));
 
         for(Movie m : movieDtos){
@@ -157,7 +162,10 @@ public class MovieService {
             Double avg = Math.round((sum / starCount) * 10.0) / 10.0;
             result.add(MovieDto.from(m, avg));
         }
-        return result;
+        for(int i = 0; i < 10; i++){
+            result2.add(result.get(i));
+        }
+        return result2;
     }
 
     // 별점 매기지 않은 경우 : 내가 아직 보지 않은 영화 또는 평가하지 않은 영화
@@ -165,6 +173,7 @@ public class MovieService {
     public List<MovieDto> movieZero() {
         List<MovieDto> result = new ArrayList<>();
         List<MovieDto> result2 = new ArrayList<>();
+        List<MovieDto> result3 = new ArrayList<>();
 
         List<Movie> movieStar = movieRepository.findAll();
 
@@ -183,13 +192,15 @@ public class MovieService {
                 result2.add(m);
             }
         }
-        return result2;
+        for(int i = 0; i < 10; i++){
+            result3.add(result2.get(i));
+        }
+        return result3;
     }
 
     //영화이름 기준 출력(나홀로 집에)
     @Transactional(readOnly = true)
     public List<MovieDto> movies2(String movieTitle) {
-        //빈 웹툰리스폰스 리스트
         List<MovieDto> result = new ArrayList<>();
 
         List<Movie> movieList2 = movieRepository.findByMovTitleContaining(movieTitle);
@@ -204,6 +215,7 @@ public class MovieService {
             Double avg = Math.round((sum / starCount) * 10.0) / 10.0;
             result.add(MovieDto.from(m, avg));
         }
+
         return result;
     }
     //영화이름 기준 출력(아이언 맨)
@@ -232,7 +244,8 @@ public class MovieService {
     public List<MovieDto> movies3() {
         //빈 웹툰리스폰스 리스트
         List<MovieDto> result = new ArrayList<>();
-
+        List<MovieDto> result2 = new ArrayList<>();
+        List<MovieDto> result3 = new ArrayList<>();
         List<Movie> movieList2 = movieRepository.findAll(Sort.by(Sort.Direction.DESC,"movMakingDate"));
 
         for(Movie m : movieList2){
@@ -245,14 +258,22 @@ public class MovieService {
             Double avg = Math.round((sum / starCount) * 10.0) / 10.0;
             result.add(MovieDto.from(m, avg));
         }
-        return result;
+        for(MovieDto m : result){
+            if(m.avg() == 0.0){
+                result2.add(m);
+            }
+        }
+        for(int i = 0; i < 10; i++){
+            result3.add(result2.get(i));
+        }
+        return result3;
     }
     // 나라기준 출력
     @Transactional(readOnly = true)
     public List<MovieDto> searchCountry(String country) {
         //빈 웹툰리스폰스 리스트
         List<MovieDto> result = new ArrayList<>();
-
+        List<MovieDto> result2 = new ArrayList<>();
         List<Movie> movieList2 = movieRepository.findByMovCountryContaining(country);
 
         for(Movie m : movieList2){
@@ -265,13 +286,17 @@ public class MovieService {
             Double avg = Math.round((sum / starCount) * 10.0) / 10.0;
             result.add(MovieDto.from(m, avg));
         }
-        return result;
+        for(int i = 0; i < 10; i++){
+            result2.add(result.get(i));
+        }
+        return result2;
     }
     // 나라&장르 랜덤출력 하기위한 부분
     @Transactional(readOnly = true)
     public List<MovieDto> searchCri(String genre, String country) {
         //빈 웹툰리스폰스 리스트
         List<MovieDto> result = new ArrayList<>();
+        List<MovieDto> result2 = new ArrayList<>();
 
         List<Movie> movieList2 = movieRepository.findByMovGenreContainingAndMovCountryContaining(genre, country);
 
@@ -285,7 +310,11 @@ public class MovieService {
             Double avg = Math.round((sum / starCount) * 10.0) / 10.0;
             result.add(MovieDto.from(m, avg));
         }
-        return result;
+
+        for(int i = 0; i < 10; i++){
+            result2.add(result.get(i));
+        }
+        return result2;
     }
 
     //장르기준 출력
@@ -293,7 +322,7 @@ public class MovieService {
     public List<MovieDto> searchDrama(String genre) {
         //빈 웹툰리스폰스 리스트
         List<MovieDto> result = new ArrayList<>();
-
+        List<MovieDto> result2 = new ArrayList<>();
         List<Movie> movieList2 = movieRepository.findByMovGenreContaining(genre);
 
         for(Movie m : movieList2){
@@ -306,7 +335,10 @@ public class MovieService {
             Double avg = Math.round((sum / starCount) * 10.0) / 10.0;
             result.add(MovieDto.from(m, avg));
         }
-        return result;
+        for(int i = 0; i < 10; i++){
+            result2.add(result.get(i));
+        }
+        return result2;
     }
 
 

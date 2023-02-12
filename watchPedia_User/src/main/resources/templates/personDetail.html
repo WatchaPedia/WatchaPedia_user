@@ -3842,6 +3842,249 @@
             color: white;
         }
     </style>
+    <!-- vue.js 적용 src문 -->
+    <script src="https://unpkg.com/vue@3"></script>
+
+    <!--    로그인 안했을 경우 모달창 -->
+    <style>
+        .css-14gy7wr {
+            display: none;
+            position: fixed;
+            inset: 0px;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.56);
+            overflow: hidden scroll;
+        }
+        .css-rpyl6s {
+            position: absolute;
+            inset: 0px;
+            z-index: 101;
+        }
+
+        @media (min-width: 719px) {
+            .css-rpyl6s {
+                text-align: center;
+                padding: 20px 0px;
+                overflow: auto;
+                align-items: center;
+                display: flex;
+            }
+        }
+        .css-g6a59h {
+            font-size: 17px;
+            letter-spacing: -0.5px;
+            line-height: 22px;
+            font-weight: 700;
+            text-align: center;
+            margin: 24px 0px 20px;
+        }
+        .css-ikkedy {
+            margin:0 auto;
+            position: relative;
+            background: rgb(255, 255, 255);
+            width: 100%;
+            height: 100%;
+            box-shadow: rgb(0 0 0 / 12%) 0px 0px 6px 0px;
+            overflow: hidden;
+        }
+        @media (min-width: 719px){
+            .css-ikkedy {
+                display: inline-block;
+                position: relative;
+                vertical-align: middle;
+                text-align: left;
+                width: 375px;
+                height: auto;
+                min-height: 540px;
+                border-radius: 6px;
+                overflow: auto;
+            }}
+        .css-1y901al-Row {
+            margin: 0px 20px;
+        }
+        .css-1i2oi66 {
+            padding: 32px 0px 16px;
+        }
+        .css-17bvwx1 {
+            text-align: center;
+            margin: 0px 0px 14px;
+            overflow: hidden;
+        }
+        .css-1xku4w9 {
+            display: inline-block;
+            background: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUxIiBoZWlnaHQ9IjI5IiB2aWV3Qm94PSIwIDAgMTUxIDI5IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDxwYXRoIGQ9Ik03My40MjQyIDE0LjYzOTFINjkuODAxOFY2LjEzNTE5SDY1LjEwMTNWMjcuNzIyMUg2OS44MDE4VjE5LjEzMDlINzMuNDI0MlYyNy43MjIxSDc4LjEyNDhWNi4xMzUxOUg3My40MjQyVjE0LjYzOTFaIiBmaWxsPSIjRkYwNTU4Ii8+CiAgPHBhdGggZD0iTTM3Ljg0NjggMTAuNjI3SDQxLjY0MTdWMjcuNzIyMUg0Ni4zNDIyVjEwLjYyN0g0OS45MjE1VjYuMTM1MTlIMzcuODQ2OFYxMC42MjdaIiBmaWxsPSIjRkYwNTU4Ii8+CiAgPHBhdGggZD0iTTI4LjQwMjcgNi4xMzUxOUwyNC42MDc3IDI3LjcyMjFIMjkuMTc4OUwyOS42OTIxIDI0LjIzMzNIMzQuMDIxN0wzNC41MjYzIDI3LjcyMjFIMzkuMTQwNUwzNS4zMDI1IDYuMTM1MTlIMjguNDAyN1pNMzAuMjY5OSAyMC4zMDg0TDMxLjU5MzggMTEuMzI0OEgzMi4xNTQ0TDMzLjQ1NDYgMjAuMzA4NEgzMC4yNjk5WiIgZmlsbD0iI0ZGMDU1OCIvPgogIDxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMjAuMzA5IDBMMTguOTAyMiAyMC42NTAyTDE4LjUyNDEgMjAuNjcwMUwxNS4xNzgyIDYuMDYwNUgxMS4wNDM4TDguNTQwNzYgMjEuMTk4NEw4LjAwNDI5IDIxLjIyNjdMNS43NjMyNiA2LjA2MDVIMEw1LjI0MzMxIDI4LjYzNzlMMTEuMTA0NSAyOC4yNDczTDEzLjAxMTQgMTQuMjMzM0wxMy41NzA3IDE0LjIwMjZMMTYuMTI0MiAyNy45MDg3TDIxLjczNCAyNy41MzIzTDI2LjE4ODkgMEgyMC4zMDlaIiBmaWxsPSIjRkYwNTU4Ii8+CiAgPHBhdGggZD0iTTU3LjE2NjQgNS45MTcxMkM1Mi45NDAyIDUuOTE3MTIgNTAuOTEzNCA4LjIyODQ1IDUwLjkxMzQgMTEuODA0NVYyMi4wNTI4QzUwLjkxMzQgMjUuNjI4OCA1Mi45NDAyIDI3Ljk0MDEgNTcuMTY2NCAyNy45NDAxQzYxLjM5MjYgMjcuOTQwMSA2My40MTk0IDI1LjYyODggNjMuNDE5NCAyMi4wNTI4VjE4LjM0Nkg1OC43MTg5VjIyLjQ4ODlDNTguNzE4OSAyMy42MjI4IDU4LjI4NzYgMjQuMDE1MiA1Ny4xNjY0IDI0LjAxNTJDNTYuMDQ1MiAyNC4wMTUyIDU1LjYxMzkgMjMuNjIyOCA1NS42MTM5IDIyLjQ4ODlWMTEuMzY4NEM1NS42MTM5IDEwLjIzNDUgNTYuMDQ1MiA5Ljg0MjAxIDU3LjE2NjQgOS44NDIwMUM1OC4yODc2IDkuODQyMDEgNTguNzE4OSAxMC4yMzQ1IDU4LjcxODkgMTEuMzY4NFYxMy44MTA1SDYzLjQxOTRWMTEuODA0NUM2My40MTk0IDguMjI4NDUgNjEuMzkyNiA1LjkxNzEyIDU3LjE2NjQgNS45MTcxMloiIGZpbGw9IiNGRjA1NTgiLz4KICA8cGF0aCBkPSJNODMuMDQwOCA2LjEzNTE5TDc5LjI0NTkgMjcuNzIyMUg4My44MTcxTDg0LjMzMDIgMjQuMjMzM0g4OC42NTk5TDg5LjE2NDUgMjcuNzIyMUg5My43Nzg3TDg5Ljk0MDcgNi4xMzUxOUg4My4wNDA4Wk04NC45MDgxIDIwLjMwODRMODYuMjMyIDExLjMyNDhIODYuNzkyNkw4OC4wOTI4IDIwLjMwODRIODQuOTA4MVoiIGZpbGw9IiNGRjA1NTgiLz4KICA8cGF0aCBkPSJNMTI1LjY4NiA2LjEzNTI1SDEyMC45NDNWMjcuNzIyMkgxMjUuNjg2QzEyOC4zNiAyNy43MjIyIDEzMC4xMjggMjYuNjc1NSAxMzAuOTkxIDI0Ljc1NjdDMTMxLjUwOCAyMy42MjI4IDEzMS42MzggMjIuNTc2MiAxMzEuNjM4IDE2LjkwNjlDMTMxLjYzOCAxMS4yODEyIDEzMS41MDggMTAuMjM0NiAxMzAuOTkxIDkuMTAwNzNDMTMwLjEyOCA3LjE4MTg5IDEyOC4zNiA2LjEzNTI1IDEyNS42ODYgNi4xMzUyNVpNMTI4LjM2IDIzLjUzNTZDMTI3LjkyOSAyNC41ODIzIDEyNy4wMjMgMjUuMTQ5MiAxMjUuNDI4IDI1LjE0OTJIMTIzLjc0NlY4LjcwODI0SDEyNS40MjhDMTI3LjAyMyA4LjcwODI0IDEyNy45MjkgOS4yNzUxNyAxMjguMzYgMTAuMzIxOEMxMjguNzA1IDExLjA2MzIgMTI4Ljc5MSAxMS43MTczIDEyOC43OTEgMTYuOTUwNUMxMjguNzkxIDIyLjE0MDEgMTI4LjcwNSAyMi43OTQyIDEyOC4zNiAyMy41MzU2WiIgZmlsbD0iIzI5MkEzMiIvPgogIDxwYXRoIGQ9Ik0xNDcuMDc2IDYuMTM1MjVIMTQyLjgwN0wxMzguODM5IDI3LjcyMjJIMTQxLjY0MkwxNDIuMzMyIDIzLjM2MTJIMTQ3LjUwN0wxNDguMjQgMjcuNzIyMkgxNTFMMTQ3LjA3NiA2LjEzNTI1Wk0xNDIuNzY0IDIwLjkxOUwxNDQuODc3IDguNDAyOTdIMTQ0Ljk2M0wxNDcuMDc2IDIwLjkxOUgxNDIuNzY0WiIgZmlsbD0iIzI5MkEzMiIvPgogIDxwYXRoIGQ9Ik0xMzYuODEyIDYuMTM1MjVIMTM0LjAwOVYyNy43MjIySDEzNi44MTJWNi4xMzUyNVoiIGZpbGw9IiMyOTJBMzIiLz4KICA8cGF0aCBkPSJNMTAzLjk1MiA2LjEzNTI1SDk4Ljg2MzNWMjcuNzIyMkgxMDEuNjIzVjE3LjY0ODNIMTAzLjk1MkMxMDYuMTA4IDE3LjY0ODMgMTA3LjQ4OCAxNy4wMzc3IDEwOC4wOTIgMTUuNjg1OEMxMDguMzk0IDE0LjkwMDggMTA4LjQ4IDE0LjI5MDMgMTA4LjQ4IDExLjg5MThDMTA4LjQ4IDkuNDkzMjIgMTA4LjM5NCA4LjgzOTA3IDEwOC4wOTIgOC4xNDEzMUMxMDcuNDg4IDYuNzQ1NzkgMTA2LjEwOCA2LjEzNTI1IDEwMy45NTIgNi4xMzUyNVpNMTA1LjQ2MSAxNC4xMTU5QzEwNS4xNTkgMTQuOTAwOCAxMDQuNDI2IDE1LjA3NTMgMTAzLjI2MiAxNS4wNzUzSDEwMS42MjNWOC41MzM4SDEwMy4yNjJDMTA0LjQyNiA4LjUzMzggMTA1LjE1OSA4Ljc1MTg1IDEwNS40NjEgOS40OTMyMkMxMDUuNjM0IDkuODg1NzEgMTA1LjY3NyAxMC4xMDM4IDEwNS42NzcgMTEuODA0NUMxMDUuNjc3IDEzLjQ2MTcgMTA1LjYzNCAxMy43NjcgMTA1LjQ2MSAxNC4xMTU5WiIgZmlsbD0iIzI5MkEzMiIvPgogIDxwYXRoIGQ9Ik0xMTAuNTA3IDI3LjcyMjJIMTE4LjM1NVYyNS4xNDkySDExMy4zMVYxNy41NjExSDExOC4yMjZWMTQuOTg4MUgxMTMuMzFWOC43MDgyNEgxMTguMzU1VjYuMTM1MjVIMTEwLjUwN1YyNy43MjIyWiIgZmlsbD0iIzI5MkEzMiIvPgo8L3N2Zz4K) center center / contain no-repeat;
+            width: 198px;
+            height: 38.03px;
+        }
+        .css-1o72pil {
+            padding: 4px 0px;
+            overflow: hidden;
+        }
+        .css-a4glo0 {
+            display: flex;
+            -webkit-box-align: center;
+            align-items: center;
+            background: rgb(245, 245, 245);
+            box-sizing: border-box;
+            width: 100%;
+            height: 44px;
+            padding: 0px 12px;
+            border-radius: 6px;
+            position:relative;
+        }
+        .css-1oyrbwm {
+            background: transparent;
+            font-weight: 400;
+            font-size: 16px;
+            letter-spacing: -0.6px;
+            line-height: 21px;
+            width: 100%;
+            padding: 0px;
+            border: 0px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            caret-color: rgb(255, 47, 110);
+        }
+        .css-lcodwd {
+            display: none;
+            -webkit-box-align: center;
+            align-items: center;
+            width: 24px;
+            height: 100%;
+        }
+        .css-qe0tnm {
+            display: inline-block;
+            background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxwYXRoIGZpbGw9IiNBMEEwQTAiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTEyLjIwOCAxMS40TDkuMzggOC41N2wtLjgwOS44MDkgMi44MjkgMi44MjgtMi44MjkgMi44MjguODA5LjgwOSAyLjgyOC0yLjgyOSAyLjgyOCAyLjgyOS44MDktLjgwOS0yLjgyOS0yLjgyOCAyLjgyOS0yLjgyOC0uODA5LS44MDktMi44MjggMi44Mjl6TTEyIDIwYTggOCAwIDEgMSAwLTE2IDggOCAwIDAgMSAwIDE2eiIvPgo8L3N2Zz4K) center center / cover no-repeat;
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            position:absolute;
+            right: 10px;
+            top: 10px;
+        }
+        .css-qr0uqd-StylelessButton {
+            padding: 0px;
+            border: none;
+            cursor: pointer;
+            background: rgb(255, 47, 110);
+            color: rgb(255, 255, 255);
+            text-align: center;
+            font-size: 17px;
+            font-weight: 400;
+            letter-spacing: -0.7px;
+            line-height: 22px;
+            width: 100%;
+            height: 44px;
+            border-radius: 6px;
+            margin: 16px 0px 0px;
+        }
+        .css-liv8hf {
+            font-size: 15px;
+            font-weight: 400;
+            letter-spacing: -0.5px;
+            line-height: 20px;
+            text-align: center;
+            margin: 20px 0px 14px;
+        }
+        .css-gq8fs1-StylelessButton {
+            background: none;
+            padding: 0px;
+            border: none;
+            margin: 0px;
+            cursor: pointer;
+            color: rgb(255, 47, 110);
+        }
+        .css-gcz1qq {
+            margin-top: 15px;
+            font-size: 15px;
+            font-weight: 400;
+            letter-spacing: -0.5px;
+            line-height: 20px;
+            color: rgb(140, 140, 140);
+            text-align: center;
+        }
+        .css-gq8fs1-StylelessButton {
+            background: none;
+            padding: 0px;
+            border: none;
+            margin: 0px;
+            cursor: pointer;
+            color: rgb(255, 47, 110);
+        }
+        #modal-container-nGZJ6mVG6nJ8Q5C7ZE4nu input{
+            border:none;
+            background:none;
+            width:100%;
+        }
+        #modal-container-nGZJ6mVG6nJ8Q5C7ZE4nu input:focus{
+            outline:none;
+        }
+        #modal-container-nGZJ6mVG6nJ8Q5C7ZE4nu .css-1smbjja{
+            width:80%;
+        }
+        #modal-container-h-XEqOEytZK6ag0LO6V2w{
+            display:none;
+            background-color: rgba(0, 0, 0, 0.56);
+            z-index: 999;
+        }
+        .css-1yszxv0 {
+            display: flex;
+            position: absolute;
+            inset: 0px;
+            z-index: 102;
+            -webkit-box-pack: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            align-items: center;
+        }
+        .css-f35o9y {
+            background: rgb(255, 255, 255);
+            text-align: center;
+            width: 280px;
+            padding: 20px 0px 0px;
+            border-radius: 8px;
+        }
+        .css-148qwic {
+            color: rgb(0, 0, 0);
+            font-size: 15px;
+            font-weight: 400;
+            letter-spacing: -0.5px;
+            line-height: 20px;
+            white-space: pre-wrap;
+            padding: 0px 0px 24px;
+            border-bottom: 1px solid rgb(210, 210, 210);
+            margin: 8px 0px 0px;
+            word-break: break-all;
+        }
+        .css-gy4ioq {
+            display: flex;
+        }
+        .css-gy4ioq > button {
+            margin: 11px 0px;
+        }
+        .css-sfhtz9-StylelessButton {
+            background: none;
+            padding: 0px;
+            border-width: initial;
+            border-style: none;
+            border-image: initial;
+            margin: 0px;
+            cursor: pointer;
+            flex: 1 1 0%;
+            color: rgb(255, 47, 110);
+            font-size: 17px;
+            font-weight: 400;
+            letter-spacing: -0.7px;
+            line-height: 22px;
+            border-color: rgb(210, 210, 210) !important;
+        }
+        button.on{
+            display: flex;
+        }
+        button.off{
+            display: none;
+        }
+    </style>
     <link rel="icon" href="/image/favicon.png" />
 </head>
 <body>
@@ -3894,7 +4137,7 @@
 
 
                                     <hr class="css-god8tc">
-                                    <button th:if="${chklike} " th:onclick="|delperlike(${person.idx})|"
+                                    <button th:classappend="${chklike}==true?'on':'off'" th:onclick="|delperlike(${person.idx})|"
                                             class="css-1ski1qz-StylelessButton-StyledActionButton e150ls9t0">
                                         <div class="css-1umclh2-StyledIconContainer e150ls9t1">
                                             <svg
@@ -3911,7 +4154,7 @@
                                                   class="css-1uf9j27-StyledButtonText e150ls9t2" th:text="|좋아요 ${perlikeCnt}|" style="color:#FF2F6E" >좋아요 262</span>
                                             <span type="desktop" class="css-mr5mym-StyledButtonText e150ls9t2" style="color:#FF2F6E"th:text="|좋아요 ${perlikeCnt}명이 이 인물을 좋아합니다|" >좋아요 222명이 이 인물을 좋아합니다</span>
                                     </button>
-                                    <button th:unless="${chklike}" th:onclick="|perlike(${person.idx})|"
+                                    <button th:classappend="${chklike}!=true?'on':'off'" th:onclick="|perlike(${person.idx})|"
                                             class="css-1ski1qz-StylelessButton-StyledActionButton e150ls9t0">
                                         <div class="css-1umclh2-StyledIconContainer e150ls9t1">
                                             <svg
@@ -3934,7 +4177,6 @@
                             <div class="css-1bm6399">
                                 <div class="css-358g0x">
                                     <div class="css-1e9niz8">
-행
                                         <!--                     영화                   -->
                                         <div class="css-6fdzfq" id="mov">
                                             <h2 id="Movie" class="css-1w4x7z">영화</h2>
@@ -4516,19 +4758,17 @@
         <div class="css-any20b">
             <div></div>
         </div>
+        <div id="modal" class="css-14gy7wr">
+            <div id="modal-container-h-XEqOEytZK6ag0LO6V2w" class="css-rpyl6s off"><div class="css-1yszxv0"><div class="css-f35o9y"><div class="css-1gkas1x-Grid e1689zdh0"><div class="css-1y901al-Row emmoxnt0"><div class="css-148qwic">이메일 또는 비밀번호를 확인하세요</div><div size="1" class="css-gy4ioq"><button class="css-sfhtz9-StylelessButton">닫기</button></div></div></div></div></div></div>
+            <div id="modal-container-nGZJ6mVG6nJ8Q5C7ZE4nu" class="css-rpyl6s"><div class="css-ikkedy"><div class="css-1i2oi66"><header class="css-17bvwx1"><span src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUxIiBoZWlnaHQ9IjI5IiB2aWV3Qm94PSIwIDAgMTUxIDI5IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDxwYXRoIGQ9Ik03My40MjQyIDE0LjYzOTFINjkuODAxOFY2LjEzNTE5SDY1LjEwMTNWMjcuNzIyMUg2OS44MDE4VjE5LjEzMDlINzMuNDI0MlYyNy43MjIxSDc4LjEyNDhWNi4xMzUxOUg3My40MjQyVjE0LjYzOTFaIiBmaWxsPSIjRkYwNTU4Ii8+CiAgPHBhdGggZD0iTTM3Ljg0NjggMTAuNjI3SDQxLjY0MTdWMjcuNzIyMUg0Ni4zNDIyVjEwLjYyN0g0OS45MjE1VjYuMTM1MTlIMzcuODQ2OFYxMC42MjdaIiBmaWxsPSIjRkYwNTU4Ii8+CiAgPHBhdGggZD0iTTI4LjQwMjcgNi4xMzUxOUwyNC42MDc3IDI3LjcyMjFIMjkuMTc4OUwyOS42OTIxIDI0LjIzMzNIMzQuMDIxN0wzNC41MjYzIDI3LjcyMjFIMzkuMTQwNUwzNS4zMDI1IDYuMTM1MTlIMjguNDAyN1pNMzAuMjY5OSAyMC4zMDg0TDMxLjU5MzggMTEuMzI0OEgzMi4xNTQ0TDMzLjQ1NDYgMjAuMzA4NEgzMC4yNjk5WiIgZmlsbD0iI0ZGMDU1OCIvPgogIDxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMjAuMzA5IDBMMTguOTAyMiAyMC42NTAyTDE4LjUyNDEgMjAuNjcwMUwxNS4xNzgyIDYuMDYwNUgxMS4wNDM4TDguNTQwNzYgMjEuMTk4NEw4LjAwNDI5IDIxLjIyNjdMNS43NjMyNiA2LjA2MDVIMEw1LjI0MzMxIDI4LjYzNzlMMTEuMTA0NSAyOC4yNDczTDEzLjAxMTQgMTQuMjMzM0wxMy41NzA3IDE0LjIwMjZMMTYuMTI0MiAyNy45MDg3TDIxLjczNCAyNy41MzIzTDI2LjE4ODkgMEgyMC4zMDlaIiBmaWxsPSIjRkYwNTU4Ii8+CiAgPHBhdGggZD0iTTU3LjE2NjQgNS45MTcxMkM1Mi45NDAyIDUuOTE3MTIgNTAuOTEzNCA4LjIyODQ1IDUwLjkxMzQgMTEuODA0NVYyMi4wNTI4QzUwLjkxMzQgMjUuNjI4OCA1Mi45NDAyIDI3Ljk0MDEgNTcuMTY2NCAyNy45NDAxQzYxLjM5MjYgMjcuOTQwMSA2My40MTk0IDI1LjYyODggNjMuNDE5NCAyMi4wNTI4VjE4LjM0Nkg1OC43MTg5VjIyLjQ4ODlDNTguNzE4OSAyMy42MjI4IDU4LjI4NzYgMjQuMDE1MiA1Ny4xNjY0IDI0LjAxNTJDNTYuMDQ1MiAyNC4wMTUyIDU1LjYxMzkgMjMuNjIyOCA1NS42MTM5IDIyLjQ4ODlWMTEuMzY4NEM1NS42MTM5IDEwLjIzNDUgNTYuMDQ1MiA5Ljg0MjAxIDU3LjE2NjQgOS44NDIwMUM1OC4yODc2IDkuODQyMDEgNTguNzE4OSAxMC4yMzQ1IDU4LjcxODkgMTEuMzY4NFYxMy44MTA1SDYzLjQxOTRWMTEuODA0NUM2My40MTk0IDguMjI4NDUgNjEuMzkyNiA1LjkxNzEyIDU3LjE2NjQgNS45MTcxMloiIGZpbGw9IiNGRjA1NTgiLz4KICA8cGF0aCBkPSJNODMuMDQwOCA2LjEzNTE5TDc5LjI0NTkgMjcuNzIyMUg4My44MTcxTDg0LjMzMDIgMjQuMjMzM0g4OC42NTk5TDg5LjE2NDUgMjcuNzIyMUg5My43Nzg3TDg5Ljk0MDcgNi4xMzUxOUg4My4wNDA4Wk04NC45MDgxIDIwLjMwODRMODYuMjMyIDExLjMyNDhIODYuNzkyNkw4OC4wOTI4IDIwLjMwODRIODQuOTA4MVoiIGZpbGw9IiNGRjA1NTgiLz4KICA8cGF0aCBkPSJNMTI1LjY4NiA2LjEzNTI1SDEyMC45NDNWMjcuNzIyMkgxMjUuNjg2QzEyOC4zNiAyNy43MjIyIDEzMC4xMjggMjYuNjc1NSAxMzAuOTkxIDI0Ljc1NjdDMTMxLjUwOCAyMy42MjI4IDEzMS42MzggMjIuNTc2MiAxMzEuNjM4IDE2LjkwNjlDMTMxLjYzOCAxMS4yODEyIDEzMS41MDggMTAuMjM0NiAxMzAuOTkxIDkuMTAwNzNDMTMwLjEyOCA3LjE4MTg5IDEyOC4zNiA2LjEzNTI1IDEyNS42ODYgNi4xMzUyNVpNMTI4LjM2IDIzLjUzNTZDMTI3LjkyOSAyNC41ODIzIDEyNy4wMjMgMjUuMTQ5MiAxMjUuNDI4IDI1LjE0OTJIMTIzLjc0NlY4LjcwODI0SDEyNS40MjhDMTI3LjAyMyA4LjcwODI0IDEyNy45MjkgOS4yNzUxNyAxMjguMzYgMTAuMzIxOEMxMjguNzA1IDExLjA2MzIgMTI4Ljc5MSAxMS43MTczIDEyOC43OTEgMTYuOTUwNUMxMjguNzkxIDIyLjE0MDEgMTI4LjcwNSAyMi43OTQyIDEyOC4zNiAyMy41MzU2WiIgZmlsbD0iIzI5MkEzMiIvPgogIDxwYXRoIGQ9Ik0xNDcuMDc2IDYuMTM1MjVIMTQyLjgwN0wxMzguODM5IDI3LjcyMjJIMTQxLjY0MkwxNDIuMzMyIDIzLjM2MTJIMTQ3LjUwN0wxNDguMjQgMjcuNzIyMkgxNTFMMTQ3LjA3NiA2LjEzNTI1Wk0xNDIuNzY0IDIwLjkxOUwxNDQuODc3IDguNDAyOTdIMTQ0Ljk2M0wxNDcuMDc2IDIwLjkxOUgxNDIuNzY0WiIgZmlsbD0iIzI5MkEzMiIvPgogIDxwYXRoIGQ9Ik0xMzYuODEyIDYuMTM1MjVIMTM0LjAwOVYyNy43MjIySDEzNi44MTJWNi4xMzUyNVoiIGZpbGw9IiMyOTJBMzIiLz4KICA8cGF0aCBkPSJNMTAzLjk1MiA2LjEzNTI1SDk4Ljg2MzNWMjcuNzIyMkgxMDEuNjIzVjE3LjY0ODNIMTAzLjk1MkMxMDYuMTA4IDE3LjY0ODMgMTA3LjQ4OCAxNy4wMzc3IDEwOC4wOTIgMTUuNjg1OEMxMDguMzk0IDE0LjkwMDggMTA4LjQ4IDE0LjI5MDMgMTA4LjQ4IDExLjg5MThDMTA4LjQ4IDkuNDkzMjIgMTA4LjM5NCA4LjgzOTA3IDEwOC4wOTIgOC4xNDEzMUMxMDcuNDg4IDYuNzQ1NzkgMTA2LjEwOCA2LjEzNTI1IDEwMy45NTIgNi4xMzUyNVpNMTA1LjQ2MSAxNC4xMTU5QzEwNS4xNTkgMTQuOTAwOCAxMDQuNDI2IDE1LjA3NTMgMTAzLjI2MiAxNS4wNzUzSDEwMS42MjNWOC41MzM4SDEwMy4yNjJDMTA0LjQyNiA4LjUzMzggMTA1LjE1OSA4Ljc1MTg1IDEwNS40NjEgOS40OTMyMkMxMDUuNjM0IDkuODg1NzEgMTA1LjY3NyAxMC4xMDM4IDEwNS42NzcgMTEuODA0NUMxMDUuNjc3IDEzLjQ2MTcgMTA1LjYzNCAxMy43NjcgMTA1LjQ2MSAxNC4xMTU5WiIgZmlsbD0iIzI5MkEzMiIvPgogIDxwYXRoIGQ9Ik0xMTAuNTA3IDI3LjcyMjJIMTE4LjM1NVYyNS4xNDkySDExMy4zMVYxNy41NjExSDExOC4yMjZWMTQuOTg4MUgxMTMuMzFWOC43MDgyNEgxMTguMzU1VjYuMTM1MjVIMTEwLjUwN1YyNy43MjIyWiIgZmlsbD0iIzI5MkEzMiIvPgo8L3N2Zz4K" width="198px" height="38.03px" class="css-1xku4w9"></span></header><h2 class="css-g6a59h">로그인</h2><section><div class="css-1gkas1x-Grid e1689zdh0"><div class="css-1y901al-Row emmoxnt0"><div class="css-1o72pil"><label value="true" class="css-a4glo0"><div class="css-1smbjja"><input autocomplete="off" placeholder="이메일" type="email" name="userEmail" class="css-16mz7jy"></div><div value="true" class="css-3wbazx"><span data-test="clearButton" aria-label="clear" role="button" class="css-qe0tnm"></span></div><span value="true" class="css-fezzxf"></span></label></div><div class="css-1o72pil"><label value="true" class="css-a4glo0"><div class="css-1smbjja"><input autocomplete="off" placeholder="비밀번호" type="password" name="userPw" class="css-16mz7jy"></div><div value="true" class="css-3wbazx"><span data-test="clearButton" aria-label="clear" role="button" class="css-qe0tnm"></span></div><span value="true" class="css-fezzxf"></span></label></div><button type="submit" class="css-qr0uqd-StylelessButton">로그인</button>
+                <div class="css-gcz1qq">계정이 없으신가요? <button class="css-gq8fs1-StylelessButton" onclick="location.href='/user/regist'">회원가입</button></div>
+            </div></div></section></div></div></div>
+        </div>
     </div>
 </div>
 
-<script src="https://d2rlq84xifqisi.cloudfront.net/javascripts/web.9c609bdaa8c28f5a06a6.js"
-        crossorigin="anonymous"></script>
-
-
 <script>
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', function () {
-            navigator.serviceWorker.register('/sw.js');
-        });
-    }
+
 </script>
 <style>
 
