@@ -14,7 +14,6 @@ import com.watchapedia.watchpedia_user.model.network.response.content.StarRespon
 import com.watchapedia.watchpedia_user.model.repository.comment.CommentRepository;
 import com.watchapedia.watchpedia_user.model.repository.UserRepository;
 import com.watchapedia.watchpedia_user.model.repository.comment.SpoilerRepository;
-import com.watchapedia.watchpedia_user.model.repository.content.ajax.StarRepository;
 import com.watchapedia.watchpedia_user.service.*;
 import com.watchapedia.watchpedia_user.service.comment.CommentService;
 import com.watchapedia.watchpedia_user.service.content.ajax.HateService;
@@ -49,7 +48,7 @@ public class MovieController {
 
     private final CommentService commentService;
     private final SpoilerRepository spoilerRepository;
-    private final StarRepository starRepository;
+
 
 
     @GetMapping(path="/main")
@@ -100,7 +99,15 @@ public class MovieController {
         MovieResponse movie = movieService.movieView(movieIdx);
 //      평균 별점
         double sum = 0;
-        double avgStar = Math.round(starRepository.findByContentStarAvg(movie.idx(),"movie") * 10) / 10.0;
+        double avgStar = 0;
+        if(movie.starList().size() == 1){
+            avgStar = movie.starList().get(0).getStarPoint();
+        }else if(movie.starList().size() > 0){
+            for(int i=0; i<movie.starList().size(); i++){
+                sum += movie.starList().get(i).getStarPoint();
+            }
+            avgStar = Math.round((sum / movie.starList().size()) * 10.0) / 10.0;
+        }
 
         StarResponse hasStar = null;
         if(dto!=null) {
