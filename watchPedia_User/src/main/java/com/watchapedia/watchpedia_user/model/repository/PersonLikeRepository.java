@@ -14,5 +14,8 @@ public interface PersonLikeRepository extends JpaRepository<PersonLike, Long> {
     List<PersonLike> findByPerIdx(Long perIdx);
     List<PersonLike> findByUserIdx(Long userIdx);
 
-    PersonLikeDto findByPerIdxAndUserIdx(Long perIdx, Long userId);
+    PersonLikeDto findByUserIdxAndPerIdx(Long userId, Long perIdx);
+
+
+
 }
