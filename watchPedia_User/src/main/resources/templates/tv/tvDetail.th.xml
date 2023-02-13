@@ -61,7 +61,7 @@
                       th:title="${#strings.contains(wat,'aHR0cHM6Ly93d3cubmV0ZmxpeC5jb20vdGl0b')} or ${#strings.contains(wat,'netflix')}?
                             '넷플릭스' : (${#strings.contains(wat,'aHR0cHM6Ly93YXRjaGEuY29tL3dhd')} or ${#strings.contains(wat,'https://watcha.com/watch/')} ?
                             '왓챠' : (${#strings.contains(wat,'disneyplus')} ? '디즈니플러스' :
-                            (${#strings.contains(wat,'aHR0cHM6Ly93d3cud2F2dmUuY29tL3BsYXllci92b2Q')} or ${#strings.contains(wat,'wavve')} ?
+                            (${#strings.contains(wat,'aHR0cHM6Ly93d3cud2F2dmUuY29tL3BsYX')} or ${#strings.contains(wat,'wavve')} ?
                             '웨이브' : (${#strings.contains(wat,'aHR0cHM6Ly93d3cudHZpbmcuY29tL2N')} or ${#strings.contains(wat,'tiving')} ?
                               '티빙' : (${#strings.contains(wat,'megabox')} ? '메가박스' : 'CGV')
                             ))))">
@@ -78,7 +78,7 @@
                     <attr sel="div.css-17vuhtq" th:text="${#strings.contains(wat,'aHR0cHM6Ly93d3cubmV0ZmxpeC5jb20vdGl0b')} or ${#strings.contains(wat,'netflix')}?
                             '넷플릭스' : (${#strings.contains(wat,'aHR0cHM6Ly93YXRjaGEuY29tL3dhd')} or ${#strings.contains(wat,'https://watcha.com/watch/')} ?
                             '왓챠' : (${#strings.contains(wat,'disneyplus')} ? '디즈니플러스' :
-                            (${#strings.contains(wat,'aHR0cHM6Ly93d3cud2F2dmUuY29tL3BsYXllci92b2Q')} or ${#strings.contains(wat,'wavve')} ?
+                            (${#strings.contains(wat,'aHR0cHM6Ly93d3cud2F2dmUuY29tL3BsYX')} or ${#strings.contains(wat,'wavve')} ?
                             '웨이브' : (${#strings.contains(wat,'aHR0cHM6Ly93d3cudHZpbmcuY29tL2N')} or ${#strings.contains(wat,'tiving')} ?
                               '티빙' : (${#strings.contains(wat,'megabox')} ? '메가박스' : 'CGV')
                             ))))"/>
@@ -100,7 +100,7 @@
                       th:title="${#strings.contains(wat,'aHR0cHM6Ly93d3cubmV0ZmxpeC5jb20vdGl0b')} or ${#strings.contains(wat,'netflix')}?
                             '넷플릭스' : (${#strings.contains(wat,'aHR0cHM6Ly93YXRjaGEuY29tL3dhd')}  or ${#strings.contains(wat,'https://watcha.com/watch/')}?
                             '왓챠' : (${#strings.contains(wat,'disneyplus')} ? '디즈니플러스' :
-                            (${#strings.contains(wat,'aHR0cHM6Ly93d3cud2F2dmUuY29tL3BsYXllci92b2Q')} or ${#strings.contains(wat,'wavve')} ?
+                            (${#strings.contains(wat,'aHR0cHM6Ly93d3cud2F2dmUuY29tL3BsY')} or ${#strings.contains(wat,'wavve')} ?
                             '웨이브' : (${#strings.contains(wat,'aHR0cHM6Ly93d3cudHZpbmcuY29tL2N')}  or ${#strings.contains(wat,'tiving')}?
                               '티빙' : (${#strings.contains(wat,'megabox')} ? '메가박스' : 'CGV')
                             ))))
@@ -118,7 +118,7 @@
                     <attr sel="div.css-17vuhtq" th:text="${#strings.contains(wat,'aHR0cHM6Ly93d3cubmV0ZmxpeC5jb20vdGl0b')} or ${#strings.contains(wat,'netflix')}?
                             '넷플릭스' : (${#strings.contains(wat,'aHR0cHM6Ly93YXRjaGEuY29tL3dhd')} or ${#strings.contains(wat,'https://watcha.com/watch/')}?
                             '왓챠' : (${#strings.contains(wat,'disneyplus')} ? '디즈니플러스' :
-                            (${#strings.contains(wat,'aHR0cHM6Ly93d3cud2F2dmUuY29tL3BsYXllci92b2Q')} or ${#strings.contains(wat,'wavve')}?
+                            (${#strings.contains(wat,'aHR0cHM6Ly93d3cud2F2dmUuY29tL3BsYX')} or ${#strings.contains(wat,'wavve')}?
                             '웨이브' : (${#strings.contains(wat,'aHR0cHM6Ly93d3cudHZpbmcuY29tL2N')} or ${#strings.contains(wat,'tiving')}?
                               '티빙' : (${#strings.contains(wat,'megabox')} ? '메가박스' : 'CGV')
                             ))))
