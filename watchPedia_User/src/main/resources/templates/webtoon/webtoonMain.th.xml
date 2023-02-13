@@ -2,7 +2,7 @@
 <thlogic>
 <!--    웹툰 페이지 최상단-->
     <attr sel=".webtoon-table" th:remove="all-but-first" >
-        <attr sel=".webtoon-tr" th:each="webtoon : ${webtoons}" th:if="${webtoon.webAge == '전체연령가'}">
+        <attr sel=".webtoon-tr" th:each="webtoon, i : ${webtoons}" th:if="${webtoon.webAge == '전체연령가'} and ${i.index < 30}">
             <attr sel=".webtoon-title" th:text="${webtoon.webTitle}"/>
             <attr sel=".webtoon-img" th:src="${webtoon.webThumbnail}" />
             <attr sel=".average"

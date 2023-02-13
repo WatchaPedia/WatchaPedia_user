@@ -19,7 +19,7 @@
 </attr>
 
 
-    <!--2023년작 영화  -->
+    <!--최신 영화  -->
     <attr sel=".movie-table-2023" th:remove="all-but-first" >
         <attr sel=".movie-tr-2023" th:each="movie3, i : ${movies3}"  >
             <attr sel=".movie-title" th:text="${movie3.movTitle}"/>
@@ -37,21 +37,21 @@
         </attr>
     </attr>
 
-    <!--해외에서 화제가 된 한국 영화 -->
+    <!--왓챠피디이아 인기검색 순위 -->
     <attr sel=".movie-table-korea" th:remove="all-but-first" >
-        <attr sel=".movie-tr-korea" th:each="koreanMovie, i : ${koreanMovies}" >
-            <attr sel=".movie-title" th:text="${koreanMovie.movTitle}"/>
-            <attr sel=".movie-img" th:src="${koreanMovie.movThumbnail}" />
-            <attr sel=".movie-making" th:text="${koreanMovie.movMakingDate} + ' ・ ' +  ${koreanMovie.movCountry}" />
+        <attr sel=".movie-tr-korea" th:each="searchTop10Movie, i : ${searchTop10Movie}" >
+            <attr sel=".movie-title" th:text="${searchTop10Movie.movTitle}"/>
+            <attr sel=".movie-img" th:src="${searchTop10Movie.movThumbnail}" />
+            <attr sel=".movie-making" th:text="${searchTop10Movie.movMakingDate} + ' ・ ' +  ${searchTop10Movie.movCountry}" />
             <!--                메인페이지 순서 count이용 증가 -->
             <attr sel=".movie-idx" th:text="${i.count}" />
             <!--    메인페이지 평균별점   -->
             <attr sel=".average"
-                  th:if="${koreanMovie.avg} != 0.0" th:text="'평균 ★ ' + (${koreanMovie.avg} != 0 ? ${koreanMovie.avg} : _)"/>
+                  th:if="${searchTop10Movie.avg} != 0.0" th:text="'평균 ★ ' + (${searchTop10Movie.avg} != 0 ? ${searchTop10Movie.avg} : _)"/>
             <!--                넷플릭스 아이콘        -->
-            <attr sel="div.css-5o7sb2" th:if="${koreanMovie.movWatch} != null and ${#strings.contains(koreanMovie.movWatch,'aHR0cHM6Ly93YXRjaGEuY29tL3dhd')}"/>
+            <attr sel="div.css-5o7sb2" th:if="${searchTop10Movie.movWatch} != null and ${#strings.contains(searchTop10Movie.movWatch,'aHR0cHM6Ly93YXRjaGEuY29tL3dhd')}"/>
             <!--                왓챠 아이콘 -->
-            <attr sel="div.css-oobk33" th:if="${koreanMovie.movWatch} != null and ${#strings.contains(koreanMovie.movWatch,'aHR0cHM6Ly93d3cubmV0ZmxpeC5jb20vdGl0b')}"/>
+            <attr sel="div.css-oobk33" th:if="${searchTop10Movie.movWatch} != null and ${#strings.contains(searchTop10Movie.movWatch,'aHR0cHM6Ly93d3cubmV0ZmxpeC5jb20vdGl0b')}"/>
         </attr>
     </attr>
 
