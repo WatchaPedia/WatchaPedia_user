@@ -71,7 +71,7 @@ let loading = false;
 let page = 1;
 
 const commentUl = document.querySelector("div.css-tbg13q-CommentLists ul.css-10n5vg9-VisualUl")
-const cloneLi = commentUl.querySelector("div#clone-li")
+const cloneLi = document.querySelector("div#clone-li")
 
 const loadingIcon = document.querySelector("#loading-icon");
 function addList() {
