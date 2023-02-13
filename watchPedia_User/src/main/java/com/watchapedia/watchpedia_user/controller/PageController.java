@@ -59,17 +59,18 @@ public class PageController {
         map.addAttribute("movies", movies);
         searchService.searchTop10Movie();    //modelMap.addAttribute("searchTop10", searchTop10);
 
-        //String[] gerneList = {"액션","모험","예술","코미디","블랙코미디","로멘틱","다큐멘터리","드라마","코미디","시대극","멜로드라마","교육영화","판타지","누아르","공포","뮤지컬","미스터리","성인","멜로","로멘스","재난","좀비","전쟁","애니메이션","독립","스포츠","음악","뮤지컬","틴에이저","시트콤","가족","역사","독립","스포츠","음악","뮤지컬","로맨스"};
         String[] gerneList = {"액션","액션","액션","코미디","코미디","코미디", "드라마","드라마"};
         String[] countryList = {"한국","한국","한국","한국","미국","미국", "미국"};
+        String[] runningList = {"나 홀로","아이언","해리포터", "나 홀로","아이언","해리포터"};
         Random rand = new Random();
         String randomJerne = gerneList[rand.nextInt(gerneList.length)];
         String randomCountry = countryList[rand.nextInt(countryList.length)];
+        String randomRunning = runningList[rand.nextInt(runningList.length)];
 
         map.addAttribute("searchTop10Movie", searchService.searchTop10Movie());
         map.addAttribute("movieStar", movieService.movieStar());
         map.addAttribute("randomCountry", randomCountry);
-
+        map.addAttribute("movies2", movieService.movies2(randomRunning));
         map.addAttribute("randomJerne",randomJerne);
         map.addAttribute("movieDtos", movieService.movieDtos());
         map.addAttribute("movieZero", movieService.movieZero());
