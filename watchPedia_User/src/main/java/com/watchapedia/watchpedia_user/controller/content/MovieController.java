@@ -63,9 +63,12 @@ public class MovieController {
 
         String[] gerneList = {"액션","액션","액션","코미디","코미디","코미디", "드라마","드라마"};
         String[] countryList = {"한국","한국","한국","한국","미국","미국", "미국"};
+        String[] runningList = {"나 홀로","아이언","해리포터","나 홀로","아이언","해리포터"};
         Random rand = new Random();
         String randomJerne = gerneList[rand.nextInt(gerneList.length)];
         String randomCountry = countryList[rand.nextInt(countryList.length)];
+        String randomRunning = runningList[rand.nextInt(runningList.length)];
+
 
         map.addAttribute("searchTop10Movie", searchService.searchTop10Movie());
         map.addAttribute("movieStar", movieService.movieStar());
@@ -74,7 +77,7 @@ public class MovieController {
         map.addAttribute("randomJerne",randomJerne);
         map.addAttribute("movieDtos", movieService.movieDtos());
         map.addAttribute("movieZero", movieService.movieZero());
-        map.addAttribute("movies2", movieService.movies2("나 홀로"));
+        map.addAttribute("movies2", movieService.movies2(randomRunning));
         map.addAttribute("movies3", movieService.movies3());
         map.addAttribute("koreanMovies", movieService.searchCountry("한국"));
         map.addAttribute("americanMovies", movieService.searchCountry("미국"));
