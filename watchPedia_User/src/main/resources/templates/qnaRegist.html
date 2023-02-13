@@ -1,4 +1,4 @@
-<html dir="ltr" lang="ko">
+<html dir="ltr" lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8" />
     <!-- v22383 -->
@@ -527,7 +527,7 @@
 
         <div class="user-info dropdown">
             <button class="dropdown-toggle" aria-haspopup="true">
-                <span data-user-name="true">양소현</span>
+                <span th:text="${userName}">양소현</span>
 
                 <img
                         src="https://i.ibb.co/TRFJCXr/2020-08-26-1-31-03.png"

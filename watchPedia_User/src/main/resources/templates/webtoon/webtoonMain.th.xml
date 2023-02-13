@@ -2,7 +2,7 @@
 <thlogic>
 <!--    웹툰 페이지 최상단-->
     <attr sel=".webtoon-table" th:remove="all-but-first" >
-        <attr sel=".webtoon-tr" th:each="webtoon : ${webtoons}" th:if="${webtoon.webAge == '전체연령가'}">
+        <attr sel=".webtoon-tr" th:each="webtoon, i : ${webtoons}" th:if="${webtoon.webAge == '전체연령가'} and ${i.index < 30}">
             <attr sel=".webtoon-title" th:text="${webtoon.webTitle}"/>
             <attr sel=".webtoon-img" th:src="${webtoon.webThumbnail}" />
             <attr sel=".average"
@@ -27,6 +27,8 @@
         <attr sel=".webtoon-tr-recent" th:if="${webtoon.webSerDetail == '연재 중'}" th:each="webtoon : ${webtoons}" >
             <attr sel=".webtoon-title-recent" th:text="${webtoon.webTitle}"/>
             <attr sel=".webtoon-img-recent" th:src="${webtoon.webThumbnail}" />
+            <attr sel=".average"
+                  th:if="${webtoon.avg} != 0.0" th:text="'평균 ★ ' + (${webtoon.avg} != 0 ? ${webtoon.avg} : _)"/>
         </attr>
     </attr>
 
@@ -35,6 +37,8 @@
         <attr sel=".webtoon-tr-ok" th:if="${webtoon.webSerDetail == '완결'}" th:each="webtoon : ${webtoons}" >
             <attr sel=".webtoon-title-ok" th:text="${webtoon.webTitle}"/>
             <attr sel=".webtoon-img-ok" th:src="${webtoon.webThumbnail}" />
+            <attr sel=".average"
+                  th:if="${webtoon.avg} != 0.0" th:text="'평균 ★ ' + (${webtoon.avg} != 0 ? ${webtoon.avg} : _)"/>
         </attr>
     </attr>
 
@@ -43,6 +47,8 @@
         <attr sel=".webtoon-tr-romence" th:if="${webtoon.webGenre == '로맨스'}" th:each="webtoon : ${webtoons}" >
             <attr sel=".webtoon-title-romence" th:text="${webtoon.webTitle}"/>
             <attr sel=".webtoon-img-romence" th:src="${webtoon.webThumbnail}" />
+            <attr sel=".average"
+                  th:if="${webtoon.avg} != 0.0" th:text="'평균 ★ ' + (${webtoon.avg} != 0 ? ${webtoon.avg} : _)"/>
         </attr>
     </attr>
 <!--********************************************************************************************************-->
@@ -54,6 +60,8 @@
         <attr sel=".webtoon-tr-today" th:if="${webtoon.webGenre == '일상'}" th:each="webtoon : ${webtoons}" >
             <attr sel=".webtoon-title-today" th:text="${webtoon.webTitle}"/>
             <attr sel=".webtoon-img-today" th:src="${webtoon.webThumbnail}" />
+            <attr sel=".average"
+                  th:if="${webtoon.avg} != 0.0" th:text="'평균 ★ ' + (${webtoon.avg} != 0 ? ${webtoon.avg} : _)"/>
         </attr>
     </attr>
 
@@ -62,6 +70,8 @@
         <attr sel=".webtoon-tr-drama" th:if="${webtoon.webGenre == '판타지'}" th:each="webtoon : ${webtoons}" >
             <attr sel=".webtoon-title-drama" th:text="${webtoon.webTitle}"/>
             <attr sel=".webtoon-img-drama" th:src="${webtoon.webThumbnail}" />
+            <attr sel=".average"
+                  th:if="${webtoon.avg} != 0.0" th:text="'평균 ★ ' + (${webtoon.avg} != 0 ? ${webtoon.avg} : _)"/>
         </attr>
     </attr>
 
@@ -70,6 +80,8 @@
         <attr sel=".webtoon-tr-gita" th:if="${webtoon.webSerDay == '기타'}" th:each="webtoon : ${webtoons}" >
             <attr sel=".webtoon-title-gita" th:text="${webtoon.webTitle}"/>
             <attr sel=".webtoon-img-gita" th:src="${webtoon.webThumbnail}" />
+            <attr sel=".average"
+                  th:if="${webtoon.avg} != 0.0" th:text="'평균 ★ ' + (${webtoon.avg} != 0 ? ${webtoon.avg} : _)"/>
         </attr>
     </attr>
 
@@ -78,6 +90,8 @@
         <attr sel=".webtoon-tr-wek" th:if="${webtoon.webSerDay == '토' or webtoon.webSerDay == '일' }" th:each="webtoon : ${webtoons}" >
             <attr sel=".webtoon-title-wek" th:text="${webtoon.webTitle}"/>
             <attr sel=".webtoon-img-wek" th:src="${webtoon.webThumbnail}" />
+            <attr sel=".average"
+                  th:if="${webtoon.avg} != 0.0" th:text="'평균 ★ ' + (${webtoon.avg} != 0 ? ${webtoon.avg} : _)"/>
         </attr>
     </attr>
 
@@ -88,6 +102,8 @@
             <attr sel=".webtoon-title-kakao" th:text="${webtoon.webTitle}"/>
             <attr sel=".webtoon-img-kakao" th:src="${webtoon.webThumbnail}" />
             <attr sel=".web-idx" th:text="${index.index + 1}" />
+            <attr sel=".average"
+                  th:if="${webtoon.avg} != 0.0" th:text="'평균 ★ ' + (${webtoon.avg} != 0 ? ${webtoon.avg} : _)"/>
         </attr>
     </attr>
 

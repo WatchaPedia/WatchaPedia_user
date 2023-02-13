@@ -57,7 +57,7 @@ public class PageController {
         map.addAttribute("userSession", userSessionDto);
         List<MovieDto> movies = movieService.movies();
         map.addAttribute("movies", movies);
-        searchService.searchTop10Movie(map);    //modelMap.addAttribute("searchTop10", searchTop10);
+        searchService.searchTop10Movie();    //modelMap.addAttribute("searchTop10", searchTop10);
 
         //String[] gerneList = {"액션","모험","예술","코미디","블랙코미디","로멘틱","다큐멘터리","드라마","코미디","시대극","멜로드라마","교육영화","판타지","누아르","공포","뮤지컬","미스터리","성인","멜로","로멘스","재난","좀비","전쟁","애니메이션","독립","스포츠","음악","뮤지컬","틴에이저","시트콤","가족","역사","독립","스포츠","음악","뮤지컬","로맨스"};
         String[] gerneList = {"액션","액션","액션","코미디","코미디","코미디", "드라마","드라마"};
@@ -66,17 +66,19 @@ public class PageController {
         String randomJerne = gerneList[rand.nextInt(gerneList.length)];
         String randomCountry = countryList[rand.nextInt(countryList.length)];
 
+        map.addAttribute("searchTop10Movie", searchService.searchTop10Movie());
+        map.addAttribute("movieStar", movieService.movieStar());
         map.addAttribute("randomCountry", randomCountry);
+
         map.addAttribute("randomJerne",randomJerne);
-        map.addAttribute("movieZero", movieService.movieZero());
         map.addAttribute("movieDtos", movieService.movieDtos());
+        map.addAttribute("movieZero", movieService.movieZero());
         map.addAttribute("movies2", movieService.movies2("나 홀로"));
         map.addAttribute("movies3", movieService.movies3());
         map.addAttribute("koreanMovies", movieService.searchCountry("한국"));
         map.addAttribute("americanMovies", movieService.searchCountry("미국"));
         map.addAttribute("dramas", movieService.searchDrama("드라마"));
         map.addAttribute("cris", movieService.searchCri(randomJerne,randomCountry));
-        map.addAttribute("movieStar", movieService.movieStar());
 
         Long totalCnt = starService.getTotalCnt();
         map.addAttribute("totalCnt",totalCnt);
@@ -216,9 +218,11 @@ public class PageController {
                 .addObject("webtoons", webtoons);
     }
     @GetMapping("/search/person/{searchKey}")
-    public ModelAndView searchPerson(@PathVariable String searchKey){
+    public ModelAndView searchPerson(@PathVariable String searchKey, HttpSession session){
         System.out.println("searchPerson 페이지 컨트롤러에 잘 도착함");
         System.out.println("searchKey 매개변수로 받은 값 : " + searchKey);
+
+        UserSessionDto dto = (UserSessionDto) session.getAttribute("userSession");
 
         //검색어를 포함하는 이름의 인물List를 가져옴
         List<Person> persons= personRepository.findByPerNameContaining(searchKey);
@@ -232,6 +236,7 @@ public class PageController {
 
         return new ModelAndView("/search/searchPerson")
                 .addObject("searchKey", searchKey)
+                .addObject("userSession", dto)
                 .addObject("persons", persons);
     }
 
