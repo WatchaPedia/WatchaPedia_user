@@ -23,11 +23,19 @@ $(function() {
             complete:function(){
                 loadingIcon.style.display='none'
             },success:function (data){
-                movList.push(data.content)
-                let str = ""
-                movList.forEach(con=>str += JSON.stringify(con))
-                str = str.replaceAll("][",",")
-                itemList.itemList = JSON.parse(str)
+                if(data.content.length != 0){
+                    movList.push(data.content)
+                    let str = ""
+                    movList.forEach(con=>str += JSON.stringify(con))
+                    str = str.replaceAll("][",",")
+                    itemList.itemList = JSON.parse(str)
+
+                    if(itemList.itemList.length <= 4){
+                        addList()
+                    }
+                }else{
+                    addList()
+                }
             }
         })
     }
@@ -78,19 +86,27 @@ document.querySelector(".css-lshjof-VisualUl").addEventListener("click",(e)=>{
                 loadingIcon.style.display='none'
             },
             success: function (data) {
-                // 리스트에 추가
-                e.target.innerHTML == '영화' ? movList.push(data.content) : (e.target.innerHTML == 'TV 프로그램' ? tvList.push(data.content)
-                    : (e.target.innerHTML == '책' ? bookList.push(data.content)  : webtoonList.push(data.content)));
-                // 리스트 반복문으로 스트링에 입력
-                let str = "";
-                e.target.innerHTML == '영화' ? movList.forEach(con=>str += JSON.stringify(con)) : (e.target.innerHTML == 'TV 프로그램' ? tvList.forEach(con=>str += JSON.stringify(con))
-                    : (e.target.innerHTML == '책' ? bookList.forEach(con=>str += JSON.stringify(con)) : webtoonList.forEach(con=>str += JSON.stringify(con))));
-                str = str.replaceAll("][",",")
-                // json 형태로 변경
-                itemList.itemList = JSON.parse(str)
                 // 각 페이지 +1
                 e.target.innerHTML == '영화' ? movPage++ : (e.target.innerHTML == 'TV 프로그램' ? tvPage++
                     : (e.target.innerHTML == '책' ? bookPage++ : webPage++))
+                if(data.content.length != 0){
+                    // 리스트에 추가
+                    e.target.innerHTML == '영화' ? movList.push(data.content) : (e.target.innerHTML == 'TV 프로그램' ? tvList.push(data.content)
+                        : (e.target.innerHTML == '책' ? bookList.push(data.content)  : webtoonList.push(data.content)));
+                    // 리스트 반복문으로 스트링에 입력
+                    let str = "";
+                    e.target.innerHTML == '영화' ? movList.forEach(con=>str += JSON.stringify(con)) : (e.target.innerHTML == 'TV 프로그램' ? tvList.forEach(con=>str += JSON.stringify(con))
+                        : (e.target.innerHTML == '책' ? bookList.forEach(con=>str += JSON.stringify(con)) : webtoonList.forEach(con=>str += JSON.stringify(con))));
+                    str = str.replaceAll("][",",")
+                    // json 형태로 변경
+                    itemList.itemList = JSON.parse(str)
+
+                    if(itemList.itemList.length <= 4){
+                        addList()
+                    }
+                }else{
+                    addList()
+                }
             }
             , error: function () {
                 console.log("에러")
@@ -118,7 +134,6 @@ document.querySelector(".css-lshjof-VisualUl").addEventListener("click",(e)=>{
         if(page == 'last'){
             scrollRec = false;
         }else {
-            console.log(window.scrollY)
             selectType == '영화' ? movScrollY = window.scrollY : (selectType == 'TV 프로그램' ? tvScrollY = window.scrollY
                 : (selectType == '책' ? bookScrollY = window.scrollY: webScrollY = window.scrollY));
             $.ajax({
@@ -144,14 +159,17 @@ document.querySelector(".css-lshjof-VisualUl").addEventListener("click",(e)=>{
                     selectType == '영화' ? movList.forEach(con => str += JSON.stringify(con)) : (selectType == 'TV 프로그램' ? tvList.forEach(con => str += JSON.stringify(con))
                         : (selectType == '책' ? bookList.forEach(con => str += JSON.stringify(con)) : webtoonList.forEach(con => str += JSON.stringify(con))));
                     str = str.replaceAll("][", ",")
+                    // json 형태로 변경
+                    itemList.itemList = JSON.parse(str)
                     if (data.last == true) {
                         selectType == '영화' ? movPage = 'last' : (selectType == 'TV 프로그램' ? tvPage = 'last'
                             : (selectType == '책' ? bookPage = 'last' : webPage = 'last'))
                     } else {
-                        // json 형태로 변경
-                        itemList.itemList = JSON.parse(str)
                         selectType == '영화' ? movPage++ : (selectType == 'TV 프로그램' ? tvPage++
                             : (selectType == '책' ? bookPage++ : webPage++))
+                    }
+                    if(itemList.itemList.length <= 4){
+                        addList()
                     }
                 }
                 , error: function () {
