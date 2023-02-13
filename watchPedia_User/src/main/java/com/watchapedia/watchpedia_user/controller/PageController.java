@@ -119,7 +119,7 @@ public class PageController {
     public String commentList(
             @PathVariable String contentType,
             @PathVariable Long contentIdx,
-            @PageableDefault(size = 3, sort = "commIdx", direction = Sort.Direction.DESC) Pageable pageable,
+            @PageableDefault(size = 5, sort = "commIdx", direction = Sort.Direction.DESC) Pageable pageable,
             ModelMap map,
             HttpSession session
     ){
@@ -152,7 +152,7 @@ public class PageController {
     public Map<String, Object> commentList(
             @PathVariable String contentType,
             @PathVariable Long contentIdx,
-            @PageableDefault(size = 3, sort = "commIdx", direction = Sort.Direction.DESC) Pageable pageable
+            @PageableDefault(size = 5, sort = "commIdx", direction = Sort.Direction.DESC) Pageable pageable
             ,
             HttpSession session
     ){
