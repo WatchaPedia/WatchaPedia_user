@@ -109,19 +109,19 @@
 
     <!--나홀로집에 영화 -->
     <attr sel=".movie-table-alone" th:remove="all-but-first" >
-        <attr sel=".movie-tr-alone"  th:each="movie2, i : ${movies2}" >
-            <attr sel=".movie-title" th:text="${movie2.movTitle}"/>
-            <attr sel=".movie-img" th:src="${movie2.movThumbnail}" />
-            <attr sel=".movie-making" th:text="${movie2.movMakingDate} + ' ・ ' +  ${movie2.movCountry}" />
+        <attr sel=".movie-tr-alone"  th:each="movies2, i : ${movies2}" >
+            <attr sel=".movie-title" th:text="${movies2.movTitle}"/>
+            <attr sel=".movie-img" th:src="${movies2.movThumbnail}" />
+            <attr sel=".movie-making" th:text="${movies2.movMakingDate} + ' ・ ' +  ${movies2.movCountry}" />
             <!--                메인페이지 순서 count이용 증가 -->
             <attr sel=".movie-idx" th:text="${i.count}" />
             <!--                메인페이지 평균별점       -->
             <attr sel=".average"
-                  th:if="${movie2.avg} != 0.0" th:text="'평균 ★ ' + (${movie2.avg} != 0 ? ${movie2.avg} : _)"/>
+                  th:if="${movies2.avg} != 0.0" th:text="'평균 ★ ' + (${movies2.avg} != 0 ? ${movies2.avg} : _)"/>
             <!--                넷플릭스 아이콘        -->
-            <attr sel="div.css-5o7sb2" th:if="${movie2.movWatch} != null and ${#strings.contains(movie2.movWatch,'aHR0cHM6Ly93YXRjaGEuY29tL3dhd')}"/>
+            <attr sel="div.css-5o7sb2" th:if="${movies2.movWatch} != null and ${#strings.contains(movies2.movWatch,'aHR0cHM6Ly93YXRjaGEuY29tL3dhd')}"/>
             <!--                왓챠 아이콘 -->
-            <attr sel="div.css-oobk33" th:if="${movie2.movWatch} != null and ${#strings.contains(movie2.movWatch,'aHR0cHM6Ly93d3cubmV0ZmxpeC5jb20vdGl0b')}"/>
+            <attr sel="div.css-oobk33" th:if="${movies2.movWatch} != null and ${#strings.contains(movies2.movWatch,'aHR0cHM6Ly93d3cubmV0ZmxpeC5jb20vdGl0b')}"/>
         </attr>
     </attr>
     <!--최근 등록된 오늘의 영화  -->
