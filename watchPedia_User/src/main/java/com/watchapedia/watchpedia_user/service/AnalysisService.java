@@ -114,10 +114,11 @@ public class AnalysisService {
         entryList.sort(((o1, o2) -> o2.getValue() - o1.getValue()));
 
         Pageable pageable = PageRequest.of(0, 1);
-        Map<String, String> resultMap = new HashMap<>();
+        Map<String, String> resultMap = new HashMap<String, String>();
         for(int i=0; i<=5; i++){
             try{
                 Person person = personRepository.findById(entryList.get(i).getKey()).get();
+                System.out.println("출력테스트 " + person.getPerName());
                 resultMap.put((person.getPerPhoto()!=null?person.getPerPhoto()+"|":"")+person.getPerName()+","+person.getPerIdx()
                         ,entryList.get(i).getValue()+","+movieRepository.actorMovie("%,"+person.getPerIdx()+"(주연%",pageable).get(0));
             }catch (IndexOutOfBoundsException e){
@@ -125,6 +126,8 @@ public class AnalysisService {
             }
         }
         List<Map.Entry<String, String>> result = new LinkedList<>(resultMap.entrySet());
+        System.out.println("첫번째: " + resultMap.entrySet());
+        System.out.println("첫번째: " + result.get(0));
         return result;
     }
 
