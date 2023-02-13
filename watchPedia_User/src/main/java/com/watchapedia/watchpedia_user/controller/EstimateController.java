@@ -64,7 +64,7 @@ public class EstimateController {
     @ResponseBody
     public Map<String, Object> estimatePage(
             @PathVariable String contentType,
-            @PageableDefault(size = 9) Pageable pageable,
+            @PageableDefault(size = 7) Pageable pageable,
             HttpSession session
     ){
         UserSessionDto dto = (UserSessionDto) session.getAttribute("userSession");

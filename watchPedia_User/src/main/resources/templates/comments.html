@@ -3839,6 +3839,7 @@
             position: relative;
             margin: 12px 0px 15px;
             height: auto;
+            min-height: 24px;
         }
         .css-1f9m1s4-StylelessLocalLink:hover, .css-1f9m1s4-StylelessLocalLink:visited, .css-1f9m1s4-StylelessLocalLink:active {
             color: rgb(0, 0, 0);
@@ -4946,6 +4947,70 @@
             display: none;
         }
     </style>
+
+<!--    스포댓글-->
+    <style>
+        .css-xstsdj {
+            display: inline-block;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            z-index: 2;
+            width: 100%;
+            height: 100%;
+        }
+        .css-13mdv8k-StylelessButton {
+            background: none;
+            padding: 0px;
+            border: none;
+            margin: 0px;
+            cursor: pointer;
+            color: rgb(255, 47, 110);
+        }
+        .css-1jrmj77-StylelessButton {
+            background: none;
+            border: none;
+            margin: 0px;
+            color: rgb(212, 212, 212);
+            font-size: 17px;
+            font-weight: 400;
+            letter-spacing: -0.7px;
+            line-height: 22px;
+            padding: 2px 8px;
+            cursor: default;
+        }
+        .css-1jm9uak {
+            display: flex;
+            -webkit-box-align: center;
+            align-items: center;
+            color: rgb(212, 212, 212);
+            font-size: 14px;
+            font-weight: 400;
+            letter-spacing: -0.3px;
+            line-height: 19px;
+            height: 44px;
+            border-top: 1px solid rgb(229, 229, 229);
+            border-bottom: 1px solid rgb(229, 229, 229);
+            overflow: hidden;
+        }
+        .css-zoh368 {
+            display: inline-block;
+            background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxnIGZpbGw9IiNkNGQ0ZDQiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPHBhdGggZD0iTTMgMjFoNVY5SDN6TTE0LjkwMiA3Ljk5NGg0LjkzOGMuODggMCAxLjU5MS43IDEuNTkxIDEuNTY2IDAgLjg2Ni0uNzEyIDEuNTY3LTEuNTkgMS41NjdoLTQuOTM5Yy0uMzk4IDAtLjYxNS0uMDU1LS44MTItLjE1OGExLjA4NSAxLjA4NSAwIDAgMS0uNDUzLS40NDdjLS4xMDQtLjE5Mi0uMTYtLjQwNS0uMTYtLjc5OHYtLjMyN2MwLS4zOTMuMDU2LS42MDYuMTYtLjguMTA1LS4xOTEuMjU4LS4zNDIuNDUzLS40NDUuMTk3LS4xMDMuNDE0LS4xNTguODEyLS4xNTgiLz4KICAgICAgICA8cGF0aCBkPSJNMTQuMDYgMTFIMTlhMS41OCAxLjU4IDAgMCAxIDEuNTkgMS41NjhjMCAuODY1LS43MTIgMS41NjYtMS41OSAxLjU2NmgtNC45NGMtLjM5OCAwLS42MTUtLjA1NS0uODEtLjE1N2ExLjA4MSAxLjA4MSAwIDAgMS0uNDU0LS40NDhjLS4xMDUtLjE5Mi0uMTYtLjQwNS0uMTYtLjc5OHYtLjMyN2MwLS4zOTIuMDU1LS42MDYuMTYtLjguMTA0LS4xOTEuMjU4LS4zNDIuNDUzLS40NDUuMTk2LS4xMDMuNDEzLS4xNTguODExLS4xNTgiLz4KICAgICAgICA8cGF0aCBkPSJNMTMuMjIgMTQuMDA5aDQuOTM4Yy44NzkgMCAxLjU5LjcgMS41OSAxLjU2NiAwIC44NjYtLjcxMSAxLjU2Ny0xLjU5IDEuNTY3SDEzLjIyYy0uMzk4IDAtLjYxNS0uMDU1LS44MTEtLjE1N2ExLjA5NSAxLjA5NSAwIDAgMS0uNDU0LS40NDhjLS4xMDQtLjE5Mi0uMTYtLjQwNi0uMTYtLjc5OHYtLjMyOGMwLS4zOTEuMDU2LS42MDUuMTYtLjc5OGExLjA5IDEuMDkgMCAwIDEgLjQ1NC0uNDQ2Yy4xOTYtLjEwMy40MTMtLjE1OC44MS0uMTU4Ii8+CiAgICAgICAgPHBhdGggZD0iTTEyLjM3OCAxNy4wMTdoNC45NGMuODc4IDAgMS41OS42NjggMS41OSAxLjQ5IDAgLjgyNC0uNzEyIDEuNDkyLTEuNTkgMS40OTJoLTQuOTRjLS4zOTggMC0uNjE1LS4wNS0uODEtLjE1YTEuMDU4IDEuMDU4IDAgMCAxLS40NTQtLjQyNWMtLjEwNS0uMTgzLS4xNi0uMzg2LS4xNi0uNzZ2LS4zMTJjMC0uMzczLjA1NS0uNTc3LjE2LS43Ni4xMDQtLjE4My4yNTgtLjMyNy40NTMtLjQyNS4xOTYtLjA5OS40MTMtLjE1LjgxMS0uMTUiLz4KICAgICAgICA8cGF0aCBkPSJNMTMuMjAyIDUuMTYyYS45NC45NCAwIDAgMCAuMjc1LS42NjVWMy4yOTZjLS4wNjYtLjUzLjItLjc5Ni43OTUtLjc5Ni44OTYgMCAyLjM4Ny40NzcgMi4zODcgMi4zODcgMCAxLjI3My0uMjY2IDIuMzMzLS43OTYgMy4xODJ2MTEuOTNIOS41VjkuNjZjMC0uNTMxLjI2NS0xLjA2MS43OTUtMS41OTFsMi45MDctMi45MDd6Ii8+CiAgICA8L2c+Cjwvc3ZnPgo=) center center / contain no-repeat;
+            width: 18px;
+            height: 18px;
+            margin: 0px 3px;
+        }
+        .css-43cye7 {
+            display: inline-block;
+            background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxwYXRoIGZpbGw9IiNkNGQ0ZDQiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTkuODcgMTguMDE5bC0zLjMxNCAzLjMxNHYtNC41N2MtMi4zNTYtMS40MTItMy44OS0zLjcxNi0zLjg5LTYuMzE5IDAtNC4yOTUgNC4xOC03Ljc3NyA5LjMzNC03Ljc3NyA1LjE1NSAwIDkuMzMzIDMuNDgyIDkuMzMzIDcuNzc3IDAgNC4yOTYtNC4xNzggNy43NzgtOS4zMzMgNy43NzgtLjczMyAwLTEuNDQ2LS4wNy0yLjEzLS4yMDN6Ii8+Cjwvc3ZnPgo=) center center / contain no-repeat;
+            width: 18px;
+            height: 18px;
+            margin: 0px 3px 0px 13px;
+        }
+        #clone-li{
+            display: none;
+        }
+    </style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -4972,6 +5037,35 @@
                         </div>
                         <div class="css-10bjf2k">코멘트</div>
                     </header>
+                    <div id="clone-li" class="css-bawlbm">
+                        <div class="css-4obf01">
+                            <div class="css-1cvf9dk"><a title="죄수생"
+                                                        class="css-1f9m1s4-StylelessLocalLink eovgsd01"
+                                                        href="/ko-KR/users/ld0q0DLz3q6Xn">
+                                <div class="css-107z6xc">
+                                    <div class="css-60au38-ProfilePhotoImage"></div>
+                                </div>
+                                <div class="css-1agoci2">죄수생</div>
+                            </a></div>
+                        </div>
+                        <div class="css-4tkoly"><a class="css-1f9m1s4-StylelessLocalLink eovgsd01"
+                                                   href="/ko-KR/comments/y4ZMOlY9wXQOp">
+                            <div class="css-1g78l7j"><span>&lt;아바타 1&gt;: 2009년  &lt;아바타 2&gt;: 2020년
+12년만에 내는 작품인만큼 그에 걸맞는 완벽성을 기대해본다. 그는 어떤 빅픽쳐를 그리고 있기에 5부작을 계획한 것일까.
+&lt;아바타 2&gt;는 안경이 필요없는 3D로 제작할 예정이라고 한다.</span></div>
+                        </a>
+                            <span class="css-xstsdj">스포일러가 있어요!!<button aria-label="Accept Spoiler" class="css-13mdv8k-StylelessButton">&nbsp;보기</button></span>
+
+                        </div>
+                        <div class="css-1atijos"><span
+                                src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGcgZmlsbD0iIzc4Nzg3OCI+CiAgICAgICAgICAgIDxwYXRoIGQ9Ik02Ljc1IDkuNDg1aC0zYTEgMSAwIDAgMC0xIDF2MTBhMSAxIDAgMCAwIDEgMWgzYTEgMSAwIDAgMCAxLTF2LTEwYTEgMSAwIDAgMC0xLTFNMjAuNjU3IDguNTY2YTIuMzYzIDIuMzYzIDAgMCAwLTEuNzc5LS44MTNIMTYuNjJsLjE2NC0uNjI3Yy4xMzctLjUyOC4yMDEtMS4xMi4yMDEtMS44NjMgMC0xLjkxOS0xLjM3NS0yLjc3OC0yLjczOC0yLjc3OC0uNDQ0IDAtLjc2Ni4xMjMtLjk4Ni4zNzYtLjIuMjI3LS4yODIuNTMtLjI0My45MzVsLjAzIDEuMjMtMi45MDMgMi45NGMtLjU5My42LS44OTQgMS4yMy0uODk0IDEuODcydjkuNjQ3YS41LjUgMCAwIDAgLjUuNWg3LjY4N2EyLjM4OCAyLjM4OCAwIDAgMCAyLjM0OC0yLjA3bDEuNDQ1LTcuNDUyYTIuNDQgMi40NCAwIDAgMC0uNTc0LTEuODk3Ii8+CiAgICAgICAgPC9nPgogICAgPC9nPgo8L3N2Zz4K"
+                                width="18px" height="18px" class="css-64x8kr"></span><em class="like-sum">119</em><span
+                                src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxwYXRoIGZpbGw9IiM3ODc4NzgiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTkuODU3IDE3Ljc4Nkw2IDIxdi00LjkxYy0xLjg0MS0xLjM3My0zLTMuMzY5LTMtNS41OUMzIDYuMzU4IDcuMDMgMyAxMiAzczkgMy4zNTggOSA3LjVjMCA0LjE0Mi00LjAzIDcuNS05IDcuNS0uNzM5IDAtMS40NTYtLjA3NC0yLjE0My0uMjE0eiIvPgo8L3N2Zz4K"
+                                width="18px" height="18px" class="css-q0vi8"></span><em class="recomm-sum">4</em></div>
+                        <div class="css-hy68ty">
+                            <button class="css-1h18l7j-StylelessButton">좋아요</button>
+                        </div>
+                    </div>
                     <div class="css-1gkas1x-Grid e1689zdh0">
                         <div class="css-1y901al-Row emmoxnt0">
                             <div class="css-tbg13q-CommentLists emaj6q20">
@@ -4992,7 +5086,10 @@
                                             <div class="css-1g78l7j"><span>&lt;아바타 1&gt;: 2009년  &lt;아바타 2&gt;: 2020년
 12년만에 내는 작품인만큼 그에 걸맞는 완벽성을 기대해본다. 그는 어떤 빅픽쳐를 그리고 있기에 5부작을 계획한 것일까.
 &lt;아바타 2&gt;는 안경이 필요없는 3D로 제작할 예정이라고 한다.</span></div>
-                                        </a></div>
+                                        </a>
+                                            <span class="css-xstsdj">스포일러가 있어요!!<button aria-label="Accept Spoiler" class="css-13mdv8k-StylelessButton">&nbsp;보기</button></span>
+
+                                        </div>
                                         <div class="css-1atijos"><span
                                                 src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGcgZmlsbD0iIzc4Nzg3OCI+CiAgICAgICAgICAgIDxwYXRoIGQ9Ik02Ljc1IDkuNDg1aC0zYTEgMSAwIDAgMC0xIDF2MTBhMSAxIDAgMCAwIDEgMWgzYTEgMSAwIDAgMCAxLTF2LTEwYTEgMSAwIDAgMC0xLTFNMjAuNjU3IDguNTY2YTIuMzYzIDIuMzYzIDAgMCAwLTEuNzc5LS44MTNIMTYuNjJsLjE2NC0uNjI3Yy4xMzctLjUyOC4yMDEtMS4xMi4yMDEtMS44NjMgMC0xLjkxOS0xLjM3NS0yLjc3OC0yLjczOC0yLjc3OC0uNDQ0IDAtLjc2Ni4xMjMtLjk4Ni4zNzYtLjIuMjI3LS4yODIuNTMtLjI0My45MzVsLjAzIDEuMjMtMi45MDMgMi45NGMtLjU5My42LS44OTQgMS4yMy0uODk0IDEuODcydjkuNjQ3YS41LjUgMCAwIDAgLjUuNWg3LjY4N2EyLjM4OCAyLjM4OCAwIDAgMCAyLjM0OC0yLjA3bDEuNDQ1LTcuNDUyYTIuNDQgMi40NCAwIDAgMC0uNTc0LTEuODk3Ii8+CiAgICAgICAgPC9nPgogICAgPC9nPgo8L3N2Zz4K"
                                                 width="18px" height="18px" class="css-64x8kr"></span><em class="like-sum">119</em><span

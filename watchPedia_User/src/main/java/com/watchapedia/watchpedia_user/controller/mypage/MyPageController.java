@@ -136,7 +136,7 @@ public class MyPageController {
     @ResponseBody
     public Map<String, Object> ratingsAll(
             @PathVariable Long userIdx, @PathVariable String contentType,
-            @PageableDefault(size=10, sort="starIdx", direction = Sort.Direction.DESC) Pageable pageable
+            @PageableDefault(size=12, sort="starIdx", direction = Sort.Direction.DESC) Pageable pageable
     ){
         Map<String, Object> mv = userService.findRatings(contentType,userIdx,pageable);
         return  mv;
@@ -145,7 +145,7 @@ public class MyPageController {
     @ResponseBody
     public Map<String, Object> ratingsStarPointAll(
             @PathVariable Long userIdx, @PathVariable String contentType,
-            @PageableDefault(size=10, sort="starIdx", direction = Sort.Direction.DESC) Pageable pageable
+            @PageableDefault(size=11, sort="starIdx", direction = Sort.Direction.DESC) Pageable pageable
     ){
         Map<String, Object> mv = userService.findRatingsStarPointAll(contentType,userIdx,pageable);
         return  mv;
