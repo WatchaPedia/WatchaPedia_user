@@ -288,48 +288,28 @@ public class MyPageController {
     }
 
     @GetMapping("/mypage/faqList")
-    public String faqList(HttpServletRequest request, ModelMap map){
-        HttpSession session = request.getSession(false);
-        if(session != null){
-            UserSessionDto dto = (UserSessionDto) session.getAttribute("userSession");
+    public String faqList(HttpServletRequest request, ModelMap map, HttpSession session){
+        UserSessionDto dto = (UserSessionDto) session.getAttribute("userSession");
+        if(dto != null){
             User user = userRepository.getReferenceById(dto.userIdx());
             List<Qna> qnas = user.getQnas();
             List<QnaResponseDto> qnaResponseDtoList = qnas.stream().map(QnaDto::from).toList().stream().map(QnaResponseDto::from).toList();
             map.addAttribute("qnaResponseDtoList", qnaResponseDtoList);
             map.addAttribute("userName", dto.userName());
-
-            return "qnaList";
-
+            return "/qnaList";
         }else{
             return "user/login";
         }
 
     }
-    @GetMapping("/mypage/faqRegist")
-    public String faqRegist(HttpServletRequest request, ModelMap map) {
-        HttpSession session = request.getSession(false);
-        if (session != null) {
-            UserSessionDto dto = (UserSessionDto) session.getAttribute("userSession");
-            User user = userRepository.getReferenceById(dto.userIdx());
-            List<Qna> qnas = user.getQnas();
-            List<QnaResponseDto> qnaResponseDtoList = qnas.stream().map(QnaDto::from).toList().stream().map(QnaResponseDto::from).toList();
-            map.addAttribute("qnaResponseDtoList", qnaResponseDtoList);
-            map.addAttribute("userName", dto.userName());
 
-            return null;
-
-        } else {
-            return "user/login";
-        }
-    }
         @GetMapping("/mypage/qnaRegist")
         public String qnaRegist(HttpServletRequest request, ModelMap map) {
             HttpSession session = request.getSession(false);
             if (session != null) {
-
-
+                UserSessionDto dto = (UserSessionDto) session.getAttribute("userSession");
+                map.addAttribute("userName",dto.userName());
                 return "qnaRegist";
-
             } else {
                 return "user/login";
             }
