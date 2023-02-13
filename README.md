@@ -5,9 +5,7 @@
 
 <br />
 
-## :hammer_and_wrench: 기술 스택
-
-![KakaoTalk_20230211_163921064](https://user-images.githubusercontent.com/92245622/218246691-32646484-688f-44e1-acc2-3a1ecd6ef536.png)
+![image](https://user-images.githubusercontent.com/92245622/218383438-51fcb4b6-49c2-481b-9224-10343ae7a643.png)
 
 <br />
 
