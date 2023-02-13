@@ -218,9 +218,11 @@ public class PageController {
                 .addObject("webtoons", webtoons);
     }
     @GetMapping("/search/person/{searchKey}")
-    public ModelAndView searchPerson(@PathVariable String searchKey){
+    public ModelAndView searchPerson(@PathVariable String searchKey, HttpSession session){
         System.out.println("searchPerson 페이지 컨트롤러에 잘 도착함");
         System.out.println("searchKey 매개변수로 받은 값 : " + searchKey);
+
+        UserSessionDto dto = (UserSessionDto) session.getAttribute("userSession");
 
         //검색어를 포함하는 이름의 인물List를 가져옴
         List<Person> persons= personRepository.findByPerNameContaining(searchKey);
@@ -234,6 +236,7 @@ public class PageController {
 
         return new ModelAndView("/search/searchPerson")
                 .addObject("searchKey", searchKey)
+                .addObject("userSession", dto)
                 .addObject("persons", persons);
     }
 
