@@ -118,7 +118,6 @@ public class AnalysisService {
         for(int i=0; i<=5; i++){
             try{
                 Person person = personRepository.findById(entryList.get(i).getKey()).get();
-                System.out.println("출력테스트 " + person.getPerName());
                 resultMap.put((person.getPerPhoto()!=null?person.getPerPhoto()+"|":"")+person.getPerName()+","+person.getPerIdx()
                         ,entryList.get(i).getValue()+","+movieRepository.actorMovie("%,"+person.getPerIdx()+"(주연%",pageable).get(0));
             }catch (IndexOutOfBoundsException e){
@@ -126,8 +125,7 @@ public class AnalysisService {
             }
         }
         List<Map.Entry<String, String>> result = new LinkedList<>(resultMap.entrySet());
-        System.out.println("첫번째: " + resultMap.entrySet());
-        System.out.println("첫번째: " + result.get(0));
+        result.sort(((o1, o2) -> Integer.parseInt(o2.getValue().split(",")[0]) - Integer.parseInt(o1.getValue().split(",")[0])));
         return result;
     }
 
