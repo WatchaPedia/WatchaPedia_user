@@ -3,8 +3,10 @@ package com.watchapedia.watchpedia_user.service;
 import com.watchapedia.watchpedia_user.model.dto.content.MovieDto;
 import com.watchapedia.watchpedia_user.model.entity.Search;
 import com.watchapedia.watchpedia_user.model.entity.content.Movie;
+import com.watchapedia.watchpedia_user.model.entity.content.ajax.Star;
 import com.watchapedia.watchpedia_user.model.repository.SearchRepository;
 import com.watchapedia.watchpedia_user.model.repository.content.MovieRepository;
+import com.watchapedia.watchpedia_user.model.repository.content.ajax.StarRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
@@ -43,7 +45,7 @@ public class SearchService {
     // 영화 레퍼지터리 선언
     private final MovieRepository movieRepository;
     //검색순위 높은 영화 컨텐츠
-    public ModelMap searchTop10Movie(ModelMap modelMap){
+    public List<MovieDto> searchTop10Movie(){
         //검색 중복수 많은 순으로 검색어 테이블 전체를 받아옴
         List<Search> searchDesc = searchRepository.findBySearchContent();
 
@@ -90,12 +92,9 @@ public class SearchService {
             }
         }
 
-        System.out.println("검색순위가 높은 영화 : " + searchTop10);
+//        System.out.println("검색순위가 높은 영화 : " + searchTop10);
 
-        //List<MovieDto>
-        modelMap.addAttribute("searchTop10", searchTop10);
-
-        return modelMap;
+        return searchTop10;
     }
 
 

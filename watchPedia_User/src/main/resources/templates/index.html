@@ -2847,6 +2847,7 @@
             padding: 5px 0px;
         }
 
+
         .css-1qmg4jw {
             display: block;
             border-right: none;
@@ -3157,6 +3158,7 @@
             padding: 5px 0px;
         }
 
+
         .css-1qmg4jw {
             display: block;
             border-right: none;
@@ -3184,22 +3186,6 @@
     <div class="css-5jq76">
         <div class="css-1xm32e0">
             <div th:replace="fragment/header::header"></div>
-            <header class="css-1xl5dyt">
-                <ul class="css-6v7b8v-VisualUl">
-                    <li class="css-ysxfln">
-                        <button class="css-q3jh7f-StylelessButton" onclick="location.href='/movie/main'">영화</button>
-                    </li>
-                    <li class="css-ysxfln">
-                        <button class="css-1ezx7y8-StylelessButton" onclick="location.href='/tv/main'">TV</button>
-                    </li>
-                    <li class="css-ysxfln">
-                        <button class="css-1ezx7y8-StylelessButton" onclick="location.href='/book/main'">책</button>
-                    </li>
-                    <li class="css-ysxfln">
-                        <button class="css-1ezx7y8-StylelessButton" onclick="location.href='/webtoon/main'">웹툰</button>
-                    </li>
-                </ul>
-            </header>
             <section class="css-99klbh">
                 <div class="css-k23wfl">
                     <section class="css-7klu3x">
@@ -4331,15 +4317,15 @@
                             </div>
                         </div>
                         <div class="w_exposed_cell css-lufi3b" data-rowindex="3">
-                            <div class="css-pbseb6-StyledHomeListTitleRow"><p class="css-16qa0p7">해외에서 화제인 한국 영화</p></div>
+                            <div class="css-pbseb6-StyledHomeListTitleRow"><p class="css-16qa0p7">왓챠피디아 인기검색 순위</p></div>
                             <div class="css-1qq59e8">
                                 <div class="css-1kd6k5d">
                                     <div class="css-awu20a">
                                         <div class="css-174lxc3">
                                             <div class="css-119xxd7">
                                                 <ul class="css-1ya1z7z-VisualUl movie-table-korea">
-                                                    <li class="css-8y23cj movie-tr-korea"><a th:title="${koreanMovie.movTitle}" title="시맨틱 에러: 더 무비"
-                                                                                             th:href="@{'/movie/'+${koreanMovie.movIdx}}">
+                                                    <li class="css-8y23cj movie-tr-korea"><a th:title="${searchTop10Movie.movTitle}" title="시맨틱 에러: 더 무비"
+                                                                                             th:href="@{'/movie/'+${searchTop10Movie.movIdx}}">
                                                         <div class="css-1qmeemv">
                                                             <div class=" css-unzuzl-StyledLazyLoadingImage ezcopuc0">
                                                                 <img src="https://an2-img.amz.wtchn.net/image/v2/tkmsakQ3xtdo7JXj6Gogqw.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpFMk5UZzRPREF6TXpjeU5qY3dNREkxTXpraWZRLjU3cGhtemxyblpFdW5jU1BfZy1ycUhNU1VjV19WTDlLSjJITmh3anJPVWM"
@@ -8559,6 +8545,7 @@
                     <div class="css-1ftyzsu-LanguageContainer e19unuxw17">
                         <button class="css-1patnhf-StylelessButton">한국어</button>
                     </div>
+
                     <ul class="css-16pbkjy-VisualUl-FooterLinks-FooterLinks e19unuxw6">
                         <li class="css-6clrd1-FooterLinkList e19unuxw7"><a
                                 href="https://www.facebook.com/watchaKR/" target="_blank"

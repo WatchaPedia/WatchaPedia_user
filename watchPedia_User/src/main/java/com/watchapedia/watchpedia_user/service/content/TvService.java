@@ -71,9 +71,8 @@ public class TvService {
 
     @Transactional(readOnly = true)
     public List<TvDto> tvs() {
-        //빈 웹툰리스폰스 리스트
         List<TvDto> result = new ArrayList<>();
-
+        List<TvDto> result2 = new ArrayList<>();
         List<Tv> tvList = tvRepository.findAll();
 
         for(Tv tv : tvList){
@@ -86,7 +85,10 @@ public class TvService {
             Double avg = Math.round((sum / starCount) * 10.0) / 10.0;
             result.add(TvDto.from(tv, avg));
         }
-        return result;
+        for(int i = 0; i < 10; i++){
+            result2.add(result.get(i));
+        }
+        return result2;
     }
 
     //
