@@ -9,5 +9,6 @@
         <attr sel="#personImg" th:src="${person.perPhoto}"></attr>
         <attr sel="#th_person_name" th:text="${person.perName}" ></attr>
         <attr sel="#th_person_role" th:text="${person.perRole}"></attr>
+        <attr sel="#th_perNameTitle" th:each="appears:${person.appearance}" th:text="${appears}" th:title="${person.perName}"></attr>
     </attr>
 </thlogic>
