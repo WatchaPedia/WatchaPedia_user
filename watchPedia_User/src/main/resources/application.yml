@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://59.5.15.166:3306/watcha1234?serverTimezone=Asia/Seoul
-    username: watcha1234
-    password: watcha1234
+    url: jdbc:mysql://18.183.71.23:3306/watcha1234?serverTimezone=Asia/Seoul
+    username: root
+    password: Wodnjs83140201@
   jpa:
     show-sql: true
     properties:
