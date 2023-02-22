@@ -86,7 +86,7 @@ public class MovieController {
 
         Long totalCnt = starService.getTotalCnt();
         map.addAttribute("totalCnt",totalCnt);
-        return "/movie/movieMain";
+        return "movie/movieMain";
     }
 
 
@@ -192,7 +192,7 @@ public class MovieController {
 
         Long totalCnt = starService.getTotalCnt();
         map.addAttribute("totalCnt",totalCnt);
-        return "/movie/movieDetail";
+        return "movie/movieDetail";
     }
 
     @GetMapping("/{movieIdx}/info")
@@ -206,7 +206,7 @@ public class MovieController {
 
         map.addAttribute("movie", movie);
         map.addAttribute("userSession", dto);
-        return "/movie/detailInfo";
+        return "movie/detailInfo";
     }
 
     @GetMapping("/{movieIdx}/gallery")
@@ -223,7 +223,7 @@ public class MovieController {
         map.addAttribute("gallery", gallery);
         map.addAttribute("title", title);
         map.addAttribute("userSession", dto);
-        return "/gallery";
+        return "gallery";
     }
 
 }

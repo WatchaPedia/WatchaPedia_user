@@ -73,7 +73,7 @@ public class TvController {
         Long totalCnt = starService.getTotalCnt();
         map.addAttribute("totalCnt",totalCnt);
 
-        return "/tv/tvMain";
+        return "tv/tvMain";
     }
 
 
@@ -180,7 +180,7 @@ public class TvController {
 
         Long totalCnt = starService.getTotalCnt();
         map.addAttribute("totalCnt",totalCnt);
-        return "/tv/tvDetail";
+        return "tv/tvDetail";
     }
     @GetMapping("/{tvIdx}/info")
     public String tvInfo(
@@ -193,7 +193,7 @@ public class TvController {
 
         map.addAttribute("tv", tv);
         map.addAttribute("userSession", dto);
-        return "/tv/detailInfoTv";
+        return "tv/detailInfoTv";
     }
 
     @GetMapping("/{tvIdx}/gallery")
@@ -210,7 +210,7 @@ public class TvController {
         map.addAttribute("gallery", gallery);
         map.addAttribute("title", title);
         map.addAttribute("userSession", dto);
-        return "/gallery";
+        return "gallery";
     }
 
 

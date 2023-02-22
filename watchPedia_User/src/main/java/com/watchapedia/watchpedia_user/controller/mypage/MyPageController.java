@@ -76,7 +76,7 @@ public class MyPageController {
             List<Map.Entry<String, String>> actorMap = analysisService.peopleCnt(userIdx);
             int timeSum = analysisService.watchTime(userIdx) / 60;
 
-            return new ModelAndView("/mypage/analysis")
+            return new ModelAndView("mypage/analysis")
                     .addObject("starTrue", true)
                     .addObject("userName",userRepository.getReferenceById(userIdx).getUserName())
                     .addObject("starSum",starSum)
@@ -90,7 +90,7 @@ public class MyPageController {
                     .addObject("starAvg",Math.round(starAvg * 10) / 10.0);
         }catch (AopInvocationException e){
             System.out.println("별점을 준 적이 없음");
-            return new ModelAndView("/mypage/analysis")
+            return new ModelAndView("mypage/analysis")
                     .addObject("starTrue", false)
                     .addObject("userName",userRepository.getReferenceById(userIdx).getUserName());
         }
@@ -105,7 +105,7 @@ public class MyPageController {
         List<NoticeResponse> notice = userService.noticeAll();
 
         Long totalCnt = starService.getTotalCnt();
-        return new ModelAndView("/mypage/myPage")
+        return new ModelAndView("mypage/myPage")
                 .addObject("userSession",userSessionDto)
                 .addObject("notice",notice)
                 .addObject("user", user)
@@ -118,7 +118,7 @@ public class MyPageController {
             HttpSession session, @PathVariable Long userIdx
     ){
         UserSessionDto dto = (UserSessionDto) session.getAttribute("userSession");
-        return new ModelAndView("/mypage/valuedBoxTest")
+        return new ModelAndView("mypage/valuedBoxTest")
                 .addObject("userSession",dto)
                 .addObject("userName",userRepository.getReferenceById(userIdx).getUserName());
     }
@@ -128,7 +128,7 @@ public class MyPageController {
             HttpSession session, @PathVariable Long userIdx
     ){
         UserSessionDto dto = (UserSessionDto) session.getAttribute("userSession");
-        return new ModelAndView("/mypage/valuedPlus")
+        return new ModelAndView("mypage/valuedPlus")
                 .addObject("userSession",dto)
                 .addObject("userName",userRepository.getReferenceById(userIdx).getUserName());
     }
@@ -157,7 +157,7 @@ public class MyPageController {
             HttpSession session, @PathVariable Long userIdx
     ){
         UserSessionDto dto = (UserSessionDto) session.getAttribute("userSession");
-        return new ModelAndView("/mypage/selectStarList")
+        return new ModelAndView("mypage/selectStarList")
                 .addObject("userSession",dto)
                 .addObject("userName",userRepository.getReferenceById(userIdx).getUserName());
     }
@@ -177,7 +177,7 @@ public class MyPageController {
             HttpSession session, @PathVariable Long userIdx
     ){
         UserSessionDto dto = (UserSessionDto) session.getAttribute("userSession");
-        return new ModelAndView("/mypage/wishWatch")
+        return new ModelAndView("mypage/wishWatch")
                 .addObject("userSession",dto)
                 .addObject("userName",userRepository.getReferenceById(userIdx).getUserName());
     }
@@ -269,7 +269,7 @@ public class MyPageController {
         map.addAttribute("userSession", dto);
         map.addAttribute("userIdx", dto!=null?dto.userIdx():null);
 
-        return "/recomment";
+        return "recomment";
     }
 
     @GetMapping("/{commentIdx}/new")
@@ -296,7 +296,7 @@ public class MyPageController {
             List<QnaResponseDto> qnaResponseDtoList = qnas.stream().map(QnaDto::from).toList().stream().map(QnaResponseDto::from).toList();
             map.addAttribute("qnaResponseDtoList", qnaResponseDtoList);
             map.addAttribute("userName", dto.userName());
-            return "/qnaList";
+            return "qnaList";
         }else{
             return "user/login";
         }
@@ -330,7 +330,7 @@ public class MyPageController {
                 return "user/login";
             }
 
-            return "redirect:/mypage/faqList";
+            return "redirect:mypage/faqList";
         }
 
 

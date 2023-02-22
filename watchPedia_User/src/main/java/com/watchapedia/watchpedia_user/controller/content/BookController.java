@@ -61,7 +61,7 @@ public class BookController {
 
         Long totalCnt = starService.getTotalCnt();
         map.addAttribute("totalCnt",totalCnt);
-        return "/book/bookMain";
+        return "book/bookMain";
     }
 
     @GetMapping("/{bookIdx}") // http://localhost:8080/movie/1
@@ -161,7 +161,7 @@ public class BookController {
 
         Long totalCnt = starService.getTotalCnt();
         map.addAttribute("totalCnt",totalCnt);
-        return "/book/bookDetail";
+        return "book/bookDetail";
     }
 
 
@@ -176,7 +176,7 @@ public class BookController {
 
         map.addAttribute("book", book);
         map.addAttribute("userSession", dto);
-        return "/book/detailInfoBook";
+        return "book/detailInfoBook";
     }
 
     @GetMapping("/{bookIdx}/bookStory")
@@ -190,7 +190,7 @@ public class BookController {
 
         map.addAttribute("book", book);
         map.addAttribute("userSession", dto);
-        return "/book/bookStory";
+        return "book/bookStory";
     }
 
 

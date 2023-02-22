@@ -60,7 +60,7 @@ public class WebtoonController {
 
         Long totalCnt = starService.getTotalCnt();
         map.addAttribute("totalCnt",totalCnt);
-        return "/webtoon/webtoonMain";
+        return "webtoon/webtoonMain";
     }
 
     @GetMapping("/{webIdx}") // http://localhost:8080/movie/1
@@ -161,7 +161,7 @@ public class WebtoonController {
 
         Long totalCnt = starService.getTotalCnt();
         map.addAttribute("totalCnt",totalCnt);
-        return "/webtoon/webtoonDetail";
+        return "webtoon/webtoonDetail";
     }
 
 
@@ -176,7 +176,7 @@ public class WebtoonController {
 
         map.addAttribute("webtoon", webtoon);
         map.addAttribute("userSession", dto);
-        return "/webtoon/detailInfoWebtoon";
+        return "webtoon/detailInfoWebtoon";
     }
 
 
