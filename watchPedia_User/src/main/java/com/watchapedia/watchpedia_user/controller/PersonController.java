@@ -186,7 +186,7 @@ public class PersonController {
             map.addAttribute("chklike",chklike);
         }
 
-            return "/personDetail";
+            return "personDetail";
     }
 
     //---------------------------------------------------------------------------------------------

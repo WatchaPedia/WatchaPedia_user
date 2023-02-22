@@ -50,14 +50,14 @@ public class EstimateController {
 //        int end = Math.min((start + pageRequest.getPageSize()), contentList.size());
 //        Page<EstimateContent> newList = new PageImpl<>(contentList.subList(start, end), pageRequest, contentList.size());
         if(dto!=null){
-            return new ModelAndView("/valueContent")
+            return new ModelAndView("valueContent")
                     .addObject("userSession",dto)
                     .addObject("movieStar",starRepository.findByStarContentTypeAndStarUserIdx("movie",dto.userIdx()).size())
                     .addObject("tvStar",starRepository.findByStarContentTypeAndStarUserIdx("tv",dto.userIdx()).size())
                     .addObject("bookStar",starRepository.findByStarContentTypeAndStarUserIdx("book",dto.userIdx()).size())
                     .addObject("webStar",starRepository.findByStarContentTypeAndStarUserIdx("webtoon",dto.userIdx()).size());
         }
-        return new ModelAndView("/user/login");
+        return new ModelAndView("user/login");
     }
 
     @GetMapping("/estimate/{contentType}") // http://localhost:8080/estimate/page

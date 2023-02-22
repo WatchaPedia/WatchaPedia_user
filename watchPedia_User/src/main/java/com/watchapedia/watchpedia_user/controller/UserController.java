@@ -73,7 +73,7 @@ public class UserController {
     @GetMapping("/logout")
     public String logout(HttpSession session){
         session.invalidate();
-        return "redirect:/";
+        return "redirect:";
     }
 
     @GetMapping("regist")
@@ -102,7 +102,7 @@ public class UserController {
         UserSessionDto dto = (UserSessionDto) session.getAttribute("userSession");
         userService.deleteUser(dto.userIdx());
         session.invalidate();
-        return "redirect:/";
+        return "redirect:";
     }
 
 }

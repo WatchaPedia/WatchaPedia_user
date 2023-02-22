@@ -83,7 +83,7 @@ public class PageController {
 
         Long totalCnt = starService.getTotalCnt();
         map.addAttribute("totalCnt",totalCnt);
-        return "/movie/movieMain";
+        return "movie/movieMain";
     }
 
     //     별점 저장
@@ -144,7 +144,7 @@ public class PageController {
         map.addAttribute("userSession", dto);
         map.addAttribute("commentList", commentList);
         map.addAttribute("contentTitle", contentTitle);
-        return "/comments";
+        return "comments";
     }
 
     @GetMapping("/{contentType}/{contentIdx}/comments/new") // http://localhost:8080/movie/1/comments
@@ -184,7 +184,7 @@ public class PageController {
     public ModelAndView personDetail(){
         Long totalCnt = starService.getTotalCnt();
 
-        return new ModelAndView("/personDetail").addObject("totalCnt",totalCnt);
+        return new ModelAndView("personDetail").addObject("totalCnt",totalCnt);
     }
 
     @GetMapping("/search/contents/{searchKey}")
@@ -210,7 +210,7 @@ public class PageController {
         List<Webtoon> webtoons = webtoonRepository.findByWebTitleContaining(searchKey);
         System.out.println(webtoons);
 
-        return new ModelAndView("/search/searchContent")
+        return new ModelAndView("search/searchContent")
                 .addObject("userSession", dto)
                 .addObject("searchKey", searchKey)
                 .addObject("movies", movies)
@@ -247,7 +247,7 @@ public class PageController {
             personAppears.add(appear1);
         }
 
-        return new ModelAndView("/search/searchPerson")
+        return new ModelAndView("search/searchPerson")
                 .addObject("searchKey", searchKey)
                 .addObject("userSession", dto)
                 .addObject("persons", personAppears);

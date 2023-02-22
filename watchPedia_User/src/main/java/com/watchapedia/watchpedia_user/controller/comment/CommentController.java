@@ -143,7 +143,7 @@ public class CommentController {
 
         Long totalCnt = starService.getTotalCnt();
         map.addAttribute("totalCnt",totalCnt);
-        return "/recomment";
+        return "recomment";
     }
 
     @GetMapping("/{commentIdx}/new")
