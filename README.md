@@ -9,6 +9,11 @@
 
 <br />
 
+## :bookmark_tabs: ERD
+![image](https://user-images.githubusercontent.com/92245622/221342629-0b7a0b42-5779-4b6c-b58f-9cf4809a035f.png)
+
+<br />
+
 ![KakaoTalk_20230211_192541366](https://user-images.githubusercontent.com/92245622/218253248-068662f3-15d3-4bf7-aadd-d810ebce5e41.png)
 
 <br />
