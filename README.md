@@ -2,6 +2,7 @@
 개발 기간 : 2022.12.05 ~ 2023.02.14
 
 통합 개발 환경(IDE)
+배포서버 주소 : http://18.183.71.23:8080/
 <div align="LEFT">
 	<img src="https://img.shields.io/badge/IntelliJIDEA-000000?style=flat&logo=INTELLIJIDEA&logoColor=white" />
 	<img src="https://img.shields.io/badge/Visual Studio Code-007ACC?style=flat&logo=Visual Studio Code&logoColor=white" />
@@ -23,9 +24,7 @@
   <img src="https://img.shields.io/badge/KakaoAPI -FFCD00?style=flat&logo=Kakao&logoColor=brown" />
   <img src="https://img.shields.io/badge/JDBC-007396?style=flat&logo=&logoColor=white" />
   <img src="https://img.shields.io/badge/Ajax-007396?style=flat&logo=&logoColor=white" />
-  <img src="https://img.shields.io/badge/oauth2-59666C?style=flat&logo=&logoColor=white" />
-  <img src="https://img.shields.io/badge/SMTP-EA4335?style=flat&logo=Gmail&logoColor=white" />
-  <img src="https://img.shields.io/badge/queryDSL-0769AD?style=flat&logo=&logoColor=white" />
+
 </div>
 
 ![ezgif com-gif-maker (1)](https://user-images.githubusercontent.com/92245622/218246176-9861429c-31da-4ed2-b09e-c4dbec94bbae.gif)
