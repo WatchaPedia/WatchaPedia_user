@@ -36,7 +36,7 @@ import java.util.Map;
 //사용자에게 View(또는 서버에서 처리된 데이터를 포함하는 View)를 응답으로 보내준다
 
 //@Controller이 적용된 클래스는 "Controller"임을 나타나고,
-//bean으로 등록되며 해당 클래스가 Controller로 사용됨을 Spring Framework에 알립
+//bean으로 등록되며 해당 클래스가 Controller로 사용됨을 Spring Framework에 알림
 
 //@RequestMapping이 선언된 클래스의 모든 메소드가 하나의 요청에 대한 처리를 할경우 사용
 
