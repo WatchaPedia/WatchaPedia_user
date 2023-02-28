@@ -2,7 +2,7 @@
 개발 기간 : 2022.12.05 ~ 2023.02.14
 
 통합 개발 환경(IDE)
-, 배포서버 주소 : http://18.183.71.23:8080/
+, 배포서버 주소 : http://13.124.130.62/:8080/
 <div align="LEFT">
 	<img src="https://img.shields.io/badge/IntelliJIDEA-000000?style=flat&logo=INTELLIJIDEA&logoColor=white" />
 	<img src="https://img.shields.io/badge/Visual Studio Code-007ACC?style=flat&logo=Visual Studio Code&logoColor=white" />
