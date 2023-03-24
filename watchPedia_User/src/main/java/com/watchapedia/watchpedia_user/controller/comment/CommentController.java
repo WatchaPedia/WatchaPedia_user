@@ -46,6 +46,7 @@ import java.util.Map;
 
 //추가로 이곳에선 사용되진 않지만 @RestController에 대해 설명하자면
 //@RestController은 @Controller + @ResponseBody 이며, 메소드의 return(반환 결과값)을 문자열(JSON) 형태로 반환
+//쉽게말해 return값에 자동으로 @ResponseBody를 붙여 HTTP 응답데이터 (Body)에 자바 객체가 매핑되어 전달한다.
 //view가 필요없는 API만 지원하는 클래스에 사용되며, json 이나 xml 과 같은 문자열의 return이 주목적
 
 //메소드에 @ResponseBody 로 어노테이션이 되어 있다면 메소드에서 리턴되는 값은 View 를 통해서 출력되지 않고 HTTP Response Body 에 직접 쓰여지게 된다
