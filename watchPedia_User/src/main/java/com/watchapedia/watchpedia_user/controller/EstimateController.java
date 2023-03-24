@@ -60,7 +60,7 @@ public class EstimateController {
         return new ModelAndView("user/login");
     }
 
-    @GetMapping("/estimate/{contentType}") // http://localhost:8080/estimate/page
+    @GetMapping("/estimate/{contentType}")
     @ResponseBody
     public Map<String, Object> estimatePage(
             @PathVariable String contentType,

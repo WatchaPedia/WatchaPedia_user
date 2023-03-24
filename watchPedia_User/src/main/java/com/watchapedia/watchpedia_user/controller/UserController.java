@@ -80,6 +80,8 @@ public class UserController {
     public String regist(){
         return "user/userRegist";
     }
+
+    //이메일 혹은 주민번호(앞,뒤)가 일치하는 계정이 있을 경우 가입불가
     @PostMapping("/registOk")
     public String save(@ModelAttribute UserRequestDto userRequestDto, ModelMap map) {
         String result = "";
